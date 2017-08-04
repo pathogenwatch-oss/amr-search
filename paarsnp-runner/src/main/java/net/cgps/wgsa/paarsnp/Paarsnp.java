@@ -27,14 +27,16 @@ public class Paarsnp implements Function<String, PaarsnpResult> {
   private final PaarLibrary paarLibrary;
   private final SnparLibrary snparLibrary;
   private final Collection<AntimicrobialAgent> antimicrobialAgents;
+  private final String resourceDirectory;
   private final ExecutorService executorService;
 
-  public Paarsnp(final String speciesId, final PaarLibrary paarLibrary, final SnparLibrary snparLibrary, final Collection<AntimicrobialAgent> antimicrobialAgents, final ExecutorService executorService) {
+  public Paarsnp(final String speciesId, final PaarLibrary paarLibrary, final SnparLibrary snparLibrary, final Collection<AntimicrobialAgent> antimicrobialAgents, String resourceDirectory, final ExecutorService executorService) {
 
     this.speciesId = speciesId;
     this.paarLibrary = paarLibrary;
     this.snparLibrary = snparLibrary;
     this.antimicrobialAgents = antimicrobialAgents;
+    this.resourceDirectory = resourceDirectory;
     this.executorService = executorService;
   }
 
@@ -47,8 +49,8 @@ public class Paarsnp implements Function<String, PaarsnpResult> {
     final InputData inputData = new InputData(assemblyId, this.speciesId, assemblyFile);
 
     // Run these concurrently, because, why not.
-    final Future<PaarResult> paarResultFuture = this.executorService.submit(() -> new PaarRun(this.paarLibrary).apply(inputData));
-    final Future<SnparResult> snparResultFuture = this.executorService.submit(() -> new SnparRun(this.snparLibrary).apply(inputData));
+    final Future<PaarResult> paarResultFuture = this.executorService.submit(() -> new PaarRun(this.paarLibrary, resourceDirectory).apply(inputData));
+    final Future<SnparResult> snparResultFuture = this.executorService.submit(() -> new SnparRun(this.snparLibrary, resourceDirectory).apply(inputData));
 
     final SnparResult snparResult;
     final PaarResult paarResult;

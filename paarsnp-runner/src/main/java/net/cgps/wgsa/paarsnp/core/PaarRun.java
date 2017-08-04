@@ -25,10 +25,12 @@ public class PaarRun implements Function<InputData, PaarResult> {
   private final Logger logger = LoggerFactory.getLogger(PaarRun.class);
 
   private final PaarLibrary paarLibrary;
+  private final String resourceDirectory;
 
-  public PaarRun(final PaarLibrary paarSpeciesLibrary) {
+  public PaarRun(final PaarLibrary paarSpeciesLibrary, String resourceDirectory) {
 
     this.paarLibrary = paarSpeciesLibrary;
+    this.resourceDirectory = resourceDirectory;
   }
 
   public PaarResult apply(final InputData inputData) {
@@ -40,7 +42,7 @@ public class PaarRun implements Function<InputData, PaarResult> {
         "-task", "blastn",
         "-outfmt", OUTPUT_FORMAT,
         "-query", inputData.getSequenceFile(),
-        "-db", "resources/blast_dbs/paar_" + this.paarLibrary.getSpeciesId(),
+        "-db", resourceDirectory + "paar_" + this.paarLibrary.getSpeciesId(),
         "-perc_identity", String.valueOf(this.paarLibrary.getMinimumPid()),
         "-evalue", "1e-5",
         "-num_alignments", String.valueOf(MAX_NUM_MATCHES),
