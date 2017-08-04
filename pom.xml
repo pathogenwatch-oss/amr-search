@@ -11,6 +11,7 @@
 
     <modules>
         <module>paarsnp-runner</module>
+        <module>paarsnp-builder</module>
     </modules>
 
     <properties>

@@ -7,10 +7,9 @@
         <groupId>net.cgps.wgsa</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>paarsnp-runner</artifactId>
+    <artifactId>paarsnp-builder</artifactId>
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -47,7 +46,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>net.cgps.wgsa.paarsnp.PaarsnpMain</mainClass>
+                            <mainClass>net.cgps.wgsa.paarsnp.builder.PaarsnpBuilder</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -71,6 +70,11 @@
             <artifactId>junit</artifactId>
             <version>${wgsa.junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.4</version>
         </dependency>
         <dependency>
             <groupId>commons-cli</groupId>
