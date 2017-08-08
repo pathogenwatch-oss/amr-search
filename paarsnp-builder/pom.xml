@@ -46,7 +46,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>net.cgps.wgsa.paarsnp.builder.PaarsnpBuilder</mainClass>
+                            <mainClass>net.cgps.wgsa.paarsnp.builder.PaarsnpBuilderMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
