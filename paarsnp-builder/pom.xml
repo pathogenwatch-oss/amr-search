@@ -7,10 +7,9 @@
         <groupId>net.cgps.wgsa</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>paarsnp-runner</artifactId>
+    <artifactId>paarsnp-builder</artifactId>
 
     <dependencies>
         <dependency>
@@ -18,6 +17,11 @@
             <artifactId>junit</artifactId>
             <version>${paarsnp.junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>${paarsnp.apache-commons-csv}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -34,16 +38,5 @@
             <artifactId>logback-classic</artifactId>
             <version>${paarsnp.logback-classic}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${paarsnp.apache-commons-lang3}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${paarsnp.guava}</version>
-        </dependency>
     </dependencies>
-
 </project>

@@ -11,11 +11,22 @@
 
     <modules>
         <module>paarsnp-runner</module>
+        <module>paarsnp-builder</module>
     </modules>
 
     <properties>
-        <wgsa.java.version>1.8</wgsa.java.version>
-        <wgsa.junit.version>4.12</wgsa.junit.version>
+        <!-- compiler properties -->
+        <paarsnp.maven-compiler.version>3.5</paarsnp.maven-compiler.version>
+        <paarsnp.java.version>1.8</paarsnp.java.version>
+        <paarsnp.junit.version>4.12</paarsnp.junit.version>
+        <paarsnp.maven-shade.version>3.0.0</paarsnp.maven-shade.version>
+        <paarsnp.maven-assembly.version>3.0.0</paarsnp.maven-assembly.version>
+        <!-- libraries -->
+        <paarsnp.apache-commons-csv>1.4</paarsnp.apache-commons-csv>
+        <paarsnp.apache-commons-lang3>3.6</paarsnp.apache-commons-lang3>
+        <paarsnp.jackson>2.9.0</paarsnp.jackson>
+        <paarsnp.logback-classic>1.2.3</paarsnp.logback-classic>
+        <paarsnp.guava>23.0</paarsnp.guava>
     </properties>
 
     <build>
@@ -24,26 +35,21 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${wgst.maven-compiler.version}</version>
+                    <version>${paarsnp.maven-compiler.version}</version>
                     <configuration>
-                        <source>${wgsa.java.version}</source>
-                        <target>${wgsa.java.version}</target>
+                        <source>${paarsnp.java.version}</source>
+                        <target>${paarsnp.java.version}</target>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
-                    <version>${wgst.maven-shade.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${wgst.spring-boot.version}</version>
+                    <version>${paarsnp.maven-shade.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>${wgst.maven-assembly.version}</version>
+                    <version>${paarsnp.maven-assembly.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

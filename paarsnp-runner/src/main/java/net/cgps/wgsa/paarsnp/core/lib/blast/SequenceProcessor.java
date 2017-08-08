@@ -61,10 +61,6 @@ public class SequenceProcessor {
       if (refChar == queryChar) {
         // No mutation here => close old mutations
 
-//        if (0 < mutatedCodonPosition) {
-//          this.stopCodonCheck(querySeqLocation, refSeqLocation, alignmentLocation, queryChar);
-//        }
-
         querySeqLocation++;
         refSeqLocation += incr;
 
@@ -126,8 +122,6 @@ public class SequenceProcessor {
         refSeqLocation += incr;
 
 //        // Need to check if a stop codon has been formed
-//        this.stopCodonCheck(querySeqLocation, refSeqLocation, alignmentLocation, queryChar);
-
         mutatedCodonPosition = 2;
 
         // Substitution
@@ -156,47 +150,6 @@ public class SequenceProcessor {
     return new SequenceProcessingResult(this.mutations);
   }
 
-//  /**
-//   * NB the method assumes that refSeqLocation and querySeqLocation are not gap positions. So if the method is called from
-//   * an insert the refSeqLocation needs '1' added to it.
-//   *
-//   * @param querySeqLocation
-//   * @param refSeqLocation
-//   * @param alignmentLocation
-//   * @param qChar
-//   */
-//  private void stopCodonCheck(final int querySeqLocation, final int refSeqLocation, final int alignmentLocation, final char qChar) {
-//
-//    // Stop codon check
-//    // First get the last two nucleotides.
-//
-//    if (querySeqLocation > 2) {
-//
-//      int stepBack = 1;
-//      while ('-' == this.queryAlignSeq.charAt(alignmentLocation - stepBack)) {
-//        stepBack++;
-//      }
-//
-//      final char position2 = this.queryAlignSeq.charAt(alignmentLocation - stepBack);
-//
-//      stepBack++; // Increment for the next position in the codon.
-//
-//      while ('-' == this.queryAlignSeq.charAt(alignmentLocation - stepBack)) {
-//        stepBack++;
-//      }
-//
-//      final char position1 = this.queryAlignSeq.charAt(alignmentLocation - stepBack);
-//
-//      // Fix ref sequence location.
-//      // The position in the reference sequence is -(2 + query inserts)
-//      // query inserts = stepBack - 2;
-//
-//      if (this.isValidStopCodon(position1, position2, qChar)) {
-//        this.stopCodons.add(new MappedStopCodon(querySeqLocation - 2, refSeqLocation - stepBack, position1, position2, qChar));
-//      }
-//    }
-//  }
-
   private void closeCurrentMutation() {
     final Mutation mutation = this.mutationBuilder.build();
     this.mutations.add(mutation);
@@ -206,11 +159,4 @@ public class SequenceProcessor {
 
     this.mutationBuilder.extendReferenceSequence(refChar).extendQuerySequence(qChar);
   }
-
-//  private boolean isValidStopCodon(final char position1, final char position2, final char position3) {
-//
-//    return this.stopCodonSet.contains(String.valueOf(position1) + position2 + position3);
-//
-//  }
-
 }
