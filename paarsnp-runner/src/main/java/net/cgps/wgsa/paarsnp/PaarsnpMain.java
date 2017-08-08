@@ -20,7 +20,6 @@ import java.util.function.Consumer;
 
 public class PaarsnpMain {
 
-  public static final String LIBRARY_FOLDER = "resources/libraries/";
   public static final String PAAR_FILE_APPEND = "_paar.jsn";
   public static final String SNPAR_FILE_APPEND = "_snpar.jsn";
   public static final String AGENT_FILE_APPEND = "_antimicrobials.jsn";

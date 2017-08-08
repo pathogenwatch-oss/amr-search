@@ -22,6 +22,7 @@
         <paarsnp.maven-shade.version>3.0.0</paarsnp.maven-shade.version>
         <paarsnp.maven-assembly.version>3.0.0</paarsnp.maven-assembly.version>
         <!-- libraries -->
+        <paarsnp.apache-commons-cli>1.3.1</paarsnp.apache-commons-cli>
         <paarsnp.apache-commons-csv>1.4</paarsnp.apache-commons-csv>
         <paarsnp.apache-commons-lang3>3.6</paarsnp.apache-commons-lang3>
         <paarsnp.jackson>2.9.0</paarsnp.jackson>
