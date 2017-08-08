@@ -34,15 +34,17 @@ public class PaarsnpMain {
     if (args.length == 0) {
       final HelpFormatter formatter = new HelpFormatter();
       formatter.setWidth(200);
-      formatter.printHelp("ConfigureWgsaMain", options);
+      formatter.printHelp("paarsnp-runner: ", options);
       System.exit(1);
     }
 
     try {
       final CommandLine commandLine = parser.parse(options, args);
+
       final ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
       root.setLevel(Level.valueOf(commandLine.getOptionValue('l', "INFO")));
-      new PaarsnpMain().run(commandLine.getOptionValue('s'), Arrays.asList(commandLine.getOptionValues('a')), commandLine.getOptionValue('d',"."));
+
+      new PaarsnpMain().run(commandLine.getOptionValue('s'), Arrays.asList(commandLine.getOptionValues('a')), commandLine.getOptionValue('d', "."));
     } catch (final Exception e) {
       LoggerFactory.getLogger(PaarsnpMain.class).error("Failed to run due to: ", e);
     }
@@ -54,15 +56,14 @@ public class PaarsnpMain {
     final Option speciesOption = Option.builder("s").longOpt("species").hasArg().argName("NCBI taxonomy numeric code").desc("Required: NCBI taxonomy numberic code for query species. e.g. 1280 for Staph. aureus").required().build();
     // Optional
     final Option assemblyListOption = Option.builder("a").longOpt("assembly-list").hasArg().argName("Assembly files to run").desc("Provide this option multiple times to run multiple assemblies (i.e. -a my_dir/assembly1.fna -a my_other_dir/assembly2.fna)").required().build();
-    final Option resourceDirectoryOptoin = Option.builder("d").longOpt("database-directory").hasArg().argName("Database directory").desc("Location of the BLAST databases and resources for .").build();
+    final Option resourceDirectoryOption = Option.builder("d").longOpt("database-directory").hasArg().argName("Database directory").desc("Location of the BLAST databases and resources for .").build();
     final Option logLevel = Option.builder("l").longOpt("log-level").hasArg().argName("Logging level").desc("INFO, DEBUG etc").build();
 
     final Options options = new Options();
     options.addOption(assemblyListOption)
         .addOption(speciesOption)
-        .addOption(resourceDirectoryOptoin)
+        .addOption(resourceDirectoryOption)
         .addOption(logLevel);
-//        .addOption(outputDirectoryOption);
 
     return options;
   }

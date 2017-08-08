@@ -39,6 +39,11 @@ public class ResistanceSet {
     this.phenotype = phenotype;
   }
 
+  public static ResistanceSet buildSnpResistanceSet(final String setName, final String geneId, final String snpCode, final Set<AntimicrobialAgent> agents, final String phenotype, final ResistanceType resistanceType) {
+
+    return new ResistanceSet(setName, geneId + "_" + snpCode, resistanceType, RESISTANT, agents, phenotype);
+  }
+
   public void addElementId(final String geneName, final ResistanceGene.EFFECT elementEffect) {
 
     // Assuming that all set elements have confers/induces consistently set, so not checking, just logging the inconsistency.

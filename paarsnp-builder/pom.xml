@@ -61,10 +61,14 @@
                 </executions>
             </plugin>
         </plugins>
-
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>net.cgps.wgsa</groupId>
+            <artifactId>paarsnp-runner</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

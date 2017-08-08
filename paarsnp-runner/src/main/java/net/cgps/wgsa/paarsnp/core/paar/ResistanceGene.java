@@ -6,7 +6,6 @@ import java.util.Set;
 
 public class ResistanceGene {
 
-  private final String checksum;
   private final Set<String> resistanceSetNames;
   private final String familyName;
   private final int length;
@@ -17,12 +16,11 @@ public class ResistanceGene {
   @SuppressWarnings("unused")
   private ResistanceGene() {
 
-    this("aa", "", "", 0, 0, 0, EFFECT.RESISTANT);
+    this("", "", 0, 0, 0, EFFECT.RESISTANT);
   }
 
-  public ResistanceGene(final String checksum, final String setName, final String familyName, final int length, final float lengthThreshold, final float similarityThreshold, final EFFECT effect) {
+  public ResistanceGene(final String setName, final String familyName, final int length, final float lengthThreshold, final float similarityThreshold, final EFFECT effect) {
 
-    this.checksum = checksum;
     this.effect = effect;
     this.resistanceSetNames = new HashSet<>(5);
     this.resistanceSetNames.add(setName);
@@ -52,11 +50,6 @@ public class ResistanceGene {
     return this.lengthThreshold;
   }
 
-  public String getChecksum() {
-
-    return this.checksum;
-  }
-
   public Collection<String> getResistanceSetNames() {
 
     return this.resistanceSetNames;
@@ -74,7 +67,6 @@ public class ResistanceGene {
     int result = 1;
     result = (prime * result) + ((null == this.familyName) ? 0 : this.familyName.hashCode());
     result = (prime * result) + this.length;
-    result = (prime * result) + ((null == this.checksum) ? 0 : this.checksum.hashCode());
     result = (prime * result) + ((null == this.resistanceSetNames) ? 0 : this.resistanceSetNames.hashCode());
     return result;
   }
@@ -107,13 +99,6 @@ public class ResistanceGene {
     if (this.length != other.length) {
       return false;
     }
-    if (this.checksum == null) {
-      if (other.checksum != null) {
-        return false;
-      }
-    } else if (!this.checksum.equals(other.checksum)) {
-      return false;
-    }
     if (this.resistanceSetNames == null) {
       if (other.resistanceSetNames != null) {
         return false;
@@ -128,7 +113,6 @@ public class ResistanceGene {
   public String toString() {
 
     return "ResistanceGene{" +
-        "checksum=" + this.checksum +
         ", resistanceSetNames='" + this.resistanceSetNames + '\'' +
         ", familyName='" + this.familyName + '\'' +
         ", length=" + this.length +

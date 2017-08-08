@@ -27,12 +27,12 @@ public class SortAmrProfile implements BiFunction<Collection<AntimicrobialAgent>
     // The reference profile defines the order & antimicrobials in the output profile.
     for (final AntimicrobialAgent agent : referenceProfile) {
 
-      if (!orderedResistanceSet.containsKey(agent.getShortName())) {
-        orderedResistanceSet.put(agent.getShortName(), new LinkedHashMap<>(5));
+      if (!orderedResistanceSet.containsKey(agent.getName())) {
+        orderedResistanceSet.put(agent.getName(), new LinkedHashMap<>(5));
       }
 
       final ResistanceState resistanceState = resistanceProfile.contains(agent) ? ResistanceState.RESISTANT : ResistanceState.UNKNOWN;
-      orderedResistanceSet.get(agent.getShortName()).put(agent.getShortName(), resistanceState);
+      orderedResistanceSet.get(agent.getName()).put(agent.getName(), resistanceState);
     }
 
     return orderedResistanceSet;

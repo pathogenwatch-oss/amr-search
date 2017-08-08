@@ -1,29 +1,29 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
 import net.cgps.wgsa.paarsnp.core.lib.ResistanceSet;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparAntibioticSummary;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class SnparLibrary {
 
   private final Map<String, SnparReferenceSequence> sequences;
   private final Map<String, ResistanceSet> resistanceSets;
-  private final Collection<SnparAntibioticSummary> amrSummary;
   private final String speciesId;
   private final double minimumPid;
 
   @SuppressWarnings("unused")
   private SnparLibrary() {
 
-    this(Collections.emptyMap(), Collections.emptyMap(), Collections.emptyList(), "", 0.0);
+    this(Collections.emptyMap(), Collections.emptyMap(), "", 0.0);
   }
 
-  public SnparLibrary(final Map<String, SnparReferenceSequence> sequences, final Map<String, ResistanceSet> resistanceSets, final Collection<SnparAntibioticSummary> amrSummary, final String speciesId, final double minimumPid) {
+  public SnparLibrary(final Map<String, SnparReferenceSequence> sequences, final Map<String, ResistanceSet> resistanceSets, final String speciesId, final double minimumPid) {
 
     this.sequences = new HashMap<>(sequences);
     this.resistanceSets = resistanceSets;
-    this.amrSummary = amrSummary;
     this.speciesId = speciesId;
     this.minimumPid = minimumPid;
   }

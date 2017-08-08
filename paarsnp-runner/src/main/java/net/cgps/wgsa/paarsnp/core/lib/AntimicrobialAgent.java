@@ -6,35 +6,27 @@ package net.cgps.wgsa.paarsnp.core.lib;
  */
 public class AntimicrobialAgent implements Comparable<AntimicrobialAgent> {
 
-  private final String fullName;
-  private final String shortName;
+  private final String name;
 
   @SuppressWarnings("unused")
   private AntimicrobialAgent() {
 
-    this("", "");
+    this("");
   }
 
-  public AntimicrobialAgent(final String fullName, final String shortName) {
+  public AntimicrobialAgent(final String name) {
 
-    this.shortName = shortName;
-    this.fullName = fullName;
+    this.name = name;
   }
 
-  public String getFullName() {
+  public String getName() {
 
-    return this.fullName;
-  }
-
-  public String getShortName() {
-
-    return this.shortName;
+    return this.name;
   }
 
   @Override
   public int hashCode() {
-
-    return this.fullName.hashCode();
+    return name.hashCode();
   }
 
   @Override
@@ -49,21 +41,20 @@ public class AntimicrobialAgent implements Comparable<AntimicrobialAgent> {
 
     final AntimicrobialAgent that = (AntimicrobialAgent) o;
 
-    return this.fullName.equals(that.fullName) && this.shortName.equals(that.shortName);
+    return this.name.equals(that.name);
   }
 
   @Override
   public String toString() {
 
     return "WgstAntimicrobialAgent{" +
-        "fullName='" + this.fullName + '\'' +
-        ", shortName='" + this.shortName + '\'' +
+        ", name='" + this.name + '\'' +
         '}';
   }
 
   @Override
   public int compareTo(final AntimicrobialAgent o) {
 
-    return this.fullName.compareTo(o.getFullName());
+    return this.name.compareTo(o.getName());
   }
 }

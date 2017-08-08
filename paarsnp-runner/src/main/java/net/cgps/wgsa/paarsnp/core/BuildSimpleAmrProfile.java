@@ -29,7 +29,7 @@ public class BuildSimpleAmrProfile implements Function<Stream<ResistanceSet>, Ma
   public Map<String, Map<String, ResistanceState>> apply(final Stream<ResistanceSet> resistanceSetStream) {
 
     return this.amrSorter.apply(resistanceSetStream.map(ResistanceSet::getAgents)
-        .peek(antimicrobialAgents -> this.logger.debug("Adding {}", antimicrobialAgents.stream().map(AntimicrobialAgent::getShortName).collect(Collectors.joining(","))))
+        .peek(antimicrobialAgents -> this.logger.debug("Adding {}", antimicrobialAgents.stream().map(AntimicrobialAgent::getName).collect(Collectors.joining(","))))
         .flatMap(Set::stream)
         .distinct()
         .collect(Collectors.toList()), this.referenceProfile);
