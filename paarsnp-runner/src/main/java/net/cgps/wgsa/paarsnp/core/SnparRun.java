@@ -17,10 +17,12 @@ public class SnparRun implements Function<InputData, SnparResult> {
   private static final short MAX_NUM_MATCHES = 500;
   private final Logger logger = LoggerFactory.getLogger(SnparRun.class);
   private final SnparLibrary snpLibrary;
+  private final String resourceDirectory;
 
-  public SnparRun(final SnparLibrary snpLibrary) {
+  public SnparRun(final SnparLibrary snpLibrary, String resourceDirectory) {
 
     this.snpLibrary = snpLibrary;
+    this.resourceDirectory = resourceDirectory;
   }
 
   @Override
@@ -33,7 +35,7 @@ public class SnparRun implements Function<InputData, SnparResult> {
         "-task", "blastn",
         "-outfmt", OUTPUT_FORMAT,
         "-query", inputData.getSequenceFile(),
-        "-db", "resources/blast_dbs/paar_" + this.snpLibrary.getSpeciesId(),
+        "-db",resourceDirectory + "snpaar_" + this.snpLibrary.getSpeciesId(),
         "-perc_identity", String.valueOf(this.snpLibrary.getMinimumPid()),
         "-evalue", "1e-40",
         "-num_alignments", String.valueOf(MAX_NUM_MATCHES),
