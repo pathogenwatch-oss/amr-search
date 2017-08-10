@@ -1,12 +1,14 @@
 package net.cgps.wgsa.paarsnp.core.lib;
 
+import java.nio.file.Path;
+
 public class InputData {
 
   private final String assemblyId;
   private final String speciesId;
-  private final String sequenceFile;
+  private final Path sequenceFile;
 
-  public InputData(final String assemblyId, final String speciesId, final String sequenceFile) {
+  public InputData(final String assemblyId, final String speciesId, final Path sequenceFile) {
 
     this.assemblyId = assemblyId;
     this.speciesId = speciesId;
@@ -23,7 +25,7 @@ public class InputData {
     return this.speciesId;
   }
 
-  public String getSequenceFile() {
+  public Path getSequenceFile() {
 
     return this.sequenceFile;
   }

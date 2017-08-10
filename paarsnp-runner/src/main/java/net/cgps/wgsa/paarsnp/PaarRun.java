@@ -43,7 +43,7 @@ public class PaarRun implements Function<InputData, PaarResult> {
         "blastn",
         "-task", "blastn",
         "-outfmt", OUTPUT_FORMAT,
-        "-query", inputData.getSequenceFile(),
+        "-query", inputData.getSequenceFile().toAbsolutePath().toString(),
         "-db", Paths.get(resourceDirectory, this.paarLibrary.getSpeciesId() + "_paar").toAbsolutePath().toString(),
         "-perc_identity", String.valueOf(this.paarLibrary.getMinimumPid()),
         "-evalue", "1e-5",

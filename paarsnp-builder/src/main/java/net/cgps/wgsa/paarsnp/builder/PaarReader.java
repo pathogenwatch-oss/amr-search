@@ -51,7 +51,7 @@ public class PaarReader implements Function<Path, PaarReader.PaarReaderData> {
 
       for (final CSVRecord csvRecord : parser.getRecords()) {
         this.logger.trace("geneName={}", csvRecord.get(0));
-        if ("gene_name".equals(csvRecord.get(0))) {
+        if ("Gene Name".equals(csvRecord.get(0))) {
           continue;
         }
         this.generateResistanceGene(csvRecord, fastaSb, resistanceSets, paarGeneLib);
@@ -88,7 +88,7 @@ public class PaarReader implements Function<Path, PaarReader.PaarReaderData> {
 
   private void generateResistanceGene(final CSVRecord csvRecord, final StringBuilder fastaSb, final Map<String, ResistanceSet> resistanceSetMap, final Map<String, ResistanceGene> resistanceGeneMap) {
 
-    this.logger.debug("geneName={} setName={} effect={} agents={} simThreshold={} lengthThreshold", csvRecord.get(0), csvRecord.get(1), csvRecord.get(2), csvRecord.get(3), csvRecord.get(5), csvRecord.get(6));
+    this.logger.info("geneName={} setName={} effect={} agents={} simThreshold={} lengthThreshold", csvRecord.get(0), csvRecord.get(1), csvRecord.get(2), csvRecord.get(3), csvRecord.get(5), csvRecord.get(6));
 
     // Clean up any potential issues with the sequence.
     final String geneName = csvRecord.get(0);

@@ -35,7 +35,7 @@ public class SnparRun implements Function<InputData, SnparResult> {
         "blastn",
         "-task", "blastn",
         "-outfmt", OUTPUT_FORMAT,
-        "-query", inputData.getSequenceFile(),
+        "-query", inputData.getSequenceFile().toAbsolutePath().toString(),
         "-db", Paths.get(resourceDirectory, this.snpLibrary.getSpeciesId() + "_snpar").toAbsolutePath().toString(),
         "-perc_identity", String.valueOf(this.snpLibrary.getMinimumPid()),
         "-evalue", "1e-40",

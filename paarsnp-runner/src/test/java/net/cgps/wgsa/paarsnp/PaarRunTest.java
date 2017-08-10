@@ -28,7 +28,7 @@ public class PaarRunTest {
 
     final PaarRun snparRun = new PaarRun(snparLibrary, "src/test/resources");
 
-    final PaarResult result = snparRun.apply(new InputData("test","90370", "src/test/resources/8616_4#40.contigs_velvet.fa"));
+    final PaarResult result = snparRun.apply(new InputData("test", "90370", Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa")));
 
     Assert.assertTrue("Result produced", null != result);
     Assert.assertTrue("Result not empty", !result.toJson().isEmpty());

@@ -9,7 +9,7 @@ import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -18,7 +18,7 @@ import java.util.concurrent.Future;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Paarsnp implements Function<String, PaarsnpResult> {
+public class Paarsnp implements Function<Path, PaarsnpResult> {
 
   private final Logger logger = LoggerFactory.getLogger(Paarsnp.class);
 
@@ -39,9 +39,10 @@ public class Paarsnp implements Function<String, PaarsnpResult> {
     this.executorService = executorService;
   }
 
-  public PaarsnpResult apply(final String assemblyFile) {
+  public PaarsnpResult apply(final Path assemblyFile) {
 
-    final String assemblyId = Paths.get(assemblyFile).getFileName().toFile().getName();
+    final String name = assemblyFile.getFileName().toString();
+    final String assemblyId = name.substring(0, name.lastIndexOf('.'));
 
     this.logger.debug("Beginning {}", assemblyId);
 

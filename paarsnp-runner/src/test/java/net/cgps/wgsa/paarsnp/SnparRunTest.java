@@ -27,7 +27,7 @@ public class SnparRunTest {
 
     final SnparRun snparRun = new SnparRun(snparLibrary, "src/test/resources");
 
-    final SnparResult result = snparRun.apply(new InputData("test","90370", "src/test/resources/8616_4#40.contigs_velvet.fa"));
+    final SnparResult result = snparRun.apply(new InputData("test", "90370", Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa")));
 
     Assert.assertTrue("Result produced", null != result);
     Assert.assertTrue("Result not empty", !result.toJson().isEmpty());

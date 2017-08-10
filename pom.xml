@@ -51,11 +51,6 @@
                     <artifactId>maven-shade-plugin</artifactId>
                     <version>${paarsnp.maven-shade.version}</version>
                 </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>${paarsnp.maven-assembly.version}</version>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
