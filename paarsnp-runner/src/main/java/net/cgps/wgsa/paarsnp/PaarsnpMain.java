@@ -37,7 +37,7 @@ public class PaarsnpMain {
     if (args.length == 0) {
       final HelpFormatter formatter = new HelpFormatter();
       formatter.setWidth(200);
-      formatter.printHelp("paarsnp-runner: ", options);
+      formatter.printHelp("java -jar paarsnp.jar <options>", options);
       System.exit(1);
     }
 

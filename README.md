@@ -3,13 +3,26 @@ PAARSNP AMR resistance predictor from the CGPS and part of the WGSA public healt
 
 PAARSNP provides antimicrobial resistance predictions for a curated set of medically important pathogens from assembled genome sequences (FASTA files). Resistance predictions are based on the presence of both resistance genes (PAAR) and mutations (SNPAR).
 
+[Current Species](#current-species)
+
 [Getting Started](#getting-started)
 
 [With Docker](#running-with-docker)
 
 [Without Docker](#running-directly)
 
-[Building From]
+[Output Format](#output-format)
+
+[Extending the AMR databases](#extending-paarsnp)
+
+## Current Species
+
+| Species | NCBI Code |
+|---|---|
+| Neisseria gonorrhoeae | 485 |
+| Staphylococcus aureus | 1280 |
+| Salmonella _Typhi_ | 90370 |
+| Streptococcus pneumoniae | 1313 |
 
 ## Getting Started
 
@@ -19,23 +32,50 @@ It's also possible extend the current AMR libraries or to generate your own AMR 
 
 ### Currently supported method
 
+Requires:
+* git, maven, java 8, makeblastdb (on $PATH)
 
+1. git clone https://github.com/ImperialCollegeLondon/paarsnp.git
+1. cd paarsnp
+1. cp /
+1. mvn -Dmaven.test.skip=true install
+
+This will configure the BLAST databases and resources that PAARSNP needs.
+
+At this point you can use [Docker](#running-with-docker) or run it directly with the [CLI](#running-directly).
 
 ### Running with Docker
 
+To create the Paarsnp runner container, run:
+
+1. cd build
+1. docker build -t paarsnp -f runner.DockerFile .
+
+Usage
+-----
+
+To run paarsnp on a single Salmonella _Typhi_ (`90370`) FASTA file in the local directory using the container. An output file `assembly_paarsnp.jsn` is created:
+
+`docker run -v $PWD:/data paarsnp java -jar paarsnp.jar -i assembly.fa -s 90370`
+
+To run paarsnp on all FASTA files in the local directory, with an output file for each one:
+
+`docker run -v $PWD:/data paarsnp java -jar paarsnp.jar -i . -s 90370 -o`
+
+NB "/data" is a protected folder for paarsnp, and is ideally used to mount the local drive.
+
+To get the results to STDOUT rather than file:
+
+`docker run -v $PWD:/data paarsnp java -jar paarsnp.jar -i assembly.fa -s 90370 -o`
+
+NB not pretty printed, one record per line
 
 ### Running Directly
 
-PAARSNP is a command line tool and currently requires Linux or MacOS, as well as JAVA 8 or higher.
+* The JAR file is `build/paarsnp.runner.jar` and can be moved anywhere. It assumes the database directory is in the same directory, but this can be specified with the `-d` command line option.
+* Get options and help: `java -jar paarsnp.jar`
+* e.g. A _Staphylococcus aureus_ assembly `java -jar paarsnp.jar -i saureus_assembly.fa -s 1280`
 
-* Get options and help: `java -jar paarsnp-runner.jar`
+### Output Format
 
-* Download the build folder
-
-### Requirements for running directly
-
-1. JAVA 8 or higher
-1. blastn
-
-### Optional
-1. makeblastdb (for compiling from scratch)
+### Extending PAARSNP
