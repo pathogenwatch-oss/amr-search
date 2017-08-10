@@ -109,7 +109,7 @@
                     <mainClass>net.cgps.wgsa.paarsnp.builder.PaarsnpBuilderMain</mainClass>
                     <arguments>
                         <argument>-i</argument>
-                        <argument>${paarsnp.root}/resources</argument>
+                        <argument>${paarsnp.root}/build/resources</argument>
                         <argument>-o</argument>
                         <argument>${paarsnp.root}/build/databases</argument>
                     </arguments>
