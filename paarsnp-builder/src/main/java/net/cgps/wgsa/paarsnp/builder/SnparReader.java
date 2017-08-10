@@ -1,12 +1,11 @@
 package net.cgps.wgsa.paarsnp.builder;
 
-import net.cgps.wgsa.paarsnp.core.lib.AntimicrobialAgent;
-import net.cgps.wgsa.paarsnp.core.lib.ResistanceSet;
+import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.paar.ResistanceGene;
 import net.cgps.wgsa.paarsnp.core.snpar.MutationType;
-import net.cgps.wgsa.paarsnp.core.snpar.ResistanceMutation;
-import net.cgps.wgsa.paarsnp.core.snpar.SnparLibrary;
 import net.cgps.wgsa.paarsnp.core.snpar.SnparReferenceSequence;
+import net.cgps.wgsa.paarsnp.core.snpar.json.ResistanceMutation;
+import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,10 +90,7 @@ public class SnparReader implements BiFunction<Path, Path, SnparLibrary> {
         throw new RuntimeException("Terminal error, not found sequence: " + csvLine.getRepresentativeId());
       }
 
-      final Set<AntimicrobialAgent> antimicrobialAgents = Arrays
-          .stream(csvLine.getAntibiotics().split(","))
-          .map(AntimicrobialAgent::new)
-          .collect(Collectors.toSet());
+      final Set<String> antimicrobialAgents = new HashSet<>(Arrays.asList(csvLine.getAntibiotics().split(",")));
 
       final String mutationId = csvLine.getRepresentativeId() + "_" + csvLine.getName();
 

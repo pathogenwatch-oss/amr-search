@@ -1,0 +1,222 @@
+<?xml version="1.0" ?>
+<!-- ============================================
+     ::DATATOOL:: Generated from "blastxml.asn"
+     ::DATATOOL:: by application DATATOOL version 2.0.0
+     ::DATATOOL:: on 08/02/2010 23:05:15
+     ============================================ -->
+
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.ncbi.nlm.nih.gov"
+        targetNamespace="http://www.ncbi.nlm.nih.gov"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified">
+
+  <!-- ============================================ -->
+  <!-- This section is mapped from module "NCBI-BlastOutput"
+  ================================================= -->
+  <!--
+  $Id: blastxml.asn 100080 2007-03-12 16:05:35Z kazimird $
+  -->
+
+
+  <xs:element name="BlastOutput">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- BLAST program: blastp, tblastx etc. -->
+        <xs:element name="BlastOutput_program" type="xs:string" />
+        <!-- Program version  -->
+        <xs:element name="BlastOutput_version" type="xs:string" />
+        <!-- Steven, David, Tom and others -->
+        <xs:element name="BlastOutput_reference" type="xs:string" />
+        <!-- BLAST Database name -->
+        <xs:element name="BlastOutput_db" type="xs:string" />
+        <!-- SeqId of query -->
+        <xs:element name="BlastOutput_query-ID" type="xs:string" />
+        <!-- Definition line of query -->
+        <xs:element name="BlastOutput_query-def" type="xs:string" />
+        <!-- length of query sequence -->
+        <xs:element name="BlastOutput_query-len" type="xs:integer" />
+        <!-- query sequence itself -->
+        <xs:element name="BlastOutput_query-seq" type="xs:string" minOccurs="0" />
+        <!-- search parameters -->
+        <xs:element name="BlastOutput_param">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="Parameters" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BlastOutput_iterations">
+          <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+              <xs:element ref="Iteration" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <!-- Mega BLAST search statistics -->
+        <xs:element name="BlastOutput_mbstat" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="Statistics" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Iteration">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- iteration number -->
+        <xs:element name="Iteration_iter-num" type="xs:integer" />
+        <!-- SeqId of query -->
+        <xs:element name="Iteration_query-ID" type="xs:string" minOccurs="0" />
+        <!-- Definition line of query -->
+        <xs:element name="Iteration_query-def" type="xs:string" minOccurs="0" />
+        <!-- length of query sequence -->
+        <xs:element name="Iteration_query-len" type="xs:integer" minOccurs="0" />
+        <!-- Hits one for every db sequence -->
+        <xs:element name="Iteration_hits" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+              <xs:element ref="Hit" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <!-- search statistics             -->
+        <xs:element name="Iteration_stat" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="Statistics" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <!-- Some (error?) information -->
+        <xs:element name="Iteration_message" type="xs:string" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Parameters">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- Matrix used (-M) -->
+        <xs:element name="Parameters_matrix" type="xs:string" minOccurs="0" />
+        <!-- Expectation threshold (-e) -->
+        <xs:element name="Parameters_expect" type="xs:double" />
+        <!-- Inclusion threshold (-h) -->
+        <xs:element name="Parameters_include" type="xs:double" minOccurs="0" />
+        <!-- match score for NT (-r) -->
+        <xs:element name="Parameters_sc-match" type="xs:integer" minOccurs="0" />
+        <!-- mismatch score for NT (-q) -->
+        <xs:element name="Parameters_sc-mismatch" type="xs:integer" minOccurs="0" />
+        <!-- Gap opening cost (-G) -->
+        <xs:element name="Parameters_gap-open" type="xs:integer" />
+        <!-- Gap extension cost (-E) -->
+        <xs:element name="Parameters_gap-extend" type="xs:integer" />
+        <!-- Filtering options (-F) -->
+        <xs:element name="Parameters_filter" type="xs:string" minOccurs="0" />
+        <!-- PHI-BLAST pattern -->
+        <xs:element name="Parameters_pattern" type="xs:string" minOccurs="0" />
+        <!-- Limit of request to Entrez query -->
+        <xs:element name="Parameters_entrez-query" type="xs:string" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Statistics">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- Number of sequences in BLAST db -->
+        <xs:element name="Statistics_db-num" type="xs:integer" />
+        <!-- Length of BLAST db -->
+        <xs:element name="Statistics_db-len" type="xs:long" />
+        <!-- Effective HSP length -->
+        <xs:element name="Statistics_hsp-len" type="xs:integer" />
+        <!-- Effective search space -->
+        <xs:element name="Statistics_eff-space" type="xs:double" />
+        <!-- Karlin-Altschul parameter K -->
+        <xs:element name="Statistics_kappa" type="xs:double" />
+        <!-- Karlin-Altschul parameter Lambda -->
+        <xs:element name="Statistics_lambda" type="xs:double" />
+        <!-- Karlin-Altschul parameter H -->
+        <xs:element name="Statistics_entropy" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Hit">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- hit number -->
+        <xs:element name="Hit_num" type="xs:integer" />
+        <!-- SeqId of subject -->
+        <xs:element name="Hit_id" type="xs:string" />
+        <!-- definition line of subject -->
+        <xs:element name="Hit_def" type="xs:string" />
+        <!-- accession -->
+        <xs:element name="Hit_accession" type="xs:string" />
+        <!-- length of subject -->
+        <xs:element name="Hit_len" type="xs:integer" />
+        <!-- all HSP regions for the given subject -->
+        <xs:element name="Hit_hsps" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+              <xs:element ref="Hsp" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Hsp">
+    <xs:complexType>
+      <xs:sequence>
+        <!-- HSP number -->
+        <xs:element name="Hsp_num" type="xs:integer" />
+        <!-- score (in bits) of HSP -->
+        <xs:element name="Hsp_bit-score" type="xs:double" />
+        <!-- score of HSP -->
+        <xs:element name="Hsp_score" type="xs:double" />
+        <!-- e-value of HSP -->
+        <xs:element name="Hsp_evalue" type="xs:double" />
+        <!-- start of HSP in query -->
+        <xs:element name="Hsp_query-from" type="xs:integer" />
+        <!-- end of HSP -->
+        <xs:element name="Hsp_query-to" type="xs:integer" />
+        <!-- start of HSP in subject -->
+        <xs:element name="Hsp_hit-from" type="xs:integer" />
+        <!-- end of HSP in subject -->
+        <xs:element name="Hsp_hit-to" type="xs:integer" />
+        <!-- start of PHI-BLAST pattern -->
+        <xs:element name="Hsp_pattern-from" type="xs:integer" minOccurs="0" />
+        <!-- end of PHI-BLAST pattern -->
+        <xs:element name="Hsp_pattern-to" type="xs:integer" minOccurs="0" />
+        <!-- translation frame of query -->
+        <xs:element name="Hsp_query-frame" type="xs:integer" minOccurs="0" />
+        <!-- translation frame of subject -->
+        <xs:element name="Hsp_hit-frame" type="xs:integer" minOccurs="0" />
+        <!-- number of identities in HSP -->
+        <xs:element name="Hsp_identity" type="xs:integer" minOccurs="0" />
+        <!-- number of positives in HSP -->
+        <xs:element name="Hsp_positive" type="xs:integer" minOccurs="0" />
+        <!-- number of gaps in HSP -->
+        <xs:element name="Hsp_gaps" type="xs:integer" minOccurs="0" />
+        <!-- length of the alignment used -->
+        <xs:element name="Hsp_align-len" type="xs:integer" minOccurs="0" />
+        <!-- score density -->
+        <xs:element name="Hsp_density" type="xs:integer" minOccurs="0" />
+        <!-- alignment string for the query (with gaps) -->
+        <xs:element name="Hsp_qseq" type="xs:string" />
+        <!-- alignment string for subject (with gaps) -->
+        <xs:element name="Hsp_hseq" type="xs:string" />
+        <!-- formating middle line -->
+        <xs:element name="Hsp_midline" type="xs:string" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

@@ -1,10 +1,12 @@
 package net.cgps.wgsa.paarsnp;
 
 import ch.qos.logback.classic.Level;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.cgps.wgsa.paarsnp.core.AntimicrobialAgentLibrary;
+import net.cgps.wgsa.paarsnp.core.Constants;
+import net.cgps.wgsa.paarsnp.core.lib.ObjectMappingException;
+import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgentLibrary;
 import net.cgps.wgsa.paarsnp.core.paar.PaarLibrary;
-import net.cgps.wgsa.paarsnp.core.snpar.SnparLibrary;
+import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +22,6 @@ import java.util.function.Consumer;
 
 public class PaarsnpMain {
 
-  public static final String PAAR_FILE_APPEND = "_paar.jsn";
-  public static final String SNPAR_FILE_APPEND = "_snpar.jsn";
-  public static final String AGENT_FILE_APPEND = "_antimicrobials.jsn";
   private final Logger logger = LoggerFactory.getLogger(PaarsnpMain.class);
 
   public static void main(final String[] args) {
@@ -44,10 +43,12 @@ public class PaarsnpMain {
       final ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
       root.setLevel(Level.valueOf(commandLine.getOptionValue('l', "INFO")));
 
-      new PaarsnpMain().run(commandLine.getOptionValue('s'), Arrays.asList(commandLine.getOptionValues('a')), commandLine.getOptionValue('d', "."));
+      new PaarsnpMain().run(commandLine.getOptionValue('s'), Arrays.asList(commandLine.getOptionValues('a')), commandLine.getOptionValue('d', "databases"));
     } catch (final Exception e) {
       LoggerFactory.getLogger(PaarsnpMain.class).error("Failed to run due to: ", e);
+      System.exit(1);
     }
+    System.exit(0);
   }
 
   private static Options myOptions() {
@@ -70,17 +71,16 @@ public class PaarsnpMain {
 
   private void run(final String speciesId, final Collection<String> assemblyFiles, String resourceDirectory) {
 
-    final ObjectMapper objectMapper = new ObjectMapper();
 
     final PaarLibrary paarLibrary;
     final SnparLibrary snparLibrary;
     final AntimicrobialAgentLibrary agentLibrary;
 
     try {
-      paarLibrary = objectMapper.readValue(Paths.get(resourceDirectory, speciesId + PAAR_FILE_APPEND).toFile(), PaarLibrary.class);
-      snparLibrary = objectMapper.readValue(Paths.get(resourceDirectory, speciesId + SNPAR_FILE_APPEND).toFile(), SnparLibrary.class);
-      agentLibrary = objectMapper.readValue(Paths.get(resourceDirectory, speciesId + AGENT_FILE_APPEND).toFile(), AntimicrobialAgentLibrary.class);
-    } catch (final IOException e) {
+      paarLibrary = AbstractJsonnable.fromJson(Paths.get(resourceDirectory, speciesId + Constants.PAAR_APPEND + Constants.JSON_APPEND).toFile(), PaarLibrary.class);
+      snparLibrary = AbstractJsonnable.fromJson(Paths.get(resourceDirectory, speciesId + Constants.SNPAR_APPEND + Constants.JSON_APPEND).toFile(), SnparLibrary.class);
+      agentLibrary = AbstractJsonnable.fromJson(Paths.get(resourceDirectory, speciesId + Constants.AGENT_FILE_APPEND).toFile(), AntimicrobialAgentLibrary.class);
+    } catch (final ObjectMappingException e) {
       throw new RuntimeException(e);
     }
 
@@ -91,17 +91,17 @@ public class PaarsnpMain {
 
     final Consumer<PaarsnpResult> resultWriter = paarsnpResult -> {
       try (final StringWriter writer = new StringWriter()) {
-        objectMapper.writerWithDefaultPrettyPrinter().writeValue(writer, paarsnpResult);
+        writer.append(paarsnpResult.toPrettyJson());
       } catch (IOException e) {
         this.logger.error("Failed to write output for {}", paarsnpResult.getAssemblyId());
         throw new RuntimeException(e);
       }
     };
 
+    // Run paarsnp on each assembly file.
     assemblyFiles
         .parallelStream()
         .map(paarsnp)
         .forEach(resultWriter);
-
   }
 }

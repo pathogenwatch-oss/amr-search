@@ -1,8 +1,7 @@
 package net.cgps.wgsa.paarsnp.builder;
 
-import net.cgps.wgsa.paarsnp.core.lib.AntimicrobialAgent;
-import net.cgps.wgsa.paarsnp.core.lib.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.lib.ResistanceType;
+import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.paar.PaarAntibioticSummary;
 import net.cgps.wgsa.paarsnp.core.paar.PaarGeneSummary;
 import net.cgps.wgsa.paarsnp.core.paar.PaarLibrary;
@@ -22,7 +21,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PaarReader implements Function<Path, PaarLibrary> {
+public class PaarReader implements Function<Path, PaarReader.PaarReaderData> {
 
   private static final float DEFAULT_SIMILARITY_THRESHOLD = 80.0f;
   private static final float DEFAULT_LENGTH_THRESHOLD = 80.0f;
@@ -36,7 +35,7 @@ public class PaarReader implements Function<Path, PaarLibrary> {
   }
 
   @Override
-  public PaarLibrary apply(final Path paarCsv) {
+  public PaarReaderData apply(final Path paarCsv) {
 
     final Map<String, ResistanceGene> paarGeneLib = new HashMap<>(100);
     final Map<String, ResistanceSet> resistanceSets = new HashMap<>(100);
@@ -68,7 +67,7 @@ public class PaarReader implements Function<Path, PaarLibrary> {
             .flatMap(resistanceSet -> resistanceSet.getAgents()
                 .stream()
                 .map(agent -> new PaarAntibioticSummary(
-                    agent.getName(),
+                    agent,
                     Stream.concat(resistanceSet.getElementIds().stream(),
                         resistanceSet.getModifiers().keySet().stream()
                     )
@@ -84,7 +83,7 @@ public class PaarReader implements Function<Path, PaarLibrary> {
         .min().orElseThrow(() -> new RuntimeException("Unable to find any minimum threshold data"))
         - 5;
 
-    return new PaarLibrary(paarGeneLib.values(), resistanceSets.values(), amrSummary, this.speciesId, minThreshold);
+    return new PaarReaderData(new PaarLibrary(paarGeneLib.values(), resistanceSets.values(), amrSummary, this.speciesId, minThreshold), fastaSb.toString());
   }
 
   private void generateResistanceGene(final CSVRecord csvRecord, final StringBuilder fastaSb, final Map<String, ResistanceSet> resistanceSetMap, final Map<String, ResistanceGene> resistanceGeneMap) {
@@ -95,7 +94,7 @@ public class PaarReader implements Function<Path, PaarLibrary> {
     final String geneName = csvRecord.get(0);
     final String setName = csvRecord.get(1).isEmpty() ? csvRecord.get(0) : csvRecord.get(1);
     final ResistanceGene.EFFECT effect = ResistanceGene.EFFECT.valueOf(csvRecord.get(2));
-    final Set<AntimicrobialAgent> allAgents = this.mapAgentsToFullObjects(csvRecord.get(3));
+    final Set<String> allAgents = this.mapAgentsToFullObjects(csvRecord.get(3));
     final float simThreshold = "".equals(csvRecord.get(5)) ? DEFAULT_SIMILARITY_THRESHOLD : Float.valueOf(csvRecord.get(5));
     final float lengthThreshold = "".equals(csvRecord.get(6)) ? DEFAULT_LENGTH_THRESHOLD : Float.valueOf(csvRecord.get(6));
     final String sequence = WHITESPACE_PATTERN.matcher(csvRecord.get(4).trim()).replaceAll("").toUpperCase();
@@ -131,9 +130,25 @@ public class PaarReader implements Function<Path, PaarLibrary> {
     }
   }
 
-  private Set<AntimicrobialAgent> mapAgentsToFullObjects(final String agents) {
-    return Arrays.stream(agents.split(","))
-        .map(AntimicrobialAgent::new)
-        .collect(Collectors.toSet());
+  private Set<String> mapAgentsToFullObjects(final String agents) {
+    return new HashSet<>(Arrays.asList(agents.split(",")));
+  }
+
+  public static class PaarReaderData {
+    private final PaarLibrary paarLibrary;
+    private final String fasta;
+
+    public PaarReaderData(PaarLibrary paarLibrary, String fasta) {
+      this.paarLibrary = paarLibrary;
+      this.fasta = fasta;
+    }
+
+    public PaarLibrary getPaarLibrary() {
+      return paarLibrary;
+    }
+
+    public String getFasta() {
+      return fasta;
+    }
   }
 }

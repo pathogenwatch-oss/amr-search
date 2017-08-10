@@ -13,7 +13,7 @@ class MutationLine {
 
   static final String SEP_CHAR = "\t";
   static final String HEADER_START = "type";
-  private static Pattern snpIdPattern = Pattern.compile("^([\\-A-Z]+)([0-9]+)([A-Z\\-]+)$");
+  private final static Pattern snpIdPattern = Pattern.compile("^([\\-A-Z]+)([0-9]+)([A-Z\\-]+)$");
 
   private final String type;
   private final String name;
@@ -45,7 +45,7 @@ class MutationLine {
   /**
    * @param line - TSV line
    * @return The content if it's not a commented out (or blank) line.
-   * @throws Exception
+   * @throws Exception If line parsing fails.
    */
   public static Optional<MutationLine> parseLine(final String line) throws Exception {
 

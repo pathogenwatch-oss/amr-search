@@ -1,9 +1,9 @@
 package net.cgps.wgsa.paarsnp.builder;
 
 import ch.qos.logback.classic.Level;
-import net.cgps.wgsa.paarsnp.PaarsnpMain;
-import net.cgps.wgsa.paarsnp.core.paar.PaarLibrary;
-import net.cgps.wgsa.paarsnp.core.snpar.SnparLibrary;
+import net.cgps.wgsa.paarsnp.core.Constants;
+import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgentLibrary;
+import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,6 @@ public class PaarsnpBuilderMain {
   private static final DirectoryStream.Filter<Path> SPECIES_FOLDER_FILTER = entry -> Files.isDirectory(entry) && entry.getFileName().toString().matches("^\\d+$");
 
   private final Logger logger = LoggerFactory.getLogger(PaarsnpBuilderMain.class);
-  private final JsonWriter jsonWriter = new JsonWriter();
 
   public static void main(final String[] args) {
 
@@ -66,13 +65,18 @@ public class PaarsnpBuilderMain {
 
   private void run(String inputDirectory, final String outputDirectory) {
 
+    final Path inputFolderPath = Paths.get(inputDirectory);
     final Path outputFolderPath = Paths.get(outputDirectory);
 
-    if (!filesArePresent(outputFolderPath)) {
+    if (fileMissing(inputFolderPath)) {
+      throw new RuntimeException("Input folder " + inputFolderPath.toAbsolutePath().toString() + " does not exist.");
+    }
+
+    if (fileMissing(outputFolderPath)) {
       throw new RuntimeException("Output folder " + outputFolderPath.toAbsolutePath().toString() + " does not exist.");
     }
 
-    try (final DirectoryStream<Path> dbStream = Files.newDirectoryStream(Paths.get(inputDirectory), SPECIES_FOLDER_FILTER)) {
+    try (final DirectoryStream<Path> dbStream = Files.newDirectoryStream(inputFolderPath, SPECIES_FOLDER_FILTER)) {
 
       dbStream.forEach(taxonDir -> {
 
@@ -83,25 +87,43 @@ public class PaarsnpBuilderMain {
         final Path paarCsvPath = Paths.get(taxonDir.toString(), "resistance_genes.tsv");
         final Path snparCsvPath = Paths.get(taxonDir.toString(), "ar_snps.tsv");
         final Path snparFastaPath = Paths.get(taxonDir.toString(), "ar_snps_lib.fa");
+        final Path amPath = Paths.get(taxonDir.toString(),"ar_agents.txt");
 
-        if (!filesArePresent(paarCsvPath, snparCsvPath, snparFastaPath)) {
+        if (fileMissing(paarCsvPath, snparCsvPath, snparFastaPath)) {
           throw new RuntimeException("Not all input files are present for " + speciesId);
         }
 
         this.logger.debug("Reading PAAR CSV file {}", paarCsvPath.toAbsolutePath().toString());
 
-        final PaarLibrary paarLibrary = new PaarReader(speciesId).apply(paarCsvPath);
+        // Read the CSVs and generate the libraries
+        final PaarReader.PaarReaderData paarLibrary = new PaarReader(speciesId).apply(paarCsvPath);
         final SnparLibrary snparLibrary = new SnparReader(speciesId).apply(snparCsvPath, snparFastaPath);
+        final AntimicrobialAgentLibrary agentLibrary = new AntibioticsListReader().apply(speciesId, amPath);
 
-        final Path paarLibraryFile = Paths.get(outputDirectory, speciesId + PaarsnpMain.PAAR_FILE_APPEND);
-        final Path snparLibraryFile = Paths.get(outputDirectory, speciesId, PaarsnpMain.SNPAR_FILE_APPEND);
+        final String paarLibraryName = speciesId + Constants.PAAR_APPEND;
+        final String snparLibraryName = speciesId + Constants.SNPAR_APPEND;
+
+        final Path paarLibraryFile = Paths.get(outputDirectory, paarLibraryName + Constants.JSON_APPEND);
+        final Path snparLibraryFile = Paths.get(outputDirectory, snparLibraryName + Constants.JSON_APPEND);
+        final Path paarFastaFile = Paths.get(outputDirectory, paarLibraryName + Constants.FASTA_APPEND);
+        final Path snparFastaFile = Paths.get(outputDirectory, snparLibraryName + Constants.FASTA_APPEND);
+        final Path amLibraryFile = Paths.get(outputDirectory, speciesId + Constants.AGENT_FILE_APPEND);
 
         try {
-          Files.write(paarLibraryFile, jsonWriter.apply(paarLibrary).getBytes(), StandardOpenOption.CREATE);
-          Files.write(snparLibraryFile, jsonWriter.apply(snparLibrary).getBytes(), StandardOpenOption.CREATE);
+          Files.write(paarLibraryFile, paarLibrary.getPaarLibrary().toJson().getBytes(), StandardOpenOption.CREATE);
+          Files.write(paarFastaFile, paarLibrary.getFasta().getBytes(), StandardOpenOption.CREATE);
+          Files.write(snparLibraryFile, snparLibrary.toJson().getBytes(), StandardOpenOption.CREATE);
+          Files.write(amLibraryFile, agentLibrary.toJson().getBytes(), StandardOpenOption.CREATE);
+          Files.copy(snparFastaPath, snparFastaFile, StandardCopyOption.REPLACE_EXISTING);
         } catch (final IOException e) {
           throw new RuntimeException(e);
         }
+
+        // Create the blast databases.
+        final MakeBlastDB makeBlastDB = new MakeBlastDB(outputFolderPath);
+
+        makeBlastDB.accept(paarLibraryName, paarFastaFile);
+        makeBlastDB.accept(snparLibraryName, snparFastaFile);
 
         this.logger.info("{} files written.", speciesId);
       });
@@ -113,9 +135,9 @@ public class PaarsnpBuilderMain {
 
   }
 
-  private boolean filesArePresent(final Path... files) {
+  private boolean fileMissing(final Path... files) {
     return Arrays
         .stream(files)
-        .allMatch(file -> Files.exists(file));
+        .anyMatch(file -> !Files.exists(file));
   }
 }

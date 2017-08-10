@@ -1,0 +1,12 @@
+Name,type,Full name
+AMP,Beta-lactam,Ampicillin
+CEP,Beta-lactam,Broad-Spectrum Cephalosporins
+CHL,Phenicols,Chloramphenicol
+CIP,Fluoroquinolones,Ciprofloxacin
+NAL,Fluoroquinolones,Nalidixic acid
+SMX,Sulfonamides,Sulfonamides
+TMP,Diaminopyrimidine,Trimethoprim
+SXT,Combination,Co-trimoxazole
+TCY,Tetracyclines,Tetracycline
+AZM,Macrolides,Azithromycin
+SIL,Other,Other
