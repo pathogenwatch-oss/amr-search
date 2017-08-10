@@ -35,10 +35,12 @@ It's also possible extend the current AMR libraries or to generate your own AMR 
 Requires:
 * git, maven, java 8, makeblastdb (on $PATH)
 
-1. git clone https://github.com/ImperialCollegeLondon/paarsnp.git
-1. cd paarsnp
-1. cp /
-1. mvn -Dmaven.test.skip=true install
+```
+git clone https://github.com/ImperialCollegeLondon/paarsnp.git
+cd paarsnp
+cp /
+mvn -Dmaven.test.skip=true install
+```
 
 This will configure the BLAST databases and resources that PAARSNP needs.
 
