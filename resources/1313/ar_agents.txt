@@ -1,0 +1,8 @@
+Name,type,Full name
+KAN,Aminoglycosides,Kanamycin
+MAC,Macrolides,Macrolides
+CHL,Phenicols,Chloramphenicol
+TCY,Tetracyclines,Tetracycline
+TMP,Diaminopyrimidine,Trimethoprim
+SSS,Sulfonamides,Sulfamethoxazole
+FLQ,Fluoroquinolones,Fluoroquinolones

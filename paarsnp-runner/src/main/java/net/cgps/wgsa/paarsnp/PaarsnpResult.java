@@ -1,15 +1,16 @@
 package net.cgps.wgsa.paarsnp;
 
-import net.cgps.wgsa.paarsnp.core.lib.AntibioticProfile;
 import net.cgps.wgsa.paarsnp.core.lib.ResistanceState;
+import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.lib.json.AntibioticProfile;
 import net.cgps.wgsa.paarsnp.core.paar.PaarResult;
-import net.cgps.wgsa.paarsnp.core.snpar.SnparResult;
+import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-public class PaarsnpResult {
+public class PaarsnpResult extends AbstractJsonnable {
 
   private final SnparResult snparResult;
   private final PaarResult paarResult;

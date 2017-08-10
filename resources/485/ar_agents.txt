@@ -1,0 +1,10 @@
+Name,type,Full name
+AZM,Macrolides,Azithromycin
+CRO,Extended-Spectrum Cephalosporins,Ceftriaxone
+CFM,Broad-spectrum Cephalosporins,Cefixime
+CIP,Fluoroquinolones,Ciprofloxacin
+PEN,Beta-lactams,Penicillin
+SMX,Sulfonamides,Sulfonamides
+SPT,Aminoglycosides,Spectinomycin
+TCY,Tetracyclines,Tetracycline
+POA,Pores,Pore A

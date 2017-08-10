@@ -1,25 +1,24 @@
 package net.cgps.wgsa.paarsnp;
 
-import net.cgps.wgsa.paarsnp.core.BuildPaarsnpResult;
-import net.cgps.wgsa.paarsnp.core.InputData;
-import net.cgps.wgsa.paarsnp.core.PaarRun;
-import net.cgps.wgsa.paarsnp.core.SnparRun;
-import net.cgps.wgsa.paarsnp.core.lib.AntimicrobialAgent;
+import net.cgps.wgsa.paarsnp.core.lib.InputData;
+import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.paar.PaarLibrary;
 import net.cgps.wgsa.paarsnp.core.paar.PaarResult;
-import net.cgps.wgsa.paarsnp.core.snpar.SnparLibrary;
-import net.cgps.wgsa.paarsnp.core.snpar.SnparResult;
+import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
+import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
-public class Paarsnp implements Function<String, PaarsnpResult> {
+public class Paarsnp implements Function<Path, PaarsnpResult> {
 
   private final Logger logger = LoggerFactory.getLogger(Paarsnp.class);
 
@@ -40,9 +39,10 @@ public class Paarsnp implements Function<String, PaarsnpResult> {
     this.executorService = executorService;
   }
 
-  public PaarsnpResult apply(final String assemblyFile) {
+  public PaarsnpResult apply(final Path assemblyFile) {
 
-    final String assemblyId = Paths.get(assemblyFile).getFileName().toFile().getName();
+    final String name = assemblyFile.getFileName().toString();
+    final String assemblyId = name.substring(0, name.lastIndexOf('.'));
 
     this.logger.debug("Beginning {}", assemblyId);
 
@@ -61,8 +61,10 @@ public class Paarsnp implements Function<String, PaarsnpResult> {
       throw new RuntimeException(e);
     }
 
-    final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(assemblyId, this.speciesId, snparResult, paarResult, this.antimicrobialAgents);
+    final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(assemblyId, this.speciesId, snparResult, paarResult, this.antimicrobialAgents.stream().map(AntimicrobialAgent::getName).collect(Collectors.toList()));
 
-    return new BuildPaarsnpResult().apply(paarsnpResultData);
+    final Map<String, AntimicrobialAgent> agentMap = this.antimicrobialAgents.stream().collect(Collectors.toMap(AntimicrobialAgent::getName, Function.identity()));
+
+    return new BuildPaarsnpResult(agentMap).apply(paarsnpResultData);
   }
 }
