@@ -7,7 +7,6 @@ MET,Beta-Lactam,Methicillin
 PEN,Beta-lactams,Penicillin
 FUS,Fusidic Acid,Fusidic Acid
 VAN,Glycopeptides,Vancomycin
-TEC,Glycopeptides,Teicoplanin
 CLI,Lincosamides,Clindamycin
 ERY,Macrolides,Erythromycin
 MUP,Mupirocin,Mupirocin
