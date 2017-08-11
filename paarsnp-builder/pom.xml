@@ -99,7 +99,7 @@
                 <executions>
                     <execution>
                         <id>library-build</id>
-                        <phase>install</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>java</goal>
                         </goals>
