@@ -97,7 +97,7 @@ public class SnparReader implements BiFunction<Path, Path, SnparLibrary> {
       // Create the resistance set if new, otherwise add to it.
       if (!resistanceSets.containsKey(csvLine.getSetName())) {
         this.logger.debug("Using {} to initialise set {}", mutationId, csvLine.getSetName());
-        resistanceSets.put(csvLine.getSetName(), ResistanceSet.buildSnpResistanceSet(csvLine.getSetName(), csvLine.getRepresentativeId(), csvLine.getName(), antimicrobialAgents, "", csvLine.getGroupEffect()));
+        resistanceSets.put(csvLine.getSetName(), ResistanceSet.buildSnpResistanceSet(csvLine.getSetName(), csvLine.getRepresentativeId(), csvLine.getName(), antimicrobialAgents, csvLine.getGroupEffect()));
       } else {
         this.logger.debug("Adding {} to set {}", mutationId, csvLine.getSetName());
         resistanceSets.get(csvLine.getSetName()).addElementId(mutationId, ResistanceGene.EFFECT.RESISTANT);

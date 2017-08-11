@@ -19,16 +19,15 @@ public class ResistanceSet extends AbstractJsonnable {
   private final String resistanceSetName;
   private final Set<String> agents;
   private final Collection<String> elementIds;
-  private final String phenotype;
   private final Map<String, ResistanceGene.EFFECT> modifiers;
 
   @SuppressWarnings("unused")
   private ResistanceSet() {
 
-    this("", "", ResistanceType.RESISTANT, RESISTANT, Collections.emptySet(), "");
+    this("", "", ResistanceType.RESISTANT, RESISTANT, Collections.emptySet());
   }
 
-  public ResistanceSet(final String resistanceSetName, final String elementId, final ResistanceType effect, final ResistanceGene.EFFECT elementEffect, final Set<String> agents, final String phenotype) {
+  public ResistanceSet(final String resistanceSetName, final String elementId, final ResistanceType effect, final ResistanceGene.EFFECT elementEffect, final Set<String> agents) {
 
     this.resistanceSetName = resistanceSetName;
     this.modifiers = new HashMap<>(5);
@@ -36,12 +35,11 @@ public class ResistanceSet extends AbstractJsonnable {
     this.effect = effect;
     this.addElementId(elementId, elementEffect);
     this.agents = agents;
-    this.phenotype = phenotype;
   }
 
-  public static ResistanceSet buildSnpResistanceSet(final String setName, final String geneId, final String snpCode, final Set<String> agents, final String phenotype, final ResistanceType resistanceType) {
+  public static ResistanceSet buildSnpResistanceSet(final String setName, final String geneId, final String snpCode, final Set<String> agents, final ResistanceType resistanceType) {
 
-    return new ResistanceSet(setName, geneId + "_" + snpCode, resistanceType, RESISTANT, agents, phenotype);
+    return new ResistanceSet(setName, geneId + "_" + snpCode, resistanceType, RESISTANT, agents);
   }
 
   public void addElementId(final String geneName, final ResistanceGene.EFFECT elementEffect) {
@@ -61,11 +59,6 @@ public class ResistanceSet extends AbstractJsonnable {
         this.modifiers.put(geneName, elementEffect);
         break;
     }
-  }
-
-  public String getPhenotype() {
-
-    return this.phenotype;
   }
 
   public String getResistanceSetName() {

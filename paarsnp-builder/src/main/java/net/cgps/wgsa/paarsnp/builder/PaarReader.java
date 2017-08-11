@@ -98,7 +98,6 @@ public class PaarReader implements Function<Path, PaarReader.PaarReaderData> {
     final float simThreshold = "".equals(csvRecord.get(5)) ? DEFAULT_SIMILARITY_THRESHOLD : Float.valueOf(csvRecord.get(5));
     final float lengthThreshold = "".equals(csvRecord.get(6)) ? DEFAULT_LENGTH_THRESHOLD : Float.valueOf(csvRecord.get(6));
     final String sequence = WHITESPACE_PATTERN.matcher(csvRecord.get(4).trim()).replaceAll("").toUpperCase();
-    final String phenotype = csvRecord.size() == 8 ? csvRecord.get(7) : "";
 
     if (!allAgents.isEmpty()) {
       try {
@@ -119,7 +118,7 @@ public class PaarReader implements Function<Path, PaarReader.PaarReaderData> {
         } else {
           // Construct a new resistance set.
           this.logger.debug("Constructing new set with geneName={} with effect={} to set={}", geneName, effect, setName);
-          resistanceSetMap.put(setName, new ResistanceSet(setName, geneName, ResistanceType.RESISTANT, effect, allAgents, phenotype));
+          resistanceSetMap.put(setName, new ResistanceSet(setName, geneName, ResistanceType.RESISTANT, effect, allAgents));
         }
       } catch (final NumberFormatException e) {
         this.logger.error("Field from line {} not a number: {}", csvRecord.toString(), e.getMessage());
