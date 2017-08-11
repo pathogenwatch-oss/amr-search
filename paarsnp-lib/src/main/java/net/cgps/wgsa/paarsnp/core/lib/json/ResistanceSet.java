@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.function.Function;
 
 import static net.cgps.wgsa.paarsnp.core.paar.ResistanceGene.EFFECT.RESISTANT;
 
@@ -52,13 +51,13 @@ public class ResistanceSet extends AbstractJsonnable {
     switch (elementEffect) {
       case RESISTANT:
       case INDUCED:
-        this.logger.debug("Adding elementId={}", geneName);
+        this.logger.trace("Adding elementId={}", geneName);
         this.elementIds.add(geneName);
         break;
       case MODIFIES_SUPPRESSES:
       case MODIFIES_INDUCED:
       case MODIFIES_RESISTANT:
-        this.logger.debug("Adding modifier={} elementId={}", this.effect.name(), geneName);
+        this.logger.trace("Adding modifier={} elementId={}", this.effect.name(), geneName);
         this.modifiers.put(geneName, elementEffect);
         break;
     }
@@ -82,11 +81,6 @@ public class ResistanceSet extends AbstractJsonnable {
   public Collection<String> getElementIds() {
 
     return this.elementIds;
-  }
-
-  public String format(final Function<ResistanceSet, char[]> resistanceSetFormatter) {
-
-    return new String(resistanceSetFormatter.apply(this));
   }
 
   public Map<String, ResistanceGene.EFFECT> getModifiers() {
