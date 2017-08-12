@@ -99,6 +99,14 @@ NB not pretty printed, one record per line
 
 ### Extending PAARSNP
 
-#### Docker Builds
+#### Naming Docker Builds
 
-Container tags are automatically generated during the build phase by maven using https://github.com/jgitver/jgitver.
+Container tags are automatically generated during the build phase by Maven using https://github.com/jgitver/jgitver.
+
+To create a "release tag" (i.e. not appended with "-SNAPSHOT") and push the resulting container to a remote Docker repository:
+```
+git tag -a -s -m "My message" v1.0.0-RC4
+docker run -it --rm --name paarsnp -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)":/usr/src/mymaven -v maven-repo:/root/.m2 -v ~/.docker:/root/.docker -w /usr/src/mymaven paarsnp-builder mvn install
+```
+
+The Docker repository can be changed from the CGPS default by editing the `<paarsnp.docker-repository>` property in the top level `pom.xml`.

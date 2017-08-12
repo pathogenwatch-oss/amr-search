@@ -102,8 +102,6 @@
                             <goal>build</goal>
                         </goals>
                         <configuration>
-                            <!--<contextDirectory>${paarsnp.root}/build</contextDirectory>-->
-                            <!--<repository>registry.gitlab.com/cgps/wgsa-tasks/paarsnp</repository>-->
                             <tag>${jgitver.calculated_version}</tag>
                         </configuration>
                     </execution>
@@ -117,7 +115,7 @@
                 </executions>
                 <configuration>
                     <contextDirectory>${paarsnp.root}/build</contextDirectory>
-                    <repository>registry.gitlab.com/cgps/wgsa-tasks/paarsnp</repository>
+                    <repository>${paarsnp.docker-repository}</repository>
                 </configuration>
             </plugin>
         </plugins>
