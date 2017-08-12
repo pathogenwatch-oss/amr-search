@@ -48,7 +48,7 @@
                 <executions>
                     <execution>
                         <id>copy-jar</id>
-                        <phase>install</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>

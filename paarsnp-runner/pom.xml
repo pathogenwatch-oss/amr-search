@@ -56,7 +56,7 @@
                 <executions>
                     <execution>
                         <id>copy-jar</id>
-                        <phase>install</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -68,8 +68,6 @@
                                     <includes>
                                         <include>paarsnp.jar</include>
                                     </includes>
-                                    <!--<directory>target</directory>-->
-                                    <!--<filtering>true</filtering>-->
                                 </resource>
                             </resources>
                         </configuration>
@@ -91,10 +89,46 @@
                     </filesets>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>${paarsnp.df-mvn-plugin.version}</version>
+                <executions>
+                    <!-- for now all images will be explicitly tagged -->
+                    <execution>
+                        <id>build-tagged-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <configuration>
+                            <!--<contextDirectory>${paarsnp.root}/build</contextDirectory>-->
+                            <!--<repository>registry.gitlab.com/cgps/wgsa-tasks/paarsnp</repository>-->
+                            <tag>${jgitver.calculated_version}</tag>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>push-image</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <contextDirectory>${paarsnp.root}/build</contextDirectory>
+                    <repository>registry.gitlab.com/cgps/wgsa-tasks/paarsnp</repository>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>com.spotify</groupId>
+            <artifactId>dockerfile-maven-plugin</artifactId>
+            <version>1.3.4</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -104,6 +138,11 @@
         <dependency>
             <groupId>net.cgps.wgsa</groupId>
             <artifactId>paarsnp-lib</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.cgps.wgsa</groupId>
+            <artifactId>paarsnp-builder</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
     </dependencies>

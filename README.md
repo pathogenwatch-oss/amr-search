@@ -30,21 +30,38 @@ PAARSNP can be run in several ways, including via Docker. We will provide a publ
 
 It's also possible extend the current AMR libraries or to generate your own AMR libraries to use in PAARSNP (e.g. for currently unsupported species).
 
-### Currently supported method
+### Docker-based Build (recommended)
 
 Requires:
-* git, maven, java 8, makeblastdb (on $PATH)
+* Docker
+* That is all
 
 ```
 git clone https://github.com/ImperialCollegeLondon/paarsnp.git
 cd paarsnp
-cp /
+docker run -it --rm --name paarsnp -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)":/usr/src/mymaven -v maven-repo:/root/.m2 -v ~/.docker:/root/.docker -w /usr/src/mymaven paarsnp-builder mvn clean package
+```
+
+At this point you can use [Docker](#running-with-docker) or run it directly from the [terminal](#running-directly) (requires JAVA 8 to be installed as well).
+
+### Maven Build
+
+Requires:
+* git, maven, java 8, makeblastdb (on $PATH)
+
+Optional:
+* blastn on $PATH (for running the unit tests)
+
+```
+git clone https://github.com/ImperialCollegeLondon/paarsnp.git
+cd paarsnp
 mvn -Dmaven.test.skip=true install
+# (or leave out -Dmaven.test.skip=true if blastn is available)
 ```
 
 This will configure the BLAST databases and resources that PAARSNP needs.
 
-At this point you can use [Docker](#running-with-docker) or run it directly with the [CLI](#running-directly).
+At this point you can use [Docker](#running-with-docker) or run it directly from the [terminal](#running-directly).
 
 ### Running with Docker
 
@@ -81,3 +98,7 @@ NB not pretty printed, one record per line
 ### Output Format
 
 ### Extending PAARSNP
+
+#### Docker Builds
+
+Container tags are automatically generated during the build phase by maven using https://github.com/jgitver/jgitver.
