@@ -79,7 +79,7 @@ To run paarsnp on a single Salmonella _Typhi_ (`90370`) FASTA file in the local 
 
 To run paarsnp on all FASTA files in the local directory, with an output file for each one:
 
-`docker run -v $PWD:/data paarsnp java -jar paarsnp.jar -i . -s 90370 -o`
+`docker run -v $PWD:/data paarsnp java -jar paarsnp.jar -i . -s 90370`
 
 NB "/data" is a protected folder for paarsnp, and is ideally used to mount the local drive.
 
