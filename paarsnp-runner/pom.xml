@@ -52,7 +52,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>${paarsnp.maven-resources.version}</version>
                 <executions>
                     <execution>
                         <id>copy-jar</id>
@@ -76,7 +76,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>${paarsnp.maven-clean.version}</version>
                 <configuration>
                     <filesets>
                         <fileset>
@@ -122,11 +122,6 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>com.spotify</groupId>
-            <artifactId>dockerfile-maven-plugin</artifactId>
-            <version>1.3.4</version>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
