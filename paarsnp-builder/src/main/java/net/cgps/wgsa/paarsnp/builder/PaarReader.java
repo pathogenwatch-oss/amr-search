@@ -118,7 +118,7 @@ public class PaarReader implements Function<Path, PaarReader.PaarReaderData> {
         } else {
           // Construct a new resistance set.
           this.logger.debug("Constructing new set with geneName={} with effect={} to set={}", geneName, effect, setName);
-          resistanceSetMap.put(setName, new ResistanceSet(setName, geneName, ResistanceType.RESISTANT, effect, allAgents));
+          resistanceSetMap.put(setName, new ResistanceSet(setName, ResistanceType.RESISTANT, allAgents).addElementId(geneName, effect));
         }
       } catch (final NumberFormatException e) {
         this.logger.error("Field from line {} not a number: {}", csvRecord.toString(), e.getMessage());

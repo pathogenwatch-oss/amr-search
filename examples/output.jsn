@@ -1,0 +1,598 @@
+{
+  "assemblyId": "my_assembly",
+  "resistanceProfile": [
+    {
+      "resistanceState": "RESISTANT",
+      "resistanceSets": [
+        {
+          "effect": "RESISTANT",
+          "resistanceSetName": "TEM-1",
+          "agents": [
+            "AMP"
+          ],
+          "elementIds": [
+            "TEM-1"
+          ],
+          "modifiers": {}
+        }
+      ],
+      "agent": {
+        "name": "AMP",
+        "fullName": "Ampicillin",
+        "type": "Beta-lactam"
+      }
+    },
+    {
+      "resistanceState": "UNKNOWN",
+      "resistanceSets": [],
+      "agent": {
+        "name": "CEP",
+        "fullName": "Broad-Spectrum Cephalosporins",
+        "type": "Beta-lactam"
+      }
+    },
+    {
+      "resistanceState": "RESISTANT",
+      "resistanceSets": [
+        {
+          "effect": "RESISTANT",
+          "resistanceSetName": "catA1",
+          "agents": [
+            "CHL"
+          ],
+          "elementIds": [
+            "catA1"
+          ],
+          "modifiers": {}
+        }
+      ],
+      "agent": {
+        "name": "CHL",
+        "fullName": "Chloramphenicol",
+        "type": "Phenicols"
+      }
+    },
+    {
+      "resistanceState": "RESISTANT",
+      "resistanceSets": [
+        {
+          "effect": "RESISTANT",
+          "resistanceSetName": "gyrA_S83F",
+          "agents": [
+            "NAL",
+            "CIP"
+          ],
+          "elementIds": [
+            "gyrA_S83F"
+          ],
+          "modifiers": {}
+        }
+      ],
+      "agent": {
+        "name": "CIP",
+        "fullName": "Ciprofloxacin",
+        "type": "Fluoroquinolones"
+      }
+    },
+    {
+      "resistanceState": "RESISTANT",
+      "resistanceSets": [
+        {
+          "effect": "RESISTANT",
+          "resistanceSetName": "gyrA_S83F",
+          "agents": [
+            "NAL",
+            "CIP"
+          ],
+          "elementIds": [
+            "gyrA_S83F"
+          ],
+          "modifiers": {}
+        }
+      ],
+      "agent": {
+        "name": "NAL",
+        "fullName": "Nalidixic acid",
+        "type": "Fluoroquinolones"
+      }
+    },
+    {
+      "resistanceState": "RESISTANT",
+      "resistanceSets": [
+        {
+          "effect": "RESISTANT",
+          "resistanceSetName": "sul1",
+          "agents": [
+            "SMX"
+          ],
+          "elementIds": [
+            "sul1"
+          ],
+          "modifiers": {}
+        },
+        {
+          "effect": "RESISTANT",
+          "resistanceSetName": "sul2",
+          "agents": [
+            "SMX"
+          ],
+          "elementIds": [
+            "sul2"
+          ],
+          "modifiers": {}
+        }
+      ],
+      "agent": {
+        "name": "SMX",
+        "fullName": "Sulfonamides",
+        "type": "Sulfonamides"
+      }
+    },
+    {
+      "resistanceState": "RESISTANT",
+      "resistanceSets": [
+        {
+          "effect": "RESISTANT",
+          "resistanceSetName": "dfrA7",
+          "agents": [
+            "TMP"
+          ],
+          "elementIds": [
+            "dfrA7"
+          ],
+          "modifiers": {}
+        }
+      ],
+      "agent": {
+        "name": "TMP",
+        "fullName": "Trimethoprim",
+        "type": "Diaminopyrimidine"
+      }
+    },
+    {
+      "resistanceState": "RESISTANT",
+      "resistanceSets": [
+        {
+          "effect": "RESISTANT",
+          "resistanceSetName": "sul2-dfrA7",
+          "agents": [
+            "SXT"
+          ],
+          "elementIds": [
+            "dfrA7",
+            "sul2"
+          ],
+          "modifiers": {}
+        },
+        {
+          "effect": "RESISTANT",
+          "resistanceSetName": "sul1-dfrA7",
+          "agents": [
+            "SXT"
+          ],
+          "elementIds": [
+            "sul1",
+            "dfrA7"
+          ],
+          "modifiers": {}
+        }
+      ],
+      "agent": {
+        "name": "SXT",
+        "fullName": "Co-trimoxazole",
+        "type": "Combination"
+      }
+    },
+    {
+      "resistanceState": "UNKNOWN",
+      "resistanceSets": [],
+      "agent": {
+        "name": "TCY",
+        "fullName": "Tetracycline",
+        "type": "Tetracyclines"
+      }
+    },
+    {
+      "resistanceState": "UNKNOWN",
+      "resistanceSets": [],
+      "agent": {
+        "name": "AZM",
+        "fullName": "Azithromycin",
+        "type": "Macrolides"
+      }
+    },
+    {
+      "resistanceState": "UNKNOWN",
+      "resistanceSets": [],
+      "agent": {
+        "name": "SIL",
+        "fullName": "Other",
+        "type": "Other"
+      }
+    }
+  ],
+  "snparResult": {
+    "resistanceMutationIds": [
+      "gyrA_S83F"
+    ],
+    "completeSets": [
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "gyrA_S83F",
+        "agents": [
+          "NAL",
+          "CIP"
+        ],
+        "elementIds": [
+          "gyrA_S83F"
+        ],
+        "modifiers": {}
+      }
+    ],
+    "partialSets": [],
+    "blastMatches": [
+      {
+        "searchStatistics": {
+          "librarySequenceId": "parC",
+          "librarySequenceStart": 1,
+          "querySequenceId": ".10541_2_15.4",
+          "querySequenceStart": 175841,
+          "percentIdentity": 100,
+          "evalue": 0,
+          "reversed": false,
+          "librarySequenceStop": 2259,
+          "querySequenceStop": 178099,
+          "librarySequenceLength": 2259
+        },
+        "snpResistanceElements": [],
+        "mutations": []
+      },
+      {
+        "searchStatistics": {
+          "librarySequenceId": "parE",
+          "librarySequenceStart": 1,
+          "querySequenceId": ".10541_2_15.4",
+          "querySequenceStart": 169193,
+          "percentIdentity": 100,
+          "evalue": 0,
+          "reversed": false,
+          "librarySequenceStop": 1893,
+          "querySequenceStop": 171085,
+          "librarySequenceLength": 1893
+        },
+        "snpResistanceElements": [],
+        "mutations": []
+      },
+      {
+        "searchStatistics": {
+          "librarySequenceId": "gyrA",
+          "librarySequenceStart": 1,
+          "querySequenceId": ".10541_2_15.15",
+          "querySequenceStart": 107,
+          "percentIdentity": 99.92415623814941,
+          "evalue": 0,
+          "reversed": true,
+          "librarySequenceStop": 2637,
+          "querySequenceStop": 2743,
+          "librarySequenceLength": 2637
+        },
+        "snpResistanceElements": [
+          {
+            "resistanceMutation": {
+              "sequenceType": "PROTEIN",
+              "setId": "gyrA_S83F",
+              "source": "",
+              "name": "gyrA_S83F",
+              "referenceId": "gyrA",
+              "originalSequence": "S",
+              "repSequenceLocation": 247,
+              "mutationSequence": "F",
+              "mutationType": "S"
+            },
+            "causalMutations": [
+              {
+                "referenceId": "gyrA",
+                "originalSequence": "G",
+                "referenceLocation": 248,
+                "mutationSequence": "T",
+                "mutationType": "S",
+                "queryLocation": 2496
+              }
+            ]
+          }
+        ],
+        "mutations": [
+          {
+            "referenceId": "gyrA",
+            "originalSequence": "G",
+            "referenceLocation": 248,
+            "mutationSequence": "T",
+            "mutationType": "S",
+            "queryLocation": 2496
+          },
+          {
+            "referenceId": "gyrA",
+            "originalSequence": "C",
+            "referenceLocation": 1612,
+            "mutationSequence": "T",
+            "mutationType": "S",
+            "queryLocation": 1132
+          }
+        ]
+      },
+      {
+        "searchStatistics": {
+          "librarySequenceId": "gyrB",
+          "librarySequenceStart": 1,
+          "querySequenceId": ".10541_2_15.21",
+          "querySequenceStart": 18864,
+          "percentIdentity": 100,
+          "evalue": 0,
+          "reversed": true,
+          "librarySequenceStop": 2415,
+          "querySequenceStop": 21278,
+          "librarySequenceLength": 2415
+        },
+        "snpResistanceElements": [],
+        "mutations": []
+      }
+    ]
+  },
+  "paarResult": {
+    "paarElementIds": [
+      "TEM-1",
+      "sul1",
+      "catA1",
+      "dfrA7",
+      "sul2"
+    ],
+    "completeResistanceSets": [
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "sul2-dfrA7",
+        "agents": [
+          "SXT"
+        ],
+        "elementIds": [
+          "dfrA7",
+          "sul2"
+        ],
+        "modifiers": {}
+      },
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "catA1",
+        "agents": [
+          "CHL"
+        ],
+        "elementIds": [
+          "catA1"
+        ],
+        "modifiers": {}
+      },
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "dfrA7",
+        "agents": [
+          "TMP"
+        ],
+        "elementIds": [
+          "dfrA7"
+        ],
+        "modifiers": {}
+      },
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "sul1",
+        "agents": [
+          "SMX"
+        ],
+        "elementIds": [
+          "sul1"
+        ],
+        "modifiers": {}
+      },
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "sul2",
+        "agents": [
+          "SMX"
+        ],
+        "elementIds": [
+          "sul2"
+        ],
+        "modifiers": {}
+      },
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "TEM-1",
+        "agents": [
+          "AMP"
+        ],
+        "elementIds": [
+          "TEM-1"
+        ],
+        "modifiers": {}
+      },
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "sul1-dfrA7",
+        "agents": [
+          "SXT"
+        ],
+        "elementIds": [
+          "sul1",
+          "dfrA7"
+        ],
+        "modifiers": {}
+      }
+    ],
+    "partialResistanceSets": [
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "sul1-dfrA5",
+        "agents": [
+          "SXT"
+        ],
+        "elementIds": [
+          "sul1",
+          "dfrA5"
+        ],
+        "modifiers": {}
+      },
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "sul2-dfrA5",
+        "agents": [
+          "SXT"
+        ],
+        "elementIds": [
+          "dfrA5",
+          "sul2"
+        ],
+        "modifiers": {}
+      },
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "sul1-dfrA1",
+        "agents": [
+          "SXT"
+        ],
+        "elementIds": [
+          "sul1",
+          "dfrA1"
+        ],
+        "modifiers": {}
+      },
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "sul2-dfrA1",
+        "agents": [
+          "SXT"
+        ],
+        "elementIds": [
+          "dfrA1",
+          "sul2"
+        ],
+        "modifiers": {}
+      },
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "sul2-dfrA14",
+        "agents": [
+          "SXT"
+        ],
+        "elementIds": [
+          "dfrA14",
+          "sul2"
+        ],
+        "modifiers": {}
+      },
+      {
+        "effect": "RESISTANT",
+        "resistanceSetName": "sul1-dfrA14",
+        "agents": [
+          "SXT"
+        ],
+        "elementIds": [
+          "sul1",
+          "dfrA14"
+        ],
+        "modifiers": {}
+      }
+    ],
+    "modifiedSets": {},
+    "blastMatches": {
+      "TEM-1": [
+        {
+          "querySequenceId": ".10541_2_15.55",
+          "librarySequenceId": "TEM-1",
+          "querySequenceLength": 1968,
+          "percentIdentity": 99.88,
+          "alignmentLength": 861,
+          "mismatches": 1,
+          "gapOpens": 0,
+          "querySequenceStart": 597,
+          "querySequenceStop": 1457,
+          "librarySequenceStart": 861,
+          "librarySequenceStop": 1,
+          "evalue": 0,
+          "bitScore": 1548,
+          "reversed": true
+        }
+      ],
+      "sul1": [
+        {
+          "querySequenceId": ".10541_2_15.40",
+          "librarySequenceId": "sul1",
+          "querySequenceLength": 9119,
+          "percentIdentity": 100,
+          "alignmentLength": 840,
+          "mismatches": 0,
+          "gapOpens": 0,
+          "querySequenceStart": 8023,
+          "querySequenceStop": 8862,
+          "librarySequenceStart": 1,
+          "librarySequenceStop": 840,
+          "evalue": 0,
+          "bitScore": 1516,
+          "reversed": false
+        }
+      ],
+      "catA1": [
+        {
+          "querySequenceId": ".10541_2_15.40",
+          "librarySequenceId": "catA1",
+          "querySequenceLength": 9119,
+          "percentIdentity": 100,
+          "alignmentLength": 660,
+          "mismatches": 0,
+          "gapOpens": 0,
+          "querySequenceStart": 296,
+          "querySequenceStop": 955,
+          "librarySequenceStart": 1,
+          "librarySequenceStop": 660,
+          "evalue": 0,
+          "bitScore": 1191,
+          "reversed": false
+        }
+      ],
+      "sul2": [
+        {
+          "querySequenceId": ".10541_2_15.46",
+          "librarySequenceId": "sul2",
+          "querySequenceLength": 4537,
+          "percentIdentity": 100,
+          "alignmentLength": 816,
+          "mismatches": 0,
+          "gapOpens": 0,
+          "querySequenceStart": 1780,
+          "querySequenceStop": 2595,
+          "librarySequenceStart": 816,
+          "librarySequenceStop": 1,
+          "evalue": 0,
+          "bitScore": 1472,
+          "reversed": true
+        }
+      ],
+      "dfrA7": [
+        {
+          "querySequenceId": ".10541_2_15.40",
+          "librarySequenceId": "dfrA7",
+          "querySequenceLength": 9119,
+          "percentIdentity": 100,
+          "alignmentLength": 474,
+          "mismatches": 0,
+          "gapOpens": 0,
+          "querySequenceStart": 6979,
+          "querySequenceStop": 7452,
+          "librarySequenceStart": 1,
+          "librarySequenceStop": 474,
+          "evalue": 0,
+          "bitScore": 856,
+          "reversed": false
+        }
+      ]
+    }
+  }
+}

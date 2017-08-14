@@ -33,6 +33,7 @@ public class AntibioticsListReader implements BiFunction<String, Path, Antimicro
 
     final Collection<AntimicrobialAgent> antimicrobials = records
         .stream()
+        .skip(1)
         .map(line -> new AntimicrobialAgent(line.get(0), line.get(2), line.get(1)))
         .collect(Collectors.toList());
 

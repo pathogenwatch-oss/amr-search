@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static net.cgps.wgsa.paarsnp.core.paar.ResistanceGene.EFFECT.RESISTANT;
-
 public class ResistanceSet extends AbstractJsonnable {
 
   @JsonIgnore
@@ -24,25 +22,24 @@ public class ResistanceSet extends AbstractJsonnable {
   @SuppressWarnings("unused")
   private ResistanceSet() {
 
-    this("", "", ResistanceType.RESISTANT, RESISTANT, Collections.emptySet());
+    this("", ResistanceType.RESISTANT, Collections.emptySet());
   }
 
-  public ResistanceSet(final String resistanceSetName, final String elementId, final ResistanceType effect, final ResistanceGene.EFFECT elementEffect, final Set<String> agents) {
+  public ResistanceSet(final String resistanceSetName, final ResistanceType effect, final Set<String> agents) {
 
     this.resistanceSetName = resistanceSetName;
     this.modifiers = new HashMap<>(5);
     this.elementIds = new HashSet<>(10);
     this.effect = effect;
-    this.addElementId(elementId, elementEffect);
     this.agents = agents;
   }
 
   public static ResistanceSet buildSnpResistanceSet(final String setName, final String geneId, final String snpCode, final Set<String> agents, final ResistanceType resistanceType) {
 
-    return new ResistanceSet(setName, geneId + "_" + snpCode, resistanceType, RESISTANT, agents);
+    return new ResistanceSet(setName, resistanceType, agents).addElementId(geneId + "_" + snpCode, ResistanceGene.EFFECT.RESISTANT);
   }
 
-  public void addElementId(final String geneName, final ResistanceGene.EFFECT elementEffect) {
+  public ResistanceSet addElementId(final String geneName, final ResistanceGene.EFFECT elementEffect) {
 
     // Assuming that all set elements have confers/induces consistently set, so not checking, just logging the inconsistency.
 
@@ -59,6 +56,7 @@ public class ResistanceSet extends AbstractJsonnable {
         this.modifiers.put(geneName, elementEffect);
         break;
     }
+    return this;
   }
 
   public String getResistanceSetName() {
