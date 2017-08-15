@@ -8,7 +8,7 @@ For the current databases look in the [resources directory](../build/resources)
 /{taxon-id}/
              ar_agents.csv
              ar_snps.csv  
-             ar_snps_lib.fa
+             ar_snps.fa
              resistance_genes.csv
              resistance_genes.fa
 ```  
