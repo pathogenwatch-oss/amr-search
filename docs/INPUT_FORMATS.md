@@ -50,7 +50,9 @@ The PAAR and SNPAR input CSV files have several fields in common. These are desc
   * `RESISTANCE` - Standard resistance SNP/gene
   * `MODIFIES_SUPPRESSES` - Suppresses expected resistance (e.g. suppressor gene).
   * `MODIFIES_INDUCED` - Makes resistance inducible instead of constitutive.
-* `Resistance Profile` - A comma-separated list of antimicrobials using the name from the first column of the ar_agents.csv
+* `Resistance Profile` - A comma-separated list of antimicrobials using the name from the first column of the _ar_agents.csv_. If more than one antimicrobial is specified the field must be enclosed in quotes, e.g. `"MET,PEN"`.
+
+Note that the order of the fields in the PAAR and SNPAR CSV files is not important.
 
 ### PAAR (_resistance_genes.csv, resistance_genes.fa_)
 
