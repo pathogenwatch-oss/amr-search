@@ -3,6 +3,7 @@ package net.cgps.wgsa.paarsnp.builder;
 import ch.qos.logback.classic.Level;
 import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgentLibrary;
+import net.cgps.wgsa.paarsnp.core.paar.PaarLibrary;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
@@ -84,10 +85,11 @@ public class PaarsnpBuilderMain {
 
         this.logger.info("Preparing {}", speciesId);
 
-        final Path paarCsvPath = Paths.get(taxonDir.toString(), "resistance_genes.tsv");
-        final Path snparCsvPath = Paths.get(taxonDir.toString(), "ar_snps.tsv");
-        final Path snparFastaPath = Paths.get(taxonDir.toString(), "ar_snps_lib.fa");
-        final Path amPath = Paths.get(taxonDir.toString(),"ar_agents.txt");
+        final Path paarCsvPath = Paths.get(taxonDir.toString(), "resistance_genes.csv");
+        final Path paarFastaPath = Paths.get(taxonDir.toString(), "resistance_genes.fa");
+        final Path snparCsvPath = Paths.get(taxonDir.toString(), "ar_snps.csv");
+        final Path snparFastaPath = Paths.get(taxonDir.toString(), "ar_snps.fa");
+        final Path amPath = Paths.get(taxonDir.toString(), "ar_agents.csv");
 
         if (fileMissing(paarCsvPath, snparCsvPath, snparFastaPath)) {
           throw new RuntimeException("Not all input files are present for " + speciesId);
@@ -96,7 +98,7 @@ public class PaarsnpBuilderMain {
         this.logger.debug("Reading PAAR CSV file {}", paarCsvPath.toAbsolutePath().toString());
 
         // Read the CSVs and generate the libraries
-        final PaarReader.PaarReaderData paarLibrary = new PaarReader(speciesId).apply(paarCsvPath);
+        final PaarLibrary paarLibrary = new PaarReader(speciesId).apply(paarCsvPath);
         final SnparLibrary snparLibrary = new SnparReader(speciesId).apply(snparCsvPath, snparFastaPath);
         final AntimicrobialAgentLibrary agentLibrary = new AntibioticsListReader().apply(speciesId, amPath);
 
@@ -110,10 +112,10 @@ public class PaarsnpBuilderMain {
         final Path amLibraryFile = Paths.get(outputDirectory, speciesId + Constants.AGENT_FILE_APPEND);
 
         try {
-          Files.write(paarLibraryFile, paarLibrary.getPaarLibrary().toJson().getBytes(), StandardOpenOption.CREATE);
-          Files.write(paarFastaFile, paarLibrary.getFasta().getBytes(), StandardOpenOption.CREATE);
+          Files.write(paarLibraryFile, paarLibrary.toJson().getBytes(), StandardOpenOption.CREATE);
           Files.write(snparLibraryFile, snparLibrary.toJson().getBytes(), StandardOpenOption.CREATE);
           Files.write(amLibraryFile, agentLibrary.toJson().getBytes(), StandardOpenOption.CREATE);
+          Files.copy(paarFastaPath, paarFastaFile, StandardCopyOption.REPLACE_EXISTING);
           Files.copy(snparFastaPath, snparFastaFile, StandardCopyOption.REPLACE_EXISTING);
         } catch (final IOException e) {
           throw new RuntimeException(e);
@@ -132,7 +134,6 @@ public class PaarsnpBuilderMain {
       this.logger.info("Failed to read input database in {}", inputDirectory);
       throw new RuntimeException(e);
     }
-
   }
 
   private boolean fileMissing(final Path... files) {

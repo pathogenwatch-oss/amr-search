@@ -14,7 +14,7 @@ public class AntibioticProfile extends AbstractJsonnable {
   @SuppressWarnings("unused")
   private AntibioticProfile() {
 
-    this(null, ResistanceState.UNKNOWN, Collections.emptyList());
+    this(null, ResistanceState.NOT_FOUND, Collections.emptyList());
   }
 
   public AntibioticProfile(final AntimicrobialAgent name, final ResistanceState resistanceState, final Collection<ResistanceSet> resistanceSets) {
@@ -26,7 +26,7 @@ public class AntibioticProfile extends AbstractJsonnable {
 
   public static AntibioticProfile buildDefault(final AntimicrobialAgent name) {
 
-    return new AntibioticProfile(name, ResistanceState.UNKNOWN, Collections.emptyList());
+    return new AntibioticProfile(name, ResistanceState.NOT_FOUND, Collections.emptyList());
   }
 
   public ResistanceState getResistanceState() {

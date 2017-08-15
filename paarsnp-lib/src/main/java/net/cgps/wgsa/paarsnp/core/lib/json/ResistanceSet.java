@@ -1,8 +1,8 @@
 package net.cgps.wgsa.paarsnp.core.lib.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.cgps.wgsa.paarsnp.core.lib.ResistanceType;
-import net.cgps.wgsa.paarsnp.core.paar.ResistanceGene;
+import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
+import net.cgps.wgsa.paarsnp.core.lib.SetResistanceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,19 +13,19 @@ public class ResistanceSet extends AbstractJsonnable {
   @JsonIgnore
   private final Logger logger = LoggerFactory.getLogger(ResistanceSet.class);
 
-  private final ResistanceType effect;
+  private final SetResistanceType effect;
   private final String resistanceSetName;
   private final Set<String> agents;
   private final Collection<String> elementIds;
-  private final Map<String, ResistanceGene.EFFECT> modifiers;
+  private final Map<String, ElementEffect> modifiers;
 
   @SuppressWarnings("unused")
   private ResistanceSet() {
 
-    this("", ResistanceType.RESISTANT, Collections.emptySet());
+    this("", SetResistanceType.RESISTANT, Collections.emptySet());
   }
 
-  public ResistanceSet(final String resistanceSetName, final ResistanceType effect, final Set<String> agents) {
+  public ResistanceSet(final String resistanceSetName, final SetResistanceType effect, final Set<String> agents) {
 
     this.resistanceSetName = resistanceSetName;
     this.modifiers = new HashMap<>(5);
@@ -34,24 +34,22 @@ public class ResistanceSet extends AbstractJsonnable {
     this.agents = agents;
   }
 
-  public static ResistanceSet buildSnpResistanceSet(final String setName, final String geneId, final String snpCode, final Set<String> agents, final ResistanceType resistanceType) {
+  public static ResistanceSet buildSnpResistanceSet(final String setName, final String geneId, final String snpCode, final Set<String> agents, final SetResistanceType setResistanceType, final ElementEffect effect) {
 
-    return new ResistanceSet(setName, resistanceType, agents).addElementId(geneId + "_" + snpCode, ResistanceGene.EFFECT.RESISTANT);
+    return new ResistanceSet(setName, setResistanceType, agents).addElementId(geneId + "_" + snpCode, effect);
   }
 
-  public ResistanceSet addElementId(final String geneName, final ResistanceGene.EFFECT elementEffect) {
+  public ResistanceSet addElementId(final String geneName, final ElementEffect elementEffect) {
 
     // Assuming that all set elements have confers/induces consistently set, so not checking, just logging the inconsistency.
 
     switch (elementEffect) {
-      case RESISTANT:
-      case INDUCED:
+      case RESISTANCE:
         this.logger.trace("Adding elementId={}", geneName);
         this.elementIds.add(geneName);
         break;
       case MODIFIES_SUPPRESSES:
       case MODIFIES_INDUCED:
-      case MODIFIES_RESISTANT:
         this.logger.trace("Adding modifier={} elementId={}", this.effect.name(), geneName);
         this.modifiers.put(geneName, elementEffect);
         break;
@@ -74,12 +72,12 @@ public class ResistanceSet extends AbstractJsonnable {
     return this.elementIds;
   }
 
-  public Map<String, ResistanceGene.EFFECT> getModifiers() {
+  public Map<String, ElementEffect> getModifiers() {
 
     return this.modifiers;
   }
 
-  public ResistanceType getEffect() {
+  public SetResistanceType getEffect() {
 
     return this.effect;
   }

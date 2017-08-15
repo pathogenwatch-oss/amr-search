@@ -28,7 +28,7 @@ public class PaarMatchFilter implements Predicate<BlastMatch> {
     final ResistanceGene resistanceGene = this.paarLibrary.getPaarGene(match.getLibrarySequenceId()).get();
 
     // Filter according to thresholds. The second threshold allows very v high similarity matches that have been badly assembled.
-    final double coverage = ((double) match.getSubjectMatchLength() / (double) resistanceGene.getLength()) * 100;
+    final double coverage = ((double) match.getSubjectMatchLength() / (double) match.getLibrarySequenceLength()) * 100;
 
     this.logger.debug("Filter parameters: name={} matchId={} matchCov={} idThreshold={} covThreshold={}", resistanceGene.getFamilyName(), match.getPercentIdentity(), coverage, resistanceGene.getSimilarityThreshold(), resistanceGene.getLengthThreshold());
 

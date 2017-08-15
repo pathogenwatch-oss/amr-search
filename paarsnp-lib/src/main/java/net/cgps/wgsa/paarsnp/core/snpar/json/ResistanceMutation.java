@@ -2,7 +2,6 @@ package net.cgps.wgsa.paarsnp.core.snpar.json;
 
 import net.cgps.wgsa.paarsnp.core.lib.SequenceType;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
-import net.cgps.wgsa.paarsnp.core.snpar.MutationType;
 
 public class ResistanceMutation extends AbstractJsonnable {
 
@@ -17,19 +16,16 @@ public class ResistanceMutation extends AbstractJsonnable {
   private final String originalSequence;
   private final int repSequenceLocation;
   private final String mutationSequence;
-  private final MutationType mutationType;
-
 
   @SuppressWarnings("unused")
   private ResistanceMutation() {
 
-    this("", "", MutationType.S, SequenceType.PROTEIN, "", "", 0, "", "");
+    this("", "", SequenceType.PROTEIN, "", "", 0, "", "");
   }
 
-  public ResistanceMutation(final String name, final String setId, final MutationType mutationType, final SequenceType sequenceType, final String referenceId, final String originalSequence, final int repSequenceLocation, final String mutationSequence, final String source) {
+  public ResistanceMutation(final String name, final String setId, final SequenceType sequenceType, final String referenceId, final String originalSequence, final int repSequenceLocation, final String mutationSequence, final String source) {
     // NB for the SNP archive the query location is the same as the representative location.
     this.name = name;
-    this.mutationType = mutationType;
     this.sequenceType = sequenceType;
     this.setId = setId;
     this.referenceId = referenceId;
@@ -55,10 +51,6 @@ public class ResistanceMutation extends AbstractJsonnable {
     return this.mutationSequence;
   }
 
-  public MutationType getMutationType() {
-    return this.mutationType;
-  }
-
   public String getSetId() {
 
     return this.setId;
@@ -81,55 +73,32 @@ public class ResistanceMutation extends AbstractJsonnable {
 
   @Override
   public boolean equals(final Object o) {
-
-    if (this == o) {
-      return true;
-    }
-    if (o == null || this.getClass() != o.getClass()) {
-      return false;
-    }
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
 
     final ResistanceMutation that = (ResistanceMutation) o;
 
-    if (this.repSequenceLocation != that.repSequenceLocation) {
+    if (repSequenceLocation != that.repSequenceLocation) return false;
+    if (sequenceType != that.sequenceType) return false;
+    if (setId != null ? !setId.equals(that.setId) : that.setId != null) return false;
+    if (source != null ? !source.equals(that.source) : that.source != null) return false;
+    if (name != null ? !name.equals(that.name) : that.name != null) return false;
+    if (referenceId != null ? !referenceId.equals(that.referenceId) : that.referenceId != null) return false;
+    if (originalSequence != null ? !originalSequence.equals(that.originalSequence) : that.originalSequence != null)
       return false;
-    }
-    if (this.sequenceType != that.sequenceType) {
-      return false;
-    }
-    if (this.setId != null ? !this.setId.equals(that.setId) : that.setId != null) {
-      return false;
-    }
-    if (this.source != null ? !this.source.equals(that.source) : that.source != null) {
-      return false;
-    }
-    if (this.name != null ? !this.name.equals(that.name) : that.name != null) {
-      return false;
-    }
-    if (this.referenceId != null ? !this.referenceId.equals(that.referenceId) : that.referenceId != null) {
-      return false;
-    }
-    if (this.originalSequence != null ? !this.originalSequence.equals(that.originalSequence) : that.originalSequence != null) {
-      return false;
-    }
-    if (this.mutationSequence != null ? !this.mutationSequence.equals(that.mutationSequence) : that.mutationSequence != null) {
-      return false;
-    }
-    return this.mutationType == that.mutationType;
+    return mutationSequence != null ? mutationSequence.equals(that.mutationSequence) : that.mutationSequence == null;
   }
 
   @Override
   public int hashCode() {
-
-    int result = this.sequenceType != null ? this.sequenceType.hashCode() : 0;
-    result = 31 * result + (this.setId != null ? this.setId.hashCode() : 0);
-    result = 31 * result + (this.source != null ? this.source.hashCode() : 0);
-    result = 31 * result + (this.name != null ? this.name.hashCode() : 0);
-    result = 31 * result + (this.referenceId != null ? this.referenceId.hashCode() : 0);
-    result = 31 * result + (this.originalSequence != null ? this.originalSequence.hashCode() : 0);
-    result = 31 * result + this.repSequenceLocation;
-    result = 31 * result + (this.mutationSequence != null ? this.mutationSequence.hashCode() : 0);
-    result = 31 * result + (this.mutationType != null ? this.mutationType.hashCode() : 0);
+    int result = sequenceType != null ? sequenceType.hashCode() : 0;
+    result = 31 * result + (setId != null ? setId.hashCode() : 0);
+    result = 31 * result + (source != null ? source.hashCode() : 0);
+    result = 31 * result + (name != null ? name.hashCode() : 0);
+    result = 31 * result + (referenceId != null ? referenceId.hashCode() : 0);
+    result = 31 * result + (originalSequence != null ? originalSequence.hashCode() : 0);
+    result = 31 * result + repSequenceLocation;
+    result = 31 * result + (mutationSequence != null ? mutationSequence.hashCode() : 0);
     return result;
   }
 }

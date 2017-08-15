@@ -1,11 +1,11 @@
 package net.cgps.wgsa.paarsnp;
 
+import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
 import net.cgps.wgsa.paarsnp.core.lib.ResistanceState;
-import net.cgps.wgsa.paarsnp.core.lib.ResistanceType;
+import net.cgps.wgsa.paarsnp.core.lib.SetResistanceType;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntibioticProfile;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.paar.PaarResult;
-import net.cgps.wgsa.paarsnp.core.paar.ResistanceGene;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,20 +50,20 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
                   if (!antibioticProfiles.containsKey(agent)) {
                     // New antibiotic.
 
-                    // Check if it's a modifier set (Sets that confer resistance but contain a modifier element)
+                    // Check if it's a modified set (Sets that confer resistance but contain a modifier element)
                     if (paarsnpResultData.paarResult.getModifiedSets().containsKey(resistanceSet.getResistanceSetName())) {
 
                       // This isn't complete as it does't handle all possibilities, with the resistance set effects, but currently we don't have any modifiers in intermediate effect sets.
 
                       final ResistanceState rs;
-                      final ResistanceGene.EFFECT modification = paarsnpResultData.paarResult.getModifiedSets().get(resistanceSet.getResistanceSetName());
+                      final ElementEffect modification = paarsnpResultData.paarResult.getModifiedSets().get(resistanceSet.getResistanceSetName());
 
-                      if (ResistanceGene.EFFECT.MODIFIES_INDUCED == modification) {
+                      if (ElementEffect.MODIFIES_INDUCED == modification) {
                         rs = ResistanceState.INDUCIBLE;
-                      } else if (ResistanceGene.EFFECT.MODIFIES_RESISTANT == modification) {
-                        rs = ResistanceState.RESISTANT;
+                      } else if (ElementEffect.MODIFIES_SUPPRESSES == modification){
+                        rs = ResistanceState.NOT_FOUND;
                       } else {
-                        rs = ResistanceState.UNKNOWN;
+                        rs = ResistanceState.NOT_FOUND;
                       }
 
                       antibioticProfiles.put(agent, new AntibioticProfile(agents.get(agent), rs, new ArrayList<>(10)));
@@ -72,11 +72,11 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
 
                       final ResistanceState rs;
 
-                      if (ResistanceType.RESISTANT == resistanceSet.getEffect()) {
+                      if (SetResistanceType.RESISTANT == resistanceSet.getEffect()) {
                         rs = ResistanceState.RESISTANT;
-                      } else if (ResistanceType.INTERMEDIATE_NOT_ADDITIVE == resistanceSet.getEffect()) {
+                      } else if (SetResistanceType.INTERMEDIATE_NOT_ADDITIVE == resistanceSet.getEffect()) {
                         rs = ResistanceState.INTERMEDIATE;
-                      } else if (ResistanceType.INTERMEDIATE_ADDITIVE == resistanceSet.getEffect()) {
+                      } else if (SetResistanceType.INTERMEDIATE_ADDITIVE == resistanceSet.getEffect()) {
                         rs = ResistanceState.RESISTANT;
                       } else {
                         rs = ResistanceState.INDUCIBLE;
@@ -93,13 +93,11 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
                     // If the previous assignment was intermediate and the current is resistant, then replace the profile
                     if (ResistanceState.INTERMEDIATE == antibioticProfiles.get(agent).getResistanceState()
                         &&
-                        (ResistanceType.RESISTANT == resistanceSet.getEffect()) || (ResistanceType.INTERMEDIATE_ADDITIVE == resistanceSet.getEffect())) {
+                        (SetResistanceType.RESISTANT == resistanceSet.getEffect()) || (SetResistanceType.INTERMEDIATE_ADDITIVE == resistanceSet.getEffect())) {
                       antibioticProfiles.put(agent, new AntibioticProfile(agents.get(agent), ResistanceState.RESISTANT, antibioticProfiles.get(agent).getResistanceSets()));
 
                     }
-
                   }
-
                   // finally add the set.
                   antibioticProfiles.get(agent).addSet(resistanceSet);
                 })
@@ -116,7 +114,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
 
                 final ResistanceState rs;
 
-                if (ResistanceType.INTERMEDIATE_ADDITIVE == partialSet.getEffect()) {
+                if (SetResistanceType.INTERMEDIATE_ADDITIVE == partialSet.getEffect()) {
                   // These sets provide intermediate resistance when not complete. All other sets are sensitive.
                   rs = ResistanceState.INTERMEDIATE;
                   antibioticProfiles.put(agent, new AntibioticProfile(agents.get(agent), rs, new ArrayList<>(10)));
@@ -126,7 +124,6 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
               }
             })
         );
-
 
     // Sorts the profile and adds the antibiotics with no matches.
     final Collection<AntibioticProfile> sortedAntibioticProfiles = paarsnpResultData.referenceProfile.stream().map(agent -> antibioticProfiles.getOrDefault(agent, AntibioticProfile.buildDefault(agents.get(agent)))).collect(Collectors.toList());

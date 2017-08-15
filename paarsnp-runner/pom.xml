@@ -45,6 +45,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${paarsnp.maven-compiler.version}</version>
                 <configuration>
                     <source>${paarsnp.java.version}</source>
                     <target>${paarsnp.java.version}</target>
@@ -106,11 +107,24 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>tag-latest</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <tag>latest</tag>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>push-image</id>
                         <phase>install</phase>
                         <goals>
                             <goal>push</goal>
                         </goals>
+                        <configuration>
+                            <tag>${jgitver.calculated_version}</tag>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>

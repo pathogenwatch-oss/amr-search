@@ -1,6 +1,7 @@
 package net.cgps.wgsa.paarsnp.builder;
 
-import net.cgps.wgsa.paarsnp.core.lib.ResistanceType;
+import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
+import net.cgps.wgsa.paarsnp.core.lib.SetResistanceType;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.paar.PaarAntibioticSummary;
 import net.cgps.wgsa.paarsnp.core.paar.PaarGeneSummary;
@@ -17,15 +18,13 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Function;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PaarReader implements Function<Path, PaarReader.PaarReaderData> {
+public class PaarReader implements Function<Path, PaarLibrary> {
 
   private static final float DEFAULT_SIMILARITY_THRESHOLD = 80.0f;
   private static final float DEFAULT_LENGTH_THRESHOLD = 80.0f;
-  private static final Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+", Pattern.LITERAL);
   private final Logger logger = LoggerFactory.getLogger(PaarReader.class);
 
   private final String speciesId;
@@ -35,26 +34,17 @@ public class PaarReader implements Function<Path, PaarReader.PaarReaderData> {
   }
 
   @Override
-  public PaarReaderData apply(final Path paarCsv) {
-
-    final Map<String, ResistanceGene> paarGeneLib = new HashMap<>(100);
-    final Map<String, ResistanceSet> resistanceSets = new HashMap<>(100);
-
-    final StringBuilder fastaSb = new StringBuilder(50000);
-
-    // File format: geneName resistanceGroup resistanceProfile sequence phenotypeDescription<:optional>
+  public PaarLibrary apply(final Path paarCsv) {
 
     this.logger.info("Reading {}", paarCsv.toString());
 
-    try {
-      final CSVParser parser = CSVParser.parse(paarCsv.toFile(), Charset.defaultCharset(), CSVFormat.RFC4180);
+    final Map<String, ResistanceSet> resistanceSets = new HashMap<>(100);
+    final Map<String, ResistanceGene> paarGeneLib = new HashMap<>(100);
+
+    try (final CSVParser parser = CSVParser.parse(paarCsv.toFile(), Charset.defaultCharset(), CSVFormat.RFC4180.withFirstRecordAsHeader())) {
 
       for (final CSVRecord csvRecord : parser.getRecords()) {
-        this.logger.trace("geneName={}", csvRecord.get(0));
-        if ("Gene Name".equals(csvRecord.get(0))) {
-          continue;
-        }
-        this.generateResistanceGene(csvRecord, fastaSb, resistanceSets, paarGeneLib);
+        this.generateResistanceGene(csvRecord, resistanceSets, paarGeneLib);
       }
 
     } catch (final IOException e) {
@@ -83,21 +73,19 @@ public class PaarReader implements Function<Path, PaarReader.PaarReaderData> {
         .min().orElseThrow(() -> new RuntimeException("Unable to find any minimum threshold data"))
         - 5;
 
-    return new PaarReaderData(new PaarLibrary(paarGeneLib.values(), resistanceSets.values(), amrSummary, this.speciesId, minThreshold), fastaSb.toString());
+    return new PaarLibrary(paarGeneLib.values(), resistanceSets.values(), amrSummary, this.speciesId, minThreshold);
   }
 
-  private void generateResistanceGene(final CSVRecord csvRecord, final StringBuilder fastaSb, final Map<String, ResistanceSet> resistanceSetMap, final Map<String, ResistanceGene> resistanceGeneMap) {
-
-    this.logger.info("geneName={} setName={} effect={} agents={} simThreshold={} lengthThreshold", csvRecord.get(0), csvRecord.get(1), csvRecord.get(2), csvRecord.get(3), csvRecord.get(5), csvRecord.get(6));
+  private void generateResistanceGene(final CSVRecord csvRecord, final Map<String, ResistanceSet> resistanceSetMap, final Map<String, ResistanceGene> resistanceGeneMap) {
 
     // Clean up any potential issues with the sequence.
-    final String geneName = csvRecord.get(0);
-    final String setName = csvRecord.get(1).isEmpty() ? csvRecord.get(0) : csvRecord.get(1);
-    final ResistanceGene.EFFECT effect = ResistanceGene.EFFECT.valueOf(csvRecord.get(2));
-    final Set<String> allAgents = this.mapAgentsToFullObjects(csvRecord.get(3));
-    final float simThreshold = "".equals(csvRecord.get(5)) ? DEFAULT_SIMILARITY_THRESHOLD : Float.valueOf(csvRecord.get(5));
-    final float lengthThreshold = "".equals(csvRecord.get(6)) ? DEFAULT_LENGTH_THRESHOLD : Float.valueOf(csvRecord.get(6));
-    final String sequence = WHITESPACE_PATTERN.matcher(csvRecord.get(4).trim()).replaceAll("").toUpperCase();
+    final String geneName = csvRecord.get("Gene Name").trim();
+    final String setName = csvRecord.get("Resistance Group").isEmpty() ? geneName : csvRecord.get("Resistance Group").trim();
+    final SetResistanceType resistanceType = SetResistanceType.valueOf(csvRecord.get("Set Effect").trim());
+    final ElementEffect effect = ElementEffect.valueOf(csvRecord.get("Effect").trim());
+    final Set<String> allAgents = this.mapAgentsToFullObjects(csvRecord.get("Resistance Profile").trim());
+    final float simThreshold = Float.valueOf(csvRecord.get("PID Threshold").trim());
+    final float lengthThreshold = Float.valueOf(csvRecord.get("Coverage Threshold").trim());
 
     if (!allAgents.isEmpty()) {
       try {
@@ -107,8 +95,7 @@ public class PaarReader implements Function<Path, PaarReader.PaarReaderData> {
           resistanceGeneMap.get(geneName).addResistanceSetName(setName);
         } else {
           // New gene, so initiate & append to the fasta.
-          resistanceGeneMap.put(geneName, new ResistanceGene(setName, geneName, sequence.length(), lengthThreshold, simThreshold, effect));
-          fastaSb.append(">").append(geneName).append("\n").append(sequence).append("\n");
+          resistanceGeneMap.put(geneName, new ResistanceGene(setName, geneName, lengthThreshold, simThreshold, effect));
         }
 
         if (resistanceSetMap.containsKey(setName)) {
@@ -118,7 +105,7 @@ public class PaarReader implements Function<Path, PaarReader.PaarReaderData> {
         } else {
           // Construct a new resistance set.
           this.logger.debug("Constructing new set with geneName={} with effect={} to set={}", geneName, effect, setName);
-          resistanceSetMap.put(setName, new ResistanceSet(setName, ResistanceType.RESISTANT, allAgents).addElementId(geneName, effect));
+          resistanceSetMap.put(setName, new ResistanceSet(setName, resistanceType, allAgents).addElementId(geneName, effect));
         }
       } catch (final NumberFormatException e) {
         this.logger.error("Field from line {} not a number: {}", csvRecord.toString(), e.getMessage());
@@ -131,23 +118,5 @@ public class PaarReader implements Function<Path, PaarReader.PaarReaderData> {
 
   private Set<String> mapAgentsToFullObjects(final String agents) {
     return new HashSet<>(Arrays.asList(agents.split(",")));
-  }
-
-  public static class PaarReaderData {
-    private final PaarLibrary paarLibrary;
-    private final String fasta;
-
-    public PaarReaderData(PaarLibrary paarLibrary, String fasta) {
-      this.paarLibrary = paarLibrary;
-      this.fasta = fasta;
-    }
-
-    public PaarLibrary getPaarLibrary() {
-      return paarLibrary;
-    }
-
-    public String getFasta() {
-      return fasta;
-    }
   }
 }

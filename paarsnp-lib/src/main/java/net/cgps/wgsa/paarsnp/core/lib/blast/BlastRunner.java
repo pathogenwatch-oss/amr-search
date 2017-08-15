@@ -29,7 +29,7 @@ public class BlastRunner<T> implements Function<String[], T> {
 
     final ProcessBuilder pb = new ProcessBuilder(command);
 
-    this.logger.info(StringUtils.join(command, " "));
+    this.logger.debug(StringUtils.join(command, " "));
 
     Process p = null;
 

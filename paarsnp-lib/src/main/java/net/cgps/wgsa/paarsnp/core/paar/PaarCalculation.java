@@ -4,6 +4,7 @@ package net.cgps.wgsa.paarsnp.core.paar;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.SetMultimap;
+import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class PaarCalculation implements Function<Collection<BlastMatch>, PaarRes
     final Multimap<String, BlastMatch> matches = HashMultimap.create();
     final Collection<ResistanceSet> completedSets = new HashSet<>(10);
     final Collection<ResistanceSet> partialSets = new HashSet<>(10);
-    final Map<String, ResistanceGene.EFFECT> modifiedSets = new HashMap<>(); // setId -> effect
+    final Map<String, ElementEffect> modifiedSets = new HashMap<>(); // setId -> effect
 
     // used to work out which are complete
     final SetMultimap<String, ResistanceGene> setCounts = HashMultimap.create();
@@ -53,7 +54,7 @@ public class PaarCalculation implements Function<Collection<BlastMatch>, PaarRes
              )
         .forEach(matchToGeneEntry -> {
                    // Add for each set the gene may belong to.
-                   if (ResistanceGene.EFFECT.RESISTANT == matchToGeneEntry.getValue().getEffect()) {
+                   if (ElementEffect.RESISTANCE == matchToGeneEntry.getValue().getEffect()) {
 
                      this.logger.debug("Adding {} to sets {}", matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getValue().getResistanceSetNames().stream().collect(Collectors.joining(",")));
 

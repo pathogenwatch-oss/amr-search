@@ -29,7 +29,7 @@ public class SnparRun implements Function<InputData, SnparResult> {
   @Override
   public SnparResult apply(final InputData inputData) {
 
-    this.logger.info("Preparing SNPAR request for {} ", inputData.getAssemblyId());
+    this.logger.debug("Preparing SNPAR request for {} ", inputData.getAssemblyId());
 
     final String[] command = new String[]{
         "blastn",

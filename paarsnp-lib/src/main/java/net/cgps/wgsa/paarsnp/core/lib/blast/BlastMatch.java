@@ -96,10 +96,8 @@ public class BlastMatch {
   /**
    * Checks if the start-end coordinates indicate that two matches are on the same strand.
    *
-   * @param isForward1
-   *     - direction of strand 1 (boolean, reversed -> true, reverse -> false)
-   * @param isForward2
-   *     - direction of strand 2 (boolean, reversed -> true, reverse -> false)
+   * @param isForward1 - direction of strand 1 (boolean, reversed -> true, reverse -> false)
+   * @param isForward2 - direction of strand 2 (boolean, reversed -> true, reverse -> false)
    * @return matches are on the same strand = true
    */
   public static boolean sameStrand(final boolean isForward1, final boolean isForward2) {
@@ -111,6 +109,11 @@ public class BlastMatch {
   public int getQuerySequenceLength() {
 
     return this.querySequenceLength;
+  }
+
+  public int getLibrarySequenceLength() {
+
+    return this.librarySequenceLength;
   }
 
   @Override

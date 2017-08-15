@@ -14,12 +14,10 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
@@ -50,26 +48,40 @@ public class PaarsnpMain {
       // Resolve the file path.
       final Path input = Paths.get(commandLine.getOptionValue('i'));
 
-      final Collection<Path> fastas = new ArrayList<>();
+      final Collection<Path> fastas;
       final Path workingDirectory;
 
       if (Files.exists(input, LinkOption.NOFOLLOW_LINKS)) {
 
         if (Files.isRegularFile(input)) {
-          workingDirectory = input.getParent();
-          fastas.add(input);
+          workingDirectory = input.toAbsolutePath().getParent();
+          fastas = Collections.singletonList(input);
+          root.debug("Processing one file", input);
         } else {
-          Files.newDirectoryStream(input, entry -> entry.endsWith(".fna") || entry.endsWith(".fa") || entry.endsWith("fasta")).forEach(fastas::add);
+          fastas = new ArrayList<>(10000);
+          try (final DirectoryStream<Path> stream = Files.newDirectoryStream(
+              input
+              , entry -> {
+                root.debug(entry.toString());
+                return entry.toString().endsWith(".fna") || entry.toString().endsWith(".fa") || entry.toString().endsWith(".fasta");
+              })
+          ) {
+            stream.forEach(fastas::add);
+          }
+          root.debug("Processing {} files from \"{}\".", fastas.size(), input.toAbsolutePath().toString());
           workingDirectory = input;
         }
-      } else if (Files.exists(Paths.get("/data", commandLine.getOptionValue('i')))) {
-        fastas.add(Paths.get("/data", commandLine.getOptionValue('i')));
-        workingDirectory = Paths.get("/data");
       } else {
         throw new RuntimeException("Can't find input file or directory " + input.toAbsolutePath().toString());
       }
 
-      new PaarsnpMain().run(commandLine.getOptionValue('s'), fastas, workingDirectory, commandLine.hasOption('o'), commandLine.getOptionValue('d', "databases"));
+      String databasePath = commandLine.getOptionValue('d', "databases");
+
+      if (!Files.exists(Paths.get(databasePath))) {
+        databasePath = "/paarsnp/" + databasePath;
+      }
+
+      new PaarsnpMain().run(commandLine.getOptionValue('s'), fastas, workingDirectory, commandLine.hasOption('o'), databasePath);
     } catch (final Exception e) {
       LoggerFactory.getLogger(PaarsnpMain.class).error("Failed to run due to: ", e);
       System.exit(1);
@@ -98,7 +110,6 @@ public class PaarsnpMain {
   }
 
   private void run(final String speciesId, final Collection<Path> assemblyFiles, final Path workingDirectory, final boolean isToStdout, final String resourceDirectory) {
-
 
     final PaarLibrary paarLibrary;
     final SnparLibrary snparLibrary;

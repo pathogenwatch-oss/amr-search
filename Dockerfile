@@ -12,4 +12,4 @@ RUN mkdir /opt/blast \
 
 ENV PATH /opt/blast/bin:$PATH
 
-CMD ["bash"]
+WORKDIR /data

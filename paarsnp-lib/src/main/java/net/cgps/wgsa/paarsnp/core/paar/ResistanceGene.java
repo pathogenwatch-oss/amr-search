@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.paar;
 
+import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 
 import java.util.Collection;
@@ -10,29 +11,27 @@ public class ResistanceGene extends AbstractJsonnable {
 
   private final Set<String> resistanceSetNames;
   private final String familyName;
-  private final int length;
   private final float lengthThreshold;
   private final float similarityThreshold;
-  private final ResistanceGene.EFFECT effect;
+  private final ElementEffect effect;
 
   @SuppressWarnings("unused")
   private ResistanceGene() {
 
-    this("", "", 0, 0, 0, EFFECT.RESISTANT);
+    this("", "", 0, 0, ElementEffect.RESISTANCE);
   }
 
-  public ResistanceGene(final String setName, final String familyName, final int length, final float lengthThreshold, final float similarityThreshold, final EFFECT effect) {
+  public ResistanceGene(final String setName, final String familyName,final float lengthThreshold, final float similarityThreshold, final ElementEffect effect) {
 
     this.effect = effect;
     this.resistanceSetNames = new HashSet<>(5);
     this.resistanceSetNames.add(setName);
     this.familyName = familyName;
-    this.length = length;
     this.lengthThreshold = lengthThreshold;
     this.similarityThreshold = similarityThreshold;
   }
 
-  public EFFECT getEffect() {
+  public ElementEffect getEffect() {
 
     return this.effect;
   }
@@ -40,11 +39,6 @@ public class ResistanceGene extends AbstractJsonnable {
   public String getFamilyName() {
 
     return this.familyName;
-  }
-
-  public int getLength() {
-
-    return this.length;
   }
 
   public float getLengthThreshold() {
@@ -68,7 +62,6 @@ public class ResistanceGene extends AbstractJsonnable {
     final int prime = 31;
     int result = 1;
     result = (prime * result) + ((null == this.familyName) ? 0 : this.familyName.hashCode());
-    result = (prime * result) + this.length;
     result = (prime * result) + ((null == this.resistanceSetNames) ? 0 : this.resistanceSetNames.hashCode());
     return result;
   }
@@ -98,9 +91,6 @@ public class ResistanceGene extends AbstractJsonnable {
     } else if (!this.familyName.equals(other.familyName)) {
       return false;
     }
-    if (this.length != other.length) {
-      return false;
-    }
     if (this.resistanceSetNames == null) {
       if (other.resistanceSetNames != null) {
         return false;
@@ -117,7 +107,6 @@ public class ResistanceGene extends AbstractJsonnable {
     return "ResistanceGene{" +
         ", resistanceSetNames='" + this.resistanceSetNames + '\'' +
         ", familyName='" + this.familyName + '\'' +
-        ", length=" + this.length +
         ", lengthThreshold=" + this.lengthThreshold +
         ", similarityThreshold=" + this.similarityThreshold +
         '}';
@@ -132,7 +121,4 @@ public class ResistanceGene extends AbstractJsonnable {
     this.resistanceSetNames.add(setName);
   }
 
-  public enum EFFECT {
-    RESISTANT, INDUCED, MODIFIES_SUPPRESSES, MODIFIES_INDUCED, MODIFIES_RESISTANT
-  }
 }

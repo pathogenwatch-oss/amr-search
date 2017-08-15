@@ -37,7 +37,7 @@ public class PaarRun implements Function<InputData, PaarResult> {
 
   public PaarResult apply(final InputData inputData) {
 
-    this.logger.info("Preparing PAAR request for {} ", inputData.getAssemblyId());
+    this.logger.debug("Preparing PAAR request for {} ", inputData.getAssemblyId());
 
     final String[] command = new String[]{
         "blastn",

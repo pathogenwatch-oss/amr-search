@@ -39,7 +39,7 @@ public class PaarsnpResult extends AbstractJsonnable {
     return this.paarResult;
   }
 
-  public Collection<AntibioticProfile> getCompleteProfile() {
+  public Collection<AntibioticProfile> getResistanceProfile() {
 
     return this.resistanceProfile;
   }
