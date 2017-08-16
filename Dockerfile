@@ -11,5 +11,3 @@ RUN mkdir /opt/blast \
       | tar -zxC /opt/blast --strip-components=1
 
 ENV PATH /opt/blast/bin:$PATH
-
-WORKDIR /data
