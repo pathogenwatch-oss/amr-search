@@ -100,6 +100,10 @@ To run paarsnp on all FASTA files in the local directory, with an output file fo
 
 `docker run --rm -v $PWD:/data paarsnp -i . -s 90370`
 
+If the FASTA folder is in a different directory you can mount it to docker as below.
+
+`docker run --rm -v /full/path/to/FASTAS/:/data registry.gitlab.com/cgps/cgps-paarsnp -i . -s 90370`
+
 NB "/data" is a protected folder for paarsnp, and is normally used to mount the local drive.
 
 To get the results to STDOUT rather than file:
