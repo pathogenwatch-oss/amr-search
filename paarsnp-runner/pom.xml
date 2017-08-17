@@ -113,7 +113,7 @@
                             <goal>tag</goal>
                         </goals>
                         <configuration>
-                            <tag>>${jgitver.calculated_version}</tag>
+                            <tag>${jgitver.calculated_version}</tag>
                         </configuration>
                     </execution>
                     <execution>
