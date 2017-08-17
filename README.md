@@ -50,7 +50,7 @@ Or, for faster future builds, first create a docker volume (1st command) and use
 docker volume create --name maven-repo
 docker build -t paarsnp-builder -f Dockerfile .
 # Only use this command to update paarsnp in the future.
-docker run -it --rm --name paarsnp -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)":/usr/src/mymaven -v maven-repo:/root/.m2 -v ~/.docker:/root/.docker -w /usr/src/mymaven paarsnp-builder mvn clean
+docker run -it --rm --name paarsnp -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)":/usr/src/mymaven -v maven-repo:/root/.m2 -v ~/.docker:/root/.docker -w /usr/src/mymaven paarsnp-builder mvn clean package
 ```
 
 At this point you can use [Docker](#running-with-docker) or run it directly from the [terminal](#running-directly) (requires JAVA 8 to be installed as well).
