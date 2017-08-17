@@ -35,21 +35,27 @@ It's also possible extend the current AMR libraries or to generate your own AMR 
 ### Docker-based Build (recommended)
 
 Requires:
-* Docker & git.
+* Docker (Optional: Git for building from master with version tags)
 * Runs on any OS supported by Docker.
 
+1. Download the code as a zip bundle, e.g. for the lastest code use the example below, or take a specific release from # Alternatively, pick a specific release from (releases)[https://github.com/ImperialCollegeLondon/cgps-paarsnp/releases]. Alternatively, you can `git clone  https://github.com/ImperialCollegeLondon/cgps-paarsnp.git`.
+
 ```
-git clone https://github.com/ImperialCollegeLondon/paarsnp.git
+wget https://github.com/ImperialCollegeLondon/cgps-paarsnp/archive/master.zip
+unzip code-paarsnp-master.zip
+```
+2. Installation
+```
 cd paarsnp
 docker build -t paarsnp-builder -f Dockerfile .
 # The next command actually builds paarsnp as a JAR and as a container
 docker run -it --rm --name paarsnp -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)":/usr/src/mymaven -v ~/.docker:/root/.docker -w /usr/src/mymaven paarsnp-builder mvn clean package
 ```
-Or, for faster future builds, first create a docker volume (1st command) and use it for future builds (third command):
+Or, for faster future builds, create a docker volume (2nd command) and use it for future builds (third command):
 ```
-docker volume create --name maven-repo
 docker build -t paarsnp-builder -f Dockerfile .
-# Only use this command to update paarsnp in the future.
+docker volume create --name maven-repo
+# Use this command for faster future builds.
 docker run -it --rm --name paarsnp -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)":/usr/src/mymaven -v maven-repo:/root/.m2 -v ~/.docker:/root/.docker -w /usr/src/mymaven paarsnp-builder mvn clean package
 ```
 
@@ -64,7 +70,7 @@ Optional:
 * blastn on $PATH (for running the unit tests)
 
 ```
-git clone https://github.com/ImperialCollegeLondon/paarsnp.git
+git clone https://github.com/ImperialCollegeLondon/cgps-paarsnp.git
 cd paarsnp
 mvn -Dmaven.test.skip=true install
 # (or leave out -Dmaven.test.skip=true if blastn is available)
@@ -86,7 +92,7 @@ Usage
 
 To run paarsnp on a single Salmonella _Typhi_ (`90370`) FASTA file in the local directory using the container. An output file `assembly_paarsnp.jsn` is created.
 
-NB If you used the recommended docker build process, substitute `paarsnp` for `registry.gitlab.com/cgps/wgsa-tasks/paarsnp`.
+NB If you used the recommended docker build process, substitute `paarsnp` for `registry.gitlab.com/cgps/cgps-paarsnp/paarsnp`.
 
 `docker run --rm -v $PWD:/data paarsnp -i assembly.fa -s 90370`
 

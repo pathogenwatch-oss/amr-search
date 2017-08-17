@@ -97,27 +97,27 @@
                 <executions>
                     <!-- for now all images will be explicitly tagged -->
                     <execution>
-                        <id>build-tagged-image</id>
+                        <id>build-latest-image</id>
                         <phase>package</phase>
                         <goals>
                             <goal>build</goal>
-                        </goals>
-                        <configuration>
-                            <tag>${jgitver.calculated_version}</tag>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>tag-latest</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>tag</goal>
                         </goals>
                         <configuration>
                             <tag>latest</tag>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>push-image</id>
+                        <id>tag-latest</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <tag>>${jgitver.calculated_version}</tag>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>push-tagged-image</id>
                         <phase>install</phase>
                         <goals>
                             <goal>push</goal>

@@ -74,7 +74,11 @@ public class PaarsnpBuilderMain {
     }
 
     if (fileMissing(outputFolderPath)) {
-      throw new RuntimeException("Output folder " + outputFolderPath.toAbsolutePath().toString() + " does not exist.");
+      try {
+        Files.createDirectories(outputFolderPath);
+      } catch (IOException e) {
+        throw new RuntimeException("Unable to create output folder " + outputFolderPath.toAbsolutePath().toString());
+      }
     }
 
     try (final DirectoryStream<Path> dbStream = Files.newDirectoryStream(inputFolderPath, SPECIES_FOLDER_FILTER)) {
