@@ -35,8 +35,8 @@ It's also possible extend the current AMR libraries or to generate your own AMR 
 ### Docker-based Build (recommended)
 
 Requires:
-* Docker
-* That is all
+* Docker & git.
+* Runs on any OS supported by Docker.
 
 ```
 git clone https://github.com/ImperialCollegeLondon/paarsnp.git
