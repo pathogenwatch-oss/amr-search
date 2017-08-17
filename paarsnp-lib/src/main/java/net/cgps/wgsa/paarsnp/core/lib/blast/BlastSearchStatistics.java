@@ -1,4 +1,6 @@
-package net.cgps.wgsa.paarsnp.core.lib.json;
+package net.cgps.wgsa.paarsnp.core.lib.blast;
+
+import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 
 import java.util.function.Function;
 

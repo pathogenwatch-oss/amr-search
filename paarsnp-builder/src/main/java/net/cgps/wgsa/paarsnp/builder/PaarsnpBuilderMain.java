@@ -45,7 +45,9 @@ public class PaarsnpBuilderMain {
 
     } catch (final Exception e) {
       LoggerFactory.getLogger(PaarsnpBuilderMain.class).error("Failed to run due to: ", e);
+      System.exit(1);
     }
+    System.exit(0);
   }
 
   private static Options myOptions() {

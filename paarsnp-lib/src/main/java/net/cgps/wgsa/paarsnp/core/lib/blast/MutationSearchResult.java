@@ -1,7 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.cgps.wgsa.paarsnp.core.lib.json.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 
 import java.util.ArrayList;

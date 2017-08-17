@@ -1,7 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.snpar.json;
 
+import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
-import net.cgps.wgsa.paarsnp.core.lib.json.BlastSearchStatistics;
 
 import java.util.Collection;
 import java.util.Collections;
