@@ -38,7 +38,7 @@ Requires:
 * Docker (Optional: Git for building from master with version tags)
 * Runs on any OS supported by Docker.
 
-1. Download the code as a zip bundle, e.g. for the lastest code use the example below, or take a specific release from # Alternatively, pick a specific release from (releases)[https://github.com/ImperialCollegeLondon/cgps-paarsnp/releases]. Alternatively, you can `git clone  https://github.com/ImperialCollegeLondon/cgps-paarsnp.git`.
+1. Download the code as a zip bundle, e.g. for the lastest code use the example below. Alternatively, pick a specific release from (releases)[/releases]. Alternatively, you can `git clone https://github.com/ImperialCollegeLondon/cgps-paarsnp.git`.
 
 ```
 wget https://github.com/ImperialCollegeLondon/cgps-paarsnp/archive/master.zip
@@ -90,9 +90,9 @@ To create the Paarsnp runner container, run:
 Usage
 -----
 
-To run paarsnp on a single Salmonella _Typhi_ (`90370`) FASTA file in the local directory using the container. An output file `assembly_paarsnp.jsn` is created.
+To run paarsnp on a single Salmonella _Typhi_ FASTA file in the local directory using the container. An output file `{assembly}_paarsnp.jsn` is created.
 
-NB If you used the recommended docker build process, substitute `paarsnp` for `registry.gitlab.com/cgps/cgps-paarsnp/paarsnp`.
+NB If you used the recommended docker build process, substitute `paarsnp` for `registry.gitlab.com/cgps/cgps-paarsnp`.
 
 `docker run --rm -v $PWD:/data paarsnp -i assembly.fa -s 90370`
 
