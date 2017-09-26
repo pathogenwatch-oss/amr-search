@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.function.Function;
 
 public class SnparRun implements Function<InputData, SnparResult> {
@@ -41,6 +42,10 @@ public class SnparRun implements Function<InputData, SnparResult> {
         "-evalue", "1e-40",
         "-num_alignments", String.valueOf(MAX_NUM_MATCHES),
     };
+
+    if (0 == snpLibrary.getSequences().size()) {
+      return new SnparResult(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
+    }
 
     return new SnparCalculation(this.snpLibrary).apply(new BlastRunner<>(new MutationReader()).apply(command));
   }

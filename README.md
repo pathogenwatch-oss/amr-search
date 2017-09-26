@@ -1,7 +1,9 @@
 # paarsnp
-PAARSNP AMR resistance predictor from the CGPS and part of the WGSA public health genomics platform.
+"PAARSNP" is an AMR resistance predictor from the CGPS and part of the WGSA public health genomics platform.
 
 PAARSNP provides antimicrobial resistance predictions for a curated set of medically important pathogens from assembled genome sequences (FASTA files). Resistance predictions are based on the presence of both resistance genes (PAAR) and mutations (SNPAR). Paarsnp predictions allow for more than one SNP or gene to be required to confer resistance, as well as suppressors. Resistance can also be classed as "Intermediate" or "Full".
+
+PAARSNP also provides an interface for creating [ResFinder](https://cge.cbs.dtu.dk/services/ResFinder/) assignments. A threshold of 95% sequence identity is used to identify matches. To run PAARSNP in ResFinder mode use the species code "resfinder", i.e. use the species option `-s resfinder`.
 
 [Current Species](#current-species)
 
@@ -25,6 +27,7 @@ PAARSNP provides antimicrobial resistance predictions for a curated set of medic
 | Staphylococcus aureus | 1280 |
 | Salmonella _Typhi_ | 90370 |
 | Streptococcus pneumoniae | 1313 |
+| ResFinder (all species) | resfinder |
 
 ## Getting Started
 

@@ -129,7 +129,7 @@ public class SnparReader implements BiFunction<Path, Path, SnparLibrary> {
         .values()
         .stream()
         .mapToDouble(SnparReferenceSequence::getSeqIdThreshold)
-        .min().orElseThrow(() -> new RuntimeException("PID values for reference sequences."))
+        .min().orElse(90.0)
         - 5.0;
 
     return new SnparLibrary(referenceSequences, resistanceSets, this.speciesId, minPid);

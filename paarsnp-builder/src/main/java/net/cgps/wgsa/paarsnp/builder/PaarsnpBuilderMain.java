@@ -18,7 +18,7 @@ public class PaarsnpBuilderMain {
   private static final String DEFAULT_INPUT_PATH = "\"resources/\"";
 
   // Filter for species sub-directories.
-  private static final DirectoryStream.Filter<Path> SPECIES_FOLDER_FILTER = entry -> Files.isDirectory(entry) && entry.getFileName().toString().matches("^\\d+$");
+  private static final DirectoryStream.Filter<Path> SPECIES_FOLDER_FILTER = entry -> Files.isDirectory(entry) && entry.getFileName().toString().matches("^\\w+$");
 
   private final Logger logger = LoggerFactory.getLogger(PaarsnpBuilderMain.class);
 

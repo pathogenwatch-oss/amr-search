@@ -13,6 +13,7 @@
         <module>paarsnp-runner</module>
         <module>paarsnp-builder</module>
         <module>paarsnp-lib</module>
+        <module>external-fetcher</module>
     </modules>
 
     <properties>

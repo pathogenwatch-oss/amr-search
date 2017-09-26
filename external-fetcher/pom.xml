@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>paarsnp-builder</artifactId>
+    <artifactId>external-fetcher</artifactId>
 
     <properties>
         <paarsnp.root>${basedir}/..</paarsnp.root>
@@ -31,7 +31,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>net.cgps.wgsa.paarsnp.builder.PaarsnpBuilderMain</mainClass>
+                                    <mainClass>net.cgps.wgsa.paarsnp.fetcher.FetcherMain</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -39,7 +39,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <finalName>paarsnp-builder</finalName>
+                    <finalName>paarsnp-fetcher</finalName>
                 </configuration>
             </plugin>
             <plugin>
@@ -58,7 +58,7 @@
                                 <resource>
                                     <directory>target</directory>
                                     <includes>
-                                        <include>paarsnp-builder.jar</include>
+                                        <include>paarsnp-fetcher.jar</include>
                                     </includes>
                                     <!--<directory>target</directory>-->
                                     <!--<filtering>true</filtering>-->
@@ -86,7 +86,7 @@
                             <directory>${paarsnp.root}/build/databases</directory>
                             <includes>
                                 <include>**/*</include>
-                                <include>paarsnp-builder.jar</include>
+                                <include>paarsnp-fetcher.jar</include>
                             </includes>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
@@ -107,12 +107,14 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>net.cgps.wgsa.paarsnp.builder.PaarsnpBuilderMain</mainClass>
+                    <mainClass>net.cgps.wgsa.paarsnp.fetcher.FetcherMain</mainClass>
                     <arguments>
-                        <argument>-i</argument>
-                        <argument>${paarsnp.root}/build/resources</argument>
+                        <argument>-b</argument>
+                        <argument>${paarsnp.root}/build/scratch</argument>
                         <argument>-o</argument>
-                        <argument>${paarsnp.root}/build/databases</argument>
+                        <argument>${paarsnp.root}/build/resources</argument>
+                        <argument>-p</argument>
+                        <argument>95.0</argument>
                     </arguments>
                 </configuration>
             </plugin>
@@ -121,19 +123,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
-            <version>${paarsnp.apache-commons-csv}</version>
-        </dependency>
-        <dependency>
             <groupId>net.cgps.wgsa</groupId>
             <artifactId>paarsnp-lib</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-        <dependency>
-            <groupId>net.cgps.wgsa</groupId>
-            <artifactId>external-fetcher</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
     </dependencies>
+
 </project>
