@@ -57,7 +57,10 @@ public class MakeBlastDB implements BiConsumer<String, Path> {
       final Thread stdoutGobbler = new StreamGobbler(stdout, "STDOUT");
       stdoutGobbler.start();
 
-      p.waitFor();
+      final int result = p.waitFor();
+      if (result != 0) {
+        throw new RuntimeException("Make BLAST DB failed.");
+      }
     } catch (final IOException | InterruptedException e) {
       this.logger.error("BLAST Failure", e);
       throw new RuntimeException(e);
