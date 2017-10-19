@@ -5,13 +5,22 @@ PAARSNP provides antimicrobial resistance predictions for a curated set of medic
 
 PAARSNP also provides an interface for creating [ResFinder](https://cge.cbs.dtu.dk/services/ResFinder/) assignments. A threshold of 95% sequence identity is used to identify matches. To run PAARSNP in ResFinder mode use the species code "resfinder", i.e. use the species option `-s resfinder`.
 
+_Install & run with Docker:_
+
+`docker run --rm -v $PWD:/data cgps/paarsnp -i [typhi_assembly.fa] -s 90370`
+
+`typhi_assembly.fa` - FASTA file of (e.g.) Typhi assembly in local directory.
+
+`93070` - species code for Typhi. 
+
+## Useful Links
 [Current Species](#current-species)
 
 [Getting Started](#getting-started)
 
-[With Docker](#running-with-docker)
+[Building With Docker](#from-scratch-with-docker)
 
-[Without Docker](#running-directly)
+[Building Without Docker](#from-scratch-without-docker)
 
 [Output Format](#output-format)
 
@@ -31,11 +40,27 @@ PAARSNP also provides an interface for creating [ResFinder](https://cge.cbs.dtu.
 
 ## Getting Started
 
-PAARSNP can be run in several ways, including via Docker. We will provide a public Docker container soon.
+PAARSNP can be run in several ways and a fully automated build is provided, though currently CGPS only provides pre-built Docker containers. See instructions below for building PAARSNP with or without Docker
 
 It's also possible extend the current AMR libraries or to generate your own AMR libraries to use in PAARSNP (e.g. for currently unsupported species).
 
-### Docker-based Build (recommended)
+### Running & Installing with Docker (recommended)
+
+Using Docker takes care of installing dependencies & setting up the databases. It should also run on Windows, Linux & MacOS, though Windows is not directly tested or supported.
+
+Requires:
+
+* Docker
+* Using the `docker run` command will automatically install the container from DockerHub. For more detail, read [Running With Docker](#running-with-docker).
+* To run Typhi "assembly.fa" in the current directory: `docker run --rm -v $PWD:/data cgps/paarsnp -i assembly.fa -s 90370`
+
+
+### From Scratch
+
+If you want to run PAARSNP without Docker, add to or modify the paarsnp databases, or use an altered version of the code, follow the instructions below to build paarsnp with or without Docker.
+
+
+#### From Scratch With Docker
 
 Requires:
 * Docker (Optional: Git for building from master with version tags)
@@ -64,7 +89,9 @@ docker run -it --rm --name paarsnp -v /var/run/docker.sock:/var/run/docker.sock 
 
 At this point you can use [Docker](#running-with-docker) or run it directly from the [terminal](#running-directly) (requires JAVA 8 to be installed as well).
 
-### Maven Build
+#### From Scratch Without Docker
+
+Building Paarsnp and creating the BLAST databases is automatic using Maven. The Docker process actually runs the Maven configuration within a container to generate the PAARSNP container.
 
 Requires:
 * git, maven, java 8, makeblastdb (on $PATH)
@@ -87,6 +114,17 @@ To create the Paarsnp runner container, run:
 
 1. cd build
 1. docker build -t paarsnp -f DockerFile .
+
+#### From Scratch In Depth
+
+The build process runs two internal scripts.
+
+1. `external-fetcher` fetches external resources, such as ResFinder.
+2. `paarsnp-builder` runs makeblastdb and assembles the internal database from the files in `build/resources`
+
+* The Maven configuration automates running these scripts, while the Docker configuration provides a reliable environment to run them in.
+* To completely remove Docker, and run as a usual JAVA programme, comment out the spotify docker-maven plugin in the `pom.xml` files.
+ 
 
 ### Running with Docker
 
