@@ -30,10 +30,10 @@ public class ProcessSnparMatchData implements Function<SnparMatchData, ProcessSn
   public ProcessedSets apply(final SnparMatchData snparMatchData) {
 
     final Set<String> seenIds = snparMatchData.getSnpResistanceElements()
-                                              .stream()
-                                              .map(SnpResistanceElement::getResistanceMutation)
-                                              .map(ResistanceMutation::getName)
-                                              .collect(Collectors.toSet());
+        .stream()
+        .map(SnpResistanceElement::getResistanceMutation)
+        .map(ResistanceMutation::getName)
+        .collect(Collectors.toSet());
 
     final Collection<ResistanceSet> completeSets = new HashSet<>(20);
     final Collection<ResistanceSet> partialSets = new HashSet<>(20);
@@ -41,9 +41,11 @@ public class ProcessSnparMatchData implements Function<SnparMatchData, ProcessSn
     this.resistanceSets
         .forEach(resistanceSet -> {
           final long seenElementCount = resistanceSet.getElementIds()
-                                                     .stream()
-                                                     .filter(seenIds::contains)
-                                                     .count();
+              .stream()
+              .peek(id -> this.logger.debug("Checking {}", id))
+              .filter(seenIds::contains)
+              .peek(id -> this.logger.debug("Kept {}", id))
+              .count();
           this.logger.debug("Seen {} out of {} elements that belong to {}", seenElementCount, resistanceSet.getElementIds().size(), resistanceSet.getResistanceSetName());
 
           if (seenElementCount == 0) {

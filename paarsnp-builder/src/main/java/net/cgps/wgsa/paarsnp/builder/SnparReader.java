@@ -97,7 +97,7 @@ public class SnparReader implements BiFunction<Path, Path, SnparLibrary> {
 
           this.logger.debug("Adding {} to set {}", mutation, resistanceSetName);
 
-          resistanceSets.get(resistanceSetName).addElementId(mutation, ElementEffect.RESISTANCE);
+          resistanceSets.get(resistanceSetName).addElement(geneName, mutation, ElementEffect.RESISTANCE);
           this.logger.debug("Set now contains {}", String.join(",", resistanceSets.get(resistanceSetName).getElementIds()));
         }
 

@@ -101,11 +101,11 @@ public class PaarReader implements Function<Path, PaarLibrary> {
         if (resistanceSetMap.containsKey(setName)) {
           // The set has already been defined, so just add the gene to it.
           this.logger.debug("Adding geneName={} with effect={} to set={}", geneName, effect, setName);
-          resistanceSetMap.get(setName).addElementId(geneName, effect);
+          resistanceSetMap.get(setName).addElement(geneName, effect);
         } else {
           // Construct a new resistance set.
           this.logger.debug("Constructing new set with geneName={} with effect={} to set={}", geneName, effect, setName);
-          resistanceSetMap.put(setName, new ResistanceSet(setName, resistanceType, allAgents).addElementId(geneName, effect));
+          resistanceSetMap.put(setName, new ResistanceSet(setName, resistanceType, allAgents).addElement(geneName, effect));
         }
       } catch (final NumberFormatException e) {
         this.logger.error("Field from line {} not a number: {}", csvRecord.toString(), e.getMessage());

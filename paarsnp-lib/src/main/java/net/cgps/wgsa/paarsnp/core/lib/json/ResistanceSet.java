@@ -36,25 +36,29 @@ public class ResistanceSet extends AbstractJsonnable {
 
   public static ResistanceSet buildSnpResistanceSet(final String setName, final String geneId, final String snpCode, final Set<String> agents, final SetResistanceType setResistanceType, final ElementEffect effect) {
 
-    return new ResistanceSet(setName, setResistanceType, agents).addElementId(geneId + "_" + snpCode, effect);
+    return new ResistanceSet(setName, setResistanceType, agents).addElement(geneId, snpCode, effect);
   }
 
-  public ResistanceSet addElementId(final String geneName, final ElementEffect elementEffect) {
-
-    // Assuming that all set elements have confers/induces consistently set, so not checking, just logging the inconsistency.
-
+  public ResistanceSet addElement(final String elementId, final ElementEffect elementEffect) {
     switch (elementEffect) {
       case RESISTANCE:
-        this.logger.trace("Adding elementId={}", geneName);
-        this.elementIds.add(geneName);
+        this.logger.trace("Adding elementId={}", elementId);
+        this.elementIds.add(elementId);
         break;
       case MODIFIES_SUPPRESSES:
       case MODIFIES_INDUCED:
-        this.logger.trace("Adding modifier={} elementId={}", this.effect.name(), geneName);
-        this.modifiers.put(geneName, elementEffect);
+        this.logger.trace("Adding modifier={} elementId={}", this.effect.name(), elementId);
+        this.modifiers.put(elementId, elementEffect);
         break;
     }
     return this;
+  }
+
+  public ResistanceSet addElement(final String geneName, final String mutationId, final ElementEffect elementEffect) {
+
+    // Assuming that all set elements have confers/induces consistently set, so not checking, just logging the inconsistency.
+    final String elementId = geneName + "_" + mutationId;
+    return this.addElement(elementId, elementEffect);
   }
 
   public String getResistanceSetName() {

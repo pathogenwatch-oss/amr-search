@@ -34,7 +34,6 @@ public class SnparCalculation implements Function<Stream<MutationSearchResult>, 
                                                                              final Optional<SnparReferenceSequence> mutationReferenceSequence = this.snparLibrary.getSequence(match.getBlastSearchStatistics().getLibrarySequenceId());
                                                                              if (!mutationReferenceSequence.isPresent()) {
                                                                                this.logger.error("Sequence {} in Arsnp BLAST library, but not in couchbase.", match.getBlastSearchStatistics().getLibrarySequenceId());
-                                                                               return false;
                                                                              }
                                                                              return mutationReferenceSequence.isPresent();
                                                                            }
