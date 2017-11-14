@@ -36,6 +36,7 @@
         <paarsnp.guava>23.0</paarsnp.guava>
         <paarsnp.root>${basedir}</paarsnp.root>
         <paarsnp.docker-repository>cgps/paarsnp</paarsnp.docker-repository>
+        <!--<paarsnp.docker-repository>registry.gitlab.com/cgps/wgsa-tasks/paarsnp</paarsnp.docker-repository>-->
 
     </properties>
 
