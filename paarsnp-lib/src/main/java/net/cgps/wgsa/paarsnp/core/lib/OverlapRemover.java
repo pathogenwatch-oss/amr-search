@@ -43,7 +43,9 @@ public class OverlapRemover implements Function<List<BlastMatch>, Collection<Bla
 
         this.logger.debug("Comparing id:{} start:{} stop:{} rid:{} rstart:{} rstop:{} with id:{} start:{} stop:{} rid:{} rstart:{} rstop:{}", firstBlastMatch.getQuerySequenceId(), firstBlastMatch.getQuerySequenceStart(), firstBlastMatch.getQuerySequenceStop(), firstBlastMatch.getLibrarySequenceId(), firstBlastMatch.getLibrarySequenceStart(), firstBlastMatch.getLibrarySequenceStop(), secondBlastMatch.getQuerySequenceId(), secondBlastMatch.getQuerySequenceStart(), secondBlastMatch.getQuerySequenceStop(), secondBlastMatch.getLibrarySequenceId(), secondBlastMatch.getLibrarySequenceStart(), secondBlastMatch.getLibrarySequenceStop());
 
-        if (BlastMatch.significantOverlap(firstBlastMatch.getQuerySequenceStart(), firstBlastMatch.getQuerySequenceStop(), !firstBlastMatch.isReversed(), secondBlastMatch.getQuerySequenceStart(), secondBlastMatch.getQuerySequenceStop(), !secondBlastMatch.isReversed(), this.allowedOverlap)) {
+        if (firstBlastMatch.getQuerySequenceId().equals(secondBlastMatch.getQuerySequenceId())
+            &&
+            BlastMatch.significantOverlap(firstBlastMatch.getQuerySequenceStart(), firstBlastMatch.getQuerySequenceStop(), !firstBlastMatch.isReversed(), secondBlastMatch.getQuerySequenceStart(), secondBlastMatch.getQuerySequenceStop(), !secondBlastMatch.isReversed(), this.allowedOverlap)) {
 
           final BlastMatch reject = this.selectReject(firstBlastMatch, secondBlastMatch);
 
