@@ -1,0 +1,24 @@
+{
+  "name": "cgps-paarsnp",
+  "version": "1.0.2",
+  "description": "\"PAARSNP\" is an AMR resistance predictor from the CGPS and part of the WGSA public health genomics platform.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/cgps/cgps-paarsnp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/cgps/cgps-paarsnp/issues"
+  },
+  "homepage": "https://gitlab.com/cgps/cgps-paarsnp#README"
+}
