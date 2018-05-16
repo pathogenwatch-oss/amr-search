@@ -33,8 +33,6 @@ while read -r line ; do
 #    echo "  path: $path"
 #    echo "  domain: $domain"
 
-    key=$(echo $line | cut -f1 -d=)
-    value=$(echo $line | cut -f2 -d=)
     output=$(echo "$output" | sed -e 's/\$'"HOST"'/'"$domain"'/')
     output=$(echo "$output" | sed -e 's/\$'"PROXY_PORT"'/'"$port"'/')
 done
