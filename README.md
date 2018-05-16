@@ -75,16 +75,7 @@ unzip code-paarsnp-master.zip
 2. Installation
 ```
 cd paarsnp
-docker build -t paarsnp-builder -f Dockerfile .
-# The next command actually builds paarsnp as a JAR and as a container
-docker run -it --rm --name paarsnp -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)":/usr/src/mymaven -v ~/.docker:/root/.docker -w /usr/src/mymaven paarsnp-builder mvn clean package
-```
-Or, for faster future builds, create a docker volume (2nd command) and use it for future builds (third command):
-```
-docker build -t paarsnp-builder -f Dockerfile .
-docker volume create --name maven-repo
-# Use this command for faster future builds.
-docker run -it --rm --name paarsnp -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)":/usr/src/mymaven -v maven-repo:/root/.m2 -v ~/.docker:/root/.docker -w /usr/src/mymaven paarsnp-builder mvn clean package
+docker build -t paarsnp -f Dockerfile .
 ```
 
 At this point you can use [Docker](#running-with-docker) or run it directly from the [terminal](#running-directly) (requires JAVA 8 to be installed as well).

@@ -170,7 +170,7 @@ public class FetcherMain {
 
                 String currentHeader = br.readLine().replace(">", "" );
 
-                StringBuilder currentSequence = new StringBuilder(5000);
+                final StringBuilder currentSequence = new StringBuilder(5000);
 
                 String line;
 
