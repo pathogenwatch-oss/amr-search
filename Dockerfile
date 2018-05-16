@@ -20,7 +20,6 @@ COPY settings.template.xml /root/.m2/settings.xml
 RUN chmod +x /usr/local/bin/*.sh \
     && /usr/local/bin/run_replace.sh
 
-CMD ["/bin/bash"]
 COPY . /usr/src/mymaven/
 
 WORKDIR /usr/src/mymaven/
