@@ -16,9 +16,7 @@ ADD *.sh /usr/local/bin/
 
 COPY settings.template.xml /root/.m2/settings.xml
 
-
-RUN chmod +x /usr/local/bin/*.sh \
-    && /usr/local/bin/run_replace.sh
+RUN /usr/local/bin/run_replace.sh
 
 COPY . /usr/src/mymaven/
 
