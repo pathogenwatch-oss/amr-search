@@ -10,6 +10,7 @@ public class PaarAntibioticSummary extends AbstractJsonnable {
   private final String antibiotic;
   private final Collection<PaarGeneSummary> genes;
 
+  @SuppressWarnings("unused")
   private PaarAntibioticSummary() {
 
     this("", Collections.emptyList());

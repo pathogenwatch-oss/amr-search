@@ -44,9 +44,4 @@ public class SnparMatchData extends AbstractJsonnable {
 
     return this.mutations;
   }
-
-  public String format(final Function<SnparMatchData, char[]> blastSnpMatchFormatter) {
-
-    return new String(blastSnpMatchFormatter.apply(this));
-  }
 }
