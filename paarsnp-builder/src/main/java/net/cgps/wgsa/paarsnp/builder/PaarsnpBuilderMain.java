@@ -92,8 +92,8 @@ public class PaarsnpBuilderMain {
 
         final Path paarCsvPath = Paths.get(taxonDir.toString(), "resistance_genes.csv");
         final Path paarFastaPath = Paths.get(taxonDir.toString(), "resistance_genes.fa");
-        final Path snparCsvPath = Paths.get(taxonDir.toString(), "ar_snps.csv");
-        final Path snparFastaPath = Paths.get(taxonDir.toString(), "ar_snps.fa");
+        final Path snparCsvPath = Paths.get(taxonDir.toString(), "resistance_variants.csv");
+        final Path snparFastaPath = Paths.get(taxonDir.toString(), "resistance_variants.fa");
         final Path amPath = Paths.get(taxonDir.toString(), "ar_agents.csv");
 
 //        if (fileMissing(paarCsvPath, snparCsvPath, snparFastaPath)) {
