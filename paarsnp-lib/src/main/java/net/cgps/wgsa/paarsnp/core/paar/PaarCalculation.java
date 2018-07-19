@@ -5,7 +5,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.SetMultimap;
 import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
-import net.cgps.wgsa.paarsnp.core.lib.blast.BaseBlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import org.slf4j.Logger;
@@ -66,7 +65,7 @@ public class PaarCalculation implements Collector<BlastMatch, Collection<BlastMa
       selectedMatches
           .stream()
           .map(match ->
-              new AbstractMap.SimpleImmutableEntry<>(match, this.paarLibrary.getPaarGene(match.getBlastSearchStatistics().getLibrarySequenceId()).get()))
+              new AbstractMap.SimpleImmutableEntry<>(match, this.paarLibrary.getPaarGene(match.getBlastSearchStatistics().getLibrarySequenceId())))
           // Check that the gene hasn't already been dealt with?
           // NB this does rule out looking at additive effects as it removes duplicates.
           .forEach(matchToGeneEntry -> {
@@ -82,7 +81,7 @@ public class PaarCalculation implements Collector<BlastMatch, Collection<BlastMa
                   // It's a modifier so work out which sets are modified and how, store as hash.
                   this.logger.debug("{} modifying sets {}", matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getValue().getResistanceSetNames().stream().collect(Collectors.joining(",")));
 
-                  matchToGeneEntry.getValue().getResistanceSetNames().forEach(setName -> modifiedSets.put(setName, this.paarLibrary.getSetById(setName).get().getModifiers().get(matchToGeneEntry.getValue().getFamilyName())));
+                  matchToGeneEntry.getValue().getResistanceSetNames().forEach(setName -> modifiedSets.put(setName, this.paarLibrary.getSetById(setName).getModifiers().get(matchToGeneEntry.getValue().getFamilyName())));
                 }
 
                 matches.put(matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getKey());
@@ -95,9 +94,9 @@ public class PaarCalculation implements Collector<BlastMatch, Collection<BlastMa
           .forEach(setId -> {
                 this.logger.debug("{} found {} out of {}", setId, setCounts.get(setId).size(), this.paarLibrary.getPaarGeneSet(setId).size());
                 if (setCounts.get(setId).size() == this.paarLibrary.getPaarGeneSet(setId).size()) {
-                  completedSets.add(this.paarLibrary.getSetById(setId).get());
+                  completedSets.add(this.paarLibrary.getSetById(setId));
                 } else {
-                  partialSets.add(this.paarLibrary.getSetById(setId).get());
+                  partialSets.add(this.paarLibrary.getSetById(setId));
                 }
               }
           );

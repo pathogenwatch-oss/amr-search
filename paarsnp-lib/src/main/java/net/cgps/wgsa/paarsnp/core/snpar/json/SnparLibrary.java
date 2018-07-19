@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.snpar.json;
 
+import net.cgps.wgsa.paarsnp.core.LibraryMetadata;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.snpar.SnparReferenceSequence;
@@ -7,9 +8,8 @@ import net.cgps.wgsa.paarsnp.core.snpar.SnparReferenceSequence;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
-public class SnparLibrary extends AbstractJsonnable {
+public class SnparLibrary extends AbstractJsonnable implements LibraryMetadata {
 
   private final Map<String, SnparReferenceSequence> sequences;
   private final Map<String, ResistanceSet> resistanceSets;
@@ -40,25 +40,17 @@ public class SnparLibrary extends AbstractJsonnable {
     return this.resistanceSets;
   }
 
-  public Optional<SnparReferenceSequence> getSequence(final String librarySequenceId) {
+  public SnparReferenceSequence getSequence(final String librarySequenceId) {
 
-    return Optional.ofNullable(this.sequences.get(librarySequenceId));
+    return this.sequences.get(librarySequenceId);
   }
 
-  public double getSequenceThreshold(final String librarySequenceId) {
-
-    return this.sequences.get(librarySequenceId).getSeqIdThreshold();
-  }
-
-  public double getEvalueThreshold(final String librarySequenceId) {
-
-    return this.sequences.get(librarySequenceId).getEvalueThreshold();
-  }
-
+  @Override
   public String getSpeciesId() {
     return this.speciesId;
   }
 
+  @Override
   public double getMinimumPid() {
     return this.minimumPid;
   }

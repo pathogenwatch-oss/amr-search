@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -34,7 +35,7 @@ public class Paarsnp implements Function<Path, PaarsnpResult> {
   private final String resourceDirectory;
   private final ExecutorService executorService;
 
-  public Paarsnp(final String speciesId, final PaarLibrary paarLibrary, final SnparLibrary snparLibrary, final Collection<AntimicrobialAgent> antimicrobialAgents, String resourceDirectory, final ExecutorService executorService) {
+  Paarsnp(final String speciesId, final PaarLibrary paarLibrary, final SnparLibrary snparLibrary, final Collection<AntimicrobialAgent> antimicrobialAgents, String resourceDirectory, final ExecutorService executorService) {
 
     this.speciesId = speciesId;
     this.paarLibrary = paarLibrary;
@@ -53,22 +54,12 @@ public class Paarsnp implements Function<Path, PaarsnpResult> {
 
     final InputOptions snparInputOptions = new InputOptions(
         assemblyId,
-        Arrays.asList(
-            "-query", assemblyFile.toAbsolutePath().toString(),
-            "-db", Paths.get(this.resourceDirectory, this.speciesId + "_snpar").toAbsolutePath().toString(),
-            "-perc_identity", String.valueOf(this.snparLibrary.getMinimumPid()),
-            "-evalue", "1e-40"
-        ),
+        this.buildBlastOptions(assemblyFile, this.snparLibrary.getMinimumPid(), "1e-40"),
         60.0f);
 
     final InputOptions paarInputOptions = new InputOptions(
         assemblyId,
-        Arrays.asList(
-            "-query", assemblyFile.toAbsolutePath().toString(),
-            "-db", Paths.get(this.resourceDirectory, this.speciesId + "_snpar").toAbsolutePath().toString(),
-            "-perc_identity", String.valueOf(this.paarLibrary.getMinimumPid()),
-            "-evalue", "1e-5"
-        ),
+        this.buildBlastOptions(assemblyFile, this.paarLibrary.getMinimumPid(), "1e-5"),
         60.0f);
 
     // Run these concurrently, because, why not.
@@ -89,5 +80,14 @@ public class Paarsnp implements Function<Path, PaarsnpResult> {
     final Map<String, AntimicrobialAgent> agentMap = this.antimicrobialAgents.stream().collect(Collectors.toMap(AntimicrobialAgent::getName, Function.identity()));
 
     return new BuildPaarsnpResult(agentMap).apply(paarsnpResultData);
+  }
+
+  private List<String> buildBlastOptions(final Path assemblyFile, final double minimumPid, final String evalue) {
+    return Arrays.asList(
+        "-query", assemblyFile.toAbsolutePath().toString(),
+        "-db", Paths.get(this.resourceDirectory, this.speciesId + "_snpar").toAbsolutePath().toString(),
+        "-perc_identity", String.valueOf(minimumPid),
+        "-evalue", evalue
+    );
   }
 }

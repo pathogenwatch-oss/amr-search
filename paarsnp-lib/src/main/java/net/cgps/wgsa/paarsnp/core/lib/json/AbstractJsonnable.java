@@ -10,8 +10,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 /**
- * The base class for Jsonnable objects. Provides JSON serialisation/deserialisation ob User: cyeats Date: 10/23/13
- * Time: 1:53 PM
+ * The base class for Jsonnable objects. Provides JSON serialisation/deserialisation
  */
 public abstract class AbstractJsonnable {
 

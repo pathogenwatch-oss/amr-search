@@ -20,9 +20,7 @@ public class PaarMatchFilter implements Predicate<BlastMatch> {
   @Override
   public boolean test(final BlastMatch match) {
 
-    final ResistanceGene resistanceGene = this.paarLibrary.getPaarGene(match.getReferenceMatchSequence())
-        .orElseThrow(
-            () -> new RuntimeException("Sequences in blast library that are not in the PAAR library for " + this.paarLibrary.getSpeciesId() + "."));
+    final ResistanceGene resistanceGene = this.paarLibrary.getPaarGene(match.getReferenceMatchSequence());
 
     // Filter according to thresholds. The second threshold allows very v high similarity matches that have been badly assembled.
     final BlastSearchStatistics blastSearchStatistics = match.getBlastSearchStatistics();

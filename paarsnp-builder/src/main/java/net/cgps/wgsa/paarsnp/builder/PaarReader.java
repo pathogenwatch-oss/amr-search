@@ -3,8 +3,6 @@ package net.cgps.wgsa.paarsnp.builder;
 import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
 import net.cgps.wgsa.paarsnp.core.lib.SetResistanceType;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
-import net.cgps.wgsa.paarsnp.core.paar.PaarAntibioticSummary;
-import net.cgps.wgsa.paarsnp.core.paar.PaarGeneSummary;
 import net.cgps.wgsa.paarsnp.core.paar.PaarLibrary;
 import net.cgps.wgsa.paarsnp.core.paar.ResistanceGene;
 import org.apache.commons.csv.CSVFormat;
@@ -18,13 +16,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PaarReader implements Function<Path, PaarLibrary> {
 
-  private static final float DEFAULT_SIMILARITY_THRESHOLD = 80.0f;
-  private static final float DEFAULT_LENGTH_THRESHOLD = 80.0f;
   private final Logger logger = LoggerFactory.getLogger(PaarReader.class);
 
   private final String speciesId;
@@ -51,29 +45,13 @@ public class PaarReader implements Function<Path, PaarLibrary> {
       throw new RuntimeException(e);
     }
 
-    final Collection<PaarAntibioticSummary> amrSummary =
-        resistanceSets.values()
-            .stream()
-            .flatMap(resistanceSet -> resistanceSet.getAgents()
-                .stream()
-                .map(agent -> new PaarAntibioticSummary(
-                    agent,
-                    Stream.concat(resistanceSet.getElementIds().stream(),
-                        resistanceSet.getModifiers().keySet().stream()
-                    )
-                        .map(id -> new PaarGeneSummary(id, resistanceSet.getResistanceSetName()))
-                        .collect(Collectors.toList())
-                ))
-            )
-            .collect(Collectors.toList());
-
     final double minThreshold = paarGeneLib.values()
         .stream()
         .mapToDouble(ResistanceGene::getSimilarityThreshold)
         .min().orElseThrow(() -> new RuntimeException("Unable to find any minimum threshold data"))
         - 5;
 
-    return new PaarLibrary(paarGeneLib.values(), resistanceSets.values(), amrSummary, this.speciesId, minThreshold);
+    return new PaarLibrary(paarGeneLib, resistanceSets, this.speciesId, minThreshold);
   }
 
   private void generateResistanceGene(final CSVRecord csvRecord, final Map<String, ResistanceSet> resistanceSetMap, final Map<String, ResistanceGene> resistanceGeneMap) {

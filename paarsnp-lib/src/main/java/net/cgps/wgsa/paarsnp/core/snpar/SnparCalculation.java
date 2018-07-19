@@ -36,6 +36,7 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
   @Override
   public BiConsumer<List<SnparMatchData>, BlastMatch> accumulator() {
 
+    // First process all the BLAST matches and assign the resistance mutations
     return (list, match) -> {
       list.add(this.processVariants.apply(match));
     };
@@ -53,10 +54,9 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
   public Function<List<SnparMatchData>, SnparResult> finisher() {
 
     return (snparMatchDatas) -> {
-      // First process all the BLAST matches and assign the resistance mutations
       this.logger.debug("Found {} resistance matches.", snparMatchDatas.size());
 
-      // Next identify the resistance sets (and classify as complete or not) for each resistance gene.
+      // Now identify the resistance sets (and classify as complete or not) for each resistance gene.
       final ProcessSnparMatchData processSnparMatchData = new ProcessSnparMatchData(this.snparLibrary.getResistanceSets().values());
 
       final Collection<ProcessSnparMatchData.ProcessedSets> processedSets = snparMatchDatas

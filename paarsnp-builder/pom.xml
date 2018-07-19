@@ -130,10 +130,5 @@
             <artifactId>paarsnp-lib</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-        <dependency>
-            <groupId>net.cgps.wgsa</groupId>
-            <artifactId>external-fetcher</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
     </dependencies>
 </project>

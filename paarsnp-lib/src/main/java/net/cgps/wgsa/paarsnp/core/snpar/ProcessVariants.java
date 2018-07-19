@@ -3,7 +3,6 @@ package net.cgps.wgsa.paarsnp.core.snpar;
 import net.cgps.wgsa.paarsnp.core.lib.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.lib.SequenceType;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
-import net.cgps.wgsa.paarsnp.core.lib.blast.MutationSearchMatch;
 import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnpResistanceElement;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
@@ -29,7 +28,7 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
   @Override
   public SnparMatchData apply(final BlastMatch mutationSearchResult) {
 
-    @SuppressWarnings("OptionalGetWithoutIsPresent") final SnparReferenceSequence snparReferenceSequence = this.snparLibrary.getSequence(mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceId()).get(); // We know it's there.
+    final SnparReferenceSequence snparReferenceSequence = this.snparLibrary.getSequence(mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceId());
 
     final Collection<SnpResistanceElement> snpResistanceElements = new ArrayList<>(100);
 
