@@ -33,7 +33,7 @@ public class SnparCalculation implements Function<Stream<MutationSearchResult>, 
                                                                              // Error check, skipping matches without a reference in the library. Flash a warning.
                                                                              final Optional<SnparReferenceSequence> mutationReferenceSequence = this.snparLibrary.getSequence(match.getBlastSearchStatistics().getLibrarySequenceId());
                                                                              if (!mutationReferenceSequence.isPresent()) {
-                                                                               this.logger.error("Sequence {} in Arsnp BLAST library, but not in couchbase.", match.getBlastSearchStatistics().getLibrarySequenceId());
+                                                                               this.logger.error("Sequence {} in PAARSNP BLAST library, but not in database.", match.getBlastSearchStatistics().getLibrarySequenceId());
                                                                              }
                                                                              return mutationReferenceSequence.isPresent();
                                                                            }
