@@ -10,17 +10,8 @@ public class TestForOverlap implements BiPredicate<BlastMatch, BlastMatch> {
 
   private final int overlapThreshold;
 
-  public TestForOverlap(final int overlapThreshold) {
-
-    this.overlapThreshold = overlapThreshold;
-  }
-
   @Override
   public boolean test(final BlastMatch match1, final BlastMatch match2) {
-
-    if (match1.getBlastSearchStatistics().isReversed() != match2.getBlastSearchStatistics().isReversed()) {
-      return false;
-    }
 
     // The query coordinates are never reversed.
     final int queryStart1 = match1.getBlastSearchStatistics().getQuerySequenceStart();
@@ -29,18 +20,16 @@ public class TestForOverlap implements BiPredicate<BlastMatch, BlastMatch> {
     final int queryStart2 = match2.getBlastSearchStatistics().getQuerySequenceStart();
     final int queryStop2 = match2.getBlastSearchStatistics().getQuerySequenceStop();
 
-    if (queryStop2 < queryStart1 + this.overlapThreshold || queryStop1 < queryStart2 + this.overlapThreshold) {
+    return overlapCheck(queryStart1, queryStop1, queryStart2, queryStop2, overlapThreshold);
+  }
 
-      return false;
-      // No overlap and most common case
-    } else if ((queryStart1 <= queryStart2) && (queryStop1 >= queryStop2)) {
-      return true; // complete encapsulation
-    } else if ((queryStart2 <= queryStart1) && (queryStop2 >= queryStop1)) {
+  TestForOverlap(final int overlapThreshold) {
 
-      return true; // complete encapsulation
-    } else if ((queryStart1 <= queryStart2) && (queryStart2 <= queryStop1 - this.overlapThreshold)) {
+    this.overlapThreshold = overlapThreshold;
+  }
 
-      return true;
-    } else return (queryStart2 <= queryStart1) && (queryStart1 <= queryStop2 - this.overlapThreshold);
+  static boolean overlapCheck(int queryStart1, int queryStop1, int queryStart2, int queryStop2, int overlapThreshold) {
+    return queryStop2 >= queryStart1 + overlapThreshold && queryStop1 >= queryStart2 + overlapThreshold;
+
   }
 }

@@ -123,9 +123,7 @@ public class PaarsnpMain {
       throw new RuntimeException(e);
     }
 
-    final int cores = Runtime.getRuntime().availableProcessors();
-    final int blastThreads = cores > 2 ? cores - 1 : cores;
-    final ExecutorService executorService = Executors.newFixedThreadPool(blastThreads);
+    final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     final Paarsnp paarsnp = new Paarsnp(speciesId, paarLibrary, snparLibrary, agentLibrary.getAgents(), resourceDirectory, executorService);
 
     final Consumer<PaarsnpResult> resultWriter = this.getWriter(isToStdout, workingDirectory);
