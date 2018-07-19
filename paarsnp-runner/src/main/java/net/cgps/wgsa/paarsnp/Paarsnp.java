@@ -50,7 +50,7 @@ public class Paarsnp implements Function<Path, PaarsnpResult> {
 
     // Run these concurrently, because, why not.
     final Future<PaarResult> paarResultFuture = this.executorService.submit(() -> new PaarRun(this.paarLibrary, resourceDirectory).apply(inputData));
-    final Future<SnparResult> snparResultFuture = this.executorService.submit(() -> new SnparRun(this.snparLibrary, resourceDirectory, blastRunner, mutationReader).apply(inputData));
+    final Future<SnparResult> snparResultFuture = this.executorService.submit(() -> new SnparRun(this.snparLibrary, resourceDirectory).apply(inputData));
 
     final SnparResult snparResult;
     final PaarResult paarResult;

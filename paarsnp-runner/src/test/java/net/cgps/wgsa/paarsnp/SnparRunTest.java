@@ -25,7 +25,7 @@ public class SnparRunTest {
 
     final SnparLibrary snparLibrary = AbstractJsonnable.fromJson(snparDb,SnparLibrary.class);
 
-    final SnparRun snparRun = new SnparRun(snparLibrary, "src/test/resources", blastRunner, mutationReader);
+    final SnparRun snparRun = new SnparRun(snparLibrary, "src/test/resources");
 
     final SnparResult result = snparRun.apply(new InputData("test", "90370", Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa")));
 

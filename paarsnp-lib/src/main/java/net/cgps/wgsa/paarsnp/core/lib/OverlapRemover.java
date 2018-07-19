@@ -49,18 +49,19 @@ public class OverlapRemover<T extends BlastMatch> implements Collector<T, List<T
 
   @Override
   public Function<List<T>, Collection<T>> finisher() {
+    // Complete matches checked against themselves for overlaps
     return (matchList) -> {
-      // Complete matches checked against themselves for overlaps
+
       if (matchList.isEmpty()) {
         return matchList;
       }
 
+      // Remove overlaps, keeping best first and removing subsequent overlapping matches.
       matchList.sort(matchComparator);
 
       final List<T> filtered = new ArrayList<>(matchList.size());
       filtered.add(matchList.get(0)); // Add the best hit.
 
-      // Remove overlaps, keeping best first and removing subsequent overlapping matches.
       for (int i = 1; i < matchList.size(); i++) {
         boolean keep = true;
         for (final BlastMatch alreadySelected : filtered) {
