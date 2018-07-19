@@ -1,6 +1,5 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
-import net.cgps.wgsa.paarsnp.core.lib.SetAggregator;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparMatchData;
@@ -8,13 +7,15 @@ import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchData>, SnparResult> {
 
@@ -59,16 +60,16 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
       // Now identify the resistance sets (and classify as complete or not) for each resistance gene.
       final ProcessSnparMatchData processSnparMatchData = new ProcessSnparMatchData(this.snparLibrary.getResistanceSets().values());
 
-      final Collection<ProcessSnparMatchData.ProcessedSets> processedSets = snparMatchDatas
+      // All the sets will be merged together into a single final set.
+      final ProcessSnparMatchData.ProcessedSets finalSet = new ProcessSnparMatchData.ProcessedSets();
+
+      snparMatchDatas
           .stream()
           .map(processSnparMatchData)
-          .collect(Collectors.toList());
+          .forEach(finalSet::merge);
 
-      // Process the matched snps into complete & partially-complete resistance sets.
-      final ProcessSnparMatchData.ProcessedSets aggregateSets = new SetAggregator().apply(processedSets);
-
-      // Finally aggregate the sets and return the result document.
-      return new SnparResult(aggregateSets.getSeenIds(), aggregateSets.getCompleteSets(), aggregateSets.getPartialSets(), snparMatchDatas);
+      // Finally generate the result document.
+      return new SnparResult(finalSet.getSeenIds(), finalSet.getCompleteSets(), finalSet.getPartialSets(), snparMatchDatas);
     };
   }
 

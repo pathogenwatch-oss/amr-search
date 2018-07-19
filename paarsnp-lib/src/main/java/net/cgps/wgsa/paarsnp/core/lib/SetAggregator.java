@@ -10,7 +10,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * Creates a single unique list of complete & partial sets, as well as identified elements.
+ * Creates a single unique list of complete & partial sets, as well as identified elements. In the case of multiple
+ * resistance genes, it is possible for a set to be partial and complete.
  */
 public class SetAggregator implements Function<Collection<ProcessSnparMatchData.ProcessedSets>, ProcessSnparMatchData.ProcessedSets> {
 
@@ -30,8 +31,8 @@ public class SetAggregator implements Function<Collection<ProcessSnparMatchData.
 
     // Any partial sets also in complete sets need filtering out.
     return new ProcessSnparMatchData.ProcessedSets(completeSets,
-                                                   unfPartialSets.stream().filter(completeSets::contains).collect(Collectors.toList()),
-                                                   seenIds
+        unfPartialSets.stream().filter(completeSets::contains).collect(Collectors.toList()),
+        seenIds
     );
   }
 }

@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Works out the partial and complete resistance sets present.
@@ -72,6 +73,20 @@ public class ProcessSnparMatchData implements Function<SnparMatchData, ProcessSn
       this.completeSets = completeSets;
       this.partialSets = partialSets;
       this.seenIds = seenIds;
+    }
+
+    ProcessedSets() {
+      this(new HashSet<>(20), new HashSet<>(20), new HashSet<>(20));
+    }
+
+    public ProcessedSets merge(final ProcessedSets... processedSets) {
+      Stream.of(processedSets)
+          .forEach(set -> {
+            this.completeSets.addAll(set.completeSets);
+            this.partialSets.addAll(set.partialSets);
+            this.seenIds.addAll(set.seenIds);
+          });
+      return this;
     }
 
     public Collection<ResistanceSet> getCompleteSets() {
