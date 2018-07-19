@@ -1,6 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.paar;
 
 import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
+import net.cgps.wgsa.paarsnp.core.lib.blast.BaseBlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
@@ -49,11 +50,6 @@ public class PaarResult extends AbstractJsonnable {
   public Collection<ResistanceSet> getPartialResistanceSets() {
 
     return this.partialResistanceSets;
-  }
-
-  public String format(final Function<PaarResult, char[]> paarResultFormatter) {
-
-    return new String(paarResultFormatter.apply(this));
   }
 
   public Map<String, ElementEffect> getModifiedSets() {

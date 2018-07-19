@@ -1,5 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
+import net.cgps.wgsa.paarsnp.core.lib.blast.ncbi.BlastOutput;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,24 +10,29 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.function.Function;
 
 /**
  * T is the result type returned by the output parser.
  */
-public class BlastRunner<T> implements Function<String[], T> {
+public class BlastRunner implements Function<String[], BlastOutput> {
 
   private final Logger logger = LoggerFactory.getLogger(BlastRunner.class);
 
-  private final Function<BufferedReader, T> resultParser;
-
-  public BlastRunner(final Function<BufferedReader, T> resultParser) {
-
-    this.resultParser = resultParser;
-  }
+  private static String[] baseCommand = new String[]{
+      "blastn",
+      "-task", "blastn",
+      "-outfmt", "5",
+      "-num_alignments", "500",
+  };
 
   @Override
-  public T apply(final String[] command) {
+  public BlastOutput apply(final String[] options) {
+
+    final String[] command = ArrayUtils.addAll(baseCommand, options);
+    final BlastXmlReader xmlReader = new BlastXmlReader();
 
     final ProcessBuilder pb = new ProcessBuilder(command);
 
@@ -44,7 +51,7 @@ public class BlastRunner<T> implements Function<String[], T> {
         errorGobbler.start();
 
         // Return finished result. The gobblers should clean themselves up.
-        return this.resultParser.apply(outputReader);
+        return xmlReader.apply(outputReader);
       }
     } catch (final IOException e) {
       this.logger.error("BLAST Failure", e);
@@ -54,6 +61,5 @@ public class BlastRunner<T> implements Function<String[], T> {
         p.destroy();
       }
     }
-
   }
 }

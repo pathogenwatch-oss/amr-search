@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 
 import java.util.function.Function;
@@ -114,5 +115,10 @@ public class BlastSearchStatistics extends AbstractJsonnable {
         ", querySequenceStop=" + this.querySequenceStop +
         ", librarySequenceLength=" + this.librarySequenceLength +
         '}';
+  }
+
+  @JsonIgnore
+  int getSubjectMatchLength() {
+    return this.querySequenceStop - this.querySequenceStart + 1;
   }
 }

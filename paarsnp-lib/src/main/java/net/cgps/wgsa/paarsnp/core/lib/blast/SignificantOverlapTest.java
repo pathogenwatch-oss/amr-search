@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.BiFunction;
 
-public class SignificantOverlapTest implements BiFunction<BlastMatch, BlastMatch, Boolean> {
+public class SignificantOverlapTest implements BiFunction<BaseBlastMatch, BaseBlastMatch, Boolean> {
 
   private final short overlapThreshold;
 
@@ -15,7 +15,7 @@ public class SignificantOverlapTest implements BiFunction<BlastMatch, BlastMatch
   }
 
   @Override
-  public Boolean apply(final BlastMatch match1, final BlastMatch match2) {
+  public Boolean apply(final BaseBlastMatch match1, final BaseBlastMatch match2) {
 
     if (!match1.getQuerySequenceId().equals(match2.getQuerySequenceId())) {
       return false;

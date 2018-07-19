@@ -13,8 +13,6 @@ public class MutationBuilder {
 
   private final Logger logger = LoggerFactory.getLogger(MutationBuilder.class);
 
-  // Fields that don't change while parsing an alignment.
-  private final String referenceSequenceId;
   private final StringBuilder querySequence = new StringBuilder(20000);
   private final StringBuilder referenceSequence = new StringBuilder(20000);
   // Modifiable fields
@@ -23,9 +21,8 @@ public class MutationBuilder {
   private int referenceLocation;
   private boolean reversed;
 
-  public MutationBuilder(final String referenceSequenceId) {
+  public MutationBuilder() {
 
-    this.referenceSequenceId = referenceSequenceId;
     this.reset();
   }
 
@@ -79,7 +76,7 @@ public class MutationBuilder {
    */
   public Mutation build() {
 
-    final Mutation mutation = new Mutation(this.mutationType, this.queryLocation, this.determineSequence(this.querySequence.toString()), this.determineSequence(this.referenceSequence.toString()), this.referenceSequenceId, this.determineActualLocation(this.referenceLocation));
+    final Mutation mutation = new Mutation(this.mutationType, this.queryLocation, this.determineSequence(this.querySequence.toString()), this.determineSequence(this.referenceSequence.toString()), this.determineActualLocation(this.referenceLocation));
     this.reset();
     return mutation;
   }

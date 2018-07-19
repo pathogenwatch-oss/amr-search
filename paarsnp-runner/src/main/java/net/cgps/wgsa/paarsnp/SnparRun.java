@@ -1,9 +1,13 @@
 package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.lib.InputData;
+import net.cgps.wgsa.paarsnp.core.lib.OverlapRemover;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastRunner;
 import net.cgps.wgsa.paarsnp.core.lib.blast.MutationReader;
+import net.cgps.wgsa.paarsnp.core.lib.blast.MutationSearchMatch;
+import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
 import net.cgps.wgsa.paarsnp.core.snpar.SnparCalculation;
+import net.cgps.wgsa.paarsnp.core.snpar.SnparReferenceSequence;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
 import org.slf4j.Logger;
@@ -11,20 +15,29 @@ import org.slf4j.LoggerFactory;
 
 import java.nio.file.Paths;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class SnparRun implements Function<InputData, SnparResult> {
 
-  public static final String OUTPUT_FORMAT = "5";
-  private static final short MAX_NUM_MATCHES = 500;
   private final Logger logger = LoggerFactory.getLogger(SnparRun.class);
-  private final SnparLibrary snpLibrary;
+  private final SnparLibrary snparLibrary;
   private final String resourceDirectory;
+  private final BlastRunner blastRunner;
+  private final MutationReader mutationReader;
+  private final SnparCalculation interpreter;
+  private final OverlapRemover<MutationSearchMatch> matchOverlapRemover;
+  private final ProcessVariants processVariants;
 
-  public SnparRun(final SnparLibrary snpLibrary, String resourceDirectory) {
+  SnparRun(final SnparLibrary snparLibrary, final String resourceDirectory) {
 
-    this.snpLibrary = snpLibrary;
+    this.snparLibrary = snparLibrary;
     this.resourceDirectory = resourceDirectory;
+    this.blastRunner = new BlastRunner();
+    this.mutationReader = new MutationReader();
+    this.interpreter = new SnparCalculation(this.snparLibrary);
+    this.matchOverlapRemover = new OverlapRemover<>(100);
+    processVariants = new ProcessVariants(this.snparLibrary);
   }
 
   @Override
@@ -32,21 +45,35 @@ public class SnparRun implements Function<InputData, SnparResult> {
 
     this.logger.debug("Preparing SNPAR request for {} ", inputData.getAssemblyId());
 
-    final String[] command = new String[]{
-        "blastn",
-        "-task", "blastn",
-        "-outfmt", OUTPUT_FORMAT,
+    final String[] blastOptions = new String[]{
         "-query", inputData.getSequenceFile().toAbsolutePath().toString(),
-        "-db", Paths.get(resourceDirectory, this.snpLibrary.getSpeciesId() + "_snpar").toAbsolutePath().toString(),
-        "-perc_identity", String.valueOf(this.snpLibrary.getMinimumPid()),
+        "-db", Paths.get(resourceDirectory, this.snparLibrary.getSpeciesId() + "_snpar").toAbsolutePath().toString(),
+        "-perc_identity", String.valueOf(this.snparLibrary.getMinimumPid()),
         "-evalue", "1e-40",
-        "-num_alignments", String.valueOf(MAX_NUM_MATCHES),
     };
 
-    if (0 == snpLibrary.getSequences().size()) {
+    if (0 == snparLibrary.getSequences().size()) {
       return new SnparResult(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
     }
 
-    return new SnparCalculation(this.snpLibrary).apply(new BlastRunner<>(new MutationReader()).apply(command));
+    return mutationReader.apply(blastRunner.apply(blastOptions))
+        .filter(match -> {
+              // Error check, skipping matches without a reference in the library. Flash a warning.
+              final Optional<SnparReferenceSequence> mutationReferenceSequence = this.snparLibrary.getSequence(match.getBlastSearchStatistics().getLibrarySequenceId());
+              if (!mutationReferenceSequence.isPresent()) {
+                this.logger.error("Sequence {} in PAARSNP BLAST library, but not in database.", match.getBlastSearchStatistics().getLibrarySequenceId());
+              }
+              return mutationReferenceSequence.isPresent();
+            }
+        )
+        .filter(match -> {
+              final double coverage = (((double) match.getBlastSearchStatistics().getLibrarySequenceStop() - match.getBlastSearchStatistics().getLibrarySequenceStart() + 1) / (double) match.getBlastSearchStatistics().getLibrarySequenceLength()) * 100;
+              return coverage > 60;
+            }
+        )
+        .collect(this.matchOverlapRemover)
+        .stream()
+        .map(this.processVariants)
+        .collect(this.interpreter);
   }
 }

@@ -2,7 +2,7 @@ package net.cgps.wgsa.paarsnp.core.snpar;
 
 import net.cgps.wgsa.paarsnp.core.lib.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.lib.SequenceType;
-import net.cgps.wgsa.paarsnp.core.lib.blast.MutationSearchResult;
+import net.cgps.wgsa.paarsnp.core.lib.blast.MutationSearchMatch;
 import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnpResistanceElement;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
@@ -14,19 +14,19 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-class ProcessSnparMatchFunction implements Function<MutationSearchResult, SnparMatchData> {
+public class ProcessVariants implements Function<MutationSearchMatch, SnparMatchData> {
 
-  private final Logger logger = LoggerFactory.getLogger(ProcessSnparMatchFunction.class);
+  private final Logger logger = LoggerFactory.getLogger(ProcessVariants.class);
 
   private final SnparLibrary snparLibrary;
 
-  ProcessSnparMatchFunction(final SnparLibrary snparLibrary) {
+  public ProcessVariants(final SnparLibrary snparLibrary) {
 
     this.snparLibrary = snparLibrary;
   }
 
   @Override
-  public SnparMatchData apply(final MutationSearchResult mutationSearchResult) {
+  public SnparMatchData apply(final MutationSearchMatch mutationSearchResult) {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent") final SnparReferenceSequence snparReferenceSequence = this.snparLibrary.getSequence(mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceId()).get(); // We know it's there.
 

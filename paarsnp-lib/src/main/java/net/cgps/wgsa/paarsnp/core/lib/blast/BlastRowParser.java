@@ -6,13 +6,13 @@ import org.slf4j.LoggerFactory;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class BlastRowParser implements Function<String[], Optional<BlastMatch>> {
+public class BlastRowParser implements Function<String[], Optional<BaseBlastMatch>> {
 
   @Override
-  public Optional<BlastMatch> apply(final String[] data) {
+  public Optional<BaseBlastMatch> apply(final String[] data) {
 
-    if (BlastMatch.FORMAT.FIELD_COUNT != data.length) {
-      final Logger logger = LoggerFactory.getLogger(BlastMatch.class);
+    if (PlainBlastMatch.FORMAT.FIELD_COUNT != data.length) {
+      final Logger logger = LoggerFactory.getLogger(PlainBlastMatch.class);
       final StringBuilder sb = new StringBuilder();
       for (final String el : data) {
         sb.append(el).append(",");
@@ -21,20 +21,20 @@ public class BlastRowParser implements Function<String[], Optional<BlastMatch>> 
       return Optional.empty();
     }
 
-    return Optional.of(new BlastMatch(data[BlastMatch.FORMAT.QSEQID.index()], data[BlastMatch.FORMAT.SSEQID.index()],
-                                      Integer.valueOf(data[BlastMatch.FORMAT.QLEN.index()]),
-                                      Integer.valueOf(data[BlastMatch.FORMAT.SLEN.index()]),
-                                      Double.valueOf(data[BlastMatch.FORMAT.PIDENT.index()]),
-                                      Integer.valueOf(data[BlastMatch.FORMAT.LENGTH.index()]),
-                                      Integer.valueOf(data[BlastMatch.FORMAT.MISMATCH.index()]),
-                                      Integer.valueOf(data[BlastMatch.FORMAT.GAPOPEN.index()]),
-                                      Integer.valueOf(data[BlastMatch.FORMAT.QSTART.index()]),
-                                      Integer.valueOf(data[BlastMatch.FORMAT.QEND.index()]),
-                                      Integer.valueOf(data[BlastMatch.FORMAT.SSTART.index()]),
-                                      Integer.valueOf(data[BlastMatch.FORMAT.SEND.index()]),
-                                      Double.valueOf(data[BlastMatch.FORMAT.EVALUE.index()]),
-                                      Double.valueOf(data[BlastMatch.FORMAT.BITSCORE.index()]),
-                                      Boolean.valueOf(data[BlastMatch.FORMAT.SSTRAND.index()].replace("plus", "true")
+    return Optional.of(new PlainBlastMatch(data[PlainBlastMatch.FORMAT.QSEQID.index()], data[PlainBlastMatch.FORMAT.SSEQID.index()],
+                                      Integer.valueOf(data[PlainBlastMatch.FORMAT.QLEN.index()]),
+                                      Integer.valueOf(data[PlainBlastMatch.FORMAT.SLEN.index()]),
+                                      Double.valueOf(data[PlainBlastMatch.FORMAT.PIDENT.index()]),
+                                      Integer.valueOf(data[PlainBlastMatch.FORMAT.LENGTH.index()]),
+                                      Integer.valueOf(data[PlainBlastMatch.FORMAT.MISMATCH.index()]),
+                                      Integer.valueOf(data[PlainBlastMatch.FORMAT.GAPOPEN.index()]),
+                                      Integer.valueOf(data[PlainBlastMatch.FORMAT.QSTART.index()]),
+                                      Integer.valueOf(data[PlainBlastMatch.FORMAT.QEND.index()]),
+                                      Integer.valueOf(data[PlainBlastMatch.FORMAT.SSTART.index()]),
+                                      Integer.valueOf(data[PlainBlastMatch.FORMAT.SEND.index()]),
+                                      Double.valueOf(data[PlainBlastMatch.FORMAT.EVALUE.index()]),
+                                      Double.valueOf(data[PlainBlastMatch.FORMAT.BITSCORE.index()]),
+                                      Boolean.valueOf(data[PlainBlastMatch.FORMAT.SSTRAND.index()].replace("plus", "true")
                                                                                              .replace("minus", "false")
                                                      )
     ));

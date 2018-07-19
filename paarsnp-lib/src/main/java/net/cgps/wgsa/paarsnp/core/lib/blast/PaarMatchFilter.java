@@ -20,19 +20,19 @@ public class PaarMatchFilter implements Predicate<BlastMatch> {
   @Override
   public boolean test(final BlastMatch match) {
 
-    if (!this.paarLibrary.getPaarGene(match.getLibrarySequenceId()).isPresent()) {
-      this.logger.error("{} not found in PAAR library", match.getLibrarySequenceId());
-      throw new RuntimeException("Sequences in blast library that are not in the PAAR library for " + this.paarLibrary.getSpeciesId() + ".");
-    }
-
-    final ResistanceGene resistanceGene = this.paarLibrary.getPaarGene(match.getLibrarySequenceId()).get();
+    final ResistanceGene resistanceGene = this.paarLibrary.getPaarGene(match.getReferenceMatchSequence())
+        .orElseThrow(
+            () -> new RuntimeException("Sequences in blast library that are not in the PAAR library for " + this.paarLibrary.getSpeciesId() + "."));
 
     // Filter according to thresholds. The second threshold allows very v high similarity matches that have been badly assembled.
-    final double coverage = ((double) match.getSubjectMatchLength() / (double) match.getLibrarySequenceLength()) * 100;
+    final BlastSearchStatistics blastSearchStatistics = match.getBlastSearchStatistics();
 
-    this.logger.debug("Filter parameters: name={} matchId={} matchCov={} idThreshold={} covThreshold={}", resistanceGene.getFamilyName(), match.getPercentIdentity(), coverage, resistanceGene.getSimilarityThreshold(), resistanceGene.getLengthThreshold());
+    final double coverage = ((double) blastSearchStatistics.getSubjectMatchLength() / (double) blastSearchStatistics.getLibrarySequenceLength()) * 100;
 
-    final boolean lengthThreshold = match.getPercentIdentity() > resistanceGene.getSimilarityThreshold();
+    this.logger.debug("Filter parameters: name={} matchId={} matchCov={} idThreshold={} covThreshold={}",
+        resistanceGene.getFamilyName(), blastSearchStatistics.getPercentIdentity(), coverage, resistanceGene.getSimilarityThreshold(), resistanceGene.getLengthThreshold());
+
+    final boolean lengthThreshold = blastSearchStatistics.getPercentIdentity() > resistanceGene.getSimilarityThreshold();
     final boolean coverageThreshold = coverage > (double) resistanceGene.getLengthThreshold();
     final boolean standardThreshold = lengthThreshold && coverageThreshold;
 
@@ -42,7 +42,7 @@ public class PaarMatchFilter implements Predicate<BlastMatch> {
       return true;
     } else {
 
-      final boolean fragmentThreshold = (match.getPercentIdentity() > 95.0) && (coverage > 40);
+      final boolean fragmentThreshold = (blastSearchStatistics.getPercentIdentity() > 95.0) && (coverage > 40);
 
       this.logger.debug("name={} fragmentThreshold={}", resistanceGene.getFamilyName(), fragmentThreshold);
 

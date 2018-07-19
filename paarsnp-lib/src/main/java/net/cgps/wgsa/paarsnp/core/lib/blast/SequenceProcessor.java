@@ -37,7 +37,7 @@ public class SequenceProcessor {
    */
   public SequenceProcessingResult call() {
 
-    // The two sequence lengths should be exactly the same length.
+    // The two sequence lengths should be exactly the same.
     // Determine the direction to increment the reference position.
     final int incr = this.reverse ? -1 : 1;
 
