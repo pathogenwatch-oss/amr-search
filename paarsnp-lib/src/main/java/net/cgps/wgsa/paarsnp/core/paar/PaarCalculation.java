@@ -12,11 +12,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PaarCalculation implements Function<Collection<BlastMatch>, PaarResult> {
+public class PaarCalculation implements Collector<BlastMatch, Collection<BlastMatch>, PaarResult> {
 
   private final Logger logger = LoggerFactory.getLogger(PaarCalculation.class);
   private final PaarLibrary paarLibrary;
@@ -26,59 +30,84 @@ public class PaarCalculation implements Function<Collection<BlastMatch>, PaarRes
     this.paarLibrary = paarLibrary;
   }
 
+
   @Override
-  public PaarResult apply(final Collection<BlastMatch> selectedMatches) {
+  public Supplier<Collection<BlastMatch>> supplier() {
+    return ArrayList::new;
+  }
 
-    // Result data structures.
-    final Multimap<String, BlastMatch> matches = HashMultimap.create();
-    final Collection<ResistanceSet> completedSets = new HashSet<>(10);
-    final Collection<ResistanceSet> partialSets = new HashSet<>(10);
-    final Map<String, ElementEffect> modifiedSets = new HashMap<>(); // setId -> effect
+  @Override
+  public BiConsumer<Collection<BlastMatch>, BlastMatch> accumulator() {
+    return Collection::add;
+  }
 
-    // used to work out which are complete
-    // Need to use set to keep track since potentially >1 hit to each family, meaning that a single family match could be counted
-    // twice against the set score.
-    final SetMultimap<String, ResistanceGene> setCounts = HashMultimap.create();
+  @Override
+  public BinaryOperator<Collection<BlastMatch>> combiner() {
+    return (a, b) -> {
+      a.addAll(b);
+      return a;
+    };
+  }
 
-    selectedMatches
-        .stream()
-        .map(match ->
-            new AbstractMap.SimpleImmutableEntry<>(match, this.paarLibrary.getPaarGene(match.getBlastSearchStatistics().getLibrarySequenceId()).get()))
-        // Check that the gene hasn't already been dealt with?
-        // NB this does rule out looking at additive effects as it removes duplicates.
-        .forEach(matchToGeneEntry -> {
-              // Add for each set the gene may belong to.
-              if (ElementEffect.RESISTANCE == matchToGeneEntry.getValue().getEffect()) {
+  @Override
+  public Function<Collection<BlastMatch>, PaarResult> finisher() {
 
-                this.logger.debug("Adding {} to sets {}", matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getValue().getResistanceSetNames().stream().collect(Collectors.joining(",")));
+    return selectedMatches -> {  // Result data structures.
+      final Multimap<String, BlastMatch> matches = HashMultimap.create();
+      final Collection<ResistanceSet> completedSets = new HashSet<>(10);
+      final Collection<ResistanceSet> partialSets = new HashSet<>(10);
+      final Map<String, ElementEffect> modifiedSets = new HashMap<>(); // setId -> effect
 
-                // For each set the element is in, add the element to the set count hash.
-                matchToGeneEntry.getValue().getResistanceSetNames().forEach(setName -> setCounts.put(setName, matchToGeneEntry.getValue()));
+      // used to work out which are complete
+      // Need to use set to keep track since potentially >1 hit to each family, meaning that a single family match could be counted
+      // twice against the set score.
+      final SetMultimap<String, ResistanceGene> setCounts = HashMultimap.create();
 
-              } else {
-                // It's a modifier so work out which sets are modified and how, store as hash.
-                this.logger.debug("{} modifying sets {}", matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getValue().getResistanceSetNames().stream().collect(Collectors.joining(",")));
+      selectedMatches
+          .stream()
+          .map(match ->
+              new AbstractMap.SimpleImmutableEntry<>(match, this.paarLibrary.getPaarGene(match.getBlastSearchStatistics().getLibrarySequenceId()).get()))
+          // Check that the gene hasn't already been dealt with?
+          // NB this does rule out looking at additive effects as it removes duplicates.
+          .forEach(matchToGeneEntry -> {
+                // Add for each set the gene may belong to.
+                if (ElementEffect.RESISTANCE == matchToGeneEntry.getValue().getEffect()) {
 
-                matchToGeneEntry.getValue().getResistanceSetNames().forEach(setName -> modifiedSets.put(setName, this.paarLibrary.getSetById(setName).get().getModifiers().get(matchToGeneEntry.getValue().getFamilyName())));
+                  this.logger.debug("Adding {} to sets {}", matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getValue().getResistanceSetNames().stream().collect(Collectors.joining(",")));
+
+                  // For each set the element is in, add the element to the set count hash.
+                  matchToGeneEntry.getValue().getResistanceSetNames().forEach(setName -> setCounts.put(setName, matchToGeneEntry.getValue()));
+
+                } else {
+                  // It's a modifier so work out which sets are modified and how, store as hash.
+                  this.logger.debug("{} modifying sets {}", matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getValue().getResistanceSetNames().stream().collect(Collectors.joining(",")));
+
+                  matchToGeneEntry.getValue().getResistanceSetNames().forEach(setName -> modifiedSets.put(setName, this.paarLibrary.getSetById(setName).get().getModifiers().get(matchToGeneEntry.getValue().getFamilyName())));
+                }
+
+                matches.put(matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getKey());
               }
+          );
 
-              matches.put(matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getKey());
-            }
-        );
-
-    // Compare the sizes of observed vs expected sizes for each set and add to the appropriate data obj.
-    setCounts
-        .keySet()
-        .forEach(setId -> {
-              this.logger.debug("{} found {} out of {}", setId, setCounts.get(setId).size(), this.paarLibrary.getPaarGeneSet(setId).size());
-              if (setCounts.get(setId).size() == this.paarLibrary.getPaarGeneSet(setId).size()) {
-                completedSets.add(this.paarLibrary.getSetById(setId).get());
-              } else {
-                partialSets.add(this.paarLibrary.getSetById(setId).get());
+      // Compare the sizes of observed vs expected sizes for each set and add to the appropriate data obj.
+      setCounts
+          .keySet()
+          .forEach(setId -> {
+                this.logger.debug("{} found {} out of {}", setId, setCounts.get(setId).size(), this.paarLibrary.getPaarGeneSet(setId).size());
+                if (setCounts.get(setId).size() == this.paarLibrary.getPaarGeneSet(setId).size()) {
+                  completedSets.add(this.paarLibrary.getSetById(setId).get());
+                } else {
+                  partialSets.add(this.paarLibrary.getSetById(setId).get());
+                }
               }
-            }
-        );
+          );
 
-    return new PaarResult(completedSets, partialSets, modifiedSets, matches.asMap(), Stream.concat(completedSets.stream(), partialSets.stream()).map(ResistanceSet::getResistanceSetName).collect(Collectors.toList()));
+      return new PaarResult(completedSets, partialSets, modifiedSets, matches.asMap(), Stream.concat(completedSets.stream(), partialSets.stream()).map(ResistanceSet::getResistanceSetName).collect(Collectors.toList()));
+    };
+  }
+
+  @Override
+  public Set<Characteristics> characteristics() {
+    return Collections.singleton(Characteristics.UNORDERED);
   }
 }

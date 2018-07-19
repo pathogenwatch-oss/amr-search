@@ -1,15 +1,20 @@
 package net.cgps.wgsa.paarsnp;
 
-import net.cgps.wgsa.paarsnp.core.lib.InputData;
+import net.cgps.wgsa.paarsnp.core.lib.InputOptions;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
+import net.cgps.wgsa.paarsnp.core.paar.PaarCalculation;
 import net.cgps.wgsa.paarsnp.core.paar.PaarLibrary;
 import net.cgps.wgsa.paarsnp.core.paar.PaarResult;
+import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
+import net.cgps.wgsa.paarsnp.core.snpar.SnparCalculation;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -46,11 +51,29 @@ public class Paarsnp implements Function<Path, PaarsnpResult> {
 
     this.logger.debug("Beginning {}", assemblyId);
 
-    final InputData inputData = new InputData(assemblyId, this.speciesId, assemblyFile);
+    final InputOptions snparInputOptions = new InputOptions(
+        assemblyId,
+        Arrays.asList(
+            "-query", assemblyFile.toAbsolutePath().toString(),
+            "-db", Paths.get(this.resourceDirectory, this.speciesId + "_snpar").toAbsolutePath().toString(),
+            "-perc_identity", String.valueOf(this.snparLibrary.getMinimumPid()),
+            "-evalue", "1e-40"
+        ),
+        60.0f);
+
+    final InputOptions paarInputOptions = new InputOptions(
+        assemblyId,
+        Arrays.asList(
+            "-query", assemblyFile.toAbsolutePath().toString(),
+            "-db", Paths.get(this.resourceDirectory, this.speciesId + "_snpar").toAbsolutePath().toString(),
+            "-perc_identity", String.valueOf(this.paarLibrary.getMinimumPid()),
+            "-evalue", "1e-5"
+        ),
+        60.0f);
 
     // Run these concurrently, because, why not.
-    final Future<PaarResult> paarResultFuture = this.executorService.submit(() -> new PaarRun(this.paarLibrary, resourceDirectory).apply(inputData));
-    final Future<SnparResult> snparResultFuture = this.executorService.submit(() -> new SnparRun(this.snparLibrary, resourceDirectory).apply(inputData));
+    final Future<PaarResult> paarResultFuture = this.executorService.submit(() -> new ResistanceSearch<>(new PaarCalculation(this.paarLibrary)).apply(paarInputOptions));
+    final Future<SnparResult> snparResultFuture = this.executorService.submit(() -> new ResistanceSearch<>(new SnparCalculation(this.snparLibrary, new ProcessVariants(this.snparLibrary))).apply(snparInputOptions));
 
     final SnparResult snparResult;
     final PaarResult paarResult;

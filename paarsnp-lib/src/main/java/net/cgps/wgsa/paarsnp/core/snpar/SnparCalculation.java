@@ -1,6 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
 import net.cgps.wgsa.paarsnp.core.lib.SetAggregator;
+import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparMatchData;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
@@ -15,14 +16,16 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class SnparCalculation implements Collector<SnparMatchData, List<SnparMatchData>, SnparResult> {
+public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchData>, SnparResult> {
 
   private final Logger logger = LoggerFactory.getLogger(SnparCalculation.class);
   private final SnparLibrary snparLibrary;
+  private final ProcessVariants processVariants;
 
-  public SnparCalculation(final SnparLibrary snparLibrary) {
+  public SnparCalculation(final SnparLibrary snparLibrary, ProcessVariants processVariants) {
 
     this.snparLibrary = snparLibrary;
+    this.processVariants = processVariants;
   }
 
   @Override
@@ -31,8 +34,11 @@ public class SnparCalculation implements Collector<SnparMatchData, List<SnparMat
   }
 
   @Override
-  public BiConsumer<List<SnparMatchData>, SnparMatchData> accumulator() {
-    return List::add;
+  public BiConsumer<List<SnparMatchData>, BlastMatch> accumulator() {
+
+    return (list, match) -> {
+      list.add(this.processVariants.apply(match));
+    };
   }
 
   @Override

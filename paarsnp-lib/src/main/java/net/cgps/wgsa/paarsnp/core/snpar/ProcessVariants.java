@@ -2,6 +2,7 @@ package net.cgps.wgsa.paarsnp.core.snpar;
 
 import net.cgps.wgsa.paarsnp.core.lib.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.lib.SequenceType;
+import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.MutationSearchMatch;
 import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnpResistanceElement;
@@ -14,7 +15,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class ProcessVariants implements Function<MutationSearchMatch, SnparMatchData> {
+public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
 
   private final Logger logger = LoggerFactory.getLogger(ProcessVariants.class);
 
@@ -26,7 +27,7 @@ public class ProcessVariants implements Function<MutationSearchMatch, SnparMatch
   }
 
   @Override
-  public SnparMatchData apply(final MutationSearchMatch mutationSearchResult) {
+  public SnparMatchData apply(final BlastMatch mutationSearchResult) {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent") final SnparReferenceSequence snparReferenceSequence = this.snparLibrary.getSequence(mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceId()).get(); // We know it's there.
 
