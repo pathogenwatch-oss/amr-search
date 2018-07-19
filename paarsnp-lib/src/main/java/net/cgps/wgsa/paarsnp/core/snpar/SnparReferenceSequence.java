@@ -18,15 +18,15 @@ public class SnparReferenceSequence extends AbstractJsonnable {
   @SuppressWarnings("unused")
   private SnparReferenceSequence() {
 
-    this("", 0.0, 0.0, Collections.emptyList(), "");
+    this("", 0.0, 0.0, "");
   }
 
-  public SnparReferenceSequence(final String sequenceId, final double seqIdThreshold, final double evalueThreshold, final Collection<ResistanceMutation> resistanceMutations, String sequence) {
+  public SnparReferenceSequence(final String sequenceId, final double seqIdThreshold, final double evalueThreshold, final String sequence) {
 
     this.sequenceId = sequenceId;
     this.seqIdThreshold = seqIdThreshold;
     this.evalueThreshold = evalueThreshold;
-    this.resistanceMutations = new HashSet<>(resistanceMutations);
+    this.resistanceMutations = new HashSet<>(20);
     this.sequence = sequence;
   }
 

@@ -41,7 +41,7 @@ public class SnparReader implements BiFunction<Path, Path, SnparLibrary> {
         .apply(snparFastaFile)
         .entrySet()
         .stream()
-        .collect(Collectors.toMap(Map.Entry::getKey, idToDna -> new SnparReferenceSequence(idToDna.getKey(), 80.0f, 80.0f)));
+        .collect(Collectors.toMap(Map.Entry::getKey, idToDna -> new SnparReferenceSequence(idToDna.getKey(), 80.0f, 80.0f, idToDna.getValue())));
 
     final Map<String, ResistanceSet> resistanceSets = new HashMap<>(50);
 
