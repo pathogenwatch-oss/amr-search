@@ -10,6 +10,7 @@ import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -37,13 +39,11 @@ public class SnparReader implements BiFunction<Path, Path, SnparLibrary> {
   @Override
   public SnparLibrary apply(final Path snparCsvFile, final Path snparFastaFile) {
 
-    final Map<String, SnparReferenceSequence> referenceSequences = new OneLineFastaReader()
-        .apply(snparFastaFile)
-        .entrySet()
-        .stream()
-        .collect(Collectors.toMap(Map.Entry::getKey, idToDna -> new SnparReferenceSequence(idToDna.getKey(), 80.0f, 80.0f, idToDna.getValue())));
+    final Map<String, String> sequences = new OneLineFastaReader().apply(snparFastaFile);
 
+    final Map<String, SequenceType> sequenceTypes = new HashMap<>(10000);
     final Map<String, ResistanceSet> resistanceSets = new HashMap<>(50);
+    final Map<String, ResistanceMutation> mutations = new HashMap<>(10000);
 
     try (final CSVParser parser = CSVParser.parse(snparCsvFile.toFile(), Charset.defaultCharset(), CSVFormat.RFC4180.withFirstRecordAsHeader())) {
 
@@ -53,7 +53,7 @@ public class SnparReader implements BiFunction<Path, Path, SnparLibrary> {
         this.logger.trace("geneName={}", csvRecord.get(0));
 
         // Check there's a rep available.
-        if (!referenceSequences.containsKey(geneName)) {
+        if (!sequences.containsKey(geneName)) {
           throw new RuntimeException("Terminal error, not found sequence: " + geneName);
         }
 
@@ -89,8 +89,8 @@ public class SnparReader implements BiFunction<Path, Path, SnparLibrary> {
           throw new RuntimeException("Unable to match SAP data: " + mutation);
         }
 
-        final String originalSequence = matcher.group(1);
-        final String mutantSequence = matcher.group(3);
+        final char originalSequence = CharUtils.toChar(matcher.group(1));
+        final char mutantSequence = CharUtils.toChar(matcher.group(3));
 
         final int rawPosition = StringUtils.isNumeric(mutation) ? Integer.valueOf(mutation) : Integer.valueOf(matcher.group(2));
 
@@ -98,12 +98,25 @@ public class SnparReader implements BiFunction<Path, Path, SnparLibrary> {
         final Integer position = VariantType.SAP == variantType ? (rawPosition * 3) - 2 : rawPosition;
         final SequenceType sequenceType = VariantType.SAP == variantType ? SequenceType.PROTEIN : SequenceType.DNA;
 
-        referenceSequences.get(geneName).addMutation(new ResistanceMutation(uniqueMutationName, resistanceSetName, sequenceType, geneName, originalSequence, position, mutantSequence, ""));
+        sequenceTypes.put(geneName, sequenceType);
+        mutations.put(geneName, new ResistanceMutation(uniqueMutationName, resistanceSetName, geneName, originalSequence, position, mutantSequence, "", rawPosition));
       }
     } catch (final IOException e) {
       this.logger.error("Failed to read SNPAR CSV file {}", snparCsvFile.toAbsolutePath().toString());
       throw new RuntimeException(e);
     }
+
+    // Validity checks
+    for (final String geneName : sequences.keySet()) {
+      Optional.ofNullable(mutations.get(geneName)).orElseThrow(() -> new RuntimeException("No mutations for " + geneName + ". Library needs fixing."));
+    }
+
+    final Map<String, SnparReferenceSequence> referenceSequences = sequences
+        .keySet()
+        .stream()
+        .map(geneName -> new SnparReferenceSequence(geneName, sequenceTypes.get(geneName), 80.0f, sequences.get(geneName)))
+        .collect(Collectors.toMap(SnparReferenceSequence::getSequenceId, Function.identity()));
+
 
     final double minPid = referenceSequences
         .values()

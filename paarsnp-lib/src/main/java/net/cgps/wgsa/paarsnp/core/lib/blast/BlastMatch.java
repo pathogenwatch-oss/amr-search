@@ -1,6 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import net.cgps.wgsa.paarsnp.core.lib.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 
 import java.util.*;
@@ -12,6 +13,7 @@ public class BlastMatch {
   private final BlastSearchStatistics blastSearchStatistics;
   private final String queryMatchSequence;
   private final String referenceMatchSequence;
+  private String forwardMatchSequence;
 
   public BlastMatch(final BlastSearchStatistics blastSearchStatistics, final String queryMatchSequence, final String referenceMatchSequence, final Map<Integer, Mutation> mutations) {
     this.blastSearchStatistics = blastSearchStatistics;
@@ -45,8 +47,16 @@ public class BlastMatch {
     return this.referenceMatchSequence;
   }
 
-  public final boolean isComplete() {
-    return this.blastSearchStatistics.getLibrarySequenceStop() == this.blastSearchStatistics.getLibrarySequenceLength();
+  public final String getForwardRefMatchSequence() {
+
+    if (null == this.forwardMatchSequence) {
+      if (DnaSequence.Strand.FORWARD == this.blastSearchStatistics.getStrand()) {
+        this.forwardMatchSequence = this.referenceMatchSequence;
+      } else {
+        this.forwardMatchSequence = DnaSequence.reverseTranscribe(this.referenceMatchSequence);
+      }
+    }
+    return this.forwardMatchSequence;
   }
 
   public Map<Integer, Mutation> getMutations() {

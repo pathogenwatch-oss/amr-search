@@ -14,8 +14,7 @@ public class MutationBuilder {
    */
   public Mutation build(final char querySequence, final char referenceSequence, final Mutation.MutationType mutationType, final int queryLocation, final int referenceLocation, final DnaSequence.Strand strand) {
 
-    final Mutation mutation = new Mutation(mutationType, queryLocation, this.determineSequence(querySequence, strand), this.determineSequence(referenceSequence, strand), this.determineActualLocation(referenceLocation, mutationType, strand));
-    return mutation;
+    return new Mutation(mutationType, queryLocation, this.determineSequence(querySequence, strand), this.determineSequence(referenceSequence, strand), this.determineActualLocation(referenceLocation, mutationType, strand));
   }
 
   private char determineSequence(final char sequence, final DnaSequence.Strand strand) {

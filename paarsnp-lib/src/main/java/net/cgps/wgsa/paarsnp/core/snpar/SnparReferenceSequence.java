@@ -13,22 +13,20 @@ public class SnparReferenceSequence extends AbstractJsonnable {
   private final String sequenceId;
   private final SequenceType sequenceType;
   private final double seqIdThreshold;
-  private final double evalueThreshold;
   private final Collection<ResistanceMutation> resistanceMutations;
   private final String sequence;
 
   @SuppressWarnings("unused")
   private SnparReferenceSequence() {
 
-    this("", SequenceType.DNA, 0.0, 0.0, "");
+    this("", SequenceType.DNA, 0.0, "");
   }
 
-  public SnparReferenceSequence(final String sequenceId, SequenceType sequenceType, final double seqIdThreshold, final double evalueThreshold, final String sequence) {
+  public SnparReferenceSequence(final String sequenceId, SequenceType sequenceType, final double seqIdThreshold, final String sequence) {
 
     this.sequenceId = sequenceId;
     this.sequenceType = sequenceType;
     this.seqIdThreshold = seqIdThreshold;
-    this.evalueThreshold = evalueThreshold;
     this.resistanceMutations = new HashSet<>(20);
     this.sequence = sequence;
   }
@@ -58,11 +56,6 @@ public class SnparReferenceSequence extends AbstractJsonnable {
     return this.seqIdThreshold;
   }
 
-  public double getEvalueThreshold() {
-
-    return this.evalueThreshold;
-  }
-
   public String getSequence() {
 
     return this.sequence;
@@ -83,9 +76,6 @@ public class SnparReferenceSequence extends AbstractJsonnable {
     if (Double.compare(that.seqIdThreshold, this.seqIdThreshold) != 0) {
       return false;
     }
-    if (Double.compare(that.evalueThreshold, this.evalueThreshold) != 0) {
-      return false;
-    }
     if (this.sequenceId != null ? !this.sequenceId.equals(that.sequenceId) : that.sequenceId != null) {
       return false;
     }
@@ -93,7 +83,6 @@ public class SnparReferenceSequence extends AbstractJsonnable {
       return false;
     }
     return this.sequence != null ? this.sequence.equals(that.sequence) : that.sequence == null;
-
   }
 
   @Override
@@ -104,7 +93,6 @@ public class SnparReferenceSequence extends AbstractJsonnable {
     result = this.sequenceId != null ? this.sequenceId.hashCode() : 0;
     temp = Double.doubleToLongBits(this.seqIdThreshold);
     result = 31 * result + (int) (temp ^ (temp >>> 32));
-    temp = Double.doubleToLongBits(this.evalueThreshold);
     result = 31 * result + (int) (temp ^ (temp >>> 32));
     result = 31 * result + (this.resistanceMutations != null ? this.resistanceMutations.hashCode() : 0);
     result = 31 * result + (this.sequence != null ? this.sequence.hashCode() : 0);

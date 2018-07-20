@@ -16,7 +16,7 @@ public class ResistanceSearch<T> implements Function<InputOptions, T> {
   private final Logger logger = LoggerFactory.getLogger(ResistanceSearch.class);
   private final BlastRunner blastRunner;
   private final MutationReader mutationReader;
-  private final Collector<BlastMatch,?,T> interpreter;
+  private final Collector<BlastMatch, ?, T> interpreter;
   private final OverlapRemover<BlastMatch> matchOverlapRemover;
 
   ResistanceSearch(final Collector<BlastMatch, ?, T> collector) {
@@ -30,13 +30,14 @@ public class ResistanceSearch<T> implements Function<InputOptions, T> {
   @Override
   public T apply(final InputOptions inputData) {
 
-    this.logger.debug("Preparing SNPAR request for {} ", inputData.getAssemblyId());
+    this.logger.debug("Preparing search request for {} with options:\n{}", inputData.getAssemblyId(), inputData.getBlastOptions());
 
     return mutationReader.apply(blastRunner.apply(inputData.getBlastOptions().toArray(new String[0])))
-        .filter(match -> inputData.getCoverageThreshold() <
-            (((double) match.getBlastSearchStatistics().getLibrarySequenceStop() - match.getBlastSearchStatistics().getLibrarySequenceStart() + 1)
-                / (double) match.getBlastSearchStatistics().getLibrarySequenceLength())
-                * 100)
+        .filter(match ->
+            inputData.getCoverageThreshold() <
+                (((double) match.getBlastSearchStatistics().getLibrarySequenceStop() - match.getBlastSearchStatistics().getLibrarySequenceStart() + 1)
+                    / (double) match.getBlastSearchStatistics().getLibrarySequenceLength())
+                    * 100)
         .collect(this.matchOverlapRemover)
         .stream()
         .collect(this.interpreter);

@@ -38,9 +38,7 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
   public BiConsumer<List<SnparMatchData>, BlastMatch> accumulator() {
 
     // First process all the BLAST matches and assign the resistance mutations
-    return (list, match) -> {
-      list.add(this.processVariants.apply(match));
-    };
+    return (list, match) -> list.add(this.processVariants.apply(match));
   }
 
   @Override

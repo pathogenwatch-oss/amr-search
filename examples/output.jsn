@@ -239,7 +239,7 @@
           "querySequenceStart": 175841,
           "percentIdentity": 100,
           "evalue": 0,
-          "reversed": false,
+          "strand": false,
           "librarySequenceStop": 2259,
           "querySequenceStop": 178099,
           "librarySequenceLength": 2259
@@ -255,7 +255,7 @@
           "querySequenceStart": 169193,
           "percentIdentity": 100,
           "evalue": 0,
-          "reversed": false,
+          "strand": false,
           "librarySequenceStop": 1893,
           "querySequenceStop": 171085,
           "librarySequenceLength": 1893
@@ -271,7 +271,7 @@
           "querySequenceStart": 107,
           "percentIdentity": 99.92415623814941,
           "evalue": 0,
-          "reversed": true,
+          "strand": true,
           "librarySequenceStop": 2637,
           "querySequenceStop": 2743,
           "librarySequenceLength": 2637
@@ -328,7 +328,7 @@
           "querySequenceStart": 18864,
           "percentIdentity": 100,
           "evalue": 0,
-          "reversed": true,
+          "strand": true,
           "librarySequenceStop": 2415,
           "querySequenceStop": 21278,
           "librarySequenceLength": 2415
@@ -518,7 +518,7 @@
           "librarySequenceStop": 1,
           "evalue": 0,
           "bitScore": 1548,
-          "reversed": true
+          "strand": true
         }
       ],
       "sul1": [
@@ -536,7 +536,7 @@
           "librarySequenceStop": 840,
           "evalue": 0,
           "bitScore": 1516,
-          "reversed": false
+          "strand": false
         }
       ],
       "catA1": [
@@ -554,7 +554,7 @@
           "librarySequenceStop": 660,
           "evalue": 0,
           "bitScore": 1191,
-          "reversed": false
+          "strand": false
         }
       ],
       "sul2": [
@@ -572,7 +572,7 @@
           "librarySequenceStop": 1,
           "evalue": 0,
           "bitScore": 1472,
-          "reversed": true
+          "strand": true
         }
       ],
       "dfrA7": [
@@ -590,7 +590,7 @@
           "librarySequenceStop": 474,
           "evalue": 0,
           "bitScore": 856,
-          "reversed": false
+          "strand": false
         }
       ]
     }

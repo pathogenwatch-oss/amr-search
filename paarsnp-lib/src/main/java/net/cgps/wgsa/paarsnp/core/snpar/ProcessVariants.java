@@ -46,7 +46,7 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
           // Check if the amino acid matches
           .filter(resistanceMutation -> {
             int mutationIndex = resistanceMutation.getNtLocation() - mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart() + 1;
-            final String codon = mutationSearchResult.getReferenceMatchSequence().substring(mutationIndex, mutationIndex + 3);
+            final String codon = mutationSearchResult.getForwardRefMatchSequence().substring(mutationIndex, mutationIndex + 3);
             return resistanceMutation.getMutationSequence() == DnaSequence.translateCodon(codon).orElse('X');
           })
           .map(mutation -> {
@@ -72,8 +72,10 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
           .filter(resistanceMutation -> resistanceMutation.getNtLocation() >= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart()
               && resistanceMutation.getNtLocation() <= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStop())
           .peek(resistanceMutation -> this.logger.debug("Mutation {} in range", resistanceMutation.getName()))
+          // Then check if there is a mutation at that location
           .filter(resistanceMutation -> mutationSearchResult.getMutations().containsKey(resistanceMutation.getNtLocation()))
           .filter(resistanceMutation -> resistanceMutation.getMutationSequence() == mutationSearchResult.getMutations().get(resistanceMutation.getNtLocation()).getMutationSequence())
+          // Map it to an element object
           .map(mutation -> new SnpResistanceElement(mutation, Collections.singleton(mutationSearchResult.getMutations().get(mutation.getNtLocation()))))
           .collect(Collectors.toList());
 

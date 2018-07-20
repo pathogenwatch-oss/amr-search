@@ -3,8 +3,8 @@ package net.cgps.wgsa.paarsnp.core.lib.blast;
 import net.cgps.wgsa.paarsnp.core.lib.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Processes the match sequence to find premature stop codons etc.
@@ -18,7 +18,7 @@ class SequenceProcessor {
   private final CharSequence queryAlignSeq;
   private final int queryStart;
   private final MutationBuilder mutationBuilder;
-  private final Collection<Mutation> mutations;
+  private final Map<Integer, Mutation> mutations;
 
   SequenceProcessor(final CharSequence refAlignSeq, final int refStart, final DnaSequence.Strand strand, final CharSequence queryAlignSeq, final int queryStart, final MutationBuilder mutationBuilder) {
 
@@ -28,7 +28,7 @@ class SequenceProcessor {
     this.queryAlignSeq = queryAlignSeq;
     this.queryStart = queryStart;
     this.mutationBuilder = mutationBuilder;
-    this.mutations = new HashSet<>();
+    this.mutations = new HashMap<>(300);
   }
 
   /**
@@ -74,7 +74,7 @@ class SequenceProcessor {
           refSeqLocation += incr;
           mutationType = Mutation.MutationType.S;
         }
-        this.mutations.add(this.mutationBuilder.build(queryChar, refChar, mutationType, querySeqLocation, refSeqLocation, strand));
+        this.mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, mutationType, querySeqLocation, refSeqLocation, strand));
       }
 
     }
