@@ -2,7 +2,7 @@ package net.cgps.wgsa.paarsnp.core.lib.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.cgps.wgsa.paarsnp.core.lib.blast.ObjectMappingException;
+import net.cgps.wgsa.paarsnp.core.lib.blast.JsonFileException;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -17,28 +17,6 @@ public abstract class AbstractJsonnable {
   @Override
   public String toString() {
     return this.toPrettyJson();
-  }
-
-  public static String toJson(final Object object) {
-
-    return toPrettyJson(object);
-  }
-
-  public static String toPrettyJson(final Object object) {
-
-    final ObjectMapper mapper = new ObjectMapper();
-
-    // Create a StringWriter to write the JSON string to
-    final StringWriter writer = new StringWriter();
-
-    try {
-      mapper.writerWithDefaultPrettyPrinter().writeValue(writer, object);
-    } catch (final IOException e) {
-      // I don't think this can happen since there is no IO...
-      LoggerFactory.getLogger(object.getClass()).error("IOException thrown when writing JSON string.", e);
-    }
-
-    return writer.toString();
   }
 
   /**
@@ -89,17 +67,17 @@ public abstract class AbstractJsonnable {
 
   }
 
-  public static <T extends AbstractJsonnable> T fromJson(final File snparDb, final Class<T> messageClass) throws ObjectMappingException {
+  public static <T extends AbstractJsonnable> T fromJsonFile(final File jsonFile, final Class<T> messageClass) throws JsonFileException {
 
     try {
 
-      return new ObjectMapper().readValue(snparDb, messageClass);
+      return new ObjectMapper().readValue(jsonFile, messageClass);
 
     } catch (final IOException | NullPointerException e) {
-      LoggerFactory.getLogger(AbstractJsonnable.class).error("Json mapping exception for file {} to type {}", snparDb.getPath(), messageClass);
+      LoggerFactory.getLogger(AbstractJsonnable.class).error("Json mapping exception for file {} to type {}", jsonFile.getPath(), messageClass);
       LoggerFactory.getLogger(AbstractJsonnable.class).error("Message: ", e);
 
-      throw new ObjectMappingException(e);
+      throw new JsonFileException(e);
     }
   }
 }

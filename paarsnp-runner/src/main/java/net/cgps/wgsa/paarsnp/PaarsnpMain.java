@@ -2,10 +2,10 @@ package net.cgps.wgsa.paarsnp;
 
 import ch.qos.logback.classic.Level;
 import net.cgps.wgsa.paarsnp.core.Constants;
-import net.cgps.wgsa.paarsnp.core.lib.blast.ObjectMappingException;
+import net.cgps.wgsa.paarsnp.core.lib.blast.JsonFileException;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgentLibrary;
-import net.cgps.wgsa.paarsnp.core.paar.PaarLibrary;
+import net.cgps.wgsa.paarsnp.core.paar.json.PaarLibrary;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
@@ -113,10 +113,10 @@ public class PaarsnpMain {
     final AntimicrobialAgentLibrary agentLibrary;
 
     try {
-      paarLibrary = AbstractJsonnable.fromJson(Paths.get(resourceDirectory, speciesId + Constants.PAAR_APPEND + Constants.JSON_APPEND).toFile(), PaarLibrary.class);
-      snparLibrary = AbstractJsonnable.fromJson(Paths.get(resourceDirectory, speciesId + Constants.SNPAR_APPEND + Constants.JSON_APPEND).toFile(), SnparLibrary.class);
-      agentLibrary = AbstractJsonnable.fromJson(Paths.get(resourceDirectory, speciesId + Constants.AGENT_FILE_APPEND).toFile(), AntimicrobialAgentLibrary.class);
-    } catch (final ObjectMappingException e) {
+      paarLibrary = AbstractJsonnable.fromJsonFile(Paths.get(resourceDirectory, speciesId + Constants.PAAR_APPEND + Constants.JSON_APPEND).toFile(), PaarLibrary.class);
+      snparLibrary = AbstractJsonnable.fromJsonFile(Paths.get(resourceDirectory, speciesId + Constants.SNPAR_APPEND + Constants.JSON_APPEND).toFile(), SnparLibrary.class);
+      agentLibrary = AbstractJsonnable.fromJsonFile(Paths.get(resourceDirectory, speciesId + Constants.AGENT_FILE_APPEND).toFile(), AntimicrobialAgentLibrary.class);
+    } catch (final JsonFileException e) {
       throw new RuntimeException(e);
     }
 

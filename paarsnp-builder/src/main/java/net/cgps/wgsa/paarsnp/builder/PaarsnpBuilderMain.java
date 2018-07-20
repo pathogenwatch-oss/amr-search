@@ -3,7 +3,7 @@ package net.cgps.wgsa.paarsnp.builder;
 import ch.qos.logback.classic.Level;
 import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgentLibrary;
-import net.cgps.wgsa.paarsnp.core.paar.PaarLibrary;
+import net.cgps.wgsa.paarsnp.core.paar.json.PaarLibrary;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;

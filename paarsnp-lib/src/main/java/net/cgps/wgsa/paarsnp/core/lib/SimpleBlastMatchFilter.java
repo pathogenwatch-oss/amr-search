@@ -1,4 +1,4 @@
-package net.cgps.wgsa.paarsnp.core.snpar;
+package net.cgps.wgsa.paarsnp.core.lib;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 

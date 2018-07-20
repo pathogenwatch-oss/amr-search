@@ -26,7 +26,7 @@ public class BlastRunnerTest {
         "-num_alignments", "500",
     };
 
-    final List<BlastMatch> mutationSearchResultList = new MutationReader().apply(new BlastRunner().apply(command)).collect(Collectors.toList());
+    final List<BlastMatch> mutationSearchResultList = new BlastReader().apply(new BlastRunner().apply(command)).collect(Collectors.toList());
 
     Assert.assertTrue("Result exists", null != mutationSearchResultList && mutationSearchResultList.size() != 0);
 

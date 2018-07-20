@@ -7,6 +7,8 @@ import com.google.common.collect.SetMultimap;
 import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
+import net.cgps.wgsa.paarsnp.core.paar.json.PaarLibrary;
+import net.cgps.wgsa.paarsnp.core.paar.json.ResistanceGene;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

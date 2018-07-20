@@ -1,4 +1,4 @@
-package net.cgps.wgsa.paarsnp.core.paar;
+package net.cgps.wgsa.paarsnp.core.paar.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.cgps.wgsa.paarsnp.core.LibraryMetadata;
@@ -42,7 +42,7 @@ public class PaarLibrary extends AbstractJsonnable implements LibraryMetadata {
   }
 
   @JsonIgnore
-  Collection<ResistanceGene> getPaarGeneSet(final String resistanceGeneSetId) {
+  public Collection<ResistanceGene> getPaarGeneSet(final String resistanceGeneSetId) {
 
     return this.resistanceSets.get(resistanceGeneSetId).getElementIds()
         .stream()
@@ -57,7 +57,7 @@ public class PaarLibrary extends AbstractJsonnable implements LibraryMetadata {
   }
 
   @JsonIgnore
-  ResistanceSet getSetById(final String id) {
+  public ResistanceSet getSetById(final String id) {
 
     return this.resistanceSets.get(id);
   }

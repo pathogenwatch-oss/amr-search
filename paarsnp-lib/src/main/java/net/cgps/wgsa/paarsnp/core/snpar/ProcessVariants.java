@@ -3,10 +3,7 @@ package net.cgps.wgsa.paarsnp.core.snpar;
 import net.cgps.wgsa.paarsnp.core.lib.SequenceType;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
-import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnpResistanceElement;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparMatchData;
+import net.cgps.wgsa.paarsnp.core.snpar.json.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

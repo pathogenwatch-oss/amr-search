@@ -30,7 +30,7 @@ public class BlastRunner implements Function<String[], BlastOutput> {
   public BlastOutput apply(final String[] options) {
 
     final String[] command = ArrayUtils.addAll(baseCommand, options);
-    final BlastXmlReader xmlReader = new BlastXmlReader();
+    final BlastReader.BlastXmlReader xmlReader = new BlastReader.BlastXmlReader();
 
     final ProcessBuilder pb = new ProcessBuilder(command);
 

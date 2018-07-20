@@ -3,7 +3,6 @@ package net.cgps.wgsa.paarsnp.core.snpar.json;
 import net.cgps.wgsa.paarsnp.core.LibraryMetadata;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
-import net.cgps.wgsa.paarsnp.core.snpar.SnparReferenceSequence;
 
 import java.util.Collections;
 import java.util.HashMap;

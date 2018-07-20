@@ -1,11 +1,12 @@
 package net.cgps.wgsa.paarsnp;
 
+import net.cgps.wgsa.paarsnp.core.lib.SimpleBlastMatchFilter;
+import net.cgps.wgsa.paarsnp.core.lib.TwoStageBlastMatchFilter;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.paar.PaarCalculation;
-import net.cgps.wgsa.paarsnp.core.paar.PaarLibrary;
 import net.cgps.wgsa.paarsnp.core.paar.PaarResult;
+import net.cgps.wgsa.paarsnp.core.paar.json.PaarLibrary;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
-import net.cgps.wgsa.paarsnp.core.snpar.SimpleBlastMatchFilter;
 import net.cgps.wgsa.paarsnp.core.snpar.SnparCalculation;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;

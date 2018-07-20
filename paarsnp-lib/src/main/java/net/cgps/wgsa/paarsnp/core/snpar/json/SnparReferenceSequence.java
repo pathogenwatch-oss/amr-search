@@ -1,8 +1,7 @@
-package net.cgps.wgsa.paarsnp.core.snpar;
+package net.cgps.wgsa.paarsnp.core.snpar.json;
 
 import net.cgps.wgsa.paarsnp.core.lib.SequenceType;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
-import net.cgps.wgsa.paarsnp.core.snpar.json.ResistanceMutation;
 
 import java.util.Collection;
 import java.util.Collections;
