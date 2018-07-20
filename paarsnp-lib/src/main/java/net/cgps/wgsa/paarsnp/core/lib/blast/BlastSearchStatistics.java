@@ -1,8 +1,8 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.cgps.wgsa.paarsnp.core.lib.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 
 public class BlastSearchStatistics extends AbstractJsonnable {
 

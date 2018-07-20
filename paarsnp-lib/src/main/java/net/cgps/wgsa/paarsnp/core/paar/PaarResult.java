@@ -55,6 +55,7 @@ public class PaarResult extends AbstractJsonnable {
     return this.modifiedSets;
   }
 
+  @SuppressWarnings("unused")
   public Collection<String> getPaarElementIds() {
 
     return this.paarElementIds;

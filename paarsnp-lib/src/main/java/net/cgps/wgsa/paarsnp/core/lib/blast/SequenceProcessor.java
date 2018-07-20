@@ -1,6 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
-import net.cgps.wgsa.paarsnp.core.lib.DnaSequence;
+import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 
 import java.util.HashMap;

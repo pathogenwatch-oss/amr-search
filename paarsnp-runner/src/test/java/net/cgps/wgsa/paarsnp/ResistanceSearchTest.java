@@ -1,9 +1,9 @@
 package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.Constants;
-import net.cgps.wgsa.paarsnp.core.lib.InputOptions;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
+import net.cgps.wgsa.paarsnp.core.snpar.SimpleBlastMatchFilter;
 import net.cgps.wgsa.paarsnp.core.snpar.SnparCalculation;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
@@ -28,9 +28,9 @@ public class ResistanceSearchTest {
 
     final SnparLibrary snparLibrary = AbstractJsonnable.fromJson(snparDb, SnparLibrary.class);
 
-    final ResistanceSearch<SnparResult> resistanceSearch = new ResistanceSearch<>(new SnparCalculation(snparLibrary, new ProcessVariants(snparLibrary)));
+    final ResistanceSearch<SnparResult> resistanceSearch = new ResistanceSearch<>(new SnparCalculation(snparLibrary, new ProcessVariants(snparLibrary)), new SimpleBlastMatchFilter(60.0));
 
-    final InputOptions inputOptions = new InputOptions(
+    final ResistanceSearch.InputOptions inputOptions = new ResistanceSearch.InputOptions(
         "test",
         Arrays.asList(
             "-query", Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa").toAbsolutePath().toString(),

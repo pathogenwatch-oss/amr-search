@@ -2,7 +2,7 @@ package net.cgps.wgsa.paarsnp;
 
 import ch.qos.logback.classic.Level;
 import net.cgps.wgsa.paarsnp.core.Constants;
-import net.cgps.wgsa.paarsnp.core.lib.ObjectMappingException;
+import net.cgps.wgsa.paarsnp.core.lib.blast.ObjectMappingException;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgentLibrary;
 import net.cgps.wgsa.paarsnp.core.paar.PaarLibrary;
@@ -42,8 +42,8 @@ public class PaarsnpMain {
     try {
       final CommandLine commandLine = parser.parse(options, args);
 
-      final ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-      root.setLevel(Level.valueOf(commandLine.getOptionValue('l', "INFO")));
+      final ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+      rootLogger.setLevel(Level.valueOf(commandLine.getOptionValue('l', "INFO")));
 
       // Resolve the file path.
       final Path input = Paths.get(commandLine.getOptionValue('i'));
@@ -56,19 +56,15 @@ public class PaarsnpMain {
         if (Files.isRegularFile(input)) {
           workingDirectory = input.toAbsolutePath().getParent();
           fastas = Collections.singletonList(input);
-          root.debug("Processing one file", input);
+          rootLogger.debug("Processing one file", input);
         } else {
           fastas = new ArrayList<>(10000);
           try (final DirectoryStream<Path> stream = Files.newDirectoryStream(
-              input
-              , entry -> {
-                root.debug(entry.toString());
-                return entry.toString().endsWith(".fna") || entry.toString().endsWith(".fa") || entry.toString().endsWith(".fasta");
-              })
-          ) {
+              input,
+              entry -> entry.toString().endsWith(".fna") || entry.toString().endsWith(".fa") || entry.toString().endsWith(".fasta"))) {
             stream.forEach(fastas::add);
           }
-          root.debug("Processing {} files from \"{}\".", fastas.size(), input.toAbsolutePath().toString());
+          rootLogger.debug("Processing {} files from \"{}\".", fastas.size(), input.toAbsolutePath().toString());
           workingDirectory = input;
         }
       } else {
@@ -77,6 +73,7 @@ public class PaarsnpMain {
 
       String databasePath = commandLine.getOptionValue('d', "databases");
 
+      // Little shim for running in Docker.
       if (!Files.exists(Paths.get(databasePath))) {
         databasePath = "/paarsnp/" + databasePath;
       }
@@ -124,14 +121,14 @@ public class PaarsnpMain {
     }
 
     final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-    final Paarsnp paarsnp = new Paarsnp(speciesId, paarLibrary, snparLibrary, agentLibrary.getAgents(), resourceDirectory, executorService);
+    final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(speciesId, paarLibrary, snparLibrary, agentLibrary.getAgents(), resourceDirectory, executorService);
 
     final Consumer<PaarsnpResult> resultWriter = this.getWriter(isToStdout, workingDirectory);
 
     // Run paarsnp on each assembly file.
     assemblyFiles
         .parallelStream()
-        .map(paarsnp)
+        .map(paarsnpRunner)
         .peek(paarsnpResult -> this.logger.debug("{}", paarsnpResult.toPrettyJson()))
         .forEach(resultWriter);
   }

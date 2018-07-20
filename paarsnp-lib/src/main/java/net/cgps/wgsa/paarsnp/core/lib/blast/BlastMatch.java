@@ -1,7 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.cgps.wgsa.paarsnp.core.lib.DnaSequence;
+import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 
 import java.util.*;
@@ -20,6 +20,12 @@ public class BlastMatch {
     this.queryMatchSequence = queryMatchSequence;
     this.referenceMatchSequence = referenceMatchSequence;
     this.mutations = new HashMap<>(mutations);
+  }
+
+  public double calculateCoverage() {
+    return (((double) this.blastSearchStatistics.getLibrarySequenceStop() - this.blastSearchStatistics.getLibrarySequenceStart() + 1.0)
+        / (double) this.blastSearchStatistics.getLibrarySequenceLength())
+        * 100;
   }
 
   @JsonIgnore

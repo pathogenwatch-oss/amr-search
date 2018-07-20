@@ -1,7 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
-import net.cgps.wgsa.paarsnp.core.lib.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.lib.blast.ncbi.BlastOutput;
+import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

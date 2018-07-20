@@ -10,8 +10,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.function.Function;
 
 /**
@@ -21,7 +19,7 @@ public class BlastRunner implements Function<String[], BlastOutput> {
 
   private final Logger logger = LoggerFactory.getLogger(BlastRunner.class);
 
-  private static String[] baseCommand = new String[]{
+  private static final String[] baseCommand = new String[]{
       "blastn",
       "-task", "blastn",
       "-outfmt", "5",

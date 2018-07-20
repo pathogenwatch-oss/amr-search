@@ -1,4 +1,4 @@
-package net.cgps.wgsa.paarsnp.core.lib;
+package net.cgps.wgsa.paarsnp.core.lib.utils;
 
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;

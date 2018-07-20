@@ -134,15 +134,13 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
   public static class PaarsnpResultData {
 
     final String assemblyId;
-    final String speciesId;
     final SnparResult snparResult;
     final PaarResult paarResult;
     final Collection<String> referenceProfile;
 
-    public PaarsnpResultData(final String assemblyId, final String speciesId, final SnparResult snparResult, final PaarResult paarResult, final Collection<String> referenceProfile) {
+    public PaarsnpResultData(final String assemblyId, final SnparResult snparResult, final PaarResult paarResult, final Collection<String> referenceProfile) {
 
       this.assemblyId = assemblyId;
-      this.speciesId = speciesId;
       this.snparResult = snparResult;
       this.paarResult = paarResult;
       this.referenceProfile = referenceProfile;

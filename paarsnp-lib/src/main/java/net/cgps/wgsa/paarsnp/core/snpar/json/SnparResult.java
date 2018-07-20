@@ -6,7 +6,6 @@ import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.function.Function;
 
 public class SnparResult extends AbstractJsonnable {
 
@@ -43,11 +42,6 @@ public class SnparResult extends AbstractJsonnable {
   public Collection<ResistanceSet> getPartialSets() {
 
     return this.partialSets;
-  }
-
-  public String format(final Function<SnparResult, char[]> snparResultFormatter) {
-
-    return new String(snparResultFormatter.apply(this));
   }
 
   public Collection<SnparMatchData> getBlastMatches() {

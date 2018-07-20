@@ -1,9 +1,7 @@
-package net.cgps.wgsa.paarsnp.core.lib;
+package net.cgps.wgsa.paarsnp.core.lib.utils;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class TestForOverlapTest {
 

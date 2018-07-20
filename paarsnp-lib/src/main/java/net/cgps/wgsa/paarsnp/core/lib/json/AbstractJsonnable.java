@@ -2,7 +2,7 @@ package net.cgps.wgsa.paarsnp.core.lib.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.cgps.wgsa.paarsnp.core.lib.ObjectMappingException;
+import net.cgps.wgsa.paarsnp.core.lib.blast.ObjectMappingException;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
