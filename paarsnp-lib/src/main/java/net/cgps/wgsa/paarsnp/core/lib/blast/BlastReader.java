@@ -2,6 +2,7 @@ package net.cgps.wgsa.paarsnp.core.lib.blast;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.ncbi.BlastOutput;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
+import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -16,6 +17,8 @@ import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
 import java.io.BufferedReader;
 import java.math.BigInteger;
+import java.util.Collection;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -58,7 +61,7 @@ public class BlastReader implements Function<BlastOutput, Stream<BlastMatch>> {
                   final MutationBuilder mutationBuilder = new MutationBuilder();
 
                   // Extract the list of mutations
-                  final SequenceProcessingResult sequenceProcessingResult = new SequenceProcessor(hsp.getHspHseq(), hsp.getHspHitFrom().intValue(), strand, hsp.getHspQseq(), hsp.getHspQueryFrom().intValue(), mutationBuilder).call();
+                  final Map<Integer, Collection<Mutation>> mutations = new SequenceProcessor(hsp.getHspHseq(), hsp.getHspHitFrom().intValue(), strand, hsp.getHspQseq(), hsp.getHspQueryFrom().intValue(), mutationBuilder).call();
 
                   final BlastSearchStatistics stats = new BlastSearchStatistics(
                       hit.getHitAccession(),
@@ -77,7 +80,7 @@ public class BlastReader implements Function<BlastOutput, Stream<BlastMatch>> {
                       stats,
                       hsp.getHspQseq(),
                       hsp.getHspHseq(),
-                      sequenceProcessingResult.getMutations()
+                      mutations
                   );
                 })
             )

@@ -9,13 +9,13 @@ import java.util.*;
 public class BlastMatch {
 
   // Don't use a char[] here as the internal elements aren't immutable.
-  protected final Map<Integer, Mutation> mutations;
+  protected final Map<Integer, Collection<Mutation>> mutations;
   private final BlastSearchStatistics blastSearchStatistics;
   private final String queryMatchSequence;
   private final String referenceMatchSequence;
   private String forwardMatchSequence;
 
-  public BlastMatch(final BlastSearchStatistics blastSearchStatistics, final String queryMatchSequence, final String referenceMatchSequence, final Map<Integer, Mutation> mutations) {
+  public BlastMatch(final BlastSearchStatistics blastSearchStatistics, final String queryMatchSequence, final String referenceMatchSequence, final Map<Integer, Collection<Mutation>> mutations) {
     this.blastSearchStatistics = blastSearchStatistics;
     this.queryMatchSequence = queryMatchSequence;
     this.referenceMatchSequence = referenceMatchSequence;
@@ -65,7 +65,7 @@ public class BlastMatch {
     return this.forwardMatchSequence;
   }
 
-  public Map<Integer, Mutation> getMutations() {
+  public Map<Integer, Collection<Mutation>> getMutations() {
 
     return Collections.unmodifiableMap(this.mutations);
   }

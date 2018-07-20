@@ -1,9 +1,11 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -18,7 +20,6 @@ class SequenceProcessor {
   private final CharSequence queryAlignSeq;
   private final int queryStart;
   private final MutationBuilder mutationBuilder;
-  private final Map<Integer, Mutation> mutations;
 
   SequenceProcessor(final CharSequence refAlignSeq, final int refStart, final DnaSequence.Strand strand, final CharSequence queryAlignSeq, final int queryStart, final MutationBuilder mutationBuilder) {
 
@@ -28,14 +29,14 @@ class SequenceProcessor {
     this.queryAlignSeq = queryAlignSeq;
     this.queryStart = queryStart;
     this.mutationBuilder = mutationBuilder;
-    this.mutations = new HashMap<>(300);
   }
 
   /**
    * Steps through the two sequences identifying the location and type of mutations (differences).
    */
-  SequenceProcessingResult call() {
+  Map<Integer, Collection<Mutation>> call() {
 
+    final ListMultimap<Integer, Mutation> mutations = ArrayListMultimap.create();
 
     // The two sequence lengths should be exactly the same.
     // Determine the direction to increment the reference position.
@@ -56,29 +57,26 @@ class SequenceProcessor {
         refSeqLocation += incr;
 
       } else {
-        final Mutation.MutationType mutationType;
         if (DELETION_CHAR == queryChar) {
 
           // Deletion
           refSeqLocation += incr;
-          mutationType = Mutation.MutationType.D;
+          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.D, querySeqLocation, refSeqLocation, strand));
         } else if (DELETION_CHAR == refChar) {
 
           // Insert
           querySeqLocation++;
-          mutationType = Mutation.MutationType.I;
+          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.I, querySeqLocation, refSeqLocation, strand));
         } else {
 
           // Substitution
           querySeqLocation++;
           refSeqLocation += incr;
-          mutationType = Mutation.MutationType.S;
+          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.S, querySeqLocation, refSeqLocation, strand));
         }
-        this.mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, mutationType, querySeqLocation, refSeqLocation, strand));
       }
-
     }
 
-    return new SequenceProcessingResult(this.mutations);
+    return mutations.asMap();
   }
 }

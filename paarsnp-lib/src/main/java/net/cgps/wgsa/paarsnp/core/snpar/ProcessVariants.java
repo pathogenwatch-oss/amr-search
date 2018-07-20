@@ -4,6 +4,7 @@ import net.cgps.wgsa.paarsnp.core.lib.SequenceType;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.snpar.json.*;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,13 +53,14 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
             final List<Mutation> overlappingMutations = Stream.of(mutation.getNtLocation(), mutation.getNtLocation() + 1, mutation.getNtLocation() + 2)
                 .filter(location -> mutationSearchResult.getMutations().containsKey(location))
                 .map(location -> mutationSearchResult.getMutations().get(location))
+                .flatMap(Collection::stream)
                 .collect(Collectors.toList());
 
             return new SnpResistanceElement(mutation, overlappingMutations);
           })
           .collect(Collectors.toList());
 
-      return new SnparMatchData(mutationSearchResult.getBlastSearchStatistics(), snpResistanceElements, mutationSearchResult.getMutations().values());
+      return new SnparMatchData(mutationSearchResult.getBlastSearchStatistics(), snpResistanceElements);
 
     } else {
       final Collection<SnpResistanceElement> snpResistanceElements = snparReferenceSequence
@@ -71,12 +73,17 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
           .peek(resistanceMutation -> this.logger.debug("Mutation {} in range", resistanceMutation.getName()))
           // Then check if there is a mutation at that location
           .filter(resistanceMutation -> mutationSearchResult.getMutations().containsKey(resistanceMutation.getNtLocation()))
-          .filter(resistanceMutation -> resistanceMutation.getMutationSequence() == mutationSearchResult.getMutations().get(resistanceMutation.getNtLocation()).getMutationSequence())
-          // Map it to an element object
-          .map(mutation -> new SnpResistanceElement(mutation, Collections.singleton(mutationSearchResult.getMutations().get(mutation.getNtLocation()))))
+          .map(resistanceMutation -> new ImmutablePair<>(resistanceMutation, mutationSearchResult.getMutations().get(resistanceMutation.getNtLocation())
+              .stream()
+              .filter(testMutation -> resistanceMutation.getMutationSequence() == testMutation.getMutationSequence())
+              .findFirst())
+          )
+          .filter(pair -> pair.getRight().isPresent())
+          .map(resistanceMutation -> new SnpResistanceElement(resistanceMutation.getLeft(), Collections.singleton(resistanceMutation.getRight().get()))
+          )
           .collect(Collectors.toList());
 
-      return new SnparMatchData(mutationSearchResult.getBlastSearchStatistics(), snpResistanceElements, mutationSearchResult.getMutations().values());
+      return new SnparMatchData(mutationSearchResult.getBlastSearchStatistics(), snpResistanceElements);
     }
   }
 }
