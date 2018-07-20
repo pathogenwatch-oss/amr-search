@@ -1,13 +1,11 @@
 package net.cgps.wgsa.paarsnp.core.paar;
 
 import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
-import net.cgps.wgsa.paarsnp.core.lib.blast.BaseBlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 
 import java.util.*;
-import java.util.function.Function;
 
 /**
  * Document class for storing the P/A AR result for an assembly. AR genes come in sets, which are required to be complete (all found in the query assembly) in order to confer resistance.

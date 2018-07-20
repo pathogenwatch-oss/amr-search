@@ -5,7 +5,6 @@ import net.cgps.wgsa.paarsnp.core.lib.OverlapRemover;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastRunner;
 import net.cgps.wgsa.paarsnp.core.lib.blast.MutationReader;
-import net.cgps.wgsa.paarsnp.core.lib.blast.MutationSearchMatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +17,7 @@ public class ResistanceSearch<T> implements Function<InputOptions, T> {
   private final BlastRunner blastRunner;
   private final MutationReader mutationReader;
   private final Collector<BlastMatch,?,T> interpreter;
-  private final OverlapRemover<MutationSearchMatch> matchOverlapRemover;
+  private final OverlapRemover<BlastMatch> matchOverlapRemover;
 
   ResistanceSearch(final Collector<BlastMatch, ?, T> collector) {
 
