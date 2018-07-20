@@ -3,24 +3,21 @@ package net.cgps.wgsa.paarsnp.core.lib.blast;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class BlastMatch {
 
   // Don't use a char[] here as the internal elements aren't immutable.
-  protected final List<Mutation> mutations;
+  protected final Map<Integer, Mutation> mutations;
   private final BlastSearchStatistics blastSearchStatistics;
   private final String queryMatchSequence;
   private final String referenceMatchSequence;
 
-  public BlastMatch(final BlastSearchStatistics blastSearchStatistics, final String queryMatchSequence, final String referenceMatchSequence, final Collection<Mutation> mutations) {
+  public BlastMatch(final BlastSearchStatistics blastSearchStatistics, final String queryMatchSequence, final String referenceMatchSequence, final Map<Integer, Mutation> mutations) {
     this.blastSearchStatistics = blastSearchStatistics;
     this.queryMatchSequence = queryMatchSequence;
     this.referenceMatchSequence = referenceMatchSequence;
-    this.mutations = new ArrayList<>(mutations);
+    this.mutations = new HashMap<>(mutations);
   }
 
   @JsonIgnore
@@ -52,9 +49,9 @@ public class BlastMatch {
     return this.blastSearchStatistics.getLibrarySequenceStop() == this.blastSearchStatistics.getLibrarySequenceLength();
   }
 
-  public Collection<Mutation> getMutations() {
+  public Map<Integer, Mutation> getMutations() {
 
-    return Collections.unmodifiableCollection(this.mutations);
+    return Collections.unmodifiableMap(this.mutations);
   }
 
 

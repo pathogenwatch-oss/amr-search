@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
+import net.cgps.wgsa.paarsnp.core.lib.SequenceType;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.snpar.json.ResistanceMutation;
 
@@ -10,6 +11,7 @@ import java.util.HashSet;
 public class SnparReferenceSequence extends AbstractJsonnable {
 
   private final String sequenceId;
+  private final SequenceType sequenceType;
   private final double seqIdThreshold;
   private final double evalueThreshold;
   private final Collection<ResistanceMutation> resistanceMutations;
@@ -18,12 +20,13 @@ public class SnparReferenceSequence extends AbstractJsonnable {
   @SuppressWarnings("unused")
   private SnparReferenceSequence() {
 
-    this("", 0.0, 0.0, "");
+    this("", SequenceType.DNA, 0.0, 0.0, "");
   }
 
-  public SnparReferenceSequence(final String sequenceId, final double seqIdThreshold, final double evalueThreshold, final String sequence) {
+  public SnparReferenceSequence(final String sequenceId, SequenceType sequenceType, final double seqIdThreshold, final double evalueThreshold, final String sequence) {
 
     this.sequenceId = sequenceId;
+    this.sequenceType = sequenceType;
     this.seqIdThreshold = seqIdThreshold;
     this.evalueThreshold = evalueThreshold;
     this.resistanceMutations = new HashSet<>(20);
@@ -43,6 +46,11 @@ public class SnparReferenceSequence extends AbstractJsonnable {
   public String getSequenceId() {
 
     return this.sequenceId;
+  }
+
+  public SequenceType getSequenceType() {
+
+    return this.sequenceType;
   }
 
   public double getSeqIdThreshold() {

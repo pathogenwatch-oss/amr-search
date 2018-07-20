@@ -10,9 +10,12 @@ import net.cgps.wgsa.paarsnp.core.snpar.json.SnparMatchData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
 
@@ -30,106 +33,51 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
 
     final SnparReferenceSequence snparReferenceSequence = this.snparLibrary.getSequence(mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceId());
 
-    final Collection<SnpResistanceElement> snpResistanceElements = new ArrayList<>(100);
+    if (SequenceType.PROTEIN == snparReferenceSequence.getSequenceType()) {
 
-    snparReferenceSequence
-        .getResistanceMutations()
-        .stream()
-        .peek(mutation -> this.logger.debug("Resistance mutation {}", mutation.getName()))
-        .filter(resistanceMutation -> resistanceMutation.getRepSequenceLocation() > mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart())
-        .filter(resistanceMutation -> resistanceMutation.getRepSequenceLocation() + 3 < mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStop())
-        .peek(mutation -> this.logger.debug("Mutation {} in range", mutation.getName()))
-        .forEach(mutation -> {
+      final Collection<SnpResistanceElement> snpResistanceElements = snparReferenceSequence
+          .getResistanceMutations()
+          .stream()
+          .peek(mutation -> this.logger.debug("Resistance mutation {}", mutation.getName()))
+          // First check that the mutation lands within the matched region
+          .filter(resistanceMutation -> resistanceMutation.getNtLocation() >= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart()
+              && resistanceMutation.getNtLocation() + 2 <= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStop())
+          .peek(mutation -> this.logger.debug("Mutation {} in range", mutation.getName()))
+          // Check if the amino acid matches
+          .filter(resistanceMutation -> {
+            int mutationIndex = resistanceMutation.getNtLocation() - mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart() + 1;
+            final String codon = mutationSearchResult.getReferenceMatchSequence().substring(mutationIndex, mutationIndex + 3);
+            return resistanceMutation.getMutationSequence() == DnaSequence.translateCodon(codon).orElse('X');
+          })
+          .map(mutation -> {
 
-              // Generate a reference to query index
-          this.logger.debug("mutationId={} refId={} repLocation={} repStart={} queryStart={} reverse={}", mutation.getName(), snparReferenceSequence.getSequenceId(), mutation.getRepSequenceLocation(), mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart(), mutationSearchResult.getBlastSearchStatistics().getStrand());
+            // Go through the mutations and gather those that overlap the reference codon
+            final List<Mutation> overlappingMutations = Stream.of(mutation.getNtLocation(), mutation.getNtLocation() + 1, mutation.getNtLocation() + 2)
+                .filter(location -> mutationSearchResult.getMutations().containsKey(location))
+                .map(location -> mutationSearchResult.getMutations().get(location))
+                .collect(Collectors.toList());
 
-              if (SequenceType.PROTEIN == mutation.getSequenceType()) {
+            return new SnpResistanceElement(mutation, overlappingMutations);
+          })
+          .collect(Collectors.toList());
 
-                // Go through the mutations and gather those that overlap the reference region
+      return new SnparMatchData(mutationSearchResult.getBlastSearchStatistics(), snpResistanceElements, mutationSearchResult.getMutations().values());
 
-                final List<Mutation> overlappingMutations = mutationSearchResult
-                    .getMutations()
-                    .stream()
-                    .peek(queryMutation -> this.logger.trace("Testing {} {} v {}", queryMutation.getReferenceLocation(), queryMutation.getMutationSequence(), mutation.getRepSequenceLocation()))
-                    // Start of query mutation <= codon end && end of query mutation >= codon start
-                    .filter(queryMutation -> (queryMutation.getReferenceLocation() <= mutation.getRepSequenceLocation() + 2) && (queryMutation.getReferenceLocation() + queryMutation.getMutationSequence().length() - 1 >= mutation.getRepSequenceLocation()))
-                    .peek(queryMutation -> this.logger.debug("found mutation {} {}", queryMutation.getReferenceLocation(), queryMutation.getMutationSequence()))
-                    .collect(Collectors.toList());
+    } else {
+      final Collection<SnpResistanceElement> snpResistanceElements = snparReferenceSequence
+          .getResistanceMutations()
+          .stream()
+          .peek(resistanceMutation -> this.logger.debug("Resistance mutation {}", resistanceMutation.getName()))
+          // First check that the mutation lands within the matched region
+          .filter(resistanceMutation -> resistanceMutation.getNtLocation() >= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart()
+              && resistanceMutation.getNtLocation() <= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStop())
+          .peek(resistanceMutation -> this.logger.debug("Mutation {} in range", resistanceMutation.getName()))
+          .filter(resistanceMutation -> mutationSearchResult.getMutations().containsKey(resistanceMutation.getNtLocation()))
+          .filter(resistanceMutation -> resistanceMutation.getMutationSequence() == mutationSearchResult.getMutations().get(resistanceMutation.getNtLocation()).getMutationSequence())
+          .map(mutation -> new SnpResistanceElement(mutation, Collections.singleton(mutationSearchResult.getMutations().get(mutation.getNtLocation()))))
+          .collect(Collectors.toList());
 
-                // Generate the new codon and check the amino acid.
-                if (!overlappingMutations.isEmpty()) {
-
-                  this.logger.debug("Codon boundary substring indexes = {} - {} (seq boundaries = {} - {}", mutation.getRepSequenceLocation() - 1, mutation.getRepSequenceLocation() + 2, mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart(), mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStop());
-
-                  String codon = snparReferenceSequence.getSequence().substring(mutation.getRepSequenceLocation() - 1, mutation.getRepSequenceLocation() + 2);
-
-                  for (final Mutation queryMutation : overlappingMutations) {
-
-                    final int codonRelativeLocation = queryMutation.getReferenceLocation() - mutation.getRepSequenceLocation() + 1;
-
-                    this.logger.debug("{} Codon relative position = {} mutant={} currentSeq = {}", queryMutation.getReferenceLocation(), codonRelativeLocation, queryMutation.getMutationSequence(), codon);
-
-                    // Need to substring the mutation to the correct length (e.g. multi-nucleotide substitution)
-                    // if codon position = -1  then 2 nts to remove
-                    // if codon position = 1 then 0 nts to remove
-                    // if codon position = 2 then 0 nts to remove
-                    final int trimStart = codonRelativeLocation < 1 ? 1 - codonRelativeLocation : 0;
-
-                    final int codonPosition = codonRelativeLocation < 1 ? 1 : codonRelativeLocation;
-
-                    this.logger.debug("nts to trim={} codonPosition={}", trimStart, codonPosition);
-
-                    final String trimmedMutation = queryMutation.getMutationSequence().substring(trimStart);
-
-                    final String mutationSequence = codonRelativeLocation < 1 ? trimmedMutation : queryMutation.getMutationSequence();
-
-                    codon = DnaSequence.mutateSequence(codonPosition, Mutation.MutationType.S, mutationSequence, codon);
-
-                    codon = 3 < codon.length() ? codon.substring(0, 3) : codon;
-                    this.logger.debug("{}", codon);
-                  }
-
-                  final char aminoAcid = this.convertCodon(codon);
-
-                  this.logger.debug("refId={} mutationName={} codon={} aminoAcid={} mutationSeq={}", snparReferenceSequence.getSequenceId(), mutation.getName(), codon, String.valueOf(aminoAcid), mutation.getMutationSequence());
-
-                  if (mutation.getMutationSequence().equals(String.valueOf(aminoAcid))) {
-                    this.logger.debug("Added");
-                    snpResistanceElements.add(new SnpResistanceElement(mutation, overlappingMutations));
-                  }
-                }
-              } else {
-
-                // Go through mutations in sequence and see if any match location & type, must allow of multi-nt substitutions.
-                final Optional<Mutation> mutationOptional = mutationSearchResult
-                    .getMutations()
-                    .stream()
-                    // .filter(queryMutation -> MutationType.S == queryMutation.getMutationType())
-                    .filter(queryMutation -> queryMutation.getReferenceLocation() <= mutation.getRepSequenceLocation() && queryMutation.getReferenceLocation() + queryMutation.getMutationSequence().length() - 1 >= mutation.getRepSequenceLocation())
-                    .filter(queryMutation -> {
-
-// If length 1 && the same sequence, all good. Else substring...
-                      return (1 == queryMutation.getMutationSequence().length() && queryMutation.getMutationSequence().equals(mutation.getMutationSequence())) || mutation.getMutationSequence().equals(queryMutation.getMutationSequence().substring(mutation.getRepSequenceLocation() - queryMutation.getReferenceLocation()));
-                    })
-                    .findFirst();
-
-                // ncRNA sequence (or DNA level alteration)
-                if (mutationOptional.isPresent()) {
-                  this.logger.debug("Added");
-                  snpResistanceElements.add(new SnpResistanceElement(mutation, Collections.singleton(mutationOptional.get())));
-                }
-              }
-            }
-        );
-
-    // Add the collated match and resistance data.
-    return new SnparMatchData(mutationSearchResult.getBlastSearchStatistics(), snpResistanceElements, mutationSearchResult.getMutations());
-  }
-
-
-  private char convertCodon(final String codon) {
-
-    return DnaSequence.translateCodon(codon).orElse('0');
+      return new SnparMatchData(mutationSearchResult.getBlastSearchStatistics(), snpResistanceElements, mutationSearchResult.getMutations().values());
+    }
   }
 }
