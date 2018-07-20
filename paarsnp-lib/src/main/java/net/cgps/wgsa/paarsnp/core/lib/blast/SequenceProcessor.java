@@ -1,6 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
-import net.cgps.wgsa.paarsnp.core.snpar.MutationType;
+import net.cgps.wgsa.paarsnp.core.lib.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 
 import java.util.Collection;
@@ -9,22 +9,22 @@ import java.util.HashSet;
 /**
  * Processes the match sequence to find premature stop codons etc.
  */
-public class SequenceProcessor {
+class SequenceProcessor {
 
-  public static final char DELETION_CHAR = '-';
+  private static final char DELETION_CHAR = '-';
   private final CharSequence refAlignSeq;
   private final int refStart;
-  private final boolean reverse;
+  private final DnaSequence.Strand strand;
   private final CharSequence queryAlignSeq;
   private final int queryStart;
   private final MutationBuilder mutationBuilder;
   private final Collection<Mutation> mutations;
 
-  public SequenceProcessor(final CharSequence refAlignSeq, final int refStart, final boolean reverse, final CharSequence queryAlignSeq, final int queryStart, final MutationBuilder mutationBuilder) {
+  SequenceProcessor(final CharSequence refAlignSeq, final int refStart, final DnaSequence.Strand strand, final CharSequence queryAlignSeq, final int queryStart, final MutationBuilder mutationBuilder) {
 
     this.refAlignSeq = refAlignSeq;
     this.refStart = refStart;
-    this.reverse = reverse;
+    this.strand = strand;
     this.queryAlignSeq = queryAlignSeq;
     this.queryStart = queryStart;
     this.mutationBuilder = mutationBuilder;
@@ -33,129 +33,52 @@ public class SequenceProcessor {
 
   /**
    * Steps through the two sequences identifying the location and type of mutations (differences).
-   *
    */
-  public SequenceProcessingResult call() {
+  SequenceProcessingResult call() {
+
 
     // The two sequence lengths should be exactly the same.
     // Determine the direction to increment the reference position.
-    final int incr = this.reverse ? -1 : 1;
+    final int incr = DnaSequence.Strand.FORWARD == strand ? 1 : -1;
 
     int querySeqLocation = this.queryStart - 1; // Start the position before.
     int refSeqLocation = this.refStart - incr; // Start the position before.
-
-    boolean inMutation = false;
-    int mutatedCodonPosition = 0;
 
     for (int alignmentLocation = 0; alignmentLocation < this.refAlignSeq.length(); alignmentLocation++) {
 
       final char refChar = this.refAlignSeq.charAt(alignmentLocation);
       final char queryChar = this.queryAlignSeq.charAt(alignmentLocation);
 
-      if (0 < mutatedCodonPosition) {
-        // Once down to 0 no more checks until another mutation is found.
-        mutatedCodonPosition--;
-      }
-
       if (refChar == queryChar) {
-        // No mutation here => close old mutations
+        // No mutation here
 
         querySeqLocation++;
         refSeqLocation += incr;
 
-        if (inMutation) {
-          // build the old mutation (build resets the builder as well)
-          this.closeCurrentMutation();
-          inMutation = false;
-        }
-      } else if (DELETION_CHAR == queryChar) {
-
-        // Deletion
-        refSeqLocation += incr;
-
-        // Don't check for stop codon here (since it's a gap!), but set the counter to 3 so that the next 2 positions are checked.
-        mutatedCodonPosition = 3;
-
-        if (inMutation) {
-          // check if deletion.
-          if (MutationType.D == this.mutationBuilder.getMutationType()) {
-            // Extend the deletion
-            this.extendTheMutationSequences(refChar, DELETION_CHAR);
-          } else {
-            // If not, build the old one and initiate a deletion mutation.
-            this.closeCurrentMutation();
-            this.mutationBuilder.setMutationType(MutationType.D).initiateQuerySequence(DELETION_CHAR).initiateReferenceSequence(refChar).setQueryLocation(querySeqLocation).setReferenceLocation(refSeqLocation).setReversed(this.reverse);
-          }
-
-        } else {
-          // New mutation
-          inMutation = true;
-          // Initialise builder stuff
-          this.mutationBuilder.setMutationType(MutationType.D).initiateQuerySequence(DELETION_CHAR).initiateReferenceSequence(refChar).setQueryLocation(querySeqLocation).setReferenceLocation(refSeqLocation).setReversed(this.reverse);
-        }
-
-      } else if (DELETION_CHAR == refChar) {
-
-        // Insertion
-        querySeqLocation++;
-
-        if (inMutation) {
-          // Check if in insert
-
-          if (MutationType.I == this.mutationBuilder.getMutationType()) {
-            this.extendTheMutationSequences(DELETION_CHAR, queryChar);
-          } else {
-            // Build the old one and initiate an insert mutation
-            this.closeCurrentMutation();
-            this.mutationBuilder.setMutationType(MutationType.I).initiateQuerySequence(queryChar).initiateReferenceSequence(DELETION_CHAR).setQueryLocation(querySeqLocation).setReferenceLocation(refSeqLocation).setReversed(this.reverse);
-          }
-
-        } else {
-          // new Mutation
-          inMutation = true;
-          this.mutationBuilder.setMutationType(MutationType.I).initiateQuerySequence(queryChar).initiateReferenceSequence(DELETION_CHAR).setQueryLocation(querySeqLocation).setReferenceLocation(refSeqLocation).setReversed(this.reverse);
-        }
       } else {
+        final Mutation.MutationType mutationType;
+        if (DELETION_CHAR == queryChar) {
 
-        querySeqLocation++;
-        refSeqLocation += incr;
+          // Deletion
+          refSeqLocation += incr;
+          mutationType = Mutation.MutationType.D;
+        } else if (DELETION_CHAR == refChar) {
 
-//        // Need to check if a stop codon has been formed
-        mutatedCodonPosition = 2;
-
-        // Substitution
-        if (inMutation) {
-          if (MutationType.S == this.mutationBuilder.getMutationType()) {
-            // extend the mutation
-            this.extendTheMutationSequences(refChar, queryChar);
-          } else {
-            // build the old mutation and start a new one.
-            this.closeCurrentMutation();
-            this.mutationBuilder.setMutationType(MutationType.S).initiateQuerySequence(queryChar).initiateReferenceSequence(refChar).setQueryLocation(querySeqLocation).setReferenceLocation(refSeqLocation).setReversed(this.reverse);
-          }
+          // Insert
+          querySeqLocation++;
+          mutationType = Mutation.MutationType.I;
         } else {
-          inMutation = true;
-          this.mutationBuilder.setMutationType(MutationType.S).initiateQuerySequence(queryChar).initiateReferenceSequence(refChar).setQueryLocation(querySeqLocation).setReferenceLocation(refSeqLocation).setReversed(this.reverse);
+
+          // Substitution
+          querySeqLocation++;
+          refSeqLocation += incr;
+          mutationType = Mutation.MutationType.S;
         }
+        this.mutations.add(this.mutationBuilder.build(queryChar, refChar, mutationType, querySeqLocation, refSeqLocation, strand));
       }
+
     }
 
-    // Check last position
-    if (inMutation) {
-      this.closeCurrentMutation();
-    }
-
-    // Return
     return new SequenceProcessingResult(this.mutations);
-  }
-
-  private void closeCurrentMutation() {
-    final Mutation mutation = this.mutationBuilder.build();
-    this.mutations.add(mutation);
-  }
-
-  private void extendTheMutationSequences(final char refChar, final char qChar) {
-
-    this.mutationBuilder.extendReferenceSequence(refChar).extendQuerySequence(qChar);
   }
 }

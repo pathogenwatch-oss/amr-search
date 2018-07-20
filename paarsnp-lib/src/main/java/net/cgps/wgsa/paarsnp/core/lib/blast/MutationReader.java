@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
+import net.cgps.wgsa.paarsnp.core.lib.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.lib.blast.ncbi.BlastOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,12 +43,12 @@ public class MutationReader implements Function<BlastOutput, Stream<BlastMatch>>
                 .stream()
                 .map(hsp -> {
                   // Check if the match is reversed
-                  final boolean reversed = hsp.getHspHitFrom().intValue() > hsp.getHspHitTo().intValue();
+                  final DnaSequence.Strand strand = hsp.getHspHitFrom().intValue() < hsp.getHspHitTo().intValue() ? DnaSequence.Strand.FORWARD : DnaSequence.Strand.REVERSE;
 
                   final MutationBuilder mutationBuilder = new MutationBuilder();
 
                   // Extract the list of mutations
-                  final SequenceProcessingResult sequenceProcessingResult = new SequenceProcessor(hsp.getHspHseq(), hsp.getHspHitFrom().intValue(), reversed, hsp.getHspQseq(), hsp.getHspQueryFrom().intValue(), mutationBuilder).call();
+                  final SequenceProcessingResult sequenceProcessingResult = new SequenceProcessor(hsp.getHspHseq(), hsp.getHspHitFrom().intValue(), strand, hsp.getHspQseq(), hsp.getHspQueryFrom().intValue(), mutationBuilder).call();
 
                   final BlastSearchStatistics stats = new BlastSearchStatistics(
                       hit.getHitAccession(),
@@ -56,7 +57,7 @@ public class MutationReader implements Function<BlastOutput, Stream<BlastMatch>>
                       hsp.getHspQueryFrom().intValue(),
                       calculatePid(hsp.getHspIdentity(), hsp.getHspAlignLen()),
                       hsp.getHspEvalue(),
-                      reversed,
+                      strand,
                       hsp.getHspHitTo().intValue(),
                       hsp.getHspQueryTo().intValue(),
                       hit.getHitLen().intValue()

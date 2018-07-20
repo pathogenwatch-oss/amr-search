@@ -1,9 +1,8 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import net.cgps.wgsa.paarsnp.core.lib.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
-
-import java.util.function.Function;
 
 public class BlastSearchStatistics extends AbstractJsonnable {
 
@@ -14,7 +13,7 @@ public class BlastSearchStatistics extends AbstractJsonnable {
   private final int querySequenceStart;
   private final double percentIdentity;
   private final double evalue;
-  private final boolean reversed;
+  private final DnaSequence.Strand strand;
   private final int librarySequenceStop;
   private final int querySequenceStop;
   private final int librarySequenceLength;
@@ -22,26 +21,26 @@ public class BlastSearchStatistics extends AbstractJsonnable {
   @SuppressWarnings("unused")
   private BlastSearchStatistics() {
 
-    this("", 0, "", 0, 0.0, 0.0, false, 0, 0, 0);
+    this("", 0, "", 0, 0.0, 0.0, DnaSequence.Strand.FORWARD, 0, 0, 0);
   }
 
-  public BlastSearchStatistics(final String librarySequenceId, final int librarySequenceStart, final String querySequenceId, final int querySequenceStart, final double percentIdentity, final double evalue, final boolean reversed, final int librarySequenceStop, final int querySequenceStop, final int librarySequenceLength) {
+  BlastSearchStatistics(final String librarySequenceId, final int librarySequenceStart, final String querySequenceId, final int querySequenceStart, final double percentIdentity, final double evalue, final DnaSequence.Strand strand, final int librarySequenceStop, final int querySequenceStop, final int librarySequenceLength) {
 
     this.librarySequenceId = librarySequenceId;
     this.querySequenceId = querySequenceId;
     this.querySequenceStart = querySequenceStart;
     this.percentIdentity = percentIdentity;
     this.evalue = evalue;
-    this.reversed = reversed;
+    this.strand = strand;
     this.querySequenceStop = querySequenceStop;
     this.librarySequenceLength = librarySequenceLength;
 
-    if (reversed) {
-      this.librarySequenceStart = librarySequenceStop;
-      this.librarySequenceStop = librarySequenceStart;
-    } else {
+    if (DnaSequence.Strand.FORWARD == strand) {
       this.librarySequenceStart = librarySequenceStart;
       this.librarySequenceStop = librarySequenceStop;
+    } else {
+      this.librarySequenceStart = librarySequenceStop;
+      this.librarySequenceStop = librarySequenceStart;
     }
   }
 
@@ -85,19 +84,15 @@ public class BlastSearchStatistics extends AbstractJsonnable {
     return this.percentIdentity;
   }
 
+  @SuppressWarnings("unused")
   public double getEvalue() {
 
     return this.evalue;
   }
 
-  public boolean isReversed() {
+  public DnaSequence.Strand getStrand() {
 
-    return this.reversed;
-  }
-
-  public String format(final Function<BlastSearchStatistics, char[]> blastSnpMatchFormatter) {
-
-    return new String(blastSnpMatchFormatter.apply(this));
+    return this.strand;
   }
 
   @Override
@@ -110,7 +105,7 @@ public class BlastSearchStatistics extends AbstractJsonnable {
         ", querySequenceStart=" + this.querySequenceStart +
         ", percentIdentity=" + this.percentIdentity +
         ", evalue=" + this.evalue +
-        ", reversed=" + this.reversed +
+        ", strand=" + this.strand +
         ", librarySequenceStop=" + this.librarySequenceStop +
         ", querySequenceStop=" + this.querySequenceStop +
         ", librarySequenceLength=" + this.librarySequenceLength +

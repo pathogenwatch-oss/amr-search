@@ -2,7 +2,6 @@ package net.cgps.wgsa.paarsnp.core.snpar.json;
 
 
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
-import net.cgps.wgsa.paarsnp.core.snpar.MutationType;
 
 public class Mutation extends AbstractJsonnable {
 
@@ -50,5 +49,10 @@ public class Mutation extends AbstractJsonnable {
   public int getQueryLocation() {
 
     return this.queryLocation;
+  }
+
+  public enum MutationType {
+
+    S, I, D
   }
 }

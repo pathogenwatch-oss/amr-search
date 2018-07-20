@@ -42,7 +42,7 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
         .forEach(mutation -> {
 
               // Generate a reference to query index
-              this.logger.debug("mutationId={} refId={} repLocation={} repStart={} queryStart={} reverse={}", mutation.getName(), snparReferenceSequence.getSequenceId(), mutation.getRepSequenceLocation(), mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart(), mutationSearchResult.getBlastSearchStatistics().isReversed());
+          this.logger.debug("mutationId={} refId={} repLocation={} repStart={} queryStart={} reverse={}", mutation.getName(), snparReferenceSequence.getSequenceId(), mutation.getRepSequenceLocation(), mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart(), mutationSearchResult.getBlastSearchStatistics().getStrand());
 
               if (SequenceType.PROTEIN == mutation.getSequenceType()) {
 
@@ -84,7 +84,7 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
 
                     final String mutationSequence = codonRelativeLocation < 1 ? trimmedMutation : queryMutation.getMutationSequence();
 
-                    codon = DnaSequence.mutateSequence(codonPosition, MutationType.S, mutationSequence, codon);
+                    codon = DnaSequence.mutateSequence(codonPosition, Mutation.MutationType.S, mutationSequence, codon);
 
                     codon = 3 < codon.length() ? codon.substring(0, 3) : codon;
                     this.logger.debug("{}", codon);

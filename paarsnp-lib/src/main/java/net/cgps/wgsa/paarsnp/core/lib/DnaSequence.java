@@ -1,6 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.lib;
 
-import net.cgps.wgsa.paarsnp.core.snpar.MutationType;
+import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
+import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
@@ -15,6 +16,9 @@ public class DnaSequence {
 
   public static final CodonTable DEFAULT_CODON_TABLE = new CodonTable();
 
+  public static char complement(final char base) {
+    return CharUtils.toChar(complement(CharUtils.toString(base)));
+  }
 
   public static String reverseTranscribe(final String dnaSequence) {
 
@@ -26,7 +30,7 @@ public class DnaSequence {
     return StringUtils.replaceChars(dnaSequence, "GTCAgtca", "CAGTcagt");
   }
 
-  public static String mutateSequence(final int mutationLocation, final MutationType mutationType, final String mutationSequence, final String originalSequence) {
+  public static String mutateSequence(final int mutationLocation, final Mutation.MutationType mutationType, final String mutationSequence, final String originalSequence) {
 
     final StringBuilder mutSeqSb = new StringBuilder(originalSequence);
 
@@ -47,6 +51,10 @@ public class DnaSequence {
     }
 
     return mutSeqSb.toString();
+  }
+
+  public enum Strand {
+    FORWARD, REVERSE
   }
 
   public static void substituteMutation(final StringBuilder sequenceToMutate, final int sequenceLocation, final String newSequence) {
