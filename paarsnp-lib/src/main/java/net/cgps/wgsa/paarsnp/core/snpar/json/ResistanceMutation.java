@@ -6,7 +6,6 @@ import java.util.Objects;
 
 public class ResistanceMutation extends AbstractJsonnable {
 
-  // Whether the reference sequence is coding or non-coding (affects how the variation is assessed)
   private final String setId;
   // The source of the data.
   private final String source;
@@ -36,10 +35,12 @@ public class ResistanceMutation extends AbstractJsonnable {
     this.aaLocation = aaLocation;
   }
 
+  @SuppressWarnings("unused")
   public String getReferenceId() {
     return this.referenceId;
   }
 
+  @SuppressWarnings("unused")
   public char getOriginalSequence() {
     return this.originalSequence;
   }
@@ -52,6 +53,7 @@ public class ResistanceMutation extends AbstractJsonnable {
     return this.mutationSequence;
   }
 
+  @SuppressWarnings("unused")
   public String getSetId() {
 
     return this.setId;
@@ -87,6 +89,7 @@ public class ResistanceMutation extends AbstractJsonnable {
     return Objects.hash(setId, source, name, referenceId, originalSequence, repLocation, mutationSequence);
   }
 
+  @SuppressWarnings("unused")
   public int getAaLocation() {
     return this.aaLocation;
   }
