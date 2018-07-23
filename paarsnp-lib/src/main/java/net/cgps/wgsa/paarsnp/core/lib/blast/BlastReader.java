@@ -93,6 +93,10 @@ public class BlastReader implements Function<BlastOutput, Stream<BlastMatch>> {
 
     public BlastOutput apply(final BufferedReader inputStream) {
 
+      // This removes a deprecated optimiser that triggers an "Illegal Reflection" warning.
+      // https://github.com/javaee/jaxb-v2/issues/1197
+      System.setProperty("com.sun.xml.bind.v2.bytecode.ClassTailor.noOptimize", "true");
+
       final Unmarshaller unmarshaller;
       final XMLReader xmlreader;
 

@@ -34,7 +34,7 @@ public class ResistanceSearchTest {
         "test",
         Arrays.asList(
             "-query", Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa").toAbsolutePath().toString(),
-            "-db", snparDb.getPath(),
+            "-db", snparDb.getPath().replace(Constants.JSON_APPEND, ""),
             "-perc_identity", String.valueOf(snparLibrary.getMinimumPid()),
             "-evalue", "1e-5"
         ),
