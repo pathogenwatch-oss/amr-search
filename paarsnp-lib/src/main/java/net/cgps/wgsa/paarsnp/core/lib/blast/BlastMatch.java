@@ -53,7 +53,7 @@ public class BlastMatch {
     return this.referenceMatchSequence;
   }
 
-  public final String getForwardRefMatchSequence() {
+  public final String getForwardQuerySequence() {
 
     if (null == this.forwardMatchSequence) {
       if (DnaSequence.Strand.FORWARD == this.blastSearchStatistics.getStrand()) {

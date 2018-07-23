@@ -44,7 +44,7 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
           // Check if the amino acid matches
           .filter(resistanceMutation -> {
             int mutationIndex = resistanceMutation.getRepLocation() - mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart();
-            final String codon = mutationSearchResult.getForwardRefMatchSequence().substring(mutationIndex, mutationIndex + 3);
+            final String codon = mutationSearchResult.getForwardQuerySequence().substring(mutationIndex, mutationIndex + 3);
             return resistanceMutation.getMutationSequence() == DnaSequence.translateCodon(codon).orElse('X');
           })
           .map(mutation -> {
@@ -87,7 +87,7 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
     }
   }
 
-  public Predicate<ResistanceMutation> checkBounds(final BlastMatch mutationSearchResult) {
+  private Predicate<ResistanceMutation> checkBounds(final BlastMatch mutationSearchResult) {
     return resistanceMutation -> resistanceMutation.getRepLocation() >= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart()
         && resistanceMutation.getRepLocation() + 2 <= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStop();
   }
