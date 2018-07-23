@@ -4,10 +4,11 @@ import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.Function;
 
 public class SnpResistanceElement extends AbstractJsonnable {
 
-  private final ResistanceMutation resistanceMutation;
+  private final Function<? super ResistanceMutation, ? extends ResistanceMutation> resistanceMutation;
   private final Collection<Mutation> causalMutations;
 
   @SuppressWarnings("unused")
@@ -16,13 +17,13 @@ public class SnpResistanceElement extends AbstractJsonnable {
     this(null, new ArrayList<>(0));
   }
 
-  public SnpResistanceElement(final ResistanceMutation resistanceMutation, final Collection<Mutation> causalMutations) {
+  public SnpResistanceElement(final Function<? super ResistanceMutation, ? extends ResistanceMutation> resistanceMutation, final Collection<Mutation> causalMutations) {
 
     this.resistanceMutation = resistanceMutation;
     this.causalMutations = new ArrayList<>(causalMutations);
   }
 
-  public final ResistanceMutation getResistanceMutation() {
+  public final Function<? super ResistanceMutation, ? extends ResistanceMutation> getResistanceMutation() {
 
     return this.resistanceMutation;
   }

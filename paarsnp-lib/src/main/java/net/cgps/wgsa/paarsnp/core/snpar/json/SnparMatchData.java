@@ -12,7 +12,7 @@ import java.util.Collections;
 public class SnparMatchData extends AbstractJsonnable {
 
   private final BlastSearchStatistics searchStatistics;
-  private final Collection<SnpResistanceElement> snpResistanceElements;
+  private final Collection<ResistanceMutation> snpResistanceElements;
 
   @SuppressWarnings("unused")
   private SnparMatchData() {
@@ -20,7 +20,7 @@ public class SnparMatchData extends AbstractJsonnable {
     this(null, Collections.emptyList());
   }
 
-  public SnparMatchData(final BlastSearchStatistics searchStatistics, final Collection<SnpResistanceElement> snpResistanceElements) {
+  public SnparMatchData(final BlastSearchStatistics searchStatistics, final Collection<ResistanceMutation> snpResistanceElements) {
 
     this.searchStatistics = searchStatistics;
     this.snpResistanceElements = snpResistanceElements;
@@ -31,7 +31,7 @@ public class SnparMatchData extends AbstractJsonnable {
     return this.searchStatistics;
   }
 
-  public Collection<SnpResistanceElement> getSnpResistanceElements() {
+  public Collection<ResistanceMutation> getSnpResistanceElements() {
 
     return this.snpResistanceElements;
   }

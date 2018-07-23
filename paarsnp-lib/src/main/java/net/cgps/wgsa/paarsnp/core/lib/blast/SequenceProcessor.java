@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Processes the match sequence to find premature stop codons etc.
  */
-class SequenceProcessor {
+public class SequenceProcessor {
 
   private static final char DELETION_CHAR = '-';
   private final CharSequence refAlignSeq;
@@ -21,7 +21,7 @@ class SequenceProcessor {
   private final int queryStart;
   private final MutationBuilder mutationBuilder;
 
-  SequenceProcessor(final CharSequence refAlignSeq, final int refStart, final DnaSequence.Strand strand, final CharSequence queryAlignSeq, final int queryStart, final MutationBuilder mutationBuilder) {
+  public SequenceProcessor(final CharSequence refAlignSeq, final int refStart, final DnaSequence.Strand strand, final CharSequence queryAlignSeq, final int queryStart, final MutationBuilder mutationBuilder) {
 
     this.refAlignSeq = refAlignSeq;
     this.refStart = refStart;
@@ -34,16 +34,13 @@ class SequenceProcessor {
   /**
    * Steps through the two sequences identifying the location and type of mutations (differences).
    */
-  Map<Integer, Collection<Mutation>> call() {
+  public Map<Integer, Collection<Mutation>> call() {
 
     final ListMultimap<Integer, Mutation> mutations = ArrayListMultimap.create();
 
     // The two sequence lengths should be exactly the same.
-    // Determine the direction to increment the reference position.
-    final int incr = DnaSequence.Strand.FORWARD == strand ? 1 : -1;
-
     int querySeqLocation = this.queryStart - 1; // Start the position before.
-    int refSeqLocation = this.refStart - incr; // Start the position before.
+    int refSeqLocation = this.refStart - 1; // Start the position before.
 
     for (int alignmentLocation = 0; alignmentLocation < this.refAlignSeq.length(); alignmentLocation++) {
 
@@ -54,13 +51,13 @@ class SequenceProcessor {
         // No mutation here
 
         querySeqLocation++;
-        refSeqLocation += incr;
+        refSeqLocation++;
 
       } else {
         if (DELETION_CHAR == queryChar) {
 
           // Deletion
-          refSeqLocation += incr;
+          refSeqLocation++;
           mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.D, querySeqLocation, refSeqLocation, strand));
         } else if (DELETION_CHAR == refChar) {
 
@@ -71,7 +68,7 @@ class SequenceProcessor {
 
           // Substitution
           querySeqLocation++;
-          refSeqLocation += incr;
+          refSeqLocation++;
           mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.S, querySeqLocation, refSeqLocation, strand));
         }
       }

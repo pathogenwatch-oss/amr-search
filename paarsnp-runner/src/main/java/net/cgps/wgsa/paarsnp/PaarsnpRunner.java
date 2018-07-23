@@ -53,13 +53,13 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
     final ResistanceSearch.InputOptions snparInputOptions = new ResistanceSearch.InputOptions(
         assemblyId,
-        this.buildBlastOptions(assemblyFile, this.snparLibrary.getMinimumPid(), "1e-40", Constants.SNPAR_APPEND),
-        60.0f);
+        this.buildBlastOptions(assemblyFile, this.snparLibrary.getMinimumPid(), "1e-40", Constants.SNPAR_APPEND)
+    );
 
     final ResistanceSearch.InputOptions paarInputOptions = new ResistanceSearch.InputOptions(
         assemblyId,
-        this.buildBlastOptions(assemblyFile, this.paarLibrary.getMinimumPid(), "1e-5", Constants.PAAR_APPEND),
-        60.0f);
+        this.buildBlastOptions(assemblyFile, this.paarLibrary.getMinimumPid(), "1e-5", Constants.PAAR_APPEND)
+    );
 
     // Run these concurrently, because, why not.
     final Future<PaarResult> paarResultFuture = this.executorService.submit(() -> new ResistanceSearch<>(new PaarCalculation(this.paarLibrary), new TwoStageBlastMatchFilter(60.0)).apply(paarInputOptions));

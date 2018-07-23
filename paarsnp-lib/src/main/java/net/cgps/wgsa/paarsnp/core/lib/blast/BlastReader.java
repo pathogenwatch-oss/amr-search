@@ -2,7 +2,6 @@ package net.cgps.wgsa.paarsnp.core.lib.blast;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.ncbi.BlastOutput;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
-import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -17,8 +16,6 @@ import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
 import java.io.BufferedReader;
 import java.math.BigInteger;
-import java.util.Collection;
-import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -58,11 +55,7 @@ public class BlastReader implements Function<BlastOutput, Stream<BlastMatch>> {
                   // Check if the match is reversed
                   final DnaSequence.Strand strand = hsp.getHspHitFrom().intValue() < hsp.getHspHitTo().intValue() ? DnaSequence.Strand.FORWARD : DnaSequence.Strand.REVERSE;
 
-                  final MutationBuilder mutationBuilder = new MutationBuilder();
-
                   // Extract the list of mutations
-                  final Map<Integer, Collection<Mutation>> mutations = new SequenceProcessor(hsp.getHspHseq(), hsp.getHspHitFrom().intValue(), strand, hsp.getHspQseq(), hsp.getHspQueryFrom().intValue(), mutationBuilder).call();
-
                   final BlastSearchStatistics stats = new BlastSearchStatistics(
                       hit.getHitAccession(),
                       hsp.getHspHitFrom().intValue(),
@@ -76,11 +69,7 @@ public class BlastReader implements Function<BlastOutput, Stream<BlastMatch>> {
                       hit.getHitLen().intValue()
                   );
                   // Add the match w/ mutations to the collection.
-                  return new BlastMatch(
-                      stats,
-                      hsp.getHspQseq(),
-                      hsp.getHspHseq(),
-                      mutations
+                  return new BlastMatch(stats, hsp.getHspQseq(), hsp.getHspHseq()
                   );
                 })
             )

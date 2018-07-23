@@ -1,25 +1,18 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
-import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
-
-import java.util.*;
 
 public class BlastMatch {
 
   // Don't use a char[] here as the internal elements aren't immutable.
-  protected final Map<Integer, Collection<Mutation>> mutations;
   private final BlastSearchStatistics blastSearchStatistics;
-  private final String queryMatchSequence;
   private final String referenceMatchSequence;
-  private String forwardMatchSequence;
+  private final String forwardMatchSequence;
 
-  public BlastMatch(final BlastSearchStatistics blastSearchStatistics, final String queryMatchSequence, final String referenceMatchSequence, final Map<Integer, Collection<Mutation>> mutations) {
+  public BlastMatch(final BlastSearchStatistics blastSearchStatistics, final String queryMatchSequence, final String referenceMatchSequence) {
     this.blastSearchStatistics = blastSearchStatistics;
-    this.queryMatchSequence = queryMatchSequence;
     this.referenceMatchSequence = referenceMatchSequence;
-    this.mutations = new HashMap<>(mutations);
+    this.forwardMatchSequence = this.buildMatchSequence(queryMatchSequence, blastSearchStatistics.getStrand());
   }
 
   public double calculateCoverage() {
@@ -28,47 +21,33 @@ public class BlastMatch {
         * 100;
   }
 
-  @JsonIgnore
-  public final int getSubjectMatchLength() {
-
-    final List<Integer> startStop = new ArrayList<>(2);
-    startStop.add(this.blastSearchStatistics.getLibrarySequenceStart());
-    startStop.add(this.blastSearchStatistics.getLibrarySequenceStop());
-
-    // To allow for reversed matches.
-    Collections.sort(startStop);
-
-    return (startStop.get(1) - startStop.get(0)) + 1;
-  }
-
   public final BlastSearchStatistics getBlastSearchStatistics() {
     return this.blastSearchStatistics;
   }
 
-  public final String getQueryMatchSequence() {
-    return this.queryMatchSequence;
-  }
+  /**
+   * Converts the query match sequence to blast to the orientation of the reference gene.
+   *
+   * @param sequence - input sequence
+   * @param strand   - blast match starnd
+   * @return correctly orientated query sequence.
+   */
+  // Should be external really.
+  private String buildMatchSequence(final String sequence, final DnaSequence.Strand strand) {
 
-  public final String getReferenceMatchSequence() {
-    return this.referenceMatchSequence;
+    if (DnaSequence.Strand.FORWARD == strand) {
+      return sequence;
+    } else {
+      return DnaSequence.reverseTranscribe(sequence);
+    }
   }
 
   public final String getForwardQuerySequence() {
 
-    if (null == this.forwardMatchSequence) {
-      if (DnaSequence.Strand.FORWARD == this.blastSearchStatistics.getStrand()) {
-        this.forwardMatchSequence = this.queryMatchSequence;
-      } else {
-        this.forwardMatchSequence = DnaSequence.reverseTranscribe(this.queryMatchSequence);
-      }
-    }
     return this.forwardMatchSequence;
   }
 
-  public Map<Integer, Collection<Mutation>> getMutations() {
-
-    return Collections.unmodifiableMap(this.mutations);
+  public String getReferenceMatchSequence() {
+    return referenceMatchSequence;
   }
-
-
 }

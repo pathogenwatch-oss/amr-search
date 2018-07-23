@@ -37,8 +37,8 @@ public class ResistanceSearchTest {
             "-db", snparDb.getPath().replace(Constants.JSON_APPEND, ""),
             "-perc_identity", String.valueOf(snparLibrary.getMinimumPid()),
             "-evalue", "1e-5"
-        ),
-        60.0f);
+        )
+    );
 
     final SnparResult result = resistanceSearch.apply(inputOptions);
 

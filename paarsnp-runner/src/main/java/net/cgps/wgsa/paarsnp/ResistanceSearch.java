@@ -47,12 +47,10 @@ public class ResistanceSearch<T> implements Function<ResistanceSearch.InputOptio
 
     private final String assemblyId;
     private final Collection<String> blastOptions;
-    private final float coverageThreshold;
 
-    public InputOptions(String assemblyId, final Collection<String> blastOptions, float coverageThreshold) {
+    public InputOptions(String assemblyId, final Collection<String> blastOptions) {
       this.assemblyId = assemblyId;
       this.blastOptions = blastOptions;
-      this.coverageThreshold = coverageThreshold;
     }
 
     public Collection<String> getBlastOptions() {
@@ -63,8 +61,5 @@ public class ResistanceSearch<T> implements Function<ResistanceSearch.InputOptio
       return this.assemblyId;
     }
 
-    public float getCoverageThreshold() {
-      return this.coverageThreshold;
-    }
   }
 }
