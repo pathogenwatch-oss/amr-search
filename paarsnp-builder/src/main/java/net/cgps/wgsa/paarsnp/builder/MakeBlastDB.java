@@ -29,12 +29,13 @@ public class MakeBlastDB implements BiConsumer<String, Path> {
     final boolean fastaIsEmpty;
 
     try (final BufferedReader br = Files.newBufferedReader(fastaPath)) {
-
-      if (br.readLine() == null) {
-        fastaIsEmpty = true;
+      final String line;
+      if ((line = br.readLine()) != null) {
+        fastaIsEmpty = line.isEmpty();
       } else {
-        fastaIsEmpty = false;
+        fastaIsEmpty = true;
       }
+
     } catch (final IOException e) {
       throw new RuntimeException("Unable to read FASTA file " + fastaPath);
     }

@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.function.Function;
 
 /**
@@ -42,7 +43,7 @@ public class BlastRunner implements Function<String[], BlastOutput> {
       // Start the process
       p = pb.start();
 
-      try (final InputStream error = p.getErrorStream(); final BufferedReader outputReader = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+      try (final InputStream error = p.getErrorStream(); final BufferedReader outputReader = new BufferedReader(new InputStreamReader(p.getInputStream(), Charset.defaultCharset()))) {
 
         // create listener for the stderr on separate thread (reports stderr to log).
         final Thread errorGobbler = new StreamGobbler(error, "ERROR");

@@ -16,10 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -49,7 +46,7 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
   public PaarsnpResult apply(final Path assemblyFile) {
 
-    final String name = assemblyFile.getFileName().toString();
+    final String name = Optional.ofNullable(assemblyFile.getFileName()).orElseThrow(() -> new RuntimeException("Assembly file is null somehow.")).toString();
     final String assemblyId = name.substring(0, name.lastIndexOf('.'));
 
     this.logger.debug("Beginning {}", assemblyId);

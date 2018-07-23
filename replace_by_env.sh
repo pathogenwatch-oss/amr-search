@@ -6,20 +6,20 @@ while read -r line ; do
     # remove the protocol
     url="$(echo ${line/$proto/})"
     # extract the user (if any)
-    userpass="$(echo $url | grep @ | cut -d@ -f1)"
-    pass="$(echo $userpass | grep : | cut -d: -f2)"
-    if [ -n "$pass" ]; then
-      user="$(echo $userpass | grep : | cut -d: -f1)"
+    userpass="$(echo ${url} | grep @ | cut -d@ -f1)"
+    pass="$(echo ${userpass} | grep : | cut -d: -f2)"
+    if [ -n "${pass}" ]; then
+      user="$(echo ${userpass} | grep : | cut -d: -f1)"
     else
-        user=$userpass
+        user=${userpass}
     fi
 
     # extract the host
     host="$(echo ${url/$user@/} | cut -d/ -f1)"
     # by request - try to extract the port
-    port="$(echo $host | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')"
+    port="$(echo ${host} | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')"
     # extract the path (if any)
-    path="$(echo $url | grep / | cut -d/ -f2-)"
+    path="$(echo ${url} | grep / | cut -d/ -f2-)"
 
     # extract the domain
     domain="$(echo ${host} | sed 's/\(.*\):.*/\1/')"

@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 /**
  * Captures streams and logs them.
@@ -26,7 +27,7 @@ public class StreamGobbler extends Thread {
   @Override
   public void run() {
 
-    try (final InputStreamReader isr = new InputStreamReader(this.is); final BufferedReader br = new BufferedReader(isr)) {
+    try (final BufferedReader br = new BufferedReader(new InputStreamReader(this.is, Charset.defaultCharset()))) {
       String line;
       while ((line = br.readLine()) != null) {
         this.getLogger().info(this.type + "> " + line);

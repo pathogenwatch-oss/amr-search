@@ -23,7 +23,7 @@ public class PaarReader implements Function<Path, PaarLibrary> {
 
   private final String speciesId;
 
-  PaarReader(String speciesId) {
+  PaarReader(final String speciesId) {
     this.speciesId = speciesId;
   }
 

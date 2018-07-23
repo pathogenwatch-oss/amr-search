@@ -39,50 +39,58 @@ public class PaarsnpMain {
       System.exit(1);
     }
 
+//    try {
+    final CommandLine commandLine;
     try {
-      final CommandLine commandLine = parser.parse(options, args);
-
-      final ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-      rootLogger.setLevel(Level.valueOf(commandLine.getOptionValue('l', "INFO")));
-
-      // Resolve the file path.
-      final Path input = Paths.get(commandLine.getOptionValue('i'));
-
-      final Collection<Path> fastas;
-      final Path workingDirectory;
-
-      if (Files.exists(input, LinkOption.NOFOLLOW_LINKS)) {
-
-        if (Files.isRegularFile(input)) {
-          workingDirectory = input.toAbsolutePath().getParent();
-          fastas = Collections.singletonList(input);
-          rootLogger.debug("Processing one file", input);
-        } else {
-          fastas = new ArrayList<>(10000);
-          try (final DirectoryStream<Path> stream = Files.newDirectoryStream(
-              input,
-              entry -> entry.toString().endsWith(".fna") || entry.toString().endsWith(".fa") || entry.toString().endsWith(".fasta"))) {
-            stream.forEach(fastas::add);
-          }
-          rootLogger.debug("Processing {} files from \"{}\".", fastas.size(), input.toAbsolutePath().toString());
-          workingDirectory = input;
-        }
-      } else {
-        throw new RuntimeException("Can't find input file or directory " + input.toAbsolutePath().toString());
-      }
-
-      String databasePath = commandLine.getOptionValue('d', "databases");
-
-      // Little shim for running in Docker.
-      if (!Files.exists(Paths.get(databasePath))) {
-        databasePath = "/paarsnp/" + databasePath;
-      }
-
-      new PaarsnpMain().run(commandLine.getOptionValue('s'), fastas, workingDirectory, commandLine.hasOption('o'), databasePath);
-    } catch (final Exception e) {
-      LoggerFactory.getLogger(PaarsnpMain.class).error("Failed to run due to: ", e);
-      System.exit(1);
+      commandLine = parser.parse(options, args);
+    } catch (final ParseException e) {
+      throw new RuntimeException(e);
     }
+
+    final ch.qos.logback.classic.Logger rootLogger = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+    rootLogger.setLevel(Level.valueOf(commandLine.getOptionValue('l', "INFO")));
+
+    // Resolve the file path.
+    final Path input = Paths.get(commandLine.getOptionValue('i'));
+
+    final Collection<Path> fastas;
+    final Path workingDirectory;
+
+    if (Files.exists(input, LinkOption.NOFOLLOW_LINKS)) {
+
+      if (Files.isRegularFile(input)) {
+        workingDirectory = input.toAbsolutePath().getParent();
+        fastas = Collections.singletonList(input);
+        rootLogger.debug("Processing one file", input);
+      } else {
+        fastas = new ArrayList<>(10000);
+        try (final DirectoryStream<Path> stream = Files.newDirectoryStream(
+            input,
+            entry -> entry.toString().endsWith(".fna") || entry.toString().endsWith(".fa") || entry.toString().endsWith(".fasta"))) {
+          stream.forEach(fastas::add);
+        } catch (final IOException e) {
+          rootLogger.error("Failed to read input FASTA {}", input.toAbsolutePath().toString());
+          throw new RuntimeException(e);
+        }
+        rootLogger.debug("Processing {} files from \"{}\".", fastas.size(), input.toAbsolutePath().toString());
+        workingDirectory = input;
+      }
+    } else {
+      throw new RuntimeException("Can't find input file or directory " + input.toAbsolutePath().toString());
+    }
+
+    String databasePath = commandLine.getOptionValue('d', "databases");
+
+    // Little shim for running in Docker.
+    if (!Files.exists(Paths.get(databasePath))) {
+      databasePath = "/paarsnp/" + databasePath;
+    }
+
+    new PaarsnpMain().run(commandLine.getOptionValue('s'), fastas, workingDirectory, commandLine.hasOption('o'), databasePath);
+//    } catch (final Exception e) {
+//      LoggerFactory.getLogger(PaarsnpMain.class).error("Failed to run due to: ", e);
+//      System.exit(1);
+//    }
     System.exit(0);
   }
 
