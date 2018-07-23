@@ -57,9 +57,9 @@ public class BlastMatch {
 
     if (null == this.forwardMatchSequence) {
       if (DnaSequence.Strand.FORWARD == this.blastSearchStatistics.getStrand()) {
-        this.forwardMatchSequence = this.referenceMatchSequence;
+        this.forwardMatchSequence = this.queryMatchSequence;
       } else {
-        this.forwardMatchSequence = DnaSequence.reverseTranscribe(this.referenceMatchSequence);
+        this.forwardMatchSequence = DnaSequence.reverseTranscribe(this.queryMatchSequence);
       }
     }
     return this.forwardMatchSequence;

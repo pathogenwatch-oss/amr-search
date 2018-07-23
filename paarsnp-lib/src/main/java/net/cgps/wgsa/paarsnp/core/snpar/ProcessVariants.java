@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -38,12 +39,11 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
           .stream()
           .peek(mutation -> this.logger.debug("Resistance mutation {}", mutation.getName()))
           // First check that the mutation lands within the matched region
-          .filter(resistanceMutation -> resistanceMutation.getRepLocation() >= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart()
-              && resistanceMutation.getRepLocation() + 2 <= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStop())
+          .filter(checkBounds(mutationSearchResult))
           .peek(mutation -> this.logger.debug("Mutation {} in range", mutation.getName()))
           // Check if the amino acid matches
           .filter(resistanceMutation -> {
-            int mutationIndex = resistanceMutation.getRepLocation() - mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart() + 1;
+            int mutationIndex = resistanceMutation.getRepLocation() - mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart();
             final String codon = mutationSearchResult.getForwardRefMatchSequence().substring(mutationIndex, mutationIndex + 3);
             return resistanceMutation.getMutationSequence() == DnaSequence.translateCodon(codon).orElse('X');
           })
@@ -85,5 +85,10 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
 
       return new SnparMatchData(mutationSearchResult.getBlastSearchStatistics(), snpResistanceElements);
     }
+  }
+
+  public Predicate<ResistanceMutation> checkBounds(final BlastMatch mutationSearchResult) {
+    return resistanceMutation -> resistanceMutation.getRepLocation() >= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart()
+        && resistanceMutation.getRepLocation() + 2 <= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStop();
   }
 }
