@@ -37,6 +37,7 @@ public class ResistanceSearch<T> implements Function<ResistanceSearch.InputOptio
 
     return blastReader.apply(blastRunner.apply(inputData.getBlastOptions().toArray(new String[0])))
         .filter(this.blastMatchFilter)
+        .peek(match -> this.logger.debug("{}", match.getBlastSearchStatistics().toString()))
         .collect(this.matchOverlapRemover)
         .stream()
         .collect(this.interpreter);

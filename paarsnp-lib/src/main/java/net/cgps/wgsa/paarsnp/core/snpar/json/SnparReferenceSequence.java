@@ -5,7 +5,6 @@ import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 
 public class SnparReferenceSequence extends AbstractJsonnable {
 
@@ -18,21 +17,16 @@ public class SnparReferenceSequence extends AbstractJsonnable {
   @SuppressWarnings("unused")
   private SnparReferenceSequence() {
 
-    this("", SequenceType.DNA, 0.0, "");
+    this("", SequenceType.DNA, 0.0, Collections.emptyList(), "");
   }
 
-  public SnparReferenceSequence(final String sequenceId, SequenceType sequenceType, final double seqIdThreshold, final String sequence) {
+  public SnparReferenceSequence(final String sequenceId, SequenceType sequenceType, final double seqIdThreshold, final Collection<ResistanceMutation> resistanceMutations, final String sequence) {
 
     this.sequenceId = sequenceId;
     this.sequenceType = sequenceType;
     this.seqIdThreshold = seqIdThreshold;
-    this.resistanceMutations = new HashSet<>(20);
+    this.resistanceMutations = resistanceMutations;
     this.sequence = sequence;
-  }
-
-  public void addMutation(final ResistanceMutation resistanceMutation) {
-
-    this.resistanceMutations.add(resistanceMutation);
   }
 
   public Collection<ResistanceMutation> getResistanceMutations() {

@@ -285,7 +285,7 @@
               "name": "gyrA_S83F",
               "referenceId": "gyrA",
               "originalSequence": "S",
-              "repSequenceLocation": 247,
+              "repLocation": 247,
               "mutationSequence": "F",
               "mutationType": "S"
             },

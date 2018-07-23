@@ -38,19 +38,19 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
           .stream()
           .peek(mutation -> this.logger.debug("Resistance mutation {}", mutation.getName()))
           // First check that the mutation lands within the matched region
-          .filter(resistanceMutation -> resistanceMutation.getNtLocation() >= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart()
-              && resistanceMutation.getNtLocation() + 2 <= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStop())
+          .filter(resistanceMutation -> resistanceMutation.getRepLocation() >= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart()
+              && resistanceMutation.getRepLocation() + 2 <= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStop())
           .peek(mutation -> this.logger.debug("Mutation {} in range", mutation.getName()))
           // Check if the amino acid matches
           .filter(resistanceMutation -> {
-            int mutationIndex = resistanceMutation.getNtLocation() - mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart() + 1;
+            int mutationIndex = resistanceMutation.getRepLocation() - mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart() + 1;
             final String codon = mutationSearchResult.getForwardRefMatchSequence().substring(mutationIndex, mutationIndex + 3);
             return resistanceMutation.getMutationSequence() == DnaSequence.translateCodon(codon).orElse('X');
           })
           .map(mutation -> {
 
             // Go through the mutations and gather those that overlap the reference codon
-            final List<Mutation> overlappingMutations = Stream.of(mutation.getNtLocation(), mutation.getNtLocation() + 1, mutation.getNtLocation() + 2)
+            final List<Mutation> overlappingMutations = Stream.of(mutation.getRepLocation(), mutation.getRepLocation() + 1, mutation.getRepLocation() + 2)
                 .filter(location -> mutationSearchResult.getMutations().containsKey(location))
                 .map(location -> mutationSearchResult.getMutations().get(location))
                 .flatMap(Collection::stream)
@@ -68,12 +68,12 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
           .stream()
           .peek(resistanceMutation -> this.logger.debug("Resistance mutation {}", resistanceMutation.getName()))
           // First check that the mutation lands within the matched region
-          .filter(resistanceMutation -> resistanceMutation.getNtLocation() >= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart()
-              && resistanceMutation.getNtLocation() <= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStop())
+          .filter(resistanceMutation -> resistanceMutation.getRepLocation() >= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart()
+              && resistanceMutation.getRepLocation() <= mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStop())
           .peek(resistanceMutation -> this.logger.debug("Mutation {} in range", resistanceMutation.getName()))
           // Then check if there is a mutation at that location
-          .filter(resistanceMutation -> mutationSearchResult.getMutations().containsKey(resistanceMutation.getNtLocation()))
-          .map(resistanceMutation -> new ImmutablePair<>(resistanceMutation, mutationSearchResult.getMutations().get(resistanceMutation.getNtLocation())
+          .filter(resistanceMutation -> mutationSearchResult.getMutations().containsKey(resistanceMutation.getRepLocation()))
+          .map(resistanceMutation -> new ImmutablePair<>(resistanceMutation, mutationSearchResult.getMutations().get(resistanceMutation.getRepLocation())
               .stream()
               .filter(testMutation -> resistanceMutation.getMutationSequence() == testMutation.getMutationSequence())
               .findFirst())

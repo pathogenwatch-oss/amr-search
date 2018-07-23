@@ -43,7 +43,7 @@ public class OverlapRemover<T extends BlastMatch> implements Collector<T, List<T
   public BinaryOperator<List<T>> combiner() {
     return (a, b) -> {
       a.addAll(b);
-      return b;
+      return a;
     };
   }
 

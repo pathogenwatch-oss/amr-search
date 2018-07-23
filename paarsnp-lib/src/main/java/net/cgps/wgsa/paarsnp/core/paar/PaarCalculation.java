@@ -6,6 +6,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.SetMultimap;
 import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
+import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.paar.json.PaarLibrary;
 import net.cgps.wgsa.paarsnp.core.paar.json.ResistanceGene;
@@ -54,7 +55,7 @@ public class PaarCalculation implements Collector<BlastMatch, Collection<BlastMa
   public Function<Collection<BlastMatch>, PaarResult> finisher() {
 
     return selectedMatches -> {  // Result data structures.
-      final Multimap<String, BlastMatch> matches = HashMultimap.create();
+      final Multimap<String, BlastSearchStatistics> matches = HashMultimap.create();
       final Collection<ResistanceSet> completedSets = new HashSet<>(10);
       final Collection<ResistanceSet> partialSets = new HashSet<>(10);
       final Map<String, ElementEffect> modifiedSets = new HashMap<>(); // setId -> effect
@@ -86,7 +87,7 @@ public class PaarCalculation implements Collector<BlastMatch, Collection<BlastMa
                   matchToGeneEntry.getValue().getResistanceSetNames().forEach(setName -> modifiedSets.put(setName, this.paarLibrary.getSetById(setName).getModifiers().get(matchToGeneEntry.getValue().getFamilyName())));
                 }
 
-                matches.put(matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getKey());
+            matches.put(matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getKey().getBlastSearchStatistics());
               }
           );
 
@@ -103,7 +104,12 @@ public class PaarCalculation implements Collector<BlastMatch, Collection<BlastMa
               }
           );
 
-      return new PaarResult(completedSets, partialSets, modifiedSets, matches.asMap(), Stream.concat(completedSets.stream(), partialSets.stream()).map(ResistanceSet::getResistanceSetName).collect(Collectors.toList()));
+      return new PaarResult(
+          completedSets,
+          partialSets,
+          modifiedSets,
+          matches.asMap(),
+          Stream.concat(completedSets.stream(), partialSets.stream()).map(ResistanceSet::getResistanceSetName).collect(Collectors.toList()));
     };
   }
 

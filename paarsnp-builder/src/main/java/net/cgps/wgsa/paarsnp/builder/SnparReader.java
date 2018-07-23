@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp.builder;
 
+import com.google.common.collect.HashMultimap;
 import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
 import net.cgps.wgsa.paarsnp.core.lib.SequenceType;
 import net.cgps.wgsa.paarsnp.core.lib.SetResistanceType;
@@ -43,7 +44,7 @@ public class SnparReader implements BiFunction<Path, Path, SnparLibrary> {
 
     final Map<String, SequenceType> sequenceTypes = new HashMap<>(10000);
     final Map<String, ResistanceSet> resistanceSets = new HashMap<>(50);
-    final Map<String, ResistanceMutation> mutations = new HashMap<>(10000);
+    final HashMultimap<String, ResistanceMutation> mutations = HashMultimap.create();
 
     try (final CSVParser parser = CSVParser.parse(snparCsvFile.toFile(), Charset.defaultCharset(), CSVFormat.RFC4180.withFirstRecordAsHeader())) {
 
@@ -114,7 +115,7 @@ public class SnparReader implements BiFunction<Path, Path, SnparLibrary> {
     final Map<String, SnparReferenceSequence> referenceSequences = sequences
         .keySet()
         .stream()
-        .map(geneName -> new SnparReferenceSequence(geneName, sequenceTypes.get(geneName), 80.0f, sequences.get(geneName)))
+        .map(geneName -> new SnparReferenceSequence(geneName, sequenceTypes.get(geneName), 80.0f, mutations.asMap().get(geneName), sequences.get(geneName)))
         .collect(Collectors.toMap(SnparReferenceSequence::getSequenceId, Function.identity()));
 
 

@@ -1,7 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.paar;
 
 import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
-import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
+import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 
@@ -16,7 +16,7 @@ public class PaarResult extends AbstractJsonnable {
   private final Collection<ResistanceSet> completeResistanceSets; // set ID -> resistance Gene
   private final Collection<ResistanceSet> partialResistanceSets; // set ID -> resistance Gene
   private final Map<String, ElementEffect> modifiedSets;
-  private final Map<String, Collection<BlastMatch>> blastMatches;
+  private final Map<String, Collection<BlastSearchStatistics>> blastMatches;
 
   @SuppressWarnings("unused")
   private PaarResult() {
@@ -24,7 +24,7 @@ public class PaarResult extends AbstractJsonnable {
     this(Collections.emptyList(), Collections.emptyList(), Collections.emptyMap(), Collections.emptyMap(), Collections.emptyList());
   }
 
-  public PaarResult(final Collection<ResistanceSet> completeResistanceSets, final Collection<ResistanceSet> partialResistanceSets, final Map<String, ElementEffect> modifiedSets, Map<String, Collection<BlastMatch>> blastMatches, final Collection<String> paarElementIds) {
+  public PaarResult(final Collection<ResistanceSet> completeResistanceSets, final Collection<ResistanceSet> partialResistanceSets, final Map<String, ElementEffect> modifiedSets, Map<String, Collection<BlastSearchStatistics>> blastMatches, final Collection<String> paarElementIds) {
 
     this.modifiedSets = modifiedSets;
     this.completeResistanceSets = new ArrayList<>(completeResistanceSets);
@@ -34,7 +34,7 @@ public class PaarResult extends AbstractJsonnable {
   }
 
   @SuppressWarnings("unused") // for json serialisation.
-  public Map<String, Collection<BlastMatch>> getBlastMatches() {
+  public Map<String, Collection<BlastSearchStatistics>> getBlastMatches() {
 
     return this.blastMatches;
   }

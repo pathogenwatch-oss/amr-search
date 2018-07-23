@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp;
 
+import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.SimpleBlastMatchFilter;
 import net.cgps.wgsa.paarsnp.core.lib.TwoStageBlastMatchFilter;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
@@ -55,12 +56,12 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
     final ResistanceSearch.InputOptions snparInputOptions = new ResistanceSearch.InputOptions(
         assemblyId,
-        this.buildBlastOptions(assemblyFile, this.snparLibrary.getMinimumPid(), "1e-40"),
+        this.buildBlastOptions(assemblyFile, this.snparLibrary.getMinimumPid(), "1e-40", Constants.SNPAR_APPEND),
         60.0f);
 
     final ResistanceSearch.InputOptions paarInputOptions = new ResistanceSearch.InputOptions(
         assemblyId,
-        this.buildBlastOptions(assemblyFile, this.paarLibrary.getMinimumPid(), "1e-5"),
+        this.buildBlastOptions(assemblyFile, this.paarLibrary.getMinimumPid(), "1e-5", Constants.PAAR_APPEND),
         60.0f);
 
     // Run these concurrently, because, why not.
@@ -83,10 +84,10 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
     return new BuildPaarsnpResult(agentMap).apply(paarsnpResultData);
   }
 
-  private List<String> buildBlastOptions(final Path assemblyFile, final double minimumPid, final String evalue) {
+  private List<String> buildBlastOptions(final Path assemblyFile, final double minimumPid, final String evalue, final String libraryExtension) {
     return Arrays.asList(
         "-query", assemblyFile.toAbsolutePath().toString(),
-        "-db", Paths.get(this.resourceDirectory, this.speciesId + "_snpar").toAbsolutePath().toString(),
+        "-db", Paths.get(this.resourceDirectory, this.speciesId + libraryExtension).toAbsolutePath().toString(),
         "-perc_identity", String.valueOf(minimumPid),
         "-evalue", evalue
     );
