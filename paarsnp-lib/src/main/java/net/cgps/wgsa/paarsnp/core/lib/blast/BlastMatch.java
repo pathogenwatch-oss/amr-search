@@ -11,7 +11,7 @@ public class BlastMatch {
 
   public BlastMatch(final BlastSearchStatistics blastSearchStatistics, final String queryMatchSequence, final String referenceMatchSequence) {
     this.blastSearchStatistics = blastSearchStatistics;
-    this.referenceMatchSequence = referenceMatchSequence;
+    this.referenceMatchSequence = this.buildMatchSequence(referenceMatchSequence, blastSearchStatistics.getStrand());
     this.forwardMatchSequence = this.buildMatchSequence(queryMatchSequence, blastSearchStatistics.getStrand());
   }
 

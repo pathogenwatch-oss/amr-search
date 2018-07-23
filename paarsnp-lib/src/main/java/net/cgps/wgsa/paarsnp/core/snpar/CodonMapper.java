@@ -13,15 +13,16 @@ public class CodonMapper implements Function<BlastMatch, CodonMap> {
 
     final Map<Integer, String> codonMap = new HashMap<>();
 
-    final int firstCodonIndex = (int) Math.floor(match.getBlastSearchStatistics().getLibrarySequenceStart() / 3) + 1;
+    final int firstCodonIndex = (int) Math.ceil((double) match.getBlastSearchStatistics().getLibrarySequenceStart() - 1.0 / 3.0);
 
     // Deal with out of frame matches
     final int offset = (match.getBlastSearchStatistics().getLibrarySequenceStart() - 1) % 3;
+    final int startPosition = offset == 0 ? 0 : 3 - offset;
 
     int refCodonLocation = firstCodonIndex;
     final StringBuilder currentCodon = new StringBuilder(3);
 
-    for (int alignmentIndex = offset; alignmentIndex < match.getReferenceMatchSequence().length(); alignmentIndex++) {
+    for (int alignmentIndex = startPosition; alignmentIndex < match.getReferenceMatchSequence().length(); alignmentIndex++) {
       final char refChar = match.getReferenceMatchSequence().charAt(alignmentIndex);
       final char queryChar = match.getForwardQuerySequence().charAt(alignmentIndex);
 
