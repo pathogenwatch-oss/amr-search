@@ -19,11 +19,7 @@ public class MutationBuilder {
 
   private char determineSequence(final char sequence, final DnaSequence.Strand strand) {
 
-    if (DnaSequence.Strand.FORWARD == strand) {
-      return Character.toUpperCase(sequence);
-    } else {
-      return Character.toUpperCase(DnaSequence.complement(sequence));
-    }
+    return Character.toUpperCase(sequence);
   }
 
   private int determineActualLocation(final int referenceLocation, final Mutation.MutationType mutationType, final DnaSequence.Strand strand) {
