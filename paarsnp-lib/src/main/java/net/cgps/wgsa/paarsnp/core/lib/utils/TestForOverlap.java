@@ -13,6 +13,10 @@ public class TestForOverlap implements BiPredicate<BlastMatch, BlastMatch> {
   @Override
   public boolean test(final BlastMatch match1, final BlastMatch match2) {
 
+    if (!match1.getBlastSearchStatistics().getQuerySequenceId().equals(match2.getBlastSearchStatistics().getQuerySequenceId())) {
+      return false;
+    }
+
     // The query coordinates are never reversed.
     final int queryStart1 = match1.getBlastSearchStatistics().getQuerySequenceStart();
     final int queryStop1 = match1.getBlastSearchStatistics().getQuerySequenceStop();

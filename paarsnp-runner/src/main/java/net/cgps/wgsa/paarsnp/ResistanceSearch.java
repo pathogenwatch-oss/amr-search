@@ -37,9 +37,10 @@ public class ResistanceSearch<T> implements Function<ResistanceSearch.InputOptio
 
     return blastReader.apply(blastRunner.apply(inputData.getBlastOptions().toArray(new String[0])))
         .filter(this.blastMatchFilter)
-        .peek(match -> this.logger.debug("{}", match.getBlastSearchStatistics().toString()))
+        .peek(match -> this.logger.debug("Pre-overlap check: {}", match.getBlastSearchStatistics().toString()))
         .collect(this.matchOverlapRemover)
         .stream()
+        .peek(match -> this.logger.debug("After overlap removal: {}", match.getBlastSearchStatistics().toString()))
         .collect(this.interpreter);
   }
 

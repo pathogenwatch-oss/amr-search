@@ -87,10 +87,6 @@ public class PaarsnpMain {
     }
 
     new PaarsnpMain().run(commandLine.getOptionValue('s'), fastas, workingDirectory, commandLine.hasOption('o'), databasePath);
-//    } catch (final Exception e) {
-//      LoggerFactory.getLogger(PaarsnpMain.class).error("Failed to run due to: ", e);
-//      System.exit(1);
-//    }
     System.exit(0);
   }
 
@@ -129,13 +125,14 @@ public class PaarsnpMain {
     }
 
     final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-    final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(speciesId, paarLibrary, snparLibrary, agentLibrary.getAgents(), resourceDirectory, executorService);
 
+    final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(speciesId, paarLibrary, snparLibrary, agentLibrary.getAgents(), resourceDirectory, executorService);
     final Consumer<PaarsnpResult> resultWriter = this.getWriter(isToStdout, workingDirectory);
 
     // Run paarsnp on each assembly file.
     assemblyFiles
         .parallelStream()
+        .peek(assemblyFile -> this.logger.info("{}", assemblyFile.toString()))
         .map(paarsnpRunner)
         .peek(paarsnpResult -> this.logger.debug("{}", paarsnpResult.toPrettyJson()))
         .forEach(resultWriter);
