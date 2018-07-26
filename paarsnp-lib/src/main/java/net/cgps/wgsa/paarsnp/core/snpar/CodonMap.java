@@ -6,17 +6,11 @@ import java.util.Map;
 
 public class CodonMap {
 
-  private final String librarySequenceId;
   private final Map<Integer, String> codonMap;
 
-  public CodonMap(final String librarySequenceId, final Map<Integer, String> codonMap) {
+  public CodonMap(final Map<Integer, String> codonMap) {
 
-    this.librarySequenceId = librarySequenceId;
     this.codonMap = codonMap;
-  }
-
-  public String getLibrarySequenceId() {
-    return this.librarySequenceId;
   }
 
   public Character get(final int aaLocation) {

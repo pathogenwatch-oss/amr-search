@@ -44,21 +44,21 @@ public class ResistanceSearch<T> implements Function<ResistanceSearch.InputOptio
         .collect(this.interpreter);
   }
 
-  public static class InputOptions {
+  static class InputOptions {
 
     private final String assemblyId;
     private final Collection<String> blastOptions;
 
-    public InputOptions(String assemblyId, final Collection<String> blastOptions) {
+    InputOptions(String assemblyId, final Collection<String> blastOptions) {
       this.assemblyId = assemblyId;
       this.blastOptions = blastOptions;
     }
 
-    public Collection<String> getBlastOptions() {
+    Collection<String> getBlastOptions() {
       return this.blastOptions;
     }
 
-    public String getAssemblyId() {
+    String getAssemblyId() {
       return this.assemblyId;
     }
 

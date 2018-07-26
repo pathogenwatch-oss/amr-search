@@ -50,4 +50,11 @@ public class BlastMatch {
   public String getReferenceMatchSequence() {
     return referenceMatchSequence;
   }
+
+  @Override
+  public String toString() {
+    return "BlastMatch{" +
+        "blastSearchStatistics=" + blastSearchStatistics +
+        '}';
+  }
 }
