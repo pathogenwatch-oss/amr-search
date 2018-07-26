@@ -1,4 +1,4 @@
-FROM maven:3 AS builder
+FROM maven:3.5.4-jdk-10 AS builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		curl \
@@ -29,7 +29,7 @@ RUN mkdir /paarsnp/ \
     && mv /usr/src/mymaven/build/paarsnp.jar /paarsnp/paarsnp.jar \
     && mv /usr/src/mymaven/build/databases /paarsnp
 
-FROM openjdk:8-jre
+FROM openjdk:10-jre
 
 RUN mkdir -p /opt/blast/bin
 
