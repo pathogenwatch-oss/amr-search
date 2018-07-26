@@ -21,7 +21,7 @@ public class ProcessSnparMatchData implements Function<SnparMatchData, ProcessSn
   private final Logger logger = LoggerFactory.getLogger(ProcessSnparMatchData.class);
   private final Collection<ResistanceSet> resistanceSets;
 
-  public ProcessSnparMatchData(final Collection<ResistanceSet> resistanceSets) {
+  ProcessSnparMatchData(final Collection<ResistanceSet> resistanceSets) {
 
     this.resistanceSets = resistanceSets;
   }
@@ -60,13 +60,13 @@ public class ProcessSnparMatchData implements Function<SnparMatchData, ProcessSn
     return new ProcessedSets(completeSets, partialSets, seenIds);
   }
 
-  public static class ProcessedSets {
+  static class ProcessedSets {
 
     private final Collection<ResistanceSet> completeSets;
     private final Collection<ResistanceSet> partialSets;
     private final Set<String> seenIds;
 
-    public ProcessedSets(final Collection<ResistanceSet> completeSets, final Collection<ResistanceSet> partialSets, final Set<String> seenIds) {
+    ProcessedSets(final Collection<ResistanceSet> completeSets, final Collection<ResistanceSet> partialSets, final Set<String> seenIds) {
 
       this.completeSets = completeSets;
       this.partialSets = partialSets;
@@ -77,27 +77,26 @@ public class ProcessSnparMatchData implements Function<SnparMatchData, ProcessSn
       this(new HashSet<>(20), new HashSet<>(20), new HashSet<>(20));
     }
 
-    public ProcessedSets merge(final ProcessedSets... processedSets) {
+    void merge(final ProcessedSets... processedSets) {
       Stream.of(processedSets)
           .forEach(set -> {
             this.completeSets.addAll(set.completeSets);
             this.partialSets.addAll(set.partialSets);
             this.seenIds.addAll(set.seenIds);
           });
-      return this;
     }
 
-    public Collection<ResistanceSet> getCompleteSets() {
+    Collection<ResistanceSet> getCompleteSets() {
 
       return this.completeSets;
     }
 
-    public Collection<ResistanceSet> getPartialSets() {
+    Collection<ResistanceSet> getPartialSets() {
 
       return this.partialSets;
     }
 
-    public Set<String> getSeenIds() {
+    Set<String> getSeenIds() {
 
       return this.seenIds;
     }

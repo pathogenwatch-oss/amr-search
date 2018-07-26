@@ -1,9 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparMatchData;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
+import net.cgps.wgsa.paarsnp.core.snpar.json.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +14,7 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchData>, SnparResult> {
 
@@ -67,7 +66,20 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
           .forEach(finalSet::merge);
 
       // Finally generate the result document.
-      return new SnparResult(finalSet.getSeenIds(), finalSet.getCompleteSets(), finalSet.getPartialSets(), snparMatchDatas);
+      return new SnparResult(
+          finalSet.getSeenIds(),
+          finalSet.getCompleteSets(),
+          finalSet.getPartialSets(),
+          snparMatchDatas
+              .stream()
+              .map(match -> new MatchJson(
+                  match.getSearchStatistics(),
+                  match.getSnpResistanceElements()
+                      .stream()
+                      .map(ResistanceMutation::getName)
+                      .collect(Collectors.toList())))
+              .collect(Collectors.toList())
+      );
     };
   }
 

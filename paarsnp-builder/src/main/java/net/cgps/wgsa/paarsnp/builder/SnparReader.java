@@ -100,7 +100,7 @@ public class SnparReader implements BiFunction<Path, Path, SnparLibrary> {
         final SequenceType sequenceType = VariantType.SAP == variantType ? SequenceType.PROTEIN : SequenceType.DNA;
 
         sequenceTypes.put(geneName, sequenceType);
-        mutations.put(geneName, new ResistanceMutation(uniqueMutationName, resistanceSetName, geneName, originalSequence, position, mutantSequence, "", rawPosition));
+        mutations.put(geneName, new ResistanceMutation(uniqueMutationName, geneName, originalSequence, position, mutantSequence, "", rawPosition));
       }
     } catch (final IOException e) {
       this.logger.error("Failed to read SNPAR CSV file {}", snparCsvFile.toAbsolutePath().toString());

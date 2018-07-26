@@ -69,7 +69,7 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
           )
           .filter(pair -> pair.getRight().isPresent())
           .map(Map.Entry::getKey)
-          .collect(Collectors.toList());
+          .collect(Collectors.toUnmodifiableSet());
 
       return new SnparMatchData(mutationSearchResult.getBlastSearchStatistics(), snpResistanceElements);
     }

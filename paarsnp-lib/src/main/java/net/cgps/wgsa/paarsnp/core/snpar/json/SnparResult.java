@@ -12,7 +12,7 @@ public class SnparResult extends AbstractJsonnable {
   private final Collection<String> resistanceMutationIds;
   private final Collection<ResistanceSet> completeSets;
   private final Collection<ResistanceSet> partialSets;
-  private final Collection<SnparMatchData> blastMatches;
+  private final Collection<MatchJson> blastMatches;
 
 
   @SuppressWarnings("unused")
@@ -21,7 +21,7 @@ public class SnparResult extends AbstractJsonnable {
     this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
   }
 
-  public SnparResult(final Collection<String> mutationIds, final Collection<ResistanceSet> completeSets, final Collection<ResistanceSet> partialSets, final Collection<SnparMatchData> blastMatches) {
+  public SnparResult(final Collection<String> mutationIds, final Collection<ResistanceSet> completeSets, final Collection<ResistanceSet> partialSets, final Collection<MatchJson> blastMatches) {
 
     this.partialSets = partialSets;
     this.blastMatches = blastMatches;
@@ -44,7 +44,7 @@ public class SnparResult extends AbstractJsonnable {
     return this.partialSets;
   }
 
-  public Collection<SnparMatchData> getBlastMatches() {
+  public Collection<MatchJson> getBlastMatches() {
 
     return this.blastMatches;
   }
