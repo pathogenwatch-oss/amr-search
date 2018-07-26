@@ -22,7 +22,6 @@ COPY . /usr/src/mymaven/
 
 WORKDIR /usr/src/mymaven/
 
-# Run docker build with -v "$(pwd)":/usr/src/mymaven
 RUN mvn clean package
 
 RUN mkdir /paarsnp/ \
