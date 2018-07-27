@@ -1,30 +1,6 @@
-Name                  ,Type                  ,Full Name
-Betalactamase         ,Betalactamase         ,Betalactamase
-fosfomycin            ,fosfomycin            ,fosfomycin
-class                 ,class                 ,class
-beta                  ,beta                  ,beta
-metallobetalactamase  ,metallobetalactamase  ,metallobetalactamase
-tetracycline          ,tetracycline          ,tetracycline
-arsenic               ,arsenic               ,arsenic
-rifampicin            ,rifampicin            ,rifampicin
-antiseptic            ,antiseptic            ,antiseptic
-B3                    ,B3                    ,B3
-colistin              ,colistin              ,colistin
-beta-lactamase        ,beta-lactamase        ,beta-lactamase
-aminoglycoside        ,aminoglycoside        ,aminoglycoside
-carbapenemase         ,carbapenemase         ,carbapenemase
-sulphonamide          ,sulphonamide          ,sulphonamide
-subclass              ,subclass              ,subclass
-mupirocin             ,mupirocin             ,mupirocin
-fusidicacid           ,fusidicacid           ,fusidicacid
-phenicol              ,phenicol              ,phenicol
-vancomycin            ,vancomycin            ,vancomycin
-lactamase             ,lactamase             ,lactamase
-trimethoprim          ,trimethoprim          ,trimethoprim
-cadmium               ,cadmium               ,cadmium
-quinolone             ,quinolone             ,quinolone
-mercury               ,mercury               ,mercury
-etalactamase          ,etalactamase          ,etalactamase
-macrolide             ,macrolide             ,macrolide
-betalactamase         ,betalactamase         ,betalactamase
-metallo-beta-lactamase,metallo-beta-lactamase,metallo-beta-lactamase
+Name                     ,Type                 ,Full Name
+Carbapenemase            ,Carbapenemase        ,Carbapenemase
+Betalactamase            ,Betalactamase        ,Betalactamase
+Metallobetalactamase     ,Metallobetalactamase ,Metallobetalactamase
+Class B Betalactamase    ,Class B Betalactamase,Class B Betalactamase
+Subclass B3 Betalactamase,Betalactamase        ,Subclass B3 Betalactamase
