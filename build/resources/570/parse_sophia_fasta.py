@@ -15,14 +15,15 @@ agent_map = {'betalactamase gene': 'Betalactamase',
              'metallobetalactamase gene': 'Metallobetalactamase',
              'Betalactamase': 'Betalactamase'}
 
-class_map = {
-    'Betalactamase': 'Betalactamase',
-    'Class A Betalactamase': 'Betalactamase',
-    'Class B Betalactamase': 'Class B Betalactamase',
-    'Subclass B3 Betalactamase': 'Betalactamase',
-    'Metallobetalactamase': 'Metallobetalactamase',
-    'Carbapenemase': 'Carbapenemase'
-}
+# class_map = {
+#     'Betalactamase': 'Betalactamase',
+#     'Class A Betalactamase': 'Betalactamase',
+#     'Class B Betalactamase': 'Class B Betalactamase',
+#     'Subclass B3 Betalactamase': 'Betalactamase',
+#     'Metallobetalactamase': 'Metallobetalactamase',
+#     'Carbapenemase': 'Carbapenemase'
+# }
+class_map = dict()
 
 fasta_file = sys.argv[1]
 id_list = sys.argv[2]
@@ -30,13 +31,18 @@ id_list = sys.argv[2]
 fasta_out = 'resistance_genes.fa'
 csv_out = 'resistance_genes.csv'
 
+with open('name_to_class_map.lst', 'r') as class_fh:
+    for line in class_fh.readlines():
+        data = line.rstrip().replace('>', '').split(' ')
+        print(data[0])
+        class_map[id_regex.match(data[0]).group(1)] = data[1]
+
 ids = list()
 with open(id_list, 'r') as ids_fh:
     for line in ids_fh.readlines():
         # print(line.rstrip())
-        part1 = line.rstrip().replace('>', '').split(' ')[0]
         # print(part1)
-        ids.append(id_regex.match(part1).group(1))
+        ids.append(id_regex.match(line.rstrip().replace('>', '').split(' ')[0]).group(1))
 
 aggregated_antimicrobials = set()
 
@@ -63,7 +69,7 @@ with open(fasta_file, 'r') as fasta_fh, open(fasta_out, 'w') as f_out, open(csv_
             #     continue
 
             if current_id in ids:
-                amr_list = agent_map.get(' '.join(data[1:]))
+                amr_list = current_id
                 aggregated_antimicrobials.add(amr_list)
                 print(current_id,
                       '',
