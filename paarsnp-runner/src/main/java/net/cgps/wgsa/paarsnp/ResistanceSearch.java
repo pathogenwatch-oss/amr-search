@@ -7,21 +7,25 @@ import net.cgps.wgsa.paarsnp.core.lib.utils.OverlapRemover;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 
-public class ResistanceSearch<T> implements Function<ResistanceSearch.InputOptions, T> {
+public class ResistanceSearch<T> implements Function<String, T> {
 
   private final Logger logger = LoggerFactory.getLogger(ResistanceSearch.class);
   private final BlastRunner blastRunner;
   private final BlastReader blastReader;
   private final Collector<BlastMatch, ?, T> interpreter;
   private final OverlapRemover<BlastMatch> matchOverlapRemover;
+  private final InputOptions searchOptions;
   private Predicate<BlastMatch> blastMatchFilter;
 
-  ResistanceSearch(final Collector<BlastMatch, ?, T> collector, final Predicate<BlastMatch> blastMatchFilter) {
+  ResistanceSearch(final InputOptions searchOptions, final Collector<BlastMatch, ?, T> collector, final Predicate<BlastMatch> blastMatchFilter) {
+    this.searchOptions = searchOptions;
     this.blastMatchFilter = blastMatchFilter;
 
     this.blastRunner = new BlastRunner();
@@ -31,11 +35,15 @@ public class ResistanceSearch<T> implements Function<ResistanceSearch.InputOptio
   }
 
   @Override
-  public T apply(final InputOptions inputData) {
+  public T apply(final String assemblyId) {
 
-    this.logger.debug("Preparing search request for {} with options:\n{}", inputData.getAssemblyId(), inputData.getBlastOptions());
+    this.logger.debug("Preparing search request for {} with options:\n{}", assemblyId, this.searchOptions.getBlastOptions());
 
-    return blastReader.apply(blastRunner.apply(inputData.getBlastOptions().toArray(new String[0])))
+    final List<String> options = new ArrayList<>(this.searchOptions.getBlastOptions());
+    options.add("-query");
+    options.add(assemblyId);
+
+    return blastReader.apply(blastRunner.apply(options.toArray(new String[0])))
         .filter(this.blastMatchFilter)
         .peek(match -> this.logger.debug("Pre-overlap check: {}", match.getBlastSearchStatistics().toString()))
         .collect(this.matchOverlapRemover)
@@ -46,20 +54,14 @@ public class ResistanceSearch<T> implements Function<ResistanceSearch.InputOptio
 
   static class InputOptions {
 
-    private final String assemblyId;
     private final Collection<String> blastOptions;
 
-    InputOptions(String assemblyId, final Collection<String> blastOptions) {
-      this.assemblyId = assemblyId;
+    InputOptions(final Collection<String> blastOptions) {
       this.blastOptions = blastOptions;
     }
 
     Collection<String> getBlastOptions() {
       return this.blastOptions;
-    }
-
-    String getAssemblyId() {
-      return this.assemblyId;
     }
 
   }

@@ -31,7 +31,6 @@ public class ResistanceSearchTest {
     final ResistanceSearch<SnparResult> resistanceSearch = new ResistanceSearch<>(new SnparCalculation(snparLibrary, new ProcessVariants(snparLibrary)), new SimpleBlastMatchFilter(60.0));
 
     final ResistanceSearch.InputOptions inputOptions = new ResistanceSearch.InputOptions(
-        "test",
         Arrays.asList(
             "-query", Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa").toAbsolutePath().toString(),
             "-db", snparDb.getPath().replace(Constants.JSON_APPEND, ""),

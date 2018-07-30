@@ -29,6 +29,10 @@ public class SnparResult extends AbstractJsonnable {
     this.resistanceMutationIds = new HashSet<>(mutationIds);
   }
 
+  public static SnparResult buildEmpty() {
+    return new SnparResult();
+  }
+
   public Collection<String> getResistanceMutationIds() {
 
     return this.resistanceMutationIds;

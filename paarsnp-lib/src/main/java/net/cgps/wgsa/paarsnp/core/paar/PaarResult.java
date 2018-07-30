@@ -33,6 +33,10 @@ public class PaarResult extends AbstractJsonnable {
     this.paarElementIds = paarElementIds;
   }
 
+  public static PaarResult buildEmpty() {
+    return new PaarResult();
+  }
+
   @SuppressWarnings("unused") // for json serialisation.
   public Map<String, Collection<BlastSearchStatistics>> getBlastMatches() {
 

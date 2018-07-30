@@ -17,9 +17,6 @@ import org.slf4j.LoggerFactory;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -28,50 +25,43 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
   private final Logger logger = LoggerFactory.getLogger(PaarsnpRunner.class);
 
   private final String speciesId;
-  private final PaarLibrary paarLibrary;
-  private final SnparLibrary snparLibrary;
+  private final Optional<PaarLibrary> paarLibrary;
+  private final Optional<SnparLibrary> snparLibrary;
   private final Collection<AntimicrobialAgent> antimicrobialAgents;
   private final String resourceDirectory;
-  private final ExecutorService executorService;
 
-  PaarsnpRunner(final String speciesId, final PaarLibrary paarLibrary, final SnparLibrary snparLibrary, final Collection<AntimicrobialAgent> antimicrobialAgents, String resourceDirectory, final ExecutorService executorService) {
+  PaarsnpRunner(final String speciesId, final Optional<PaarLibrary> paarLibrary, final Optional<SnparLibrary> snparLibrary, final Collection<AntimicrobialAgent> antimicrobialAgents, String resourceDirectory) {
 
     this.speciesId = speciesId;
     this.paarLibrary = paarLibrary;
     this.snparLibrary = snparLibrary;
     this.antimicrobialAgents = antimicrobialAgents;
     this.resourceDirectory = resourceDirectory;
-    this.executorService = executorService;
   }
 
   public PaarsnpResult apply(final Path assemblyFile) {
 
     final String name = Optional.ofNullable(assemblyFile.getFileName()).orElseThrow(() -> new RuntimeException("Assembly file is null somehow.")).toString();
+
     final String assemblyId = name.substring(0, name.lastIndexOf('.'));
 
     this.logger.debug("Beginning {}", assemblyId);
 
-    final ResistanceSearch.InputOptions snparInputOptions = new ResistanceSearch.InputOptions(
-        assemblyId,
-        this.buildBlastOptions(assemblyFile, this.snparLibrary.getMinimumPid(), "1e-40", Constants.SNPAR_APPEND)
-    );
+    final PaarResult paarResult;
+    if (this.paarLibrary.isPresent()) {
+      paarResult = new ResistanceSearch<>(new ResistanceSearch.InputOptions(this.buildBlastOptions(this.paarLibrary.get().getMinimumPid(), "1e-5", Constants.PAAR_APPEND)), new PaarCalculation(this.paarLibrary.get()), new TwoStageBlastMatchFilter(60.0)).apply(assemblyFile.toAbsolutePath().toString());
 
-    final ResistanceSearch.InputOptions paarInputOptions = new ResistanceSearch.InputOptions(
-        assemblyId,
-        this.buildBlastOptions(assemblyFile, this.paarLibrary.getMinimumPid(), "1e-5", Constants.PAAR_APPEND)
-    );
-
-    // Run these concurrently, because, why not.
-    final Future<PaarResult> paarResultFuture = this.executorService.submit(() -> new ResistanceSearch<>(new PaarCalculation(this.paarLibrary), new TwoStageBlastMatchFilter(60.0)).apply(paarInputOptions));
-    final Future<SnparResult> snparResultFuture = this.executorService.submit(() -> new ResistanceSearch<>(new SnparCalculation(this.snparLibrary, new ProcessVariants(this.snparLibrary)), new SimpleBlastMatchFilter(60.0)).apply(snparInputOptions));
+    } else {
+      paarResult = PaarResult.buildEmpty();
+    }
 
     final SnparResult snparResult;
-    final PaarResult paarResult;
-    try {
-      snparResult = snparResultFuture.get();
-      paarResult = paarResultFuture.get();
-    } catch (final InterruptedException | ExecutionException e) {
-      throw new RuntimeException(e);
+    if (this.snparLibrary.isPresent()) {
+      snparResult = new ResistanceSearch<>(new ResistanceSearch.InputOptions(
+          this.buildBlastOptions(this.snparLibrary.get().getMinimumPid(), "1e-40", Constants.SNPAR_APPEND)
+      ), new SnparCalculation(this.snparLibrary.get(), new ProcessVariants(this.snparLibrary.get())), new SimpleBlastMatchFilter(60.0)).apply(assemblyFile.toAbsolutePath().toString());
+    } else {
+      snparResult = SnparResult.buildEmpty();
     }
 
     final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(assemblyId, snparResult, paarResult, this.antimicrobialAgents.stream().map(AntimicrobialAgent::getName).collect(Collectors.toList()));
@@ -81,9 +71,8 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
     return new BuildPaarsnpResult(agentMap).apply(paarsnpResultData);
   }
 
-  private List<String> buildBlastOptions(final Path assemblyFile, final double minimumPid, final String evalue, final String libraryExtension) {
+  private List<String> buildBlastOptions(final double minimumPid, final String evalue, final String libraryExtension) {
     return Arrays.asList(
-        "-query", assemblyFile.toAbsolutePath().toString(),
         "-db", Paths.get(this.resourceDirectory, this.speciesId + libraryExtension).toAbsolutePath().toString(),
         "-perc_identity", String.valueOf(minimumPid),
         "-evalue", evalue
