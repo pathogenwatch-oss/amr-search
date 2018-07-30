@@ -1,3 +1,5 @@
+**/workings/**
+
 .idea/
 *.iml
 /build/resources/resfinder/
