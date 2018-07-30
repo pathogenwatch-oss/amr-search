@@ -1,6 +1,5 @@
 package net.cgps.wgsa.paarsnp.core.snpar.json;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 
 import java.util.Collection;
@@ -15,7 +14,8 @@ public class MatchJson {
     this.resistanceVariants = resistanceVariants;
   }
 
-  @JsonUnwrapped
+  // Would be better unwrapped, but maintaining compatiblity with current API.
+//  @JsonUnwrapped
   public BlastSearchStatistics getBlastSearchStatistics() {
     return this.blastSearchStatistics;
   }

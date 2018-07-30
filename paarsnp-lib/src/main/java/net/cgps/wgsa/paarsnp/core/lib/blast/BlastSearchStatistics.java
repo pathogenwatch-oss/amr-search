@@ -1,6 +1,5 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 
@@ -14,6 +13,7 @@ public class BlastSearchStatistics extends AbstractJsonnable {
   private final double percentIdentity;
   private final double evalue;
   private final DnaSequence.Strand strand;
+  private final boolean reversed;
   private final int librarySequenceStop;
   private final int querySequenceStop;
   private final int librarySequenceLength;
@@ -38,9 +38,11 @@ public class BlastSearchStatistics extends AbstractJsonnable {
     if (DnaSequence.Strand.FORWARD == strand) {
       this.librarySequenceStart = librarySequenceStart;
       this.librarySequenceStop = librarySequenceStop;
+      this.reversed = false;
     } else {
       this.librarySequenceStart = librarySequenceStop;
       this.librarySequenceStop = librarySequenceStart;
+      this.reversed = true;
     }
   }
 
@@ -112,8 +114,10 @@ public class BlastSearchStatistics extends AbstractJsonnable {
         '}';
   }
 
-  @JsonIgnore
-  int getSubjectMatchLength() {
-    return this.querySequenceStop - this.querySequenceStart + 1;
+  @SuppressWarnings("unused")
+  @Deprecated
+  // This method is preserved so that the output JSON still works with the current pathogenwatch wrapper.
+  public boolean isReversed() {
+    return reversed;
   }
 }
