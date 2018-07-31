@@ -18,6 +18,7 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class PaarsnpMain {
@@ -110,13 +111,12 @@ public class PaarsnpMain {
 
   private void run(final String speciesId, final Collection<Path> assemblyFiles, final Path workingDirectory, final boolean isToStdout, final String resourceDirectory) {
 
-    final PaarLibrary paarLibrary;
-    final SnparLibrary snparLibrary;
+//    final PaarLibrary paarLibrary;
     final AntimicrobialAgentLibrary agentLibrary;
+    final Optional<PaarLibrary> paarLibrary = this.readLibrary(resourceDirectory, speciesId, Constants.PAAR_APPEND + Constants.JSON_APPEND, PaarLibrary.class);
+    final Optional<SnparLibrary> snparLibrary = this.readLibrary(resourceDirectory, speciesId, Constants.SNPAR_APPEND + Constants.JSON_APPEND, SnparLibrary.class);
 
     try {
-      paarLibrary = AbstractJsonnable.fromJsonFile(Paths.get(resourceDirectory, speciesId + Constants.PAAR_APPEND + Constants.JSON_APPEND).toFile(), PaarLibrary.class);
-      snparLibrary = AbstractJsonnable.fromJsonFile(Paths.get(resourceDirectory, speciesId + Constants.SNPAR_APPEND + Constants.JSON_APPEND).toFile(), SnparLibrary.class);
       agentLibrary = AbstractJsonnable.fromJsonFile(Paths.get(resourceDirectory, speciesId + Constants.AGENT_FILE_APPEND).toFile(), AntimicrobialAgentLibrary.class);
     } catch (final JsonFileException e) {
       throw new RuntimeException(e);
@@ -132,6 +132,18 @@ public class PaarsnpMain {
         .map(paarsnpRunner)
         .peek(paarsnpResult -> this.logger.debug("{}", paarsnpResult.toPrettyJson()))
         .forEach(resultWriter);
+  }
+
+  private <L extends AbstractJsonnable> Optional<L> readLibrary(final String resourceDirectory, final String speciesId, final String file_end, final Class<L> libraryClass) {
+    final Path dbPath = Paths.get(resourceDirectory, speciesId + file_end);
+    if (!Files.exists(dbPath)) {
+      return Optional.empty();
+    }
+    try {
+      return Optional.of(AbstractJsonnable.fromJsonFile(Paths.get(resourceDirectory, speciesId + file_end).toFile(), libraryClass));
+    } catch (final JsonFileException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   private Consumer<PaarsnpResult> getWriter(final boolean isToStdout, final Path workingDirectory) {

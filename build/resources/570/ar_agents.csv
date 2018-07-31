@@ -1,425 +1,425 @@
-Name        ,Type      ,Full Name
-blaOXA169_1 ,OXA23-like,blaOXA169_1
-blaOXA92_1  ,OXA51-like,blaOXA92_1
-blaIMP49    ,IMP-like  ,blaIMP49
-blaGES8_1   ,GES-like  ,blaGES8_1
-blaOXA149_1 ,OXA51-like,blaOXA149_1
-blaVIM32_1  ,VIM-like  ,blaVIM32_1
+Name,Type,Full Name
+blaOXA169_1,OXA23-like,blaOXA169_1
+blaOXA92_1,OXA51-like,blaOXA92_1
+blaIMP49,IMP-like,blaIMP49
+blaGES8_1,GES-like,blaGES8_1
+blaOXA149_1,OXA51-like,blaOXA149_1
+blaVIM32_1,VIM-like,blaVIM32_1
 blaOXA344_NG,OXA51-like,blaOXA344_NG
-blaNDM2     ,NDM-like  ,blaNDM2
-blaOXA370   ,OXA48-like,blaOXA370
+blaNDM2,NDM-like,blaNDM2
+blaOXA370,OXA48-like,blaOXA370
 blaOXA345_NG,OXA51-like,blaOXA345_NG
-blaOXA23_1  ,OXA23-like,blaOXA23_1
+blaOXA23_1,OXA23-like,blaOXA23_1
 blaOXA512_NG,OXA58-like,blaOXA512_NG
-blaGES3_1   ,GES-like  ,blaGES3_1
-blaGES13_1  ,GES-like  ,blaGES13_1
-blaGES28    ,GES-like  ,blaGES28
-blaDIM1_1   ,DIM-like  ,blaDIM1_1
-blaOXA51_8  ,OXA51-like,blaOXA51_8
+blaGES3_1,GES-like,blaGES3_1
+blaGES13_1,GES-like,blaGES13_1
+blaGES28,GES-like,blaGES28
+blaDIM1_1,DIM-like,blaDIM1_1
+blaOXA51_8,OXA51-like,blaOXA51_8
 blaOXA406_NG,OXA51-like,blaOXA406_NG
-blaVIM33_1  ,VIM-like  ,blaVIM33_1
+blaVIM33_1,VIM-like,blaVIM33_1
 blaOXA505_NG,OXA48-like,blaOXA505_NG
 blaOXA341_NG,OXA51-like,blaOXA341_NG
-blaVIM49    ,VIM-like  ,blaVIM49
-blaIMP41_1  ,IMP-like  ,blaIMP41_1
-blaIMP4_2   ,IMP-like  ,blaIMP4_2
-blaGES6_1   ,GES-like  ,blaGES6_1
-blaOXA90_1  ,OXA51-like,blaOXA90_1
+blaVIM49,VIM-like,blaVIM49
+blaIMP41_1,IMP-like,blaIMP41_1
+blaIMP4_2,IMP-like,blaIMP4_2
+blaGES6_1,GES-like,blaGES6_1
+blaOXA90_1,OXA51-like,blaOXA90_1
 blaOXA413_NG,OXA51-like,blaOXA413_NG
 blaOXA124_NG,OXA51-like,blaOXA124_NG
-blaOXA91_1  ,OXA51-like,blaOXA91_1
-blaGES24    ,GES-like  ,blaGES24
-blaIMP32    ,IMP-like  ,blaIMP32
-blaKPC14    ,KPC-like  ,blaKPC14
+blaOXA91_1,OXA51-like,blaOXA91_1
+blaGES24,GES-like,blaGES24
+blaIMP32,IMP-like,blaIMP32
+blaKPC14,KPC-like,blaKPC14
 blaOXA387_NG,OXA51-like,blaOXA387_NG
-blaIMP54    ,IMP-like  ,blaIMP54
-blaIMP51    ,IMP-like  ,blaIMP51
+blaIMP54,IMP-like,blaIMP54
+blaIMP51,IMP-like,blaIMP51
 blaOXA409_NG,OXA51-like,blaOXA409_NG
 blaOXA524_NG,OXA51-like,blaOXA524_NG
-blaOXA179_1 ,OXA51-like,blaOXA179_1
-blaOXA87_1  ,OXA51-like,blaOXA87_1
-blaOXA244_1 ,OXA48-like,blaOXA244_1
-blaIMP23    ,IMP-like  ,blaIMP23
-blaGES31    ,GES-like  ,blaGES31
-blaVIM39    ,VIM-like  ,blaVIM39
-blaIMP26_1  ,IMP-like  ,blaIMP26_1
-blaNDM16    ,NDM-like  ,blaNDM16
-blaOXA172_1 ,OXA51-like,blaOXA172_1
-blaVIM37_1  ,VIM-like  ,blaVIM37_1
-blaVIM5_1   ,VIM-like  ,blaVIM5_1
-blaVIM23_1  ,VIM-like  ,blaVIM23_1
-blaOXA71_1  ,OXA51-like,blaOXA71_1
-blaIMP42_1  ,IMP-like  ,blaIMP42_1
-blaGES12_1  ,GES-like  ,blaGES12_1
-blaVIM30_1  ,VIM-like  ,blaVIM30_1
+blaOXA179_1,OXA51-like,blaOXA179_1
+blaOXA87_1,OXA51-like,blaOXA87_1
+blaOXA244_1,OXA48-like,blaOXA244_1
+blaIMP23,IMP-like,blaIMP23
+blaGES31,GES-like,blaGES31
+blaVIM39,VIM-like,blaVIM39
+blaIMP26_1,IMP-like,blaIMP26_1
+blaNDM16,NDM-like,blaNDM16
+blaOXA172_1,OXA51-like,blaOXA172_1
+blaVIM37_1,VIM-like,blaVIM37_1
+blaVIM5_1,VIM-like,blaVIM5_1
+blaVIM23_1,VIM-like,blaVIM23_1
+blaOXA71_1,OXA51-like,blaOXA71_1
+blaIMP42_1,IMP-like,blaIMP42_1
+blaGES12_1,GES-like,blaGES12_1
+blaVIM30_1,VIM-like,blaVIM30_1
 blaOXA407_NG,OXA51-like,blaOXA407_NG
-blaGES17_1  ,GES-like  ,blaGES17_1
+blaGES17_1,GES-like,blaGES17_1
 blaOXA441_NG,OXA51-like,blaOXA441_NG
-blaGES16_1  ,GES-like  ,blaGES16_1
-blaOXA315   ,OXA51-like,blaOXA315
-blaKPC1_1   ,KPC-like  ,blaKPC1_1
-blaNDM3     ,NDM-like  ,blaNDM3
-blaIMP29_1  ,IMP-like  ,blaIMP29_1
-blaIMP45    ,IMP-like  ,blaIMP45
-blaOXA216_1 ,OXA51-like,blaOXA216_1
-blaGES4_1   ,GES-like  ,blaGES4_1
-blaIMP5_1   ,IMP-like  ,blaIMP5_1
+blaGES16_1,GES-like,blaGES16_1
+blaOXA315,OXA51-like,blaOXA315
+blaKPC1_1,KPC-like,blaKPC1_1
+blaNDM3,NDM-like,blaNDM3
+blaIMP29_1,IMP-like,blaIMP29_1
+blaIMP45,IMP-like,blaIMP45
+blaOXA216_1,OXA51-like,blaOXA216_1
+blaGES4_1,GES-like,blaGES4_1
+blaIMP5_1,IMP-like,blaIMP5_1
 blaOXA339_NG,OXA51-like,blaOXA339_NG
-blaOXA51_9  ,OXA51-like,blaOXA51_9
-blaGES2_1   ,GES-like  ,blaGES2_1
-blaOXA241   ,OXA51-like,blaOXA241
-blaOXA104_1 ,OXA51-like,blaOXA104_1
-blaOXA376   ,OXA51-like,blaOXA376
-blaVIM26_1  ,VIM-like  ,blaVIM26_1
-blaOXA225_1 ,OXA23-like,blaOXA225_1
-blaGES10_1  ,GES-like  ,blaGES10_1
-blaOXA365   ,OXA51-like,blaOXA365
-blaOXA94_1  ,OXA51-like,blaOXA94_1
-blaVIM10_1  ,VIM-like  ,blaVIM10_1
-blaGES1_1   ,GES-like  ,blaGES1_1
-blaOXA54_1  ,OXA48-like,blaOXA54_1
-blaIMP2_1   ,IMP-like  ,blaIMP2_1
-blaGES21    ,GES-like  ,blaGES21
+blaOXA51_9,OXA51-like,blaOXA51_9
+blaGES2_1,GES-like,blaGES2_1
+blaOXA241,OXA51-like,blaOXA241
+blaOXA104_1,OXA51-like,blaOXA104_1
+blaOXA376,OXA51-like,blaOXA376
+blaVIM26_1,VIM-like,blaVIM26_1
+blaOXA225_1,OXA23-like,blaOXA225_1
+blaGES10_1,GES-like,blaGES10_1
+blaOXA365,OXA51-like,blaOXA365
+blaOXA94_1,OXA51-like,blaOXA94_1
+blaVIM10_1,VIM-like,blaVIM10_1
+blaGES1_1,GES-like,blaGES1_1
+blaOXA54_1,OXA48-like,blaOXA54_1
+blaIMP2_1,IMP-like,blaIMP2_1
+blaGES21,GES-like,blaGES21
 blaOXA346_NG,OXA51-like,blaOXA346_NG
-blaVIM6_1   ,VIM-like  ,blaVIM6_1
-blaKPC18    ,KPC-like  ,blaKPC18
+blaVIM6_1,VIM-like,blaVIM6_1
+blaKPC18,KPC-like,blaKPC18
 blaOXA507_NG,OXA51-like,blaOXA507_NG
-blaOXA197_1 ,OXA51-like,blaOXA197_1
+blaOXA197_1,OXA51-like,blaOXA197_1
 blaOXA509_NG,OXA51-like,blaOXA509_NG
-blaIMP44    ,IMP-like  ,blaIMP44
-blaNDM4     ,NDM-like  ,blaNDM4
+blaIMP44,IMP-like,blaIMP44
+blaNDM4,NDM-like,blaNDM4
 blaOXA527_NG,OXA51-like,blaOXA527_NG
-blaGES30    ,GES-like  ,blaGES30
+blaGES30,GES-like,blaGES30
 blaOXA414_NG,OXA51-like,blaOXA414_NG
-blaIMP43    ,IMP-like  ,blaIMP43
-blaVIM4_1   ,VIM-like  ,blaVIM4_1
-blaKPC13    ,KPC-like  ,blaKPC13
-blaOXA166_1 ,OXA23-like,blaOXA166_1
-blaGES7_1   ,GES-like  ,blaGES7_1
-blaOXA317   ,OXA51-like,blaOXA317
+blaIMP43,IMP-like,blaIMP43
+blaVIM4_1,VIM-like,blaVIM4_1
+blaKPC13,KPC-like,blaKPC13
+blaOXA166_1,OXA23-like,blaOXA166_1
+blaGES7_1,GES-like,blaGES7_1
+blaOXA317,OXA51-like,blaOXA317
 blaOXA122_NG,OXA51-like,blaOXA122_NG
-blaNDM12    ,NDM-like  ,blaNDM12
-blaVIM12_1  ,VIM-like  ,blaVIM12_1
-blaVIM46    ,VIM-like  ,blaVIM46
-blaVIM41    ,VIM-like  ,blaVIM41
-blaOXA128_1 ,OXA51-like,blaOXA128_1
+blaNDM12,NDM-like,blaNDM12
+blaVIM12_1,VIM-like,blaVIM12_1
+blaVIM46,VIM-like,blaVIM46
+blaVIM41,VIM-like,blaVIM41
+blaOXA128_1,OXA51-like,blaOXA128_1
 blaOXA340_NG,OXA51-like,blaOXA340_NG
 blaOXA510_NG,OXA51-like,blaOXA510_NG
-blaGES14_1  ,GES-like  ,blaGES14_1
-blaOXA148_1 ,OXA51-like,blaOXA148_1
+blaGES14_1,GES-like,blaGES14_1
+blaOXA148_1,OXA51-like,blaOXA148_1
 blaOXA403_NG,OXA51-like,blaOXA403_NG
-blaGES20    ,GES-like  ,blaGES20
-blaOXA82_1  ,OXA51-like,blaOXA82_1
-blaOXA377   ,OXA51-like,blaOXA377
-blaKPC26    ,KPC-like  ,blaKPC26
-blaOXA203_1 ,OXA51-like,blaOXA203_1
-blaOXA259   ,OXA51-like,blaOXA259
+blaGES20,GES-like,blaGES20
+blaOXA82_1,OXA51-like,blaOXA82_1
+blaOXA377,OXA51-like,blaOXA377
+blaKPC26,KPC-like,blaKPC26
+blaOXA203_1,OXA51-like,blaOXA203_1
+blaOXA259,OXA51-like,blaOXA259
 blaOXA531_NG,OXA51-like,blaOXA531_NG
-blaIMP25_3  ,IMP-like  ,blaIMP25_3
-blaNDM1_1   ,NDM-like  ,blaNDM1_1
-blaOXA260   ,OXA51-like,blaOXA260
-blaOXA313   ,OXA51-like,blaOXA313
-blaVIM47    ,VIM-like  ,blaVIM47
-blaVIM42    ,VIM-like  ,blaVIM42
-blaVIM51    ,VIM-like  ,blaVIM51
-blaOXA484   ,OXA48-like,blaOXA484
-blaIMP4_3   ,IMP-like  ,blaIMP4_3
-blaOXA69_1  ,OXA51-like,blaOXA69_1
-blaGES11_1  ,GES-like  ,blaGES11_1
-blaOXA163_1 ,OXA48-like,blaOXA163_1
-blaVIM11_1  ,VIM-like  ,blaVIM11_1
-blaIMP7     ,IMP-like  ,blaIMP7
-blaVIM40    ,VIM-like  ,blaVIM40
-blaIMP58    ,IMP-like  ,blaIMP58
-blaGIM1_1   ,GIM-like  ,blaGIM1_1
-blaGES25    ,GES-like  ,blaGES25
-blaOXA371   ,OXA51-like,blaOXA371
-blaOXA103   ,OXA23-like,blaOXA103
+blaIMP25_3,IMP-like,blaIMP25_3
+blaNDM1_1,NDM-like,blaNDM1_1
+blaOXA260,OXA51-like,blaOXA260
+blaOXA313,OXA51-like,blaOXA313
+blaVIM47,VIM-like,blaVIM47
+blaVIM42,VIM-like,blaVIM42
+blaVIM51,VIM-like,blaVIM51
+blaOXA484,OXA48-like,blaOXA484
+blaIMP4_3,IMP-like,blaIMP4_3
+blaOXA69_1,OXA51-like,blaOXA69_1
+blaGES11_1,GES-like,blaGES11_1
+blaOXA163_1,OXA48-like,blaOXA163_1
+blaVIM11_1,VIM-like,blaVIM11_1
+blaIMP7,IMP-like,blaIMP7
+blaVIM40,VIM-like,blaVIM40
+blaIMP58,IMP-like,blaIMP58
+blaGIM1_1,GIM-like,blaGIM1_1
+blaGES25,GES-like,blaGES25
+blaOXA371,OXA51-like,blaOXA371
+blaOXA103,OXA23-like,blaOXA103
 blaOXA127_NG,OXA51-like,blaOXA127_NG
-blaBIC1_1   ,BIC-like  ,blaBIC1_1
-blaVIM17_1  ,VIM-like  ,blaVIM17_1
-blaGES5_1   ,GES-like  ,blaGES5_1
-blaIMP1_5   ,IMP-like  ,blaIMP1_5
-blaOXA316   ,OXA51-like,blaOXA316
-blaOXA70_1  ,OXA51-like,blaOXA70_1
-blaGES19    ,GES-like  ,blaGES19
-blaIMP3     ,IMP-like  ,blaIMP3
-blaOXA111_1 ,OXA51-like,blaOXA111_1
-blaOXA467   ,OXA58-like,blaOXA467
-blaOXA263   ,OXA51-like,blaOXA263
-blaKPC24    ,KPC-like  ,blaKPC24
-blaOXA206   ,OXA51-like,blaOXA206
-blaOXA217   ,OXA51-like,blaOXA217
-blaOXA423   ,OXA23-like,blaOXA423
+blaBIC1_1,BIC-like,blaBIC1_1
+blaVIM17_1,VIM-like,blaVIM17_1
+blaGES5_1,GES-like,blaGES5_1
+blaIMP1_5,IMP-like,blaIMP1_5
+blaOXA316,OXA51-like,blaOXA316
+blaOXA70_1,OXA51-like,blaOXA70_1
+blaGES19,GES-like,blaGES19
+blaIMP3,IMP-like,blaIMP3
+blaOXA111_1,OXA51-like,blaOXA111_1
+blaOXA467,OXA58-like,blaOXA467
+blaOXA263,OXA51-like,blaOXA263
+blaKPC24,KPC-like,blaKPC24
+blaOXA206,OXA51-like,blaOXA206
+blaOXA217,OXA51-like,blaOXA217
+blaOXA423,OXA23-like,blaOXA423
 blaOXA530_NG,OXA51-like,blaOXA530_NG
-blaVIM25_1  ,VIM-like  ,blaVIM25_1
-blaOXA261   ,OXA51-like,blaOXA261
-blaOXA440   ,OXA23-like,blaOXA440
+blaVIM25_1,VIM-like,blaVIM25_1
+blaOXA261,OXA51-like,blaOXA261
+blaOXA440,OXA23-like,blaOXA440
 blaOXA408_NG,OXA51-like,blaOXA408_NG
-blaKPC22    ,KPC-like  ,blaKPC22
-blaIMP1_11  ,IMP-like  ,blaIMP1_11
-blaVIM13_1  ,VIM-like  ,blaVIM13_1
+blaKPC22,KPC-like,blaKPC22
+blaIMP1_11,IMP-like,blaIMP1_11
+blaVIM13_1,VIM-like,blaVIM13_1
 blaOXA442_NG,OXA51-like,blaOXA442_NG
-blaNDM9     ,NDM-like  ,blaNDM9
-blaIMP33_1  ,IMP-like  ,blaIMP33_1
-blaOXA202_1 ,OXA51-like,blaOXA202_1
-blaIMP12_3  ,IMP-like  ,blaIMP12_3
-blaOXA89_1  ,OXA51-like,blaOXA89_1
-blaOXA75_1  ,OXA51-like,blaOXA75_1
+blaNDM9,NDM-like,blaNDM9
+blaIMP33_1,IMP-like,blaIMP33_1
+blaOXA202_1,OXA51-like,blaOXA202_1
+blaIMP12_3,IMP-like,blaIMP12_3
+blaOXA89_1,OXA51-like,blaOXA89_1
+blaOXA75_1,OXA51-like,blaOXA75_1
 blaOXA529_NG,OXA51-like,blaOXA529_NG
-blaVIM34_1  ,VIM-like  ,blaVIM34_1
-blaOXA134_2 ,OXA23-like,blaOXA134_2
-blaVIM43    ,VIM-like  ,blaVIM43
-blaOXA388   ,OXA51-like,blaOXA388
-blaOXA405   ,OXA48-like,blaOXA405
-blaOXA374   ,OXA51-like,blaOXA374
-blaVIM2_2   ,VIM-like  ,blaVIM2_2
+blaVIM34_1,VIM-like,blaVIM34_1
+blaOXA134_2,OXA23-like,blaOXA134_2
+blaVIM43,VIM-like,blaVIM43
+blaOXA388,OXA51-like,blaOXA388
+blaOXA405,OXA48-like,blaOXA405
+blaOXA374,OXA51-like,blaOXA374
+blaVIM2_2,VIM-like,blaVIM2_2
 blaOXA523_NG,OXA51-like,blaOXA523_NG
 blaOXA121_NG,OXA51-like,blaOXA121_NG
-blaKPC16    ,KPC-like  ,blaKPC16
-blaOXA150_1 ,OXA51-like,blaOXA150_1
-blaOXA420   ,OXA58-like,blaOXA420
-blaGES15_1  ,GES-like  ,blaGES15_1
-blaOXA514   ,OXA48-like,blaOXA514
-blaIMP20    ,IMP-like  ,blaIMP20
-blaOXA383   ,OXA51-like,blaOXA383
-blaOXA481   ,OXA23-like,blaOXA481
-blaOXA175_1 ,OXA51-like,blaOXA175_1
-blaOXA375   ,OXA51-like,blaOXA375
+blaKPC16,KPC-like,blaKPC16
+blaOXA150_1,OXA51-like,blaOXA150_1
+blaOXA420,OXA58-like,blaOXA420
+blaGES15_1,GES-like,blaGES15_1
+blaOXA514,OXA48-like,blaOXA514
+blaIMP20,IMP-like,blaIMP20
+blaOXA383,OXA51-like,blaOXA383
+blaOXA481,OXA23-like,blaOXA481
+blaOXA175_1,OXA51-like,blaOXA175_1
+blaOXA375,OXA51-like,blaOXA375
 blaOXA125_NG,OXA51-like,blaOXA125_NG
-blaVIM44    ,VIM-like  ,blaVIM44
-blaOXA386   ,OXA51-like,blaOXA386
-blaIMP24    ,IMP-like  ,blaIMP24
-blaVIM9_1   ,VIM-like  ,blaVIM9_1
-blaOXA250   ,OXA51-like,blaOXA250
-blaOXA177_1 ,OXA51-like,blaOXA177_1
-blaSIM1_1   ,SIM-like  ,blaSIM1_1
-blaIMP13_1  ,IMP-like  ,blaIMP13_1
-blaVIM45    ,VIM-like  ,blaVIM45
-blaVIM24_1  ,VIM-like  ,blaVIM24_1
-blaGES23    ,GES-like  ,blaGES23
-blaOXA249   ,OXA51-like,blaOXA249
-blaIMP37_1  ,IMP-like  ,blaIMP37_1
-blaOXA144_2 ,OXA51-like,blaOXA144_2
-blaOXA219_1 ,OXA51-like,blaOXA219_1
-blaOXA76_1  ,OXA51-like,blaOXA76_1
-blaOXA379   ,OXA51-like,blaOXA379
-blaOXA134_1 ,OXA23-like,blaOXA134_1
+blaVIM44,VIM-like,blaVIM44
+blaOXA386,OXA51-like,blaOXA386
+blaIMP24,IMP-like,blaIMP24
+blaVIM9_1,VIM-like,blaVIM9_1
+blaOXA250,OXA51-like,blaOXA250
+blaOXA177_1,OXA51-like,blaOXA177_1
+blaSIM1_1,SIM-like,blaSIM1_1
+blaIMP13_1,IMP-like,blaIMP13_1
+blaVIM45,VIM-like,blaVIM45
+blaVIM24_1,VIM-like,blaVIM24_1
+blaGES23,GES-like,blaGES23
+blaOXA249,OXA51-like,blaOXA249
+blaIMP37_1,IMP-like,blaIMP37_1
+blaOXA144_2,OXA51-like,blaOXA144_2
+blaOXA219_1,OXA51-like,blaOXA219_1
+blaOXA76_1,OXA51-like,blaOXA76_1
+blaOXA379,OXA51-like,blaOXA379
+blaOXA134_1,OXA23-like,blaOXA134_1
 blaOXA412_NG,OXA51-like,blaOXA412_NG
-blaOXA431   ,OXA51-like,blaOXA431
-blaOXA178_1 ,OXA51-like,blaOXA178_1
-blaOXA482   ,OXA23-like,blaOXA482
-blaOXA254   ,OXA51-like,blaOXA254
-blaVIM29_1  ,VIM-like  ,blaVIM29_1
-blaOXA245_1 ,OXA48-like,blaOXA245_1
-blaIMP55    ,IMP-like  ,blaIMP55
-blaVIM19_1  ,VIM-like  ,blaVIM19_1
-blaOXA173_1 ,OXA51-like,blaOXA173_1
-blaOXA378   ,OXA51-like,blaOXA378
-blaIMP48    ,IMP-like  ,blaIMP48
-blaOXA165_1 ,OXA23-like,blaOXA165_1
-blaOXA433   ,OXA51-like,blaOXA433
-blaOXA389   ,OXA51-like,blaOXA389
-blaIMP34_1  ,IMP-like  ,blaIMP34_1
-blaVIM18_1  ,VIM-like  ,blaVIM18_1
-blaNDM7     ,NDM-like  ,blaNDM7
-blaNDM5     ,NDM-like  ,blaNDM5
-blaNMCA_1   ,NMC-A-like,blaNMCA_1
-blaOXA100   ,OXA51-like,blaOXA100
-blaOXA422   ,OXA23-like,blaOXA422
-blaIMP30    ,IMP-like  ,blaIMP30
-blaOXA181_1 ,OXA48-like,blaOXA181_1
-blaVIM27_1  ,VIM-like  ,blaVIM27_1
-blaOXA195_1 ,OXA51-like,blaOXA195_1
+blaOXA431,OXA51-like,blaOXA431
+blaOXA178_1,OXA51-like,blaOXA178_1
+blaOXA482,OXA23-like,blaOXA482
+blaOXA254,OXA51-like,blaOXA254
+blaVIM29_1,VIM-like,blaVIM29_1
+blaOXA245_1,OXA48-like,blaOXA245_1
+blaIMP55,IMP-like,blaIMP55
+blaVIM19_1,VIM-like,blaVIM19_1
+blaOXA173_1,OXA51-like,blaOXA173_1
+blaOXA378,OXA51-like,blaOXA378
+blaIMP48,IMP-like,blaIMP48
+blaOXA165_1,OXA23-like,blaOXA165_1
+blaOXA433,OXA51-like,blaOXA433
+blaOXA389,OXA51-like,blaOXA389
+blaIMP34_1,IMP-like,blaIMP34_1
+blaVIM18_1,VIM-like,blaVIM18_1
+blaNDM7,NDM-like,blaNDM7
+blaNDM5,NDM-like,blaNDM5
+blaNMCA_1,NMC-A-like,blaNMCA_1
+blaOXA100,OXA51-like,blaOXA100
+blaOXA422,OXA23-like,blaOXA422
+blaIMP30,IMP-like,blaIMP30
+blaOXA181_1,OXA48-like,blaOXA181_1
+blaVIM27_1,VIM-like,blaVIM27_1
+blaOXA195_1,OXA51-like,blaOXA195_1
 blaOXA508_NG,OXA51-like,blaOXA508_NG
-blaSPM1_1   ,SPM-like  ,blaSPM1_1
+blaSPM1_1,SPM-like,blaSPM1_1
 blaOXA402_NG,OXA51-like,blaOXA402_NG
-blaVIM8_1   ,VIM-like  ,blaVIM8_1
-blaOXA146_1 ,OXA23-like,blaOXA146_1
-blaOXA51_5  ,OXA51-like,blaOXA51_5
+blaVIM8_1,VIM-like,blaVIM8_1
+blaOXA146_1,OXA23-like,blaOXA146_1
+blaOXA51_5,OXA51-like,blaOXA51_5
 blaOXA511_NG,OXA51-like,blaOXA511_NG
-blaIMP15_1  ,IMP-like  ,blaIMP15_1
-blaKPC15    ,KPC-like  ,blaKPC15
-blaOXA95_1  ,OXA51-like,blaOXA95_1
-blaOXA51_6  ,OXA51-like,blaOXA51_6
-blaOXA483   ,OXA23-like,blaOXA483
-blaOXA247_1 ,OXA48-like,blaOXA247_1
-blaOXA174_1 ,OXA51-like,blaOXA174_1
-blaOXA115_1 ,OXA51-like,blaOXA115_1
-blaVIM36_1  ,VIM-like  ,blaVIM36_1
-blaOXA180_1 ,OXA51-like,blaOXA180_1
-blaNDM13    ,NDM-like  ,blaNDM13
-blaIMP19_1  ,IMP-like  ,blaIMP19_1
+blaIMP15_1,IMP-like,blaIMP15_1
+blaKPC15,KPC-like,blaKPC15
+blaOXA95_1,OXA51-like,blaOXA95_1
+blaOXA51_6,OXA51-like,blaOXA51_6
+blaOXA483,OXA23-like,blaOXA483
+blaOXA247_1,OXA48-like,blaOXA247_1
+blaOXA174_1,OXA51-like,blaOXA174_1
+blaOXA115_1,OXA51-like,blaOXA115_1
+blaVIM36_1,VIM-like,blaVIM36_1
+blaOXA180_1,OXA51-like,blaOXA180_1
+blaNDM13,NDM-like,blaNDM13
+blaIMP19_1,IMP-like,blaIMP19_1
 blaOXA516_NG,OXA51-like,blaOXA516_NG
-blaOXA164_1 ,OXA58-like,blaOXA164_1
-blaOXA65_1  ,OXA51-like,blaOXA65_1
-blaIMP28_1  ,IMP-like  ,blaIMP28_1
-blaGES9_1   ,GES-like  ,blaGES9_1
-blaOXA98_1  ,OXA51-like,blaOXA98_1
-blaKPC17    ,KPC-like  ,blaKPC17
-blaVIM20_1  ,VIM-like  ,blaVIM20_1
-blaOXA424   ,OXA51-like,blaOXA424
-blaOXA239   ,OXA23-like,blaOXA239
-blaOXA96_1  ,OXA58-like,blaOXA96_1
-blaIMP8_1   ,IMP-like  ,blaIMP8_1
-blaKPC11_1  ,KPC-like  ,blaKPC11_1
-blaVIM38    ,VIM-like  ,blaVIM38
-blaIMP40_1  ,IMP-like  ,blaIMP40_1
-blaOXA64_1  ,OXA51-like,blaOXA64_1
-blaOXA67_1  ,OXA51-like,blaOXA67_1
-blaOXA113_1 ,OXA51-like,blaOXA113_1
-blaOXA170_1 ,OXA23-like,blaOXA170_1
-blaOXA366   ,OXA23-like,blaOXA366
-blaGES22    ,GES-like  ,blaGES22
-blaIMP16_1  ,IMP-like  ,blaIMP16_1
-blaNDM11    ,NDM-like  ,blaNDM11
-blaOXA397   ,OXA58-like,blaOXA397
-blaIMP18_1  ,IMP-like  ,blaIMP18_1
-blaOXA429   ,OXA51-like,blaOXA429
-blaIMP38_1  ,IMP-like  ,blaIMP38_1
-blaOXA51_4  ,OXA51-like,blaOXA51_4
-blaNDM6     ,NDM-like  ,blaNDM6
-blaGES27    ,GES-like  ,blaGES27
-blaOXA515   ,OXA48-like,blaOXA515
-blaOXA49_1  ,OXA23-like,blaOXA49_1
-blaOXA79_1  ,OXA51-like,blaOXA79_1
-blaNDM10    ,NDM-like  ,blaNDM10
-blaOXA384   ,OXA51-like,blaOXA384
+blaOXA164_1,OXA58-like,blaOXA164_1
+blaOXA65_1,OXA51-like,blaOXA65_1
+blaIMP28_1,IMP-like,blaIMP28_1
+blaGES9_1,GES-like,blaGES9_1
+blaOXA98_1,OXA51-like,blaOXA98_1
+blaKPC17,KPC-like,blaKPC17
+blaVIM20_1,VIM-like,blaVIM20_1
+blaOXA424,OXA51-like,blaOXA424
+blaOXA239,OXA23-like,blaOXA239
+blaOXA96_1,OXA58-like,blaOXA96_1
+blaIMP8_1,IMP-like,blaIMP8_1
+blaKPC11_1,KPC-like,blaKPC11_1
+blaVIM38,VIM-like,blaVIM38
+blaIMP40_1,IMP-like,blaIMP40_1
+blaOXA64_1,OXA51-like,blaOXA64_1
+blaOXA67_1,OXA51-like,blaOXA67_1
+blaOXA113_1,OXA51-like,blaOXA113_1
+blaOXA170_1,OXA23-like,blaOXA170_1
+blaOXA366,OXA23-like,blaOXA366
+blaGES22,GES-like,blaGES22
+blaIMP16_1,IMP-like,blaIMP16_1
+blaNDM11,NDM-like,blaNDM11
+blaOXA397,OXA58-like,blaOXA397
+blaIMP18_1,IMP-like,blaIMP18_1
+blaOXA429,OXA51-like,blaOXA429
+blaIMP38_1,IMP-like,blaIMP38_1
+blaOXA51_4,OXA51-like,blaOXA51_4
+blaNDM6,NDM-like,blaNDM6
+blaGES27,GES-like,blaGES27
+blaOXA515,OXA48-like,blaOXA515
+blaOXA49_1,OXA23-like,blaOXA49_1
+blaOXA79_1,OXA51-like,blaOXA79_1
+blaNDM10,NDM-like,blaNDM10
+blaOXA384,OXA51-like,blaOXA384
 blaOXA123_NG,OXA51-like,blaOXA123_NG
-blaOXA117_1 ,OXA51-like,blaOXA117_1
-blaOXA381   ,OXA51-like,blaOXA381
-blaOXA432   ,OXA51-like,blaOXA432
-blaOXA51_3  ,OXA51-like,blaOXA51_3
-blaOXA51_7  ,OXA51-like,blaOXA51_7
-blaKPC7_1   ,KPC-like  ,blaKPC7_1
-blaKPC8_1   ,KPC-like  ,blaKPC8_1
-blaOXA176_1 ,OXA51-like,blaOXA176_1
+blaOXA117_1,OXA51-like,blaOXA117_1
+blaOXA381,OXA51-like,blaOXA381
+blaOXA432,OXA51-like,blaOXA432
+blaOXA51_3,OXA51-like,blaOXA51_3
+blaOXA51_7,OXA51-like,blaOXA51_7
+blaKPC7_1,KPC-like,blaKPC7_1
+blaKPC8_1,KPC-like,blaKPC8_1
+blaOXA176_1,OXA51-like,blaOXA176_1
 blaOXA342_NG,OXA51-like,blaOXA342_NG
-blaOXA80_1  ,OXA51-like,blaOXA80_1
-blaVIM14_1  ,VIM-like  ,blaVIM14_1
-blaVIM7_1   ,VIM-like  ,blaVIM7_1
+blaOXA80_1,OXA51-like,blaOXA80_1
+blaVIM14_1,VIM-like,blaVIM14_1
+blaVIM7_1,VIM-like,blaVIM7_1
 blaOXA480_NG,OXA51-like,blaOXA480_NG
 blaOXA411_NG,OXA51-like,blaOXA411_NG
-blaKPC10_1  ,KPC-like  ,blaKPC10_1
-blaIMP6_1   ,IMP-like  ,blaIMP6_1
-blaOXA248   ,OXA51-like,blaOXA248
+blaKPC10_1,KPC-like,blaKPC10_1
+blaIMP6_1,IMP-like,blaIMP6_1
+blaOXA248,OXA51-like,blaOXA248
 blaOXA528_NG,OXA51-like,blaOXA528_NG
-blaOXA398   ,OXA23-like,blaOXA398
+blaOXA398,OXA23-like,blaOXA398
 blaOXA401_NG,OXA51-like,blaOXA401_NG
-blaOXA199   ,OXA48-like,blaOXA199
-blaOXA112_1 ,OXA51-like,blaOXA112_1
-blaVIM15_1  ,VIM-like  ,blaVIM15_1
-blaIMP13_5  ,IMP-like  ,blaIMP13_5
-blaOXA88_1  ,OXA51-like,blaOXA88_1
+blaOXA199,OXA48-like,blaOXA199
+blaOXA112_1,OXA51-like,blaOXA112_1
+blaVIM15_1,VIM-like,blaVIM15_1
+blaIMP13_5,IMP-like,blaIMP13_5
+blaOXA88_1,OXA51-like,blaOXA88_1
 blaOXA436_NG,OXA48-like,blaOXA436_NG
-blaOXA194_1 ,OXA51-like,blaOXA194_1
-blaGES18    ,GES-like  ,blaGES18
-blaOXA426   ,OXA51-like,blaOXA426
+blaOXA194_1,OXA51-like,blaOXA194_1
+blaGES18,GES-like,blaGES18
+blaOXA426,OXA51-like,blaOXA426
 blaOXA400_NG,OXA51-like,blaOXA400_NG
-blaOXA83_1  ,OXA51-like,blaOXA83_1
+blaOXA83_1,OXA51-like,blaOXA83_1
 blaOXA416_NG,OXA48-like,blaOXA416_NG
-blaKPC5_1   ,KPC-like  ,blaKPC5_1
-blaOXA242   ,OXA51-like,blaOXA242
-blaGES29    ,GES-like  ,blaGES29
-blaOXA167_1 ,OXA23-like,blaOXA167_1
+blaKPC5_1,KPC-like,blaKPC5_1
+blaOXA242,OXA51-like,blaOXA242
+blaGES29,GES-like,blaGES29
+blaOXA167_1,OXA23-like,blaOXA167_1
 blaOXA126_NG,OXA51-like,blaOXA126_NG
-blaIMP35_1  ,IMP-like  ,blaIMP35_1
-blaKPC6_1   ,KPC-like  ,blaKPC6_1
-blaOXA430   ,OXA51-like,blaOXA430
-blaIMP14_1  ,IMP-like  ,blaIMP14_1
-blaIMP22_2  ,IMP-like  ,blaIMP22_2
+blaIMP35_1,IMP-like,blaIMP35_1
+blaKPC6_1,KPC-like,blaKPC6_1
+blaOXA430,OXA51-like,blaOXA430
+blaIMP14_1,IMP-like,blaIMP14_1
+blaIMP22_2,IMP-like,blaIMP22_2
 blaOXA234_NG,OXA51-like,blaOXA234_NG
-blaOXA66_4  ,OXA51-like,blaOXA66_4
+blaOXA66_4,OXA51-like,blaOXA66_4
 blaOXA343_NG,OXA51-like,blaOXA343_NG
-blaVIM50    ,VIM-like  ,blaVIM50
-blaOXA77_1  ,OXA51-like,blaOXA77_1
-blaOXA89_2  ,OXA51-like,blaOXA89_2
-blaOXA138_1 ,OXA51-like,blaOXA138_1
-blaIMP31    ,IMP-like  ,blaIMP31
-blaKPC2     ,KPC-like  ,blaKPC2
-blaIMP27_1  ,IMP-like  ,blaIMP27_1
-blaOXA130_1 ,OXA51-like,blaOXA130_1
+blaVIM50,VIM-like,blaVIM50
+blaOXA77_1,OXA51-like,blaOXA77_1
+blaOXA89_2,OXA51-like,blaOXA89_2
+blaOXA138_1,OXA51-like,blaOXA138_1
+blaIMP31,IMP-like,blaIMP31
+blaKPC2,KPC-like,blaKPC2
+blaIMP27_1,IMP-like,blaIMP27_1
+blaOXA130_1,OXA51-like,blaOXA130_1
 blaOXA497_NG,OXA51-like,blaOXA497_NG
-blaKPC3_1   ,KPC-like  ,blaKPC3_1
-blaOXA73_1  ,OXA23-like,blaOXA73_1
-blaIMI2_1   ,IMI-like  ,blaIMI2_1
-blaOXA314   ,OXA51-like,blaOXA314
-blaOXA110_1 ,OXA51-like,blaOXA110_1
-blaIMP14_3  ,IMP-like  ,blaIMP14_3
-blaLMB_1    ,LMB-like  ,blaLMB_1
-blaIMP25_1  ,IMP-like  ,blaIMP25_1
-blaIMP10_1  ,IMP-like  ,blaIMP10_1
-blaIMP1_1   ,IMP-like  ,blaIMP1_1
+blaKPC3_1,KPC-like,blaKPC3_1
+blaOXA73_1,OXA23-like,blaOXA73_1
+blaIMI2_1,IMI-like,blaIMI2_1
+blaOXA314,OXA51-like,blaOXA314
+blaOXA110_1,OXA51-like,blaOXA110_1
+blaIMP14_3,IMP-like,blaIMP14_3
+blaLMB_1,LMB-like,blaLMB_1
+blaIMP25_1,IMP-like,blaIMP25_1
+blaIMP10_1,IMP-like,blaIMP10_1
+blaIMP1_1,IMP-like,blaIMP1_1
 blaOXA337_NG,OXA51-like,blaOXA337_NG
-blaOXA425   ,OXA51-like,blaOXA425
-blaOXA51_10 ,OXA51-like,blaOXA51_10
-blaOXA86_1  ,OXA51-like,blaOXA86_1
-blaOXA382   ,OXA51-like,blaOXA382
+blaOXA425,OXA51-like,blaOXA425
+blaOXA51_10,OXA51-like,blaOXA51_10
+blaOXA86_1,OXA51-like,blaOXA86_1
+blaOXA382,OXA51-like,blaOXA382
 blaOXA525_NG,OXA51-like,blaOXA525_NG
-blaNDM14    ,NDM-like  ,blaNDM14
-blaGES26    ,GES-like  ,blaGES26
+blaNDM14,NDM-like,blaNDM14
+blaGES26,GES-like,blaGES26
 blaOXA252_NG,OXA48-like,blaOXA252_NG
-blaOXA131_1 ,OXA51-like,blaOXA131_1
-blaOXA171_1 ,OXA23-like,blaOXA171_1
-blaOXA108_1 ,OXA51-like,blaOXA108_1
-blaVIM16_1  ,VIM-like  ,blaVIM16_1
-blaVIM1_1   ,VIM-like  ,blaVIM1_1
-blaIMP4_6   ,IMP-like  ,blaIMP4_6
-blaOXA106_1 ,OXA51-like,blaOXA106_1
+blaOXA131_1,OXA51-like,blaOXA131_1
+blaOXA171_1,OXA23-like,blaOXA171_1
+blaOXA108_1,OXA51-like,blaOXA108_1
+blaVIM16_1,VIM-like,blaVIM16_1
+blaVIM1_1,VIM-like,blaVIM1_1
+blaIMP4_6,IMP-like,blaIMP4_6
+blaOXA106_1,OXA51-like,blaOXA106_1
 blaOXA404_NG,OXA51-like,blaOXA404_NG
-blaIMP56    ,IMP-like  ,blaIMP56
-blaOXA58_1  ,OXA58-like,blaOXA58_1
-blaAIM      ,AIM-like  ,blaAIM
-blaOXA78_1  ,OXA51-like,blaOXA78_1
-blaOXA120   ,OXA51-like,blaOXA120
-blaOXA391   ,OXA51-like,blaOXA391
-blaVIM35_1  ,VIM-like  ,blaVIM35_1
-blaIMP53    ,IMP-like  ,blaIMP53
-blaOXA97_1  ,OXA58-like,blaOXA97_1
-blaOXA162_1 ,OXA48-like,blaOXA162_1
-blaIMP14_2  ,IMP-like  ,blaIMP14_2
-blaOXA68_1  ,OXA51-like,blaOXA68_1
+blaIMP56,IMP-like,blaIMP56
+blaOXA58_1,OXA58-like,blaOXA58_1
+blaAIM,AIM-like,blaAIM
+blaOXA78_1,OXA51-like,blaOXA78_1
+blaOXA120,OXA51-like,blaOXA120
+blaOXA391,OXA51-like,blaOXA391
+blaVIM35_1,VIM-like,blaVIM35_1
+blaIMP53,IMP-like,blaIMP53
+blaOXA97_1,OXA58-like,blaOXA97_1
+blaOXA162_1,OXA48-like,blaOXA162_1
+blaIMP14_2,IMP-like,blaIMP14_2
+blaOXA68_1,OXA51-like,blaOXA68_1
 blaOXA521_NG,OXA51-like,blaOXA521_NG
-blaOXA208_1 ,OXA51-like,blaOXA208_1
-blaKPC25    ,KPC-like  ,blaKPC25
-blaKPC12    ,KPC-like  ,blaKPC12
-blaOXA107_1 ,OXA51-like,blaOXA107_1
-blaOXA385   ,OXA51-like,blaOXA385
-blaNDM8     ,NDM-like  ,blaNDM8
-blaOXA390   ,OXA51-like,blaOXA390
+blaOXA208_1,OXA51-like,blaOXA208_1
+blaKPC25,KPC-like,blaKPC25
+blaKPC12,KPC-like,blaKPC12
+blaOXA107_1,OXA51-like,blaOXA107_1
+blaOXA385,OXA51-like,blaOXA385
+blaNDM8,NDM-like,blaNDM8
+blaOXA390,OXA51-like,blaOXA390
 blaOXA336_NG,OXA51-like,blaOXA336_NG
-blaOXA262   ,OXA51-like,blaOXA262
-blaIMP21    ,IMP-like  ,blaIMP21
-blaOXA133_1 ,OXA23-like,blaOXA133_1
-blaVIM3_1   ,VIM-like  ,blaVIM3_1
-blaNDM15    ,NDM-like  ,blaNDM15
-blaOXA232   ,OXA48-like,blaOXA232
-blaOXA338   ,OXA51-like,blaOXA338
-blaIMP11    ,IMP-like  ,blaIMP11
-blaOXA27_1  ,OXA23-like,blaOXA27_1
+blaOXA262,OXA51-like,blaOXA262
+blaIMP21,IMP-like,blaIMP21
+blaOXA133_1,OXA23-like,blaOXA133_1
+blaVIM3_1,VIM-like,blaVIM3_1
+blaNDM15,NDM-like,blaNDM15
+blaOXA232,OXA48-like,blaOXA232
+blaOXA338,OXA51-like,blaOXA338
+blaIMP11,IMP-like,blaIMP11
+blaOXA27_1,OXA23-like,blaOXA27_1
 blaOXA532_NG,OXA51-like,blaOXA532_NG
 blaOXA438_NG,OXA48-like,blaOXA438_NG
-blaOXA200_1 ,OXA51-like,blaOXA200_1
-blaOXA48_2  ,OXA48-like,blaOXA48_2
-blaOXA196_1 ,OXA51-like,blaOXA196_1
-blaOXA84_1  ,OXA51-like,blaOXA84_1
-blaIMP9_1   ,IMP-like  ,blaIMP9_1
-blaOXA439   ,OXA48-like,blaOXA439
-blaOXA312   ,OXA51-like,blaOXA312
-blaIMI1_1   ,IMI-like  ,blaIMI1_1
-blaOXA109_1 ,OXA51-like,blaOXA109_1
-blaVIM31_1  ,VIM-like  ,blaVIM31_1
-blaOXA99_1  ,OXA51-like,blaOXA99_1
-blaOXA168_1 ,OXA23-like,blaOXA168_1
-blaVIM28_1  ,VIM-like  ,blaVIM28_1
-blaKPC21    ,KPC-like  ,blaKPC21
-blaOXA223_1 ,OXA51-like,blaOXA223_1
-blaOXA204   ,OXA48-like,blaOXA204
-blaKPC4_1   ,KPC-like  ,blaKPC4_1
-blaOXA93_1  ,OXA51-like,blaOXA93_1
-blaIMP52    ,IMP-like  ,blaIMP52
-blaOXA380   ,OXA51-like,blaOXA380
-blaOXA435   ,OXA23-like,blaOXA435
-blaKPC19    ,KPC-like  ,blaKPC19
-blaOXA201_1 ,OXA51-like,blaOXA201_1
-blaOXA132_1 ,OXA51-like,blaOXA132_1
+blaOXA200_1,OXA51-like,blaOXA200_1
+blaOXA48_2,OXA48-like,blaOXA48_2
+blaOXA196_1,OXA51-like,blaOXA196_1
+blaOXA84_1,OXA51-like,blaOXA84_1
+blaIMP9_1,IMP-like,blaIMP9_1
+blaOXA439,OXA48-like,blaOXA439
+blaOXA312,OXA51-like,blaOXA312
+blaIMI1_1,IMI-like,blaIMI1_1
+blaOXA109_1,OXA51-like,blaOXA109_1
+blaVIM31_1,VIM-like,blaVIM31_1
+blaOXA99_1,OXA51-like,blaOXA99_1
+blaOXA168_1,OXA23-like,blaOXA168_1
+blaVIM28_1,VIM-like,blaVIM28_1
+blaKPC21,KPC-like,blaKPC21
+blaOXA223_1,OXA51-like,blaOXA223_1
+blaOXA204,OXA48-like,blaOXA204
+blaKPC4_1,KPC-like,blaKPC4_1
+blaOXA93_1,OXA51-like,blaOXA93_1
+blaIMP52,IMP-like,blaIMP52
+blaOXA380,OXA51-like,blaOXA380
+blaOXA435,OXA23-like,blaOXA435
+blaKPC19,KPC-like,blaKPC19
+blaOXA201_1,OXA51-like,blaOXA201_1
+blaOXA132_1,OXA51-like,blaOXA132_1

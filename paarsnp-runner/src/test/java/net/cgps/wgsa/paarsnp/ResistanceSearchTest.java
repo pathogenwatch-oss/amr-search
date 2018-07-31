@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class ResistanceSearchTest {
 
@@ -26,20 +27,19 @@ public class ResistanceSearchTest {
 
     this.logger.info("Using snpar DB {}", snparDb.getPath());
 
-    final SnparLibrary snparLibrary = AbstractJsonnable.fromJsonFile(snparDb, SnparLibrary.class);
-
-    final ResistanceSearch<SnparResult> resistanceSearch = new ResistanceSearch<>(new SnparCalculation(snparLibrary, new ProcessVariants(snparLibrary)), new SimpleBlastMatchFilter(60.0));
+    final Optional<SnparLibrary> snparLibrary = Optional.ofNullable(AbstractJsonnable.fromJsonFile(snparDb, SnparLibrary.class));
 
     final ResistanceSearch.InputOptions inputOptions = new ResistanceSearch.InputOptions(
         Arrays.asList(
-            "-query", Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa").toAbsolutePath().toString(),
             "-db", snparDb.getPath().replace(Constants.JSON_APPEND, ""),
-            "-perc_identity", String.valueOf(snparLibrary.getMinimumPid()),
+            "-perc_identity", String.valueOf(snparLibrary.get().getMinimumPid()),
             "-evalue", "1e-5"
         )
     );
+    final ResistanceSearch<SnparResult> resistanceSearch = new ResistanceSearch<>(inputOptions, new SnparCalculation(snparLibrary.get(), new ProcessVariants(snparLibrary.get())), new SimpleBlastMatchFilter(60.0));
 
-    final SnparResult result = resistanceSearch.apply(inputOptions);
+
+    final SnparResult result = resistanceSearch.apply(Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa").toAbsolutePath().toString());
 
     Assert.assertNotNull("Result produced", result);
     Assert.assertTrue("Result not empty", !result.toJson().isEmpty());
