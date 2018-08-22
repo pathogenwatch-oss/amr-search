@@ -6,21 +6,21 @@ import java.util.Collection;
 
 public class MatchJson {
 
-  private final BlastSearchStatistics blastSearchStatistics;
-  private final Collection<String> resistanceVariants;
+  private final BlastSearchStatistics searchStatistics;
+  private final Collection<String> snpResistanceElements;
 
-  public MatchJson(final BlastSearchStatistics blastSearchStatistics, final Collection<String> resistanceVariants) {
-    this.blastSearchStatistics = blastSearchStatistics;
-    this.resistanceVariants = resistanceVariants;
+  public MatchJson(final BlastSearchStatistics searchStatistics, final Collection<String> snpResistanceElements) {
+    this.searchStatistics = searchStatistics;
+    this.snpResistanceElements = snpResistanceElements;
   }
 
   // Would be better unwrapped, but maintaining compatiblity with current API.
 //  @JsonUnwrapped
-  public BlastSearchStatistics getBlastSearchStatistics() {
-    return this.blastSearchStatistics;
+  public BlastSearchStatistics getSearchStatistics() {
+    return this.searchStatistics;
   }
 
-  public Collection<String> getResistanceVariants() {
-    return this.resistanceVariants;
+  public Collection<String> getSnpResistanceElements() {
+    return this.snpResistanceElements;
   }
 }
