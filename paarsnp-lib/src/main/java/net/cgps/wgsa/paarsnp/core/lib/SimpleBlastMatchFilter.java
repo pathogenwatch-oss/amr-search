@@ -13,6 +13,6 @@ public class SimpleBlastMatchFilter implements Predicate<BlastMatch> {
 
   @Override
   public boolean test(final BlastMatch match) {
-    return this.coverageThreshold < match.calculateCoverage();
+    return this.coverageThreshold <= match.calculateCoverage();
   }
 }
