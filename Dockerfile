@@ -18,15 +18,28 @@ COPY settings.template.xml /root/.m2/settings.xml
 
 RUN /usr/local/bin/run_replace.sh
 
-COPY . /usr/src/mymaven/
+RUN mkdir paarsnp-runner \
+    && mkdir paarsnp-builder \
+    && mkdir paarsnp-lib \
+    && mkdir external-fetcher
 
-WORKDIR /usr/src/mymaven/
+COPY ./pom.xml ./pom.xml
 
-RUN mvn clean package
+COPY ./external-fetcher/ ./external-fetcher/
+
+COPY ./paarsnp-runner/ ./paarsnp-runner/
+
+COPY ./paarsnp-builder/ ./paarsnp-builder/
+
+COPY ./paarsnp-lib/ ./paarsnp-lib/
+
+COPY ./build/ ./build/
+
+RUN mvn package dependency:go-offline -U
 
 RUN mkdir /paarsnp/ \
-    && mv /usr/src/mymaven/build/paarsnp.jar /paarsnp/paarsnp.jar \
-    && mv /usr/src/mymaven/build/databases /paarsnp
+    && mv ./build/paarsnp.jar /paarsnp/paarsnp.jar \
+    && mv ./build/databases /paarsnp
 
 FROM openjdk:10-jre
 
