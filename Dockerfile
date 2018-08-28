@@ -23,9 +23,10 @@ RUN mkdir paarsnp-runner \
     && mkdir paarsnp-lib \
     && mkdir external-fetcher
 
+# Start of improving the caching of maven builds, but it's complicated by the issue discussed in:
+# https://stackoverflow.com/questions/14694139/how-to-resolve-dependencies-between-modules-within-multi-module-project
+# https://issues.apache.org/jira/browse/MDEP-516
 COPY ./pom.xml ./pom.xml
-
-COPY ./external-fetcher/ ./external-fetcher/
 
 COPY ./paarsnp-runner/ ./paarsnp-runner/
 
@@ -35,7 +36,7 @@ COPY ./paarsnp-lib/ ./paarsnp-lib/
 
 COPY ./build/ ./build/
 
-RUN mvn package dependency:go-offline -U
+RUN mvn clean package dependency:go-offline -U
 
 RUN mkdir /paarsnp/ \
     && mv ./build/paarsnp.jar /paarsnp/paarsnp.jar \
