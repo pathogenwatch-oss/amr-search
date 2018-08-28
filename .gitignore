@@ -14,3 +14,5 @@ paarsnp-builder/target/
 paarsnp-lib/target/
 paarsnp-runner/target/
 /build/paarsnp-fetcher.jar
+
+venv/
