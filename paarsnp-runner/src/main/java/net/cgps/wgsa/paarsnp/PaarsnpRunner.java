@@ -1,8 +1,8 @@
 package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.Constants;
+import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
 import net.cgps.wgsa.paarsnp.core.lib.SimpleBlastMatchFilter;
-import net.cgps.wgsa.paarsnp.core.lib.TwoStageBlastMatchFilter;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.paar.PaarCalculation;
 import net.cgps.wgsa.paarsnp.core.paar.PaarResult;
@@ -49,7 +49,7 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
     final PaarResult paarResult;
     if (this.paarLibrary.isPresent()) {
-      paarResult = new ResistanceSearch<>(new ResistanceSearch.InputOptions(this.buildBlastOptions(this.paarLibrary.get().getMinimumPid(), "1e-5", Constants.PAAR_APPEND)), new PaarCalculation(this.paarLibrary.get()), new TwoStageBlastMatchFilter(60.0)).apply(assemblyFile.toAbsolutePath().toString());
+      paarResult = new ResistanceSearch<>(new ResistanceSearch.InputOptions(this.buildBlastOptions(this.paarLibrary.get().getMinimumPid(), "1e-5", Constants.PAAR_APPEND)), new PaarCalculation(this.paarLibrary.get()), FilterByIndividualThresholds.build(this.paarLibrary.get())).apply(assemblyFile.toAbsolutePath().toString());
 
     } else {
       paarResult = PaarResult.buildEmpty();
