@@ -15,31 +15,23 @@ antimicrobials = [{name = "Amikacin", type = "Aminoglycosides", key = "AMI"},
 
 [[paar.sets]]
 name = "blaZ"
-effect = "Resistance"
-profile = ["PEN"]
+phenotypes = [{effect = "Resistance", profile = ["PEN"], modifiers = []}]
 members = ["blaZ"]
-modifiers = {}
 
 [[paar.sets]]
 name = "ermA_ERY"
-effect = "Resistance"
-profile = ["ERY"]
-resistance = ["ermA"]
-modifiers = {}
+phenotypes = [{effect = "Resistance", profile = ["ERY"], modifiers = []}]
+members = ["ermA"]
 
 [[paar.sets]]
 name = "ermA_CLI"
-effect = "Resistance"
-profile = ["CLI"]
-resistance = ["ermA", "ermA_SDS"]
-modifiers = {}
+phenotypes = [{effect = "Resistance", profile = ["CLI"], modifiers = []}]
+members = ["ermA", "ermA_SDS"]
 
 [[paar.sets]]
 name = "ermC_CLI"
-effect = "Resistance"
-profile = ["CLI"]
-resistance = ["ermC"]
-modifiers = [{ name = "ermC_LP", effect = "INDUCED"}]
+phenotypes = [{effect = "Resistance", profile = ["CLI"], modifiers = [{ name = "ermC_LP", effect = "INDUCED"}]}]
+members = ["ermC"]
 
 [[paar.genes]]
 name = "blaZ"
@@ -80,38 +72,28 @@ sequence = "?"
 
 [[snpar.sets]]
 name = "grlA_S80F"
-effect = "Resistance"
-profile = ["CIP"]
-resistance = [ {gene="grlA", variants=["S80F"]}]
-modifiers = []
+phenotypes = [{effect = "Resistance", profile = ["CIP"], modifiers = []}]
+members = [ {gene="grlA", variants=["S80F"]}]
 
 [[snpar.sets]]
 name = "grlA_S80Y"
-effect = "Resistance"
-profile = ["CIP"]
-resistance = [ {gene="grlA", variants=["S80Y"]}]
-modifiers = []
+phenotypes = [{effect = "Resistance", profile = ["CIP"], modifiers = []}]
+members = [ {gene="grlA", variants=["S80Y"]}]
 
 [[snpar.sets]]
 name = "grlA_E84K"
-effect = "Resistance"
-profile = ["CIP"]
-resistance = [ {gene="grlA", variants=["E84K"]}]
-modifiers = []
+phenotypes = [{effect = "Resistance", profile = ["CIP"], modifiers = []}]
+members = [ {gene="grlA", variants=["E84K"]}]
 
 [[snpar.sets]]
-name = "grlA_S80F"
-effect = "Resistance"
-profile = ["CIP"]
-resistance = [ {gene="grlA", variants=["A116V"]}]
-modifiers = []
+name = "grlA_A116V"
+phenotypes = [{effect = "Resistance", profile = ["CIP"], modifiers = []}]
+members = [ {gene="grlA", variants=["A116V"]}]
 
 [[snpar.sets]]
-name = "grlA_S80F"
-effect = "Resistance"
-profile = ["CIP"]
-resistance = [ {gene="grlA", variants=["A116E"]}]
-modifiers = []
+name = "grlA_A116E"
+phenotypes = [{effect = "Resistance", profile = ["CIP"], modifiers = []}]
+members = [ {gene="grlA", variants=["A116E"]}]
 
 [[snpar.genes]]
 name = "grlA"

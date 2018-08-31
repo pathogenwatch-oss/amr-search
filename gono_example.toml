@@ -16,24 +16,18 @@ antimicrobials = [{key = "AZM", type = "Macrolides", name = "Azithromycin"},
 
 [[paar.sets]]
 name = "blaTEM"
-effect = "Resistance"
-profile = ["PEN", "MET"]
+phenotypes = [{effect = "Resistance", profile = ["PEN", "MET"], modifiers = []}]
 members = ["blaTEM"]
-modifiers = {}
 
 [[paar.sets]]
 name = "tetM"
-effect = "Resistance"
-profile = ["TCY"]
+phenotypes = [{effect = "Resistance", profile = ["TCY"], modifiers = []}]
 members = ["tetM"]
-modifiers = {}
 
 [[paar.sets]]
 name = "porA"
-effect = "Resistance"
-profile = ["PEN", "MET"]
+phenotypes = [{effect = "Resistance", profile = ["PEN", "MET"], modifiers = []}]
 members = ["porA_WHO_U_01087c"]
-modifiers = {}
 
 [[paar.genes]]
 name = "blaTEM"
@@ -60,38 +54,24 @@ sequence = "?"
 
 [[snpar.sets]]
 name = "mtrR_promoter"
-effect = "Intermediate_not_additive"
-profile = ["AZM", "CFM", "CRO", "PEN", "TCY"]
-resistance = [{gene="mtrR_promoter", variants=["A24-"]}]
-modifiers = []
+phenotypes = [{effect = "Intermediate_not_additive", profile = ["AZM", "CFM", "CRO", "PEN", "TCY"], modifiers = []}]
+members = [{gene="mtrR_promoter", variants=["A24-"]}]
 
 [[snpar.sets]]
 name = "mtrR_G45D"
-effect = "Intermediate_not_additive"
-profile = ["AZM", "CFM", "CRO", "PEN", "TCY"]
-resistance = [{gene="mtrR", variants=["G45D"]}]
-modifiers = []
+phenotypes = [{effect = "Intermediate_not_additive", profile = ["AZM", "CFM", "CRO", "PEN", "TCY"], modifiers = []}]
+members = [{gene="mtrR", variants=["G45D"]}]
 
 [[snpar.sets]]
 name = "penA_A311V"
-effect = "Intermediate_not_additive"
-profile = ["CFM", "CRO", "PEN"]
-resistance = [{gene="penA", variants=["A311V"]}]
-modifiers = []
+phenotypes = [{effect = "Intermediate_not_additive", profile = ["CFM", "CRO", "PEN"], modifiers = []}]
+members = [{gene="penA", variants=["A311V"]}]
 
 [[snpar.sets]]
 name = "penA_I312M_G545S_V316T_CRO"
-effect = "Intermediate_not_additive"
-profile = ["CRO", "PEN"]
-resistance = [{gene="penA", variants=["I312M", "G545S", "V316T"]}]
-modifiers = []
-
-[[snpar.sets]]
-name = "penA_I312M_G545S_V316T_CFM"
-effect = "Intermediate_additive"
-profile = ["CFM"]
-resistance = [{gene="penA", variants=["I312M", "G545S", "V316T"]}]
-modifiers = []
+phenotypes = [{effect="Intermediate_not_additive", profile = ["CRO", "PEN"], modifiers = []},
+              {effect="Intermediate_additive", profile = ["CFM"], modifiers = []}]
+members = [{gene="penA", variants=["I312M", "G545S", "V316T"]}]
 
 [[snpar.genes]]
 name = "mtrR_promoter"
