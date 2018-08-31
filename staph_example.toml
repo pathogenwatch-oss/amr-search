@@ -1,0 +1,122 @@
+# Inital example of Staph AMR representation
+
+# Normally the species or group
+label = "1280"
+
+# List of antimicrobials in the library
+antimicrobials = [{name = "Amikacin", type = "Aminoglycosides", key = "AMI"},
+                  {name = "Gentamicin", type = "Aminoglycosides", key = "GEN"},
+                  {name = "Penicillin", type = "Beta-lactams", key = "PEN"},
+                  {name = "Clindamycin", type = "Lincosamides", key = "CLI"},
+                  {name = "Erythromycin", type = "Macrolides", key = "ERY"},
+                  {name = "Ciprofloxacin", type = "Fluoroquinolones" , key = "CIP"}]
+
+[paar]
+
+[[paar.sets]]
+name = "blaZ"
+effect = "Resistance"
+profile = ["PEN"]
+members = ["blaZ"]
+modifiers = {}
+
+[[paar.sets]]
+name = "ermA_ERY"
+effect = "Resistance"
+profile = ["ERY"]
+resistance = ["ermA"]
+modifiers = {}
+
+[[paar.sets]]
+name = "ermA_CLI"
+effect = "Resistance"
+profile = ["CLI"]
+resistance = ["ermA", "ermA_SDS"]
+modifiers = {}
+
+[[paar.sets]]
+name = "ermC_CLI"
+effect = "Resistance"
+profile = ["CLI"]
+resistance = ["ermC"]
+modifiers = [{ name = "ermC_LP", effect = "INDUCED"}]
+
+[[paar.genes]]
+name = "blaZ"
+pid = 80.0
+coverage = 80.0
+type = "Protein"
+sequence = "?"
+
+[[paar.genes]]
+name = "ermA"
+pid = 80.0
+coverage = 80.0
+type = "Protein"
+sequence = "?"
+
+[[paar.genes]]
+name = "ermA_SDS"
+pid = 80.0
+coverage = 95.0
+type = "Protein"
+sequence = "?"
+
+[[paar.genes]]
+name = "ermC"
+pid = 80.0
+coverage = 80.0
+type = "Protein"
+sequence = "?"
+
+[[paar.genes]]
+name = "ermC_LP"
+pid = 90.0
+coverage = 95.0
+type = "Protein"
+sequence = "?"
+
+[snpar]
+
+[[snpar.sets]]
+name = "grlA_S80F"
+effect = "Resistance"
+profile = ["CIP"]
+resistance = [ {gene="grlA", variants=["S80F"]}]
+modifiers = []
+
+[[snpar.sets]]
+name = "grlA_S80Y"
+effect = "Resistance"
+profile = ["CIP"]
+resistance = [ {gene="grlA", variants=["S80Y"]}]
+modifiers = []
+
+[[snpar.sets]]
+name = "grlA_E84K"
+effect = "Resistance"
+profile = ["CIP"]
+resistance = [ {gene="grlA", variants=["E84K"]}]
+modifiers = []
+
+[[snpar.sets]]
+name = "grlA_S80F"
+effect = "Resistance"
+profile = ["CIP"]
+resistance = [ {gene="grlA", variants=["A116V"]}]
+modifiers = []
+
+[[snpar.sets]]
+name = "grlA_S80F"
+effect = "Resistance"
+profile = ["CIP"]
+resistance = [ {gene="grlA", variants=["A116E"]}]
+modifiers = []
+
+[[snpar.genes]]
+name = "grlA"
+pid = 80.0
+coverage = 80.0
+type = "Protein"
+variants = [ "S80F", "S80Y", "E84K", "A116V", "A116E" ]
+sequence = "?"

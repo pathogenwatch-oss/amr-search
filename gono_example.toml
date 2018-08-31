@@ -1,0 +1,118 @@
+# Initial example of Gono AMR representation
+
+label = "485"
+
+antimicrobials = [{key = "AZM", type = "Macrolides", name = "Azithromycin"},
+                  {key = "CRO", type = "Extended-Spectrum Cephalosporins", name = "Ceftriaxone"},
+                  {key = "CFM", type = "Broad-spectrum Cephalosporins", name = "Cefixime"},
+                  {key = "CIP", type = "Fluoroquinolones", name = "Ciprofloxacin"},
+                  {key = "PEN", type = "Beta-lactams", name = "Penicillin"},
+                  {key = "SMX", type = "Sulfonamides", name = "Sulfonamides"},
+                  {key = "SPT", type = "Aminoglycosides", name = "Spectinomycin"},
+                  {key = "TCY", type = "Tetracyclines", name = "Tetracycline"},
+                  {key = "POA", type = "Pores", name = "Pore A"}]
+
+[paar]
+
+[[paar.sets]]
+name = "blaTEM"
+effect = "Resistance"
+profile = ["PEN", "MET"]
+members = ["blaTEM"]
+modifiers = {}
+
+[[paar.sets]]
+name = "tetM"
+effect = "Resistance"
+profile = ["TCY"]
+members = ["tetM"]
+modifiers = {}
+
+[[paar.sets]]
+name = "porA"
+effect = "Resistance"
+profile = ["PEN", "MET"]
+members = ["porA_WHO_U_01087c"]
+modifiers = {}
+
+[[paar.genes]]
+name = "blaTEM"
+pid = 80.0
+coverage = 80.0
+type = "Protein"
+sequence = "?"
+
+[[paar.genes]]
+name = "tetM"
+pid = 80.0
+coverage = 80.0
+type = "Protein"
+sequence = "?"
+
+[[paar.genes]]
+name = "porA"
+pid = 80.0
+coverage = 80.0
+type = "Protein"
+sequence = "?"
+
+[snpar]
+
+[[snpar.sets]]
+name = "mtrR_promoter"
+effect = "Intermediate_not_additive"
+profile = ["AZM", "CFM", "CRO", "PEN", "TCY"]
+resistance = [{gene="mtrR_promoter", variants=["A24-"]}]
+modifiers = []
+
+[[snpar.sets]]
+name = "mtrR_G45D"
+effect = "Intermediate_not_additive"
+profile = ["AZM", "CFM", "CRO", "PEN", "TCY"]
+resistance = [{gene="mtrR", variants=["G45D"]}]
+modifiers = []
+
+[[snpar.sets]]
+name = "penA_A311V"
+effect = "Intermediate_not_additive"
+profile = ["CFM", "CRO", "PEN"]
+resistance = [{gene="penA", variants=["A311V"]}]
+modifiers = []
+
+[[snpar.sets]]
+name = "penA_I312M_G545S_V316T_CRO"
+effect = "Intermediate_not_additive"
+profile = ["CRO", "PEN"]
+resistance = [{gene="penA", variants=["I312M", "G545S", "V316T"]}]
+modifiers = []
+
+[[snpar.sets]]
+name = "penA_I312M_G545S_V316T_CFM"
+effect = "Intermediate_additive"
+profile = ["CFM"]
+resistance = [{gene="penA", variants=["I312M", "G545S", "V316T"]}]
+modifiers = []
+
+[[snpar.genes]]
+name = "mtrR_promoter"
+pid = 90.0
+coverage = 90.0
+type = "DNA"
+variants = [ "A24-" ]
+sequence = "?"
+
+[[snpar.genes]]
+name = "mtrR"
+pid = 80.0
+coverage = 80.0
+type = "Protein"
+variants = [ "G45D" ]
+sequence = "?"
+
+[[snpar.genes]]
+name = "penA"
+pid = 80.0
+coverage = 80.0
+type = "Protein"
+variants = [ "A311V", "I312M", "G545S", "V316T" ]
+sequence = "?"
