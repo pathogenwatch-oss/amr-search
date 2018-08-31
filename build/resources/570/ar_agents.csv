@@ -1,4 +1,7 @@
 Name,Type,Full Name
 Carbapenemase,Carbapenemase,Carbapenemase
 Colistin,Colistin,Colistin
-ESBL,Extended Spectrum Beta-Lactamses,ESBL
+CRO,Extended Spectrum Beta-Lactamses,Ceftriaxone
+CAZ,Extended Spectrum Beta-Lactamses,Ceftazidime
+FEP,Extended Spectrum Beta-Lactamses,Cefepime
+FOX,Extended Spectrum Beta-Lactamses,Cefoxitin
