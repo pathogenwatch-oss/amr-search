@@ -1,4 +1,4 @@
-FROM maven:3.5.4-jdk-10 AS builder
+FROM maven:3.5-jdk-10 AS builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		curl \
@@ -34,7 +34,9 @@ COPY ./paarsnp-builder/ ./paarsnp-builder/
 
 COPY ./paarsnp-lib/ ./paarsnp-lib/
 
-COPY ./build/ ./build/
+COPY ./resources ./resources
+
+RUN mkdir -p /build
 
 RUN mvn clean package dependency:go-offline -U
 

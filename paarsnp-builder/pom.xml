@@ -60,8 +60,6 @@
                                     <includes>
                                         <include>paarsnp-builder.jar</include>
                                     </includes>
-                                    <!--<directory>target</directory>-->
-                                    <!--<filtering>true</filtering>-->
                                 </resource>
                             </resources>
                         </configuration>
@@ -110,7 +108,7 @@
                     <mainClass>net.cgps.wgsa.paarsnp.builder.PaarsnpBuilderMain</mainClass>
                     <arguments>
                         <argument>-i</argument>
-                        <argument>${paarsnp.root}/build/resources</argument>
+                        <argument>${paarsnp.root}/resources</argument>
                         <argument>-o</argument>
                         <argument>${paarsnp.root}/build/databases</argument>
                     </arguments>

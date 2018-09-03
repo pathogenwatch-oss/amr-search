@@ -1,6 +1,6 @@
 # PAARSNP Input Formats
 
-For the current databases look in the [resources directory](../build/resources)
+For the current databases look in the [resources directory](../resources)
 
 ## Directory Structure
 
@@ -62,7 +62,7 @@ The PAAR CSV file specifies the resistance genes for a species. The following ad
 
 The FASTA contains the _DNA_ sequence of the resistance gene. The header must match the corresponding `Gene Name` field.
 
-For a simple example that will cover most cases look at [_Neisseria gonorrhoeae_](../build/resources/485/resistance_genes.csv).
+For a simple example that will cover most cases look at [_Neisseria gonorrhoeae_](../resources/485/resistance_genes.csv).
 
 #### Example resistance_genes.csv
 ```
