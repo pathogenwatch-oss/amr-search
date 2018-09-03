@@ -1,4 +1,5 @@
 import csv
+import os
 import sys
 from pathlib import Path
 
@@ -14,7 +15,7 @@ class Set:
     def as_toml(self) -> str:
         phenotype_str = '[' + ',\n              '.join(
             [phenotype.as_toml() for phenotype in self.phenotypes.values()]) + ']'
-        members_str = ', '.join([member.as_toml() for member in self.members])
+        members_str = ', '.join([member.as_toml() for member in set(self.members)])
         return '[[' + self.source + \
                '.sets]]\nname = "' + self.name + \
                '"\nphenotypes = ' + phenotype_str + \
@@ -32,6 +33,15 @@ class TomlString:
     def __init__(self, string):
         self.string = string
 
+    def __eq__(self, other):
+        """Overrides the default implementation"""
+        if isinstance(other, TomlString):
+            return self.string == other.string
+        return False
+
+    def __hash__(self):
+        return hash(self.string)
+
     def as_toml(self) -> str:
         return '"' + self.string + '"'
 
@@ -40,10 +50,11 @@ class SnparMember:
 
     def __init__(self, gene, variants):
         self.gene = gene
-        self.variants = variants
+        self.variants = set(variants)
 
     def as_toml(self):
-        return '{gene="' + self.gene + '", variants=' + ','.join([variant.as_toml() for variant in self.variants]) + '}'
+        return '{gene="' + self.gene + '", variants=[' + \
+               ','.join([variant.as_toml() for variant in self.variants]) + ']}'
 
 
 class Phenotype:
@@ -94,6 +105,121 @@ class GeneInfo:
                '"'
 
 
+def process_paar():
+    print('\n[paar]\n')
+
+    sets = dict()
+    genes = dict()
+
+    with open(genes_csv, 'r') as genes_fh:
+        genes_reader = csv.DictReader(genes_fh)
+        for row in genes_reader:
+
+            set_name = row['Resistance Group'] if len(row['Resistance Group']) != 0 else row['Gene Name']
+
+            if set_name not in sets:
+                # Initialise the set
+                sets[set_name] = Set(set_name, 'paar')
+
+            if row['Resistance Profile'] not in sets[set_name].phenotypes.keys():
+                # Initialise new phenotype
+                profile_obs = [TomlString(am) for am in row['Resistance Profile'].split(',')]
+                sets[set_name].phenotypes[row['Resistance Profile']] = Phenotype(row['Set Effect'], profile_obs)
+
+            if 'RESISTANCE' == row['Effect']:
+                # Add resistance element to the set
+                sets[set_name].add_member(row['Gene Name'])
+            else:
+                # Add modifier element (assumes set will have already been initialised.
+                sets[set_name].phenotypes[row['Resistance Profile']].modifiers.append(Modifier(row['Gene Name'],
+                                                                                               row['Effect']))
+
+            if row['Gene Name'] not in genes.keys():
+                # Initialise the gene metadata
+                genes[row['Gene Name']] = GeneInfo(row['Gene Name'], 'paar', row['PID Threshold'],
+                                                   row['Coverage Threshold'], 'Protein')
+
+    # Now read in sequences from FASTA
+    with open(genes_fna, 'r') as gene_seqs_fh:
+        current_id = ''
+
+        for line in gene_seqs_fh.readlines():
+            if line.startswith('>'):
+                current_id = line.rstrip().replace('>', '')
+                if current_id not in genes.keys():
+                    print(current_id, 'not in csv file but is in FASTA.', file=sys.stderr)
+                    raise KeyError
+            else:
+                genes[current_id].sequence = line.rstrip()
+
+    for resistance_set in sets.keys():
+        print(sets[resistance_set].as_toml(), end='\n\n')
+
+    for gene in genes.keys():
+        print(genes[gene].as_toml(), end='\n\n')
+
+
+def process_snpar():
+    print('\n[snpar]\n')
+
+    snpar_sets = dict()
+    snpar_genes = dict()
+
+    with open(snps_csv, 'r') as snps_fh:
+        snps_reader = csv.DictReader(snps_fh)
+        for row in snps_reader:
+
+            set_name = row['Resistance Group'] if 0 != len(row['Resistance Group']) else row['Gene Name'] + '_' + \
+                                                                                         row['Mutation']
+
+            if set_name not in snpar_sets:
+                # Initialise the set
+                snpar_sets[set_name] = Set(set_name, 'snpar')
+
+            if row['Resistance Profile'] not in snpar_sets[set_name].phenotypes.keys():
+                # Initialise new phenotype
+                profile_obs = [TomlString(am) for am in row['Resistance Profile'].split(',')]
+                snpar_sets[set_name].phenotypes[row['Resistance Profile']] = Phenotype(row['Set Effect'], profile_obs)
+
+            if 'RESISTANCE' == row['Effect']:
+                # Add resistance element to the set
+                # At the moment, assuming 1 gene per resistance group (this is true)
+                if 0 == len(snpar_sets[set_name].members):
+                    snpar_sets[set_name].add_member(SnparMember(row['Gene Name'], [TomlString(row['Mutation'])]))
+                else:
+                    snpar_sets[set_name].members[0].variants.add(TomlString(row['Mutation']))
+            else:
+                snpar_sets[set_name].members[0].variants.append(TomlString(row['Mutation']))
+                # Add modifier element (assumes set will have already been initialised.
+                snpar_sets[set_name].phenotypes[row['Resistance Profile']].modifiers.append(Modifier(row['Gene Name'],
+                                                                                                     row['Effect']))
+
+            if row['Gene Name'] not in snpar_genes.keys():
+                # Initialise the gene metadata
+                snpar_genes[row['Gene Name']] = GeneInfo(row['Gene Name'], 'snpar', '80.0', '60.0', 'Protein')
+            snpar_genes[row['Gene Name']].variants.add(row['Mutation'])
+
+    # Now read in sequences from FASTA
+    with open(snps_fna, 'r') as snp_seqs_fh:
+        current_id = ''
+
+        for line in snp_seqs_fh.readlines():
+            if line.startswith('>'):
+                current_id = line.rstrip().replace('>', '')
+                if current_id not in snpar_genes.keys():
+                    print(current_id, 'not in csv file but is in FASTA.', file=sys.stderr)
+                    raise KeyError
+            else:
+                snpar_genes[current_id].sequence = line.rstrip()
+
+    for resistance_set in snpar_sets.keys():
+        print(snpar_sets[resistance_set].as_toml(), end='\n\n')
+
+    for snpar_gene in snpar_genes.keys():
+        print(snpar_genes[snpar_gene].as_toml(), end='\n\n')
+
+
+# Main script
 source_dir = Path(sys.argv[1])
 
 label = source_dir.parts[-1]
@@ -118,113 +244,11 @@ with open(am_file, 'r') as am_fh:
             '{key = "' + row['Name'] + '", type = "' + row['Type'] + '", name = "' + row['Full Name'] + '"}')
 
 am_str = ',\n                  '.join(antimicrobials)
+
 print('antimicrobials = [', am_str, ']', sep='')
 
-print('\n[paar]\n')
+if os.path.isfile(genes_csv):
+    process_paar()
 
-sets = dict()
-genes = dict()
-
-with open(genes_csv, 'r') as genes_fh:
-    genes_reader = csv.DictReader(genes_fh)
-    for row in genes_reader:
-
-        set_name = row['Resistance Group'] if len(row['Resistance Group']) != 0 else row['Gene Name']
-
-        if set_name not in sets:
-            # Initialise the set
-            sets[set_name] = Set(set_name, 'paar')
-
-        if row['Resistance Profile'] not in sets[set_name].phenotypes.keys():
-            # Initialise new phenotype
-            profile_obs = [TomlString(am) for am in row['Resistance Profile'].split(',')]
-            sets[set_name].phenotypes[row['Resistance Profile']] = Phenotype(row['Set Effect'], profile_obs)
-
-        if 'RESISTANCE' == row['Effect']:
-            # Add resistance element to the set
-            sets[set_name].add_member(row['Gene Name'])
-        else:
-            # Add modifier element (assumes set will have already been initialised.
-            sets[set_name].phenotypes[row['Resistance Profile']].modifiers.append(Modifier(row['Gene Name'],
-                                                                                           row['Effect']))
-
-        if row['Gene Name'] not in genes.keys():
-            # Initialise the gene metadata
-            genes[row['Gene Name']] = GeneInfo(row['Gene Name'], 'paar', row['PID Threshold'],
-                                               row['Coverage Threshold'], 'Protein')
-
-# Now read in sequences from FASTA
-with open(genes_fna, 'r') as gene_seqs_fh:
-    current_id = ''
-
-    for line in gene_seqs_fh.readlines():
-        if line.startswith('>'):
-            current_id = line.rstrip().replace('>', '')
-            if current_id not in genes.keys():
-                print(current_id, 'not in csv file but is in FASTA.', file=sys.stderr)
-                raise KeyError
-        else:
-            genes[current_id].sequence = line.rstrip()
-
-for resistance_set in sets.keys():
-    print(sets[resistance_set].as_toml(), end='\n\n')
-
-for gene in genes.keys():
-    print(genes[gene].as_toml(), end='\n\n')
-
-print('\n[snpar]\n')
-
-snpar_sets = dict()
-snpar_genes = dict()
-
-with open(snps_csv, 'r') as snps_fh:
-    snps_reader = csv.DictReader(snps_fh)
-    for row in snps_reader:
-
-        set_name = row['Resistance Group'] if 0 != len(row['Resistance Group']) else row['Gene Name'] + '_' + \
-                                                                                     row['Mutation']
-
-        if set_name not in snpar_sets:
-            # Initialise the set
-            snpar_sets[set_name] = Set(set_name, 'snpar')
-
-        if row['Resistance Profile'] not in snpar_sets[set_name].phenotypes.keys():
-            # Initialise new phenotype
-            profile_obs = [TomlString(am) for am in row['Resistance Profile'].split(',')]
-            snpar_sets[set_name].phenotypes[row['Resistance Profile']] = Phenotype(row['Set Effect'], profile_obs)
-
-        if 'RESISTANCE' == row['Effect']:
-            # Add resistance element to the set
-            # At the moment, assuming 1 gene per resistance group (this is true)
-            if 0 == len(snpar_sets[set_name].members):
-                snpar_sets[set_name].add_member(SnparMember(row['Gene Name'], [TomlString(row['Mutation'])]))
-        else:
-            snpar_sets[set_name].members[0].variants.append(TomlString(row['Mutation']))
-            # Add modifier element (assumes set will have already been initialised.
-            snpar_sets[set_name].phenotypes[row['Resistance Profile']].modifiers.append(Modifier(row['Gene Name'],
-                                                                                                 row['Effect']))
-
-        if row['Gene Name'] not in snpar_genes.keys():
-            # Initialise the gene metadata
-            snpar_genes[row['Gene Name']] = GeneInfo(row['Gene Name'], 'snpar', '80.0', '60.0', 'Protein')
-        snpar_genes[row['Gene Name']].variants.add(row['Mutation'])
-
-
-# Now read in sequences from FASTA
-with open(snps_fna, 'r') as snp_seqs_fh:
-    current_id = ''
-
-    for line in snp_seqs_fh.readlines():
-        if line.startswith('>'):
-            current_id = line.rstrip().replace('>', '')
-            if current_id not in snpar_genes.keys():
-                print(current_id, 'not in csv file but is in FASTA.', file=sys.stderr)
-                raise KeyError
-        else:
-            snpar_genes[current_id].sequence = line.rstrip()
-
-for resistance_set in snpar_sets.keys():
-    print(snpar_sets[resistance_set].as_toml(), end='\n\n')
-
-for gene in snpar_genes.keys():
-    print(snpar_genes[gene].as_toml(), end='\n\n')
+if os.path.isfile(snps_csv):
+    process_snpar()
