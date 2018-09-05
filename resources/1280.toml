@@ -72,13 +72,9 @@ phenotypes = [{effect = "RESISTANT", profile = ["ERY"], modifiers = []}]
 members = ["ermB"]
 
 [[paar.sets]]
-name = "ermC_ERY"
-phenotypes = [{effect = "RESISTANT", profile = ["ERY"], modifiers = []}]
-members = ["ermC"]
-
-[[paar.sets]]
-name = "ermC_CLI"
-phenotypes = [{effect = "RESISTANT", profile = ["CLI"], modifiers = [{name = "ermC_LP", effect = "MODIFIES_INDUCED"}]}]
+name = "ermC"
+phenotypes = [{effect = "RESISTANT", profile = ["ERY"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CLI"], modifiers = [{name = "ermC_LP", effect = "MODIFIES_INDUCED"}]}]
 members = ["ermC"]
 
 [[paar.sets]]
