@@ -1,6 +1,8 @@
 Name,Type,Full Name
-Carbapenemase,Carbapenemase,Carbapenemase
-Colistin,Colistin,Colistin
+ETP,Carbapenemase,Ertapenem
+MEM,Carbapenemase,Meropenem
+IPM,Carbapenemase,Imipenem
+CST,Colistin,Colistin
 CRO,Extended Spectrum Beta-Lactamses,Ceftriaxone
 CAZ,Extended Spectrum Beta-Lactamses,Ceftazidime
 FEP,Extended Spectrum Beta-Lactamses,Cefepime
