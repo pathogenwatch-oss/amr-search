@@ -6,10 +6,10 @@ import net.cgps.wgsa.paarsnp.core.lib.SimpleBlastMatchFilter;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.paar.PaarCalculation;
 import net.cgps.wgsa.paarsnp.core.paar.PaarResult;
-import net.cgps.wgsa.paarsnp.core.paar.json.PaarLibrary;
+import net.cgps.wgsa.paarsnp.core.paar.json.Paar;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
 import net.cgps.wgsa.paarsnp.core.snpar.SnparCalculation;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
+import net.cgps.wgsa.paarsnp.core.snpar.json.Snpar;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +25,12 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
   private final Logger logger = LoggerFactory.getLogger(PaarsnpRunner.class);
 
   private final String speciesId;
-  private final Optional<PaarLibrary> paarLibrary;
-  private final Optional<SnparLibrary> snparLibrary;
+  private final Optional<Paar> paarLibrary;
+  private final Optional<Snpar> snparLibrary;
   private final Collection<AntimicrobialAgent> antimicrobialAgents;
   private final String resourceDirectory;
 
-  PaarsnpRunner(final String speciesId, final Optional<PaarLibrary> paarLibrary, final Optional<SnparLibrary> snparLibrary, final Collection<AntimicrobialAgent> antimicrobialAgents, String resourceDirectory) {
+  PaarsnpRunner(final String speciesId, final Optional<Paar> paarLibrary, final Optional<Snpar> snparLibrary, final Collection<AntimicrobialAgent> antimicrobialAgents, String resourceDirectory) {
 
     this.speciesId = speciesId;
     this.paarLibrary = paarLibrary;
@@ -64,9 +64,9 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
       snparResult = SnparResult.buildEmpty();
     }
 
-    final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(assemblyId, snparResult, paarResult, this.antimicrobialAgents.stream().map(AntimicrobialAgent::getName).collect(Collectors.toList()));
+    final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(assemblyId, snparResult, paarResult, this.antimicrobialAgents.stream().map(AntimicrobialAgent::getKey).collect(Collectors.toList()));
 
-    final Map<String, AntimicrobialAgent> agentMap = this.antimicrobialAgents.stream().collect(Collectors.toMap(AntimicrobialAgent::getName, Function.identity()));
+    final Map<String, AntimicrobialAgent> agentMap = this.antimicrobialAgents.stream().collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
 
     return new BuildPaarsnpResult(agentMap).apply(paarsnpResultData);
   }

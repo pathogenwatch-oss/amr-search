@@ -19,9 +19,9 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
 
   private final Logger logger = LoggerFactory.getLogger(ProcessVariants.class);
 
-  private final SnparLibrary snparLibrary;
+  private final Snpar snparLibrary;
 
-  public ProcessVariants(final SnparLibrary snparLibrary) {
+  public ProcessVariants(final Snpar snparLibrary) {
 
     this.snparLibrary = snparLibrary;
   }
@@ -31,7 +31,7 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
 
     final SnparReferenceSequence snparReferenceSequence = this.snparLibrary.getSequence(mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceId());
 
-    if (SequenceType.PROTEIN == snparReferenceSequence.getSequenceType()) {
+    if (SequenceType.PROTEIN == snparReferenceSequence.getType()) {
 
       final CodonMap codonMap = new CodonMapper().apply(mutationSearchResult);
 

@@ -1,46 +1,57 @@
 package net.cgps.wgsa.paarsnp.core.snpar.json;
 
-import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
+import org.apache.commons.lang3.CharUtils;
 
-import java.util.Objects;
+import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class ResistanceMutation extends AbstractJsonnable {
+public class ResistanceMutation {
 
-  // The source of the data.
-  private final String source;
-  // Mutation name, e.g. rpoB_A667T
+  private final static Pattern snpIdPattern = Pattern.compile("^([\\-A-Z]+)([0-9]+)([A-Z\\-]+)$");
+
   private final String name;
-  private final String referenceId;
   private final char originalSequence;
   private final int repLocation;
   private final char mutationSequence;
   private final int aaLocation;
 
-  @SuppressWarnings("unused")
-  private ResistanceMutation() {
-
-    this("", "", 'A', 0, 'T', "", 0);
-  }
-
-  public ResistanceMutation(final String name, final String referenceId, final char originalSequence, final int repLocation, final char mutationSequence, final String source, final int aaLocation) {
+  public ResistanceMutation(final String name, final char originalSequence, final int repLocation, final char mutationSequence, final int aaLocation) {
     // NB for the SNP archive the query location is the same as the representative location.
     this.name = name;
-    this.referenceId = referenceId;
     this.originalSequence = originalSequence;
     this.repLocation = repLocation;
     this.mutationSequence = mutationSequence;
-    this.source = source;
     this.aaLocation = aaLocation;
   }
 
-  @SuppressWarnings("unused")
-  public String getReferenceId() {
-    return this.referenceId;
+  static Function<String, ResistanceMutation> parseSnp() {
+
+    return (snpName) -> {
+
+      final Matcher matcher = snpIdPattern.matcher(snpName);
+
+      final char originalSequence = CharUtils.toChar(matcher.group(1));
+      final int rawPosition = Integer.valueOf(matcher.group(2));
+      final char mutationSequence = CharUtils.toChar(matcher.group(3));
+
+      return new ResistanceMutation(snpName, originalSequence, rawPosition, mutationSequence, rawPosition);
+    };
+
   }
 
-  @SuppressWarnings("unused")
-  public char getOriginalSequence() {
-    return this.originalSequence;
+  static Function<String, ResistanceMutation> parseAaVariant() {
+    return (snpName) -> {
+      final Matcher matcher = snpIdPattern.matcher(snpName);
+
+      final char originalSequence = CharUtils.toChar(matcher.group(1));
+      final int rawPosition = Integer.valueOf(matcher.group(2));
+      final char mutationSequence = CharUtils.toChar(matcher.group(3));
+
+      final int representativePosition = (rawPosition * 3) - 2;
+
+      return new ResistanceMutation(snpName, originalSequence, representativePosition, mutationSequence, rawPosition);
+    };
   }
 
   public int getRepLocation() {
@@ -56,32 +67,11 @@ public class ResistanceMutation extends AbstractJsonnable {
     return this.name;
   }
 
-  public String getSource() {
-
-    return this.source;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    ResistanceMutation that = (ResistanceMutation) o;
-    return repLocation == that.repLocation &&
-        Objects.equals(source, that.source) &&
-        Objects.equals(name, that.name) &&
-        Objects.equals(referenceId, that.referenceId) &&
-        Objects.equals(originalSequence, that.originalSequence) &&
-        Objects.equals(mutationSequence, that.mutationSequence);
-  }
-
-  @Override
-  public int hashCode() {
-
-    return Objects.hash(source, name, referenceId, originalSequence, repLocation, mutationSequence);
-  }
-
-  @SuppressWarnings("unused")
   public int getAaLocation() {
     return this.aaLocation;
+  }
+
+  private char getOriginalSequence() {
+    return this.originalSequence;
   }
 }

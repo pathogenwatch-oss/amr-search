@@ -5,7 +5,7 @@ import net.cgps.wgsa.paarsnp.core.lib.SimpleBlastMatchFilter;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
 import net.cgps.wgsa.paarsnp.core.snpar.SnparCalculation;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
+import net.cgps.wgsa.paarsnp.core.snpar.json.Snpar;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
 import org.junit.Assert;
 import org.slf4j.Logger;
@@ -27,7 +27,7 @@ public class ResistanceSearchTest {
 
     this.logger.info("Using snpar DB {}", snparDb.getPath());
 
-    final Optional<SnparLibrary> snparLibrary = Optional.ofNullable(AbstractJsonnable.fromJsonFile(snparDb, SnparLibrary.class));
+    final Optional<Snpar> snparLibrary = Optional.ofNullable(AbstractJsonnable.fromJsonFile(snparDb, Snpar.class));
 
     final ResistanceSearch.InputOptions inputOptions = new ResistanceSearch.InputOptions(
         Arrays.asList(

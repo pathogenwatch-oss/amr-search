@@ -5,90 +5,57 @@ import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class SnparReferenceSequence extends AbstractJsonnable {
 
-  private final String sequenceId;
-  private final SequenceType sequenceType;
-  private final double seqIdThreshold;
-  private final Collection<ResistanceMutation> resistanceMutations;
-  private final String sequence;
+  private final String name;
+  private final SequenceType type;
+  private final float pid;
+  private final float coverage;
+  private final Collection<String> variants;
+  private Collection<ResistanceMutation> mappedVariants = null;
 
-  @SuppressWarnings("unused")
-  private SnparReferenceSequence() {
+  public SnparReferenceSequence(final String name, final SequenceType type, final float pid, final float coverage, final Collection<String> variants) {
 
-    this("", SequenceType.DNA, 0.0, Collections.emptyList(), "");
-  }
-
-  public SnparReferenceSequence(final String sequenceId, SequenceType sequenceType, final double seqIdThreshold, final Collection<ResistanceMutation> resistanceMutations, final String sequence) {
-
-    this.sequenceId = sequenceId;
-    this.sequenceType = sequenceType;
-    this.seqIdThreshold = seqIdThreshold;
-    this.resistanceMutations = resistanceMutations;
-    this.sequence = sequence;
+    this.name = name;
+    this.type = type;
+    this.pid = pid;
+    this.coverage = coverage;
+    this.variants = variants;
   }
 
   public Collection<ResistanceMutation> getResistanceMutations() {
 
-    return Collections.unmodifiableCollection(this.resistanceMutations);
-  }
-
-  public String getSequenceId() {
-
-    return this.sequenceId;
-  }
-
-  public SequenceType getSequenceType() {
-
-    return this.sequenceType;
-  }
-
-  public double getSeqIdThreshold() {
-
-    return this.seqIdThreshold;
-  }
-
-  public String getSequence() {
-
-    return this.sequence;
-  }
-
-  @Override
-  public boolean equals(final Object o) {
-
-    if (this == o) {
-      return true;
+    if (null == this.mappedVariants) {
+      switch (this.type) {
+        case DNA:
+          this.mappedVariants = this.variants.stream().map(ResistanceMutation.parseSnp()).collect(Collectors.toList());
+          break;
+        case PROTEIN:
+          this.mappedVariants = this.variants.stream().map(ResistanceMutation.parseAaVariant()).collect(Collectors.toList());
+          break;
+      }
     }
-    if (o == null || this.getClass() != o.getClass()) {
-      return false;
-    }
-
-    final SnparReferenceSequence that = (SnparReferenceSequence) o;
-
-    if (Double.compare(that.seqIdThreshold, this.seqIdThreshold) != 0) {
-      return false;
-    }
-    if (this.sequenceId != null ? !this.sequenceId.equals(that.sequenceId) : that.sequenceId != null) {
-      return false;
-    }
-    if (this.resistanceMutations != null ? !this.resistanceMutations.equals(that.resistanceMutations) : that.resistanceMutations != null) {
-      return false;
-    }
-    return this.sequence != null ? this.sequence.equals(that.sequence) : that.sequence == null;
+    return Collections.unmodifiableCollection(this.mappedVariants);
   }
 
-  @Override
-  public int hashCode() {
+  public String getName() {
 
-    int result;
-    long temp;
-    result = this.sequenceId != null ? this.sequenceId.hashCode() : 0;
-    temp = Double.doubleToLongBits(this.seqIdThreshold);
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
-    result = 31 * result + (int) (temp ^ (temp >>> 32));
-    result = 31 * result + (this.resistanceMutations != null ? this.resistanceMutations.hashCode() : 0);
-    result = 31 * result + (this.sequence != null ? this.sequence.hashCode() : 0);
-    return result;
+    return this.name;
+  }
+
+  public SequenceType getType() {
+
+    return this.type;
+  }
+
+  public float getPid() {
+
+    return this.pid;
+  }
+
+  private float getCoverage() {
+    return this.coverage;
   }
 }

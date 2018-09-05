@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchData>, SnparResult> {
 
   private final Logger logger = LoggerFactory.getLogger(SnparCalculation.class);
-  private final SnparLibrary snparLibrary;
+  private final Snpar snparLibrary;
   private final ProcessVariants processVariants;
 
-  public SnparCalculation(final SnparLibrary snparLibrary, ProcessVariants processVariants) {
+  public SnparCalculation(final Snpar snparLibrary, ProcessVariants processVariants) {
 
     this.snparLibrary = snparLibrary;
     this.processVariants = processVariants;
@@ -55,7 +55,7 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
       this.logger.debug("Found {} resistance matches.", snparMatchDatas.size());
 
       // Now identify the resistance sets (and classify as complete or not) for each resistance gene.
-      final ProcessSnparMatchData processSnparMatchData = new ProcessSnparMatchData(this.snparLibrary.getResistanceSets().values());
+      final ProcessSnparMatchData processSnparMatchData = new ProcessSnparMatchData(this.snparLibrary.getSets().values());
 
       // All the sets will be merged together into a single final set.
       final ProcessSnparMatchData.ProcessedSets finalSet = new ProcessSnparMatchData.ProcessedSets();

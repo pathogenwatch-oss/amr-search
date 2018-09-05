@@ -1,7 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.lib;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
-import net.cgps.wgsa.paarsnp.core.paar.json.PaarLibrary;
+import net.cgps.wgsa.paarsnp.core.paar.json.Paar;
 
 import java.util.AbstractMap;
 import java.util.Map;
@@ -17,16 +17,16 @@ public class FilterByIndividualThresholds implements Predicate<BlastMatch> {
     this.coverageThresholds = coverageThresholds;
   }
 
-  public static FilterByIndividualThresholds build(final PaarLibrary paarLibrary) {
+  public static FilterByIndividualThresholds build(final Paar paarLibrary) {
     return new FilterByIndividualThresholds(
         paarLibrary
-            .getResistanceGenes()
+            .getGenes()
             .values()
             .stream()
             .map(gene -> new AbstractMap.SimpleImmutableEntry<>(gene.getFamilyName(), gene.getSimilarityThreshold()))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)),
         paarLibrary
-            .getResistanceGenes()
+            .getGenes()
             .values()
             .stream()
             .map(gene -> new AbstractMap.SimpleImmutableEntry<>(gene.getFamilyName(), gene.getLengthThreshold()))

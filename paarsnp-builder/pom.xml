@@ -124,6 +124,11 @@
             <version>${paarsnp.apache-commons-csv}</version>
         </dependency>
         <dependency>
+            <groupId>com.moandjiezana.toml</groupId>
+            <artifactId>toml4j</artifactId>
+            <version>${paarsnp.toml.version}</version>
+        </dependency>
+        <dependency>
             <groupId>net.cgps.wgsa</groupId>
             <artifactId>paarsnp-lib</artifactId>
             <version>${project.parent.version}</version>

@@ -45,7 +45,7 @@ public class ProcessSnparMatchData implements Function<SnparMatchData, ProcessSn
               .filter(seenIds::contains)
               .peek(id -> this.logger.debug("Kept {}", id))
               .count();
-          this.logger.debug("Seen {} out of {} elements that belong to {}", seenElementCount, resistanceSet.getElementIds().size(), resistanceSet.getResistanceSetName());
+          this.logger.debug("Seen {} out of {} elements that belong to {}", seenElementCount, resistanceSet.getElementIds().size(), resistanceSet.getName());
 
           if (seenElementCount == 0) {
             this.logger.debug("No resistance mutations seen.");

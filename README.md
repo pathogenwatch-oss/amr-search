@@ -180,7 +180,7 @@ The individual results and detailed BLAST data can be found in the `paarResult` 
       ],
       "agent": {
         "name": "AMP",
-        "fullName": "Ampicillin",
+        "name": "Ampicillin",
         "type": "Beta-lactam"
       }
     },

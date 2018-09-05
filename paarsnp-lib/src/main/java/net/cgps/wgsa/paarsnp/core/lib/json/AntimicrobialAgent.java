@@ -1,13 +1,15 @@
 package net.cgps.wgsa.paarsnp.core.lib.json;
 
 
+import javax.annotation.Nonnull;
+
 /**
  * JSON document for an antimicrobial agent.
  */
 public class AntimicrobialAgent extends AbstractJsonnable implements Comparable<AntimicrobialAgent> {
 
+  private final String key;
   private final String name;
-  private final String fullName;
   private final String type;
 
 
@@ -17,21 +19,21 @@ public class AntimicrobialAgent extends AbstractJsonnable implements Comparable<
     this("", "", "");
   }
 
-  public AntimicrobialAgent(final String name, String fullName, String type) {
+  public AntimicrobialAgent(final String key, String name, String type) {
 
+    this.key = key;
     this.name = name;
-    this.fullName = fullName;
     this.type = type;
   }
 
-  public String getName() {
+  public String getKey() {
 
-    return this.name;
+    return this.key;
   }
 
   @Override
   public int hashCode() {
-    return name.hashCode();
+    return this.key.hashCode();
   }
 
   @Override
@@ -46,27 +48,27 @@ public class AntimicrobialAgent extends AbstractJsonnable implements Comparable<
 
     final AntimicrobialAgent that = (AntimicrobialAgent) o;
 
-    return this.name.equals(that.name);
+    return this.key.equals(that.key);
   }
 
   @Override
   public String toString() {
 
     return "WgstAntimicrobialAgent{" +
-        ", name='" + this.name + '\'' +
+        ", name='" + this.key + '\'' +
         '}';
   }
 
   @Override
-  public int compareTo(final AntimicrobialAgent o) {
+  public int compareTo(@Nonnull final AntimicrobialAgent o) {
 
-    return this.name.compareTo(o.getName());
+    return this.key.compareTo(o.getKey());
   }
 
   @SuppressWarnings("unused")
-  public String getFullName() {
+  public String getName() {
 
-    return this.fullName;
+    return this.name;
   }
 
   public String getType() {

@@ -34,6 +34,7 @@
         <paarsnp.logback-classic>1.2.3</paarsnp.logback-classic>
         <paarsnp.guava>23.0</paarsnp.guava>
         <paarsnp.root>${basedir}</paarsnp.root>
+        <paarsnp.toml.version>0.7.2</paarsnp.toml.version>
         <!--<paarsnp.docker-repository>cgps/paarsnp</paarsnp.docker-repository>-->
         <!--<paarsnp.docker-repository>registry.gitlab.com/cgps/wgsa-tasks/paarsnp</paarsnp.docker-repository>-->
 
