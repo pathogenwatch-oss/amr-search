@@ -36,7 +36,7 @@ _Install & run with Docker:_
 | Staphylococcus aureus | 1280 |
 | Salmonella _Typhi_ | 90370 |
 | Streptococcus pneumoniae | 1313 |
-| ResFinder (all species) | resfinder |
+| Enterobacteriaceae | 543 |
 
 ## Getting Started
 
