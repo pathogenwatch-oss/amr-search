@@ -12,11 +12,11 @@ public class Modifier {
     this.effect = effect;
   }
 
-  private String getName() {
+  public String getName() {
     return this.name;
   }
 
-  private ElementEffect getEffect() {
+  public ElementEffect getEffect() {
     return this.effect;
   }
 }

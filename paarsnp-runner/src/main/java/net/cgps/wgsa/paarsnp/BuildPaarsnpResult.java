@@ -1,20 +1,20 @@
 package net.cgps.wgsa.paarsnp;
 
-import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
-import net.cgps.wgsa.paarsnp.core.lib.ResistanceState;
 import net.cgps.wgsa.paarsnp.core.lib.PhenotypeEffect;
+import net.cgps.wgsa.paarsnp.core.lib.ProfileAggregator;
+import net.cgps.wgsa.paarsnp.core.lib.ResistanceState;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntibioticProfile;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
+import net.cgps.wgsa.paarsnp.core.lib.json.Modifier;
+import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.paar.PaarResult;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -34,75 +34,114 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
     this.logger.debug("Building net.cgps.wgsa.paarsnp result from match data for assemblyId={}", paarsnpResultData.assemblyId);
 
     // Now build the profiles.
-    final Map<String, AntibioticProfile> antibioticProfiles = new LinkedHashMap<>(50);
+//    final Map<String, AntibioticProfile> antibioticProfiles = new LinkedHashMap<>(50);
+    final ProfileAggregator profileAggregator = new ProfileAggregator();
 
-    // Start with resolving the complete resistance sets.
-    Stream.concat(paarsnpResultData.snparResult.getCompleteSets()
-            .stream(),
-        paarsnpResultData.paarResult.getCompleteResistanceSets()
-            .stream()
-    )
-        .forEach(resistanceSet -> resistanceSet.getAgents()
-            .forEach(
-                agent -> {
+    final Predicate<Modifier> paarModSelector = modifier -> paarsnpResultData.paarResult.getBlastMatches().containsKey(modifier.getName());
+    // Modifiers currently not supported for SNPAR
+    final Predicate<Modifier> selector = modifier -> false;
 
-                  // For each set go through each agent it encodes resistance for.
-                  if (!antibioticProfiles.containsKey(agent)) {
-                    // New antibiotic.
+    // Start with resolving PAAR
+    paarsnpResultData.paarResult.getCompleteResistanceSets()
+        .stream()
+        .map(ResistanceSet::getPhenotypes)
+        .flatMap(Collection::stream)
+        .forEach(phenotype -> profileAggregator.addPhenotype(phenotype, paarModSelector));
 
-                    // Check if it's a modified set (Sets that confer resistance but contain a modifier element)
-                    if (paarsnpResultData.paarResult.getModifiedSets().containsKey(resistanceSet.getName())) {
+    paarsnpResultData.snparResult.getCompleteSets()
+        .stream()
+        .map(ResistanceSet::getPhenotypes)
+        .flatMap(Collection::stream)
+        .forEach(phenotype -> profileAggregator.addPhenotype(phenotype, selector));
 
-                      // This isn't complete as it does't handle all possibilities, with the resistance set effects, but currently we don't have any modifiers in intermediate effect sets.
+    paarsnpResultData.paarResult.getPartialResistanceSets()
+        .stream()
+        .map(ResistanceSet::getPhenotypes)
+        .flatMap(Collection::stream)
+        .forEach(phenotype -> profileAggregator.addPhenotype(phenotype, paarModSelector));
 
-                      final ResistanceState rs;
-                      final ElementEffect modification = paarsnpResultData.paarResult.getModifiedSets().get(resistanceSet.getName());
+    paarsnpResultData.snparResult.getPartialSets()
+        .stream()
+        .map(ResistanceSet::getPhenotypes)
+        .flatMap(Collection::stream)
+        .forEach(phenotype -> profileAggregator.addPhenotype(phenotype, selector));
 
-                      if (ElementEffect.MODIFIES_INDUCED == modification) {
-                        rs = ResistanceState.INDUCIBLE;
-                      } else if (ElementEffect.MODIFIES_SUPPRESSES == modification){
-                        rs = ResistanceState.NOT_FOUND;
-                      } else {
-                        rs = ResistanceState.NOT_FOUND;
-                      }
-
-                      antibioticProfiles.put(agent, new AntibioticProfile(agents.get(agent), rs, new ArrayList<>(10)));
-
-                    } else {
-
-                      final ResistanceState rs;
-
-                      if (PhenotypeEffect.RESISTANT == resistanceSet.getEffect()) {
-                        rs = ResistanceState.RESISTANT;
-                      } else if (PhenotypeEffect.INTERMEDIATE_NOT_ADDITIVE == resistanceSet.getEffect()) {
-                        rs = ResistanceState.INTERMEDIATE;
-                      } else if (PhenotypeEffect.INTERMEDIATE_ADDITIVE == resistanceSet.getEffect()) {
-                        rs = ResistanceState.RESISTANT;
-                      } else {
-                        rs = ResistanceState.INDUCIBLE;
-                      }
-
-                      antibioticProfiles.put(agent, new AntibioticProfile(agents.get(agent), rs, new ArrayList<>(10)));
-                    }
-                  } else if (!paarsnpResultData.paarResult.getModifiedSets().containsKey(resistanceSet.getName()) && (ResistanceState.INDUCIBLE == antibioticProfiles.get(agent).getResistanceState())) {
-
-                    // Already contains an inducible profile, and current one is not, so convert to resistant
-                    antibioticProfiles.put(agent, new AntibioticProfile(agents.get(agent), ResistanceState.RESISTANT, antibioticProfiles.get(agent).getResistanceSets()));
-                  } else {
-
-                    // If the previous assignment was intermediate and the current is resistant, then replace the profile
-                    if (ResistanceState.INTERMEDIATE == antibioticProfiles.get(agent).getResistanceState()
-                        &&
-                        (PhenotypeEffect.RESISTANT == resistanceSet.getEffect()) || (PhenotypeEffect.INTERMEDIATE_ADDITIVE == resistanceSet.getEffect())) {
-                      antibioticProfiles.put(agent, new AntibioticProfile(agents.get(agent), ResistanceState.RESISTANT, antibioticProfiles.get(agent).getResistanceSets()));
-
-                    }
-                  }
-                  // finally add the set.
-                  antibioticProfiles.get(agent).addSet(resistanceSet);
-                })
-        );
-
+//    // Start with resolving the complete resistance sets.
+//    Stream.concat(paarsnpResultData.snparResult.getCompleteSets()
+//            .stream().map(ResistanceSet::getPhenotypes).flatMap(Collection::stream),
+//        paarsnpResultData.paarResult.getCompleteResistanceSets()
+//            .stream().map(ResistanceSet::getPhenotypes).flatMap(Collection::stream)
+//    ).forEach(phenotype -> {
+//
+//      // Check if the phenotype is modified
+//      if (paarsnpResultData.snparResult.)
+//
+//        // Update the antibiotic profiles
+//        phenotype.getProfile()
+//            .forEach(agent -> {
+//
+//            });
+//
+//    });
+//            .forEach(
+//                agent -> {
+//
+//                  // For each set go through each agent it encodes resistance for.
+//                  if (!antibioticProfiles.containsKey(agent)) {
+//                    // New antibiotic.
+//
+//                    // Check if it's a modified set (Sets that confer resistance but contain a modifier element)
+//                    if (paarsnpResultData.paarResult.getModifiedSets().containsKey(resistanceSet.getName())) {
+//
+//                      // This isn't complete as it does't handle all possibilities, with the resistance set effects, but currently we don't have any modifiers in intermediate effect sets.
+//
+//                      final ResistanceState rs;
+//                      final ElementEffect modification = paarsnpResultData.paarResult.getModifiedSets().get(resistanceSet.getName());
+//
+//                      if (ElementEffect.MODIFIES_INDUCED == modification) {
+//                        rs = ResistanceState.INDUCIBLE;
+//                      } else if (ElementEffect.MODIFIES_SUPPRESSES == modification) {
+//                        rs = ResistanceState.NOT_FOUND;
+//                      } else {
+//                        rs = ResistanceState.NOT_FOUND;
+//                      }
+//
+//                      antibioticProfiles.put(agent, new AntibioticProfile(agents.get(agent), rs, new ArrayList<>(10)));
+//
+//                    } else {
+//
+//                      final ResistanceState rs;
+//
+//                      if (PhenotypeEffect.RESISTANT == resistanceSet.getEffect()) {
+//                        rs = ResistanceState.RESISTANT;
+//                      } else if (PhenotypeEffect.INTERMEDIATE_NOT_ADDITIVE == resistanceSet.getEffect()) {
+//                        rs = ResistanceState.INTERMEDIATE;
+//                      } else if (PhenotypeEffect.INTERMEDIATE_ADDITIVE == resistanceSet.getEffect()) {
+//                        rs = ResistanceState.RESISTANT;
+//                      } else {
+//                        rs = ResistanceState.INDUCIBLE;
+//                      }
+//
+//                      antibioticProfiles.put(agent, new AntibioticProfile(agents.get(agent), rs, new ArrayList<>(10)));
+//                    }
+//                  } else if (!paarsnpResultData.paarResult.getModifiedSets().containsKey(resistanceSet.getName()) && (ResistanceState.INDUCIBLE == antibioticProfiles.get(agent).getResistanceState())) {
+//
+//                    // Already contains an inducible profile, and current one is not, so convert to resistant
+//                    antibioticProfiles.put(agent, new AntibioticProfile(agents.get(agent), ResistanceState.RESISTANT, antibioticProfiles.get(agent).getResistanceSets()));
+//                  } else {
+//
+//                    // If the previous assignment was intermediate and the current is resistant, then replace the profile
+//                    if (ResistanceState.INTERMEDIATE == antibioticProfiles.get(agent).getResistanceState()
+//                        &&
+//                        (PhenotypeEffect.RESISTANT == resistanceSet.getEffect()) || (PhenotypeEffect.INTERMEDIATE_ADDITIVE == resistanceSet.getEffect())) {
+//                      antibioticProfiles.put(agent, new AntibioticProfile(agents.get(agent), ResistanceState.RESISTANT, antibioticProfiles.get(agent).getResistanceSets()));
+//
+//                    }
+//                  }
+//                  // finally add the set.
+//                  antibioticProfiles.get(agent).addSet(resistanceSet);
+//                })
+//        );
     // Now go through the partial sets and check if any effect new antibiotics.
     Stream.concat(paarsnpResultData.snparResult.getPartialSets().stream(), paarsnpResultData.paarResult.getPartialResistanceSets().stream())
         .forEach(partialSet -> partialSet.getAgents()

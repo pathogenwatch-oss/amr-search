@@ -16,15 +16,15 @@ public class Phenotype {
     this.modifiers = modifiers;
   }
 
-  private PhenotypeEffect getEffect() {
+  public PhenotypeEffect getEffect() {
     return this.effect;
   }
 
-  private List<String> getProfile() {
+  public List<String> getProfile() {
     return this.profile;
   }
 
-  private List<Modifier> getModifiers() {
+  public List<Modifier> getModifiers() {
     return this.modifiers;
   }
 }
