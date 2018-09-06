@@ -36,7 +36,8 @@ _Install & run with Docker:_
 | Staphylococcus aureus | 1280 |
 | Salmonella _Typhi_ | 90370 |
 | Streptococcus pneumoniae | 1313 |
-| Enterobacteriaceae | 543 |
+| Klebisiella | 570 |
+| Escherichia | 561 |
 
 ## Getting Started
 
