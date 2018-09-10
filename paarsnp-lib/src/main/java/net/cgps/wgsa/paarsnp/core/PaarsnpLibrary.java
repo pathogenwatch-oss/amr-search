@@ -32,7 +32,7 @@ public class PaarsnpLibrary {
     return this.label;
   }
 
-  private List<AntimicrobialAgent> getAntimicrobials() {
+  public List<AntimicrobialAgent> getAntimicrobials() {
     return this.antimicrobials;
   }
 }

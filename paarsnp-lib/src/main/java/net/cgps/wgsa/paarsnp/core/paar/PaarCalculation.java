@@ -5,8 +5,6 @@ import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.paar.json.Paar;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -19,7 +17,6 @@ import java.util.stream.Stream;
 
 public class PaarCalculation implements Collector<BlastMatch, Collection<BlastMatch>, PaarResult> {
 
-  private final Logger logger = LoggerFactory.getLogger(PaarCalculation.class);
   private final Paar paarLibrary;
 
   public PaarCalculation(final Paar paarLibrary) {
@@ -66,7 +63,7 @@ public class PaarCalculation implements Collector<BlastMatch, Collection<BlastMa
           .forEach(set -> {
             if (matches.keySet().containsAll(set.getMembers())) {
               completedSets.add(set);
-            } else if (set.getMembers().stream().anyMatch(member -> matches.keySet().contains(member))) {
+            } else if (set.getMembers().stream().anyMatch(member -> matches.keySet().contains(member.getGene()))) {
               partialSets.add(set);
             }
           });

@@ -29,7 +29,7 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
   @Override
   public SnparMatchData apply(final BlastMatch mutationSearchResult) {
 
-    final SnparReferenceSequence snparReferenceSequence = this.snparLibrary.getSequence(mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceId());
+    final SnparReferenceSequence snparReferenceSequence = this.snparLibrary.getGenes().get(mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceId());
 
     if (SequenceType.PROTEIN == snparReferenceSequence.getType()) {
 

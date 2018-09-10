@@ -1,14 +1,12 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
+import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.snpar.json.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
@@ -51,26 +49,63 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
   @Override
   public Function<List<SnparMatchData>, SnparResult> finisher() {
 
-    return (snparMatchDatas) -> {
-      this.logger.debug("Found {} resistance matches.", snparMatchDatas.size());
+    return (selectedMatches) -> {
+      this.logger.debug("Found {} resistance matches.", selectedMatches.size());
 
-      // Now identify the resistance sets (and classify as complete or not) for each resistance gene.
-      final ProcessSnparMatchData processSnparMatchData = new ProcessSnparMatchData(this.snparLibrary.getSets().values());
-
-      // All the sets will be merged together into a single final set.
-      final ProcessSnparMatchData.ProcessedSets finalSet = new ProcessSnparMatchData.ProcessedSets();
-
-      snparMatchDatas
+      // Need to now account for multi-gene snpar sets
+      final Map<String, List<SnparMatchData>> matches = selectedMatches
           .stream()
-          .map(processSnparMatchData)
-          .forEach(finalSet::merge);
+          .collect(Collectors.groupingBy(match -> match.getSearchStatistics().getLibrarySequenceId()));
+
+      final Collection<ResistanceSet> completedSets = new HashSet<>(10);
+      final Collection<ResistanceSet> partialSets = new HashSet<>(10);
+      final Set<String> seenMutationNames = new HashSet<>(50);
+
+      this.snparLibrary.getSets().values()
+          .forEach(set -> {
+            final boolean complete = set.getMembers().size() == (int) set.getMembers().stream()
+                .filter(setMember -> matches.keySet().contains(setMember.getGene()))
+                // Check that all mutations are present
+                .filter(setMember -> matches.get(setMember.getGene())
+                    .stream()
+                    .anyMatch(match -> setMember.getVariants().size() == setMember.getVariants()
+                        .stream()
+                        .filter(variant -> match.getSnpResistanceElements()
+                            .stream()
+                            .map(ResistanceMutation::getName)
+                            .anyMatch(name -> name.equals(variant)))
+                        // Since we check for the presence of every member we can add observed ones here.
+                        .peek(seenMutationNames::add)
+                        .count())
+                )
+                .count();
+            if (complete) {
+              completedSets.add(set);
+            } else {
+              final boolean partial = set.getMembers().stream()
+                  .filter(setMember -> matches.keySet().contains(setMember.getGene()))
+                  .anyMatch(setMember -> matches.get(setMember.getGene())
+                      .stream()
+                      .anyMatch(match -> setMember.getVariants()
+                          .stream()
+                          .anyMatch(variant -> match.getSnpResistanceElements()
+                              .stream()
+                              .map(ResistanceMutation::getName)
+                              .anyMatch(name -> name.equals(variant))
+                          )
+                      ));
+              if (partial) {
+                partialSets.add(set);
+              }
+            }
+          });
 
       // Finally generate the result document.
       return new SnparResult(
-          finalSet.getSeenIds(),
-          finalSet.getCompleteSets(),
-          finalSet.getPartialSets(),
-          snparMatchDatas
+          seenMutationNames,
+          completedSets,
+          partialSets,
+          selectedMatches
               .stream()
               .map(match -> new MatchJson(
                   match.getSearchStatistics(),
@@ -81,6 +116,8 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
               .collect(Collectors.toList())
       );
     };
+
+
   }
 
   @Override

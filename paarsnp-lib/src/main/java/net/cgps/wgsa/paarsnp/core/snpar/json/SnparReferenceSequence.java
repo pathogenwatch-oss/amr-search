@@ -55,7 +55,7 @@ public class SnparReferenceSequence extends AbstractJsonnable {
     return this.pid;
   }
 
-  private float getCoverage() {
+  public float getCoverage() {
     return this.coverage;
   }
 }

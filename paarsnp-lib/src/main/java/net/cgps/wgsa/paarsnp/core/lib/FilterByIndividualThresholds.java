@@ -2,6 +2,8 @@ package net.cgps.wgsa.paarsnp.core.lib;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.paar.json.Paar;
+import net.cgps.wgsa.paarsnp.core.snpar.json.Snpar;
+import net.cgps.wgsa.paarsnp.core.snpar.json.SnparReferenceSequence;
 
 import java.util.AbstractMap;
 import java.util.Map;
@@ -23,14 +25,27 @@ public class FilterByIndividualThresholds implements Predicate<BlastMatch> {
             .getGenes()
             .values()
             .stream()
-            .map(gene -> new AbstractMap.SimpleImmutableEntry<>(gene.getFamilyName(), gene.getSimilarityThreshold()))
+            .map(gene -> new AbstractMap.SimpleImmutableEntry<>(gene.getFamilyName(), gene.getPid()))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)),
         paarLibrary
             .getGenes()
             .values()
             .stream()
-            .map(gene -> new AbstractMap.SimpleImmutableEntry<>(gene.getFamilyName(), gene.getLengthThreshold()))
+            .map(gene -> new AbstractMap.SimpleImmutableEntry<>(gene.getFamilyName(), gene.getCoverage()))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
+  }
+
+  public static FilterByIndividualThresholds build(final Snpar snparLibrary) {
+    return new FilterByIndividualThresholds(
+        snparLibrary.getGenes()
+            .values()
+            .stream()
+            .collect(Collectors.toMap(SnparReferenceSequence::getName, SnparReferenceSequence::getPid)),
+        snparLibrary.getGenes()
+            .values()
+            .stream()
+            .collect(Collectors.toMap(SnparReferenceSequence::getName, gene -> gene.getCoverage()))
+        );
   }
 
   @Override

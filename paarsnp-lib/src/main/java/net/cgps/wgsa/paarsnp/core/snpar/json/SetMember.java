@@ -2,21 +2,21 @@ package net.cgps.wgsa.paarsnp.core.snpar.json;
 
 import java.util.List;
 
-public class SnparMember {
+public class SetMember {
 
   private final String gene;
   private final List<String> variants;
 
-  public SnparMember(final String gene, final List<String> variants) {
+  public SetMember(final String gene, final List<String> variants) {
     this.gene = gene;
     this.variants = variants;
   }
 
-  private List<String> getVariants() {
+  public List<String> getVariants() {
     return this.variants;
   }
 
-  private String getGene() {
+  public String getGene() {
     return this.gene;
   }
 }

@@ -1,26 +1,22 @@
 package net.cgps.wgsa.paarsnp.core.lib;
 
-import net.cgps.wgsa.paarsnp.core.lib.json.AntibioticProfile;
-import net.cgps.wgsa.paarsnp.core.lib.json.Modifier;
-import net.cgps.wgsa.paarsnp.core.lib.json.Phenotype;
-
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-import java.util.function.Predicate;
 
 public class ProfileAggregator {
-  final Map<String, AntibioticProfile> profileMap;
 
-  public ProfileAggregator() {
-    this.profileMap = new HashMap<>(50);
+  private final Map<String, ResistanceState> profileMap;
+
+  public ProfileAggregator(final Map<String, ResistanceState> profileMap) {
+    this.profileMap = profileMap;
   }
 
-  public void addPhenotype(final Phenotype phenotype, final Predicate<Modifier> selector) {
-    final Optional<Modifier> selectedModifier = phenotype.getModifiers()
-        .stream()
-        .filter(selector)
-        .findFirst();
+  public void addPhenotype(final String agent, final ResistanceState resistanceState) {
+    if (resistanceState.getRank() < this.profileMap.get(agent).getRank()) {
+      this.profileMap.put(agent, resistanceState);
+    }
+  }
 
+  public Map<String, ResistanceState> getProfileMap() {
+    return this.profileMap;
   }
 }

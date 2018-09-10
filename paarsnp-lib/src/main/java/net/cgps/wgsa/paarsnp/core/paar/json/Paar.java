@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 public class Paar implements LibraryMetadata {
 
   private final Map<String, ResistanceGene> genes;
-  private final Map<String, ResistanceSet<String>> sets;
+  private final Map<String, ResistanceSet> sets;
   private final double minimumPid;
 
-  public Paar(final List<ResistanceGene> genes, final List<ResistanceSet<String>> sets) {
+  public Paar(final List<ResistanceGene> genes, final List<ResistanceSet> sets) {
 
     this.genes = genes.stream().collect(Collectors.toMap(ResistanceGene::getFamilyName, Function.identity()));
     this.sets = sets.stream().collect(Collectors.toMap(ResistanceSet::getName, Function.identity()));
@@ -27,7 +27,7 @@ public class Paar implements LibraryMetadata {
     return this.genes;
   }
 
-  public Map<String, ResistanceSet<String>> getSets() {
+  public Map<String, ResistanceSet> getSets() {
 
     return this.sets;
   }

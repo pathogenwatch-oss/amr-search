@@ -19,6 +19,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
@@ -68,7 +69,11 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
     final Map<String, AntimicrobialAgent> agentMap = this.antimicrobialAgents.stream().collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
 
-    return new BuildPaarsnpResult(agentMap).apply(paarsnpResultData);
+    return new BuildPaarsnpResult(agentMap, Stream.concat(
+        this.paarLibrary.get().getSets().entrySet().stream(),
+        this.snparLibrary.get().getSets().entrySet().stream())
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)))
+        .apply(paarsnpResultData);
   }
 
   private List<String> buildBlastOptions(final double minimumPid, final String evalue, final String libraryExtension) {

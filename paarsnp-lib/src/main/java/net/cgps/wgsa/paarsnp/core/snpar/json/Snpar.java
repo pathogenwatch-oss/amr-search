@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 public class Snpar implements LibraryMetadata {
 
   private final Map<String, SnparReferenceSequence> genes;
-  private final Map<String, ResistanceSet<SnparMember>> sets;
+  private final Map<String, ResistanceSet> sets;
   private final double minimumPid;
 
-  public Snpar(final Collection<SnparReferenceSequence> genes, final Collection<ResistanceSet<SnparMember>> sets) {
+  public Snpar(final Collection<SnparReferenceSequence> genes, final Collection<ResistanceSet> sets) {
 
     this.genes = genes.stream().collect(Collectors.toMap(SnparReferenceSequence::getName, Function.identity()));
     this.sets = sets.stream().collect(Collectors.toMap(ResistanceSet::getName, set -> set));
@@ -26,7 +26,7 @@ public class Snpar implements LibraryMetadata {
     return this.genes;
   }
 
-  public Map<String, ResistanceSet<SnparMember>> getSets() {
+  public Map<String, ResistanceSet> getSets() {
 
     return this.sets;
   }

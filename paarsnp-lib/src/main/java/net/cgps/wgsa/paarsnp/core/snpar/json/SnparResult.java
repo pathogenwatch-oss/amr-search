@@ -25,7 +25,7 @@ public class SnparResult extends AbstractJsonnable {
 
     this.partialSets = partialSets;
     this.blastMatches = blastMatches;
-    this.completeSets = new HashSet<>(completeSets);
+    this.completeSets = completeSets;
     this.resistanceMutationIds = new HashSet<>(mutationIds);
   }
 

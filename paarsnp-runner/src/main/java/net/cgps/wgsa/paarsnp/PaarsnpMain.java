@@ -1,19 +1,14 @@
 package net.cgps.wgsa.paarsnp;
 
 import ch.qos.logback.classic.Level;
-import net.cgps.wgsa.paarsnp.core.Constants;
+import net.cgps.wgsa.paarsnp.core.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.lib.blast.JsonFileException;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
-import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgentLibrary;
-import net.cgps.wgsa.paarsnp.core.paar.json.Paar;
-import net.cgps.wgsa.paarsnp.core.snpar.json.Snpar;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -112,17 +107,22 @@ public class PaarsnpMain {
   private void run(final String speciesId, final Collection<Path> assemblyFiles, final Path workingDirectory, final boolean isToStdout, final String resourceDirectory) {
 
 //    final Paar paarLibrary;
-    final AntimicrobialAgentLibrary agentLibrary;
-    final Optional<Paar> paarLibrary = this.readLibrary(resourceDirectory, speciesId, Constants.PAAR_APPEND + Constants.JSON_APPEND, Paar.class);
-    final Optional<Snpar> snparLibrary = this.readLibrary(resourceDirectory, speciesId, Constants.SNPAR_APPEND + Constants.JSON_APPEND, Snpar.class);
 
-    try {
-      agentLibrary = AbstractJsonnable.fromJsonFile(Paths.get(resourceDirectory, speciesId + Constants.AGENT_FILE_APPEND).toFile(), AntimicrobialAgentLibrary.class);
-    } catch (final JsonFileException e) {
-      throw new RuntimeException(e);
+    final File paarsnpLibraryFile = Paths.get(resourceDirectory, speciesId + ".toml").toFile();
+    final PaarsnpLibrary paarsnpLibrary;
+
+    try (final ObjectInputStream os = new ObjectInputStream(new FileInputStream(paarsnpLibraryFile))) {
+      paarsnpLibrary = (PaarsnpLibrary) os.readObject();
+    } catch (final IOException | ClassNotFoundException e) {
+      throw new RuntimeException("Unable to deserialise to " + paarsnpLibraryFile.getName(), e);
     }
 
-    final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(speciesId, paarLibrary, snparLibrary, agentLibrary.getAgents(), resourceDirectory);
+//    final AntimicrobialAgentLibrary agentLibrary;
+//    final Optional<Paar> paarLibrary = this.readLibrary(resourceDirectory, speciesId, Constants.PAAR_APPEND + Constants.JSON_APPEND, Paar.class);
+//    final Optional<Snpar> snparLibrary = this.readLibrary(resourceDirectory, speciesId, Constants.SNPAR_APPEND + Constants.JSON_APPEND, Snpar.class);
+
+
+    final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(speciesId, Optional.ofNullable(paarsnpLibrary.getPaar()), Optional.ofNullable(paarsnpLibrary.getSnpar()), paarsnpLibrary.getAntimicrobials(), resourceDirectory);
     final Consumer<PaarsnpResult> resultWriter = this.getWriter(isToStdout, workingDirectory);
 
     // Run paarsnp on each assembly file.

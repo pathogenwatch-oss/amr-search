@@ -8,10 +8,10 @@ import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.paar.json.Paar;
 import net.cgps.wgsa.paarsnp.core.paar.json.ResistanceGene;
 import net.cgps.wgsa.paarsnp.core.snpar.json.Snpar;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparMember;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparReferenceSequence;
 
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,12 +38,15 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
         .map(geneToml -> new ResistanceGene(geneToml.getString("name"), geneToml.getDouble("coverage").floatValue(), geneToml.getDouble("pid").floatValue()))
         .collect(Collectors.toList());
 
-    final List<ResistanceSet<String>> paarResistanceSets = toml.getList("paar.sets");
+    final List<ResistanceSet> paarResistanceSets = toml.getTables("paar.sets")
+        .stream()
+        .map(setTable -> new ResistanceSet(setTable.getString("name"), setTable.getList("phenotypes"), Collections.emptyList()))
+        .collect(Collectors.toList());
 
     final Paar paar = new Paar(resistanceGenes, paarResistanceSets);
     final Map<String, String> snparSequences = new HashMap<>(500);
 
-    final List<ResistanceSet<SnparMember>> snparSets = toml.getList("snpar.sets");
+    final List<ResistanceSet> snparSets = toml.getList("snpar.sets");
 
     final List<SnparReferenceSequence> snparGenes = toml.getTables("snpar.genes")
         .stream()
