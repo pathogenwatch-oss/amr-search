@@ -3,6 +3,7 @@ package net.cgps.wgsa.paarsnp.core.lib.json;
 import net.cgps.wgsa.paarsnp.core.lib.PhenotypeEffect;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Phenotype {
 
@@ -26,5 +27,20 @@ public class Phenotype {
 
   public List<Modifier> getModifiers() {
     return this.modifiers;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) return true;
+    if (o == null || this.getClass() != o.getClass()) return false;
+    final Phenotype phenotype = (Phenotype) o;
+    return this.effect == phenotype.effect &&
+        Objects.equals(this.profile, phenotype.profile) &&
+        Objects.equals(this.modifiers, phenotype.modifiers);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.effect, this.profile, this.modifiers);
   }
 }

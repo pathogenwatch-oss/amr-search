@@ -3,6 +3,7 @@ package net.cgps.wgsa.paarsnp.core.lib.json;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SetMember;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ResistanceSet {
 
@@ -28,5 +29,20 @@ public class ResistanceSet {
 
   public List<SetMember> getMembers() {
     return this.members;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) return true;
+    if (o == null || this.getClass() != o.getClass()) return false;
+    final ResistanceSet that = (ResistanceSet) o;
+    return Objects.equals(this.phenotypes, that.phenotypes) &&
+        Objects.equals(this.name, that.name) &&
+        Objects.equals(this.members, that.members);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.phenotypes, this.name, this.members);
   }
 }
