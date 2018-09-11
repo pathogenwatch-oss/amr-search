@@ -9,6 +9,10 @@ public class ResistanceGene {
   private final float pid;
   private final String type = "Protein";
 
+  private ResistanceGene() {
+    this("", 0.0f, 0.0f);
+  }
+
   public ResistanceGene(final String familyName, final float coverage, final float pid) {
 
     this.familyName = familyName;

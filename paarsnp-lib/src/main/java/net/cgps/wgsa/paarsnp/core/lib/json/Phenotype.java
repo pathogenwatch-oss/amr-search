@@ -2,6 +2,7 @@ package net.cgps.wgsa.paarsnp.core.lib.json;
 
 import net.cgps.wgsa.paarsnp.core.lib.PhenotypeEffect;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,6 +11,10 @@ public class Phenotype {
   private final PhenotypeEffect effect;
   private final List<String> profile;
   private final List<Modifier> modifiers;
+
+  private Phenotype() {
+    this(PhenotypeEffect.RESISTANT, Collections.emptyList(), Collections.emptyList());
+  }
 
   public Phenotype(final PhenotypeEffect effect, final List<String> profile, final List<Modifier> modifiers) {
     this.effect = effect;

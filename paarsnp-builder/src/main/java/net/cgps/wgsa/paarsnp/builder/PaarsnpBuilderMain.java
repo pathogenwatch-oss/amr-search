@@ -2,13 +2,12 @@ package net.cgps.wgsa.paarsnp.builder;
 
 import ch.qos.logback.classic.Level;
 import net.cgps.wgsa.paarsnp.core.Constants;
+import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.nio.file.*;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -103,11 +102,42 @@ public class PaarsnpBuilderMain {
         final Path paarFastaFile = Paths.get(outputDirectory, paarLibraryName + Constants.FASTA_APPEND);
         final Path snparFastaFile = Paths.get(outputDirectory, snparLibraryName + Constants.FASTA_APPEND);
 
-        // Serialise the main library to disk.
-        try (final ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(libraryFile.toFile()))) {
-          os.writeObject(paarsnpLibraryAndSequences.getPaarsnpLibrary());
+        try (final BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(libraryFile.toFile()))) {
+          bw.write(AbstractJsonnable.toJson(paarsnpLibraryAndSequences.getPaarsnpLibrary()).getBytes());
         } catch (final IOException e) {
           throw new RuntimeException("Unable to serialise to " + libraryFile, e);
+        }
+
+        try (final BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(paarFastaFile.toFile()))) {
+          paarsnpLibraryAndSequences.getPaarSequences()
+              .entrySet()
+              .stream()
+              .map(idToSeq -> ">" + idToSeq.getKey() + "\n" + idToSeq.getValue() + "\n")
+              .forEach(fasta -> {
+                try {
+                  bw.write(fasta.getBytes());
+                } catch (final IOException e) {
+                  throw new RuntimeException("Unable to serialise to " + paarFastaFile.toAbsolutePath().toString(), e);
+                }
+              });
+        } catch (IOException e) {
+          throw new RuntimeException("Unable to serialise to " + paarFastaFile.toAbsolutePath().toString(), e);
+        }
+
+        try (final BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(snparFastaFile.toFile()))) {
+          paarsnpLibraryAndSequences.getSnparSequences()
+              .entrySet()
+              .stream()
+              .map(idToSeq -> ">" + idToSeq.getKey() + "\n" + idToSeq.getValue() + "\n")
+              .forEach(fasta -> {
+                try {
+                  bw.write(fasta.getBytes());
+                } catch (final IOException e) {
+                  throw new RuntimeException("Unable to serialise to " + snparFastaFile.toAbsolutePath().toString(), e);
+                }
+              });
+        } catch (IOException e) {
+          throw new RuntimeException("Unable to serialise to " + snparFastaFile.toAbsolutePath().toString(), e);
         }
 
         try {

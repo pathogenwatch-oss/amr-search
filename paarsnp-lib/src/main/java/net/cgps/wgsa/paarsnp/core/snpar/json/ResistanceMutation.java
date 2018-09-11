@@ -2,6 +2,7 @@ package net.cgps.wgsa.paarsnp.core.snpar.json;
 
 import org.apache.commons.lang3.CharUtils;
 
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,6 +16,10 @@ public class ResistanceMutation {
   private final int repLocation;
   private final char mutationSequence;
   private final int aaLocation;
+
+  private ResistanceMutation() {
+    this("", '0', 0, '0', 0);
+  }
 
   public ResistanceMutation(final String name, final char originalSequence, final int repLocation, final char mutationSequence, final int aaLocation) {
     // NB for the SNP archive the query location is the same as the representative location.
@@ -30,7 +35,7 @@ public class ResistanceMutation {
     return (snpName) -> {
 
       final Matcher matcher = snpIdPattern.matcher(snpName);
-
+      matcher.find();
       final char originalSequence = CharUtils.toChar(matcher.group(1));
       final int rawPosition = Integer.valueOf(matcher.group(2));
       final char mutationSequence = CharUtils.toChar(matcher.group(3));
@@ -43,7 +48,7 @@ public class ResistanceMutation {
   static Function<String, ResistanceMutation> parseAaVariant() {
     return (snpName) -> {
       final Matcher matcher = snpIdPattern.matcher(snpName);
-
+      matcher.find();
       final char originalSequence = CharUtils.toChar(matcher.group(1));
       final int rawPosition = Integer.valueOf(matcher.group(2));
       final char mutationSequence = CharUtils.toChar(matcher.group(3));
@@ -71,7 +76,24 @@ public class ResistanceMutation {
     return this.aaLocation;
   }
 
-  private char getOriginalSequence() {
+  public char getOriginalSequence() {
     return this.originalSequence;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) return true;
+    if (o == null || this.getClass() != o.getClass()) return false;
+    final ResistanceMutation that = (ResistanceMutation) o;
+    return this.originalSequence == that.originalSequence &&
+        this.repLocation == that.repLocation &&
+        this.mutationSequence == that.mutationSequence &&
+        this.aaLocation == that.aaLocation &&
+        Objects.equals(this.name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.name, this.originalSequence, this.repLocation, this.mutationSequence, this.aaLocation);
   }
 }

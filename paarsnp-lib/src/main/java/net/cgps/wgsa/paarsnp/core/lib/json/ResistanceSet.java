@@ -2,6 +2,7 @@ package net.cgps.wgsa.paarsnp.core.lib.json;
 
 import net.cgps.wgsa.paarsnp.core.snpar.json.SetMember;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,6 +11,10 @@ public class ResistanceSet {
   private final List<Phenotype> phenotypes;
   private final String name;
   private final List<SetMember> members;
+
+  private ResistanceSet() {
+    this("", Collections.emptyList(), Collections.emptyList());
+  }
 
   public ResistanceSet(final String name, final List<Phenotype> phenotypes, final List<SetMember> members) {
 

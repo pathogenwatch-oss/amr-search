@@ -37,33 +37,52 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
 
     final Map<String, String> paarSequences = new HashMap<>(500);
 
-    final List<ResistanceGene> resistanceGenes = toml.getTables("paar.genes")
-        .stream()
-        .peek(geneToml -> paarSequences.put(geneToml.getString("name"), geneToml.getString("sequence")))
-        .map(LibraryReader.parsePaarGene())
-        .collect(Collectors.toList());
+    final Paar paar = new Paar(
+        toml.getTables("paar.genes")
+            .stream()
+            .peek(geneToml -> paarSequences.put(geneToml.getString("name"), geneToml.getString("sequence")))
+            .map(LibraryReader.parsePaarGene())
+            .collect(Collectors.toList()),
+        toml.getTables("paar.sets")
+            .stream()
+            .map(LibraryReader.parsePaarSet())
+            .collect(Collectors.toList()));
 
-    final List<ResistanceSet> paarResistanceSets = toml.getTables("paar.sets")
-        .stream()
-        .map(LibraryReader.parsePaarSet())
-        .collect(Collectors.toList());
-
-    final Paar paar = new Paar(resistanceGenes, paarResistanceSets);
     final Map<String, String> snparSequences = new HashMap<>(500);
 
-    final List<ResistanceSet> snparSets = toml.getTables("snpar.sets")
-        .stream()
-        .map(setTable -> new ResistanceSet(setTable.getString("name"), setTable.getList("phenotypes"), setTable.getList("variants")))
-        .collect(Collectors.toList());
+    final Snpar snpar = new Snpar(
+        toml.getTables("snpar.genes")
+            .stream()
+            .peek(geneToml -> snparSequences.put(geneToml.getString("name"), geneToml.getString("sequence")))
+            .map(LibraryReader.parseSnparGene())
+            .collect(Collectors.toList()),
+        toml.getTables("snpar.sets")
+            .stream()
+            .map(LibraryReader.parseSnparSet())
+            .collect(Collectors.toList()));
 
-    final List<SnparReferenceSequence> snparGenes = toml.getTables("snpar.genes")
-        .stream()
-        .peek(geneToml -> snparSequences.put(geneToml.getString("name"), geneToml.getString("sequence")))
-        .map(geneToml -> new SnparReferenceSequence(geneToml.getString("name"), SequenceType.valueOf(geneToml.getString("type").toUpperCase()), geneToml.getDouble("pid").floatValue(), geneToml.getDouble("coverage").floatValue(), geneToml.getList("variants")))
-        .collect(Collectors.toList());
+    return new PaarsnpLibraryAndSequences(paarSequences, snparSequences, new PaarsnpLibrary(toml.getLong("label").toString(), antimicrobials, paar, snpar));
+  }
 
-    final Snpar snpar = new Snpar(snparGenes, snparSets);
-    return new PaarsnpLibraryAndSequences(paarSequences, snparSequences, new PaarsnpLibrary(toml.getString("label"), antimicrobials, paar, snpar));
+  public static Function<Toml, ResistanceSet> parseSnparSet() {
+    return toml -> {
+      final List<Phenotype> phenotypes = toml.getTables("phenotypes")
+          .stream()
+          .map(LibraryReader.parsePhenotype())
+          .collect(Collectors.toList());
+
+      return new ResistanceSet(
+          toml.getString("name"),
+          phenotypes,
+          toml.getTables("members")
+              .stream()
+              .map(LibraryReader.parseSnparMember())
+              .collect(Collectors.toList()));
+    };
+  }
+
+  public static Function<Toml, SetMember> parseSnparMember() {
+    return toml -> toml.to(SetMember.class);
   }
 
   public static Function<Toml, ResistanceSet> parsePaarSet() {
@@ -73,12 +92,10 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
           .map(LibraryReader.parsePhenotype())
           .collect(Collectors.toList());
 
-      final List<String> members = toml.getList("members");
-
       return new ResistanceSet(
           toml.getString("name"),
           phenotypes,
-          members
+          toml.<String>getList("members")
               .stream()
               .map(parsePaarMember())
               .collect(Collectors.toList()));
@@ -98,7 +115,17 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
   }
 
   public static Function<String, SetMember> parsePaarMember() {
-    return toml -> new SetMember(toml, Collections.emptyList());
+    return memberName -> new SetMember(memberName, Collections.emptyList());
+  }
+
+  public static Function<Toml, SnparReferenceSequence> parseSnparGene() {
+    return toml -> new SnparReferenceSequence(
+        toml.getString("name"),
+        SequenceType.valueOf(toml.getString("type").toUpperCase()),
+        toml.getDouble("pid").floatValue(),
+        toml.getDouble("coverage").floatValue(),
+        toml.getList("variants")
+    );
   }
 
   public static class PaarsnpLibraryAndSequences {

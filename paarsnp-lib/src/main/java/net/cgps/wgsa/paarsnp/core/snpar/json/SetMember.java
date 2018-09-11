@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.snpar.json;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,6 +8,10 @@ public class SetMember {
 
   private final String gene;
   private final List<String> variants;
+
+  private SetMember() {
+    this("", Collections.emptyList());
+  }
 
   public SetMember(final String gene, final List<String> variants) {
     this.gene = gene;

@@ -36,7 +36,7 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
       final CodonMap codonMap = new CodonMapper().apply(mutationSearchResult);
 
       final Collection<ResistanceMutation> resistanceMutations = snparReferenceSequence
-          .getResistanceMutations()
+          .getMappedVariants()
           .stream()
           .peek(mutation -> this.logger.debug("Resistance mutation {}", mutation.getName()))
           // First check that the mutation lands within the matched region
@@ -53,7 +53,7 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
       final Map<Integer, Collection<Mutation>> mutations = new SequenceProcessor(mutationSearchResult.getReferenceMatchSequence(), mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart(), mutationSearchResult.getBlastSearchStatistics().getStrand(), mutationSearchResult.getForwardQuerySequence(), mutationSearchResult.getBlastSearchStatistics().getQuerySequenceStart(), new MutationBuilder()).call();
 
       final Collection<ResistanceMutation> snpResistanceElements = snparReferenceSequence
-          .getResistanceMutations()
+          .getMappedVariants()
           .stream()
           .peek(resistanceMutation -> this.logger.debug("Resistance mutation {}", resistanceMutation.getName()))
           // First check that the mutation lands within the matched region

@@ -1,20 +1,24 @@
 package net.cgps.wgsa.paarsnp.core.snpar.json;
 
 import net.cgps.wgsa.paarsnp.core.lib.SequenceType;
-import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class SnparReferenceSequence extends AbstractJsonnable {
+public class SnparReferenceSequence {
 
   private final String name;
   private final SequenceType type;
   private final float pid;
   private final float coverage;
   private final Collection<String> variants;
-  private Collection<ResistanceMutation> mappedVariants = null;
+  private final Collection<ResistanceMutation> mappedVariants;
+
+  private SnparReferenceSequence() {
+    this("", SequenceType.PROTEIN, 0.0f, 0.0f, Collections.emptyList());
+  }
 
   public SnparReferenceSequence(final String name, final SequenceType type, final float pid, final float coverage, final Collection<String> variants) {
 
@@ -23,21 +27,27 @@ public class SnparReferenceSequence extends AbstractJsonnable {
     this.pid = pid;
     this.coverage = coverage;
     this.variants = variants;
+    this.mappedVariants = this.mapVariants(variants, type);
   }
 
-  public Collection<ResistanceMutation> getResistanceMutations() {
+  private Collection<ResistanceMutation> mapVariants(final Collection<String> variants, final SequenceType type) {
 
-    if (null == this.mappedVariants) {
-      switch (this.type) {
-        case DNA:
-          this.mappedVariants = this.variants.stream().map(ResistanceMutation.parseSnp()).collect(Collectors.toList());
-          break;
-        case PROTEIN:
-          this.mappedVariants = this.variants.stream().map(ResistanceMutation.parseAaVariant()).collect(Collectors.toList());
-          break;
-      }
+    switch (type) {
+      case DNA:
+        return variants.stream().map(ResistanceMutation.parseSnp()).collect(Collectors.toList());
+      case PROTEIN:
+      default:
+        return variants.stream().map(ResistanceMutation.parseAaVariant()).collect(Collectors.toList());
     }
-    return Collections.unmodifiableCollection(this.mappedVariants);
+  }
+
+  public Collection<ResistanceMutation> getMappedVariants() {
+
+    return this.mappedVariants;
+  }
+
+  public Collection<String> getVariants() {
+    return this.variants;
   }
 
   public String getName() {
@@ -57,5 +67,22 @@ public class SnparReferenceSequence extends AbstractJsonnable {
 
   public float getCoverage() {
     return this.coverage;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) return true;
+    if (o == null || this.getClass() != o.getClass()) return false;
+    final SnparReferenceSequence that = (SnparReferenceSequence) o;
+    return Float.compare(that.pid, this.pid) == 0 &&
+        Float.compare(that.coverage, this.coverage) == 0 &&
+        Objects.equals(this.name, that.name) &&
+        this.type == that.type &&
+        Objects.equals(this.variants, that.variants);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.name, this.type, this.pid, this.coverage, this.variants, this.mappedVariants);
   }
 }

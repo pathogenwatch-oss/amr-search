@@ -9,6 +9,10 @@ public class Modifier {
   private final String name;
   private final ElementEffect effect;
 
+  private Modifier() {
+    this("", ElementEffect.MODIFIES_INDUCED);
+  }
+
   public Modifier(final String name, final ElementEffect effect) {
     this.name = name;
     this.effect = effect;

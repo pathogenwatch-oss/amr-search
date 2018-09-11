@@ -29,7 +29,7 @@
         <paarsnp.apache-commons-csv>1.4</paarsnp.apache-commons-csv>
         <paarsnp.apache-commons-lang3>3.6</paarsnp.apache-commons-lang3>
         <paarsnp.df-mvn-plugin.version>1.3.4</paarsnp.df-mvn-plugin.version>
-        <paarsnp.jackson>2.9.2</paarsnp.jackson>
+        <paarsnp.jackson>2.9.6</paarsnp.jackson>
         <paarsnp.junit.version>4.12</paarsnp.junit.version>
         <paarsnp.logback-classic>1.2.3</paarsnp.logback-classic>
         <paarsnp.guava>23.0</paarsnp.guava>
