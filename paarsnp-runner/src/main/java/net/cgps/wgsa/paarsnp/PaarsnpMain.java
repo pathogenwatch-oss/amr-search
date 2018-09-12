@@ -2,7 +2,6 @@ package net.cgps.wgsa.paarsnp;
 
 import ch.qos.logback.classic.Level;
 import net.cgps.wgsa.paarsnp.core.PaarsnpLibrary;
-import net.cgps.wgsa.paarsnp.core.lib.blast.JsonFileException;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
@@ -13,7 +12,6 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 public class PaarsnpMain {
@@ -33,7 +31,6 @@ public class PaarsnpMain {
       System.exit(1);
     }
 
-//    try {
     final CommandLine commandLine;
     try {
       commandLine = parser.parse(options, args);
@@ -108,21 +105,10 @@ public class PaarsnpMain {
 
 //    final Paar paarLibrary;
 
-    final File paarsnpLibraryFile = Paths.get(resourceDirectory, speciesId + ".toml").toFile();
-    final PaarsnpLibrary paarsnpLibrary;
+    final Path paarsnpLibraryFile = Paths.get(resourceDirectory, speciesId + ".jsn");
+    final PaarsnpLibrary paarsnpLibrary = AbstractJsonnable.fromJsonFile(paarsnpLibraryFile.toFile(), PaarsnpLibrary.class);
 
-    try (final ObjectInputStream os = new ObjectInputStream(new FileInputStream(paarsnpLibraryFile))) {
-      paarsnpLibrary = (PaarsnpLibrary) os.readObject();
-    } catch (final IOException | ClassNotFoundException e) {
-      throw new RuntimeException("Unable to deserialise to " + paarsnpLibraryFile.getName(), e);
-    }
-
-//    final AntimicrobialAgentLibrary agentLibrary;
-//    final Optional<Paar> paarLibrary = this.readLibrary(resourceDirectory, speciesId, Constants.PAAR_APPEND + Constants.JSON_APPEND, Paar.class);
-//    final Optional<Snpar> snparLibrary = this.readLibrary(resourceDirectory, speciesId, Constants.SNPAR_APPEND + Constants.JSON_APPEND, Snpar.class);
-
-
-    final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(speciesId, Optional.ofNullable(paarsnpLibrary.getPaar()), Optional.ofNullable(paarsnpLibrary.getSnpar()), paarsnpLibrary.getAntimicrobials(), resourceDirectory);
+    final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(speciesId, paarsnpLibrary.getPaar(), paarsnpLibrary.getSnpar(), paarsnpLibrary.getAntimicrobials(), resourceDirectory);
     final Consumer<PaarsnpResult> resultWriter = this.getWriter(isToStdout, workingDirectory);
 
     // Run paarsnp on each assembly file.
@@ -132,18 +118,6 @@ public class PaarsnpMain {
         .map(paarsnpRunner)
         .peek(paarsnpResult -> this.logger.debug("{}", paarsnpResult.toPrettyJson()))
         .forEach(resultWriter);
-  }
-
-  private <L extends AbstractJsonnable> Optional<L> readLibrary(final String resourceDirectory, final String speciesId, final String file_end, final Class<L> libraryClass) {
-    final Path dbPath = Paths.get(resourceDirectory, speciesId + file_end);
-    if (!Files.exists(dbPath)) {
-      return Optional.empty();
-    }
-    try {
-      return Optional.of(AbstractJsonnable.fromJsonFile(Paths.get(resourceDirectory, speciesId + file_end).toFile(), libraryClass));
-    } catch (final JsonFileException e) {
-      throw new RuntimeException(e);
-    }
   }
 
   private Consumer<PaarsnpResult> getWriter(final boolean isToStdout, final Path workingDirectory) {

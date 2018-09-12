@@ -2,7 +2,6 @@ package net.cgps.wgsa.paarsnp.core.lib.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.cgps.wgsa.paarsnp.core.lib.blast.JsonFileException;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -67,7 +66,7 @@ public abstract class AbstractJsonnable {
 
   }
 
-  public static <T extends AbstractJsonnable> T fromJsonFile(final File jsonFile, final Class<T> messageClass) throws JsonFileException {
+  public static <T extends AbstractJsonnable> T fromJsonFile(final File jsonFile, final Class<T> messageClass) {
 
     try {
 
@@ -77,7 +76,7 @@ public abstract class AbstractJsonnable {
       LoggerFactory.getLogger(AbstractJsonnable.class).error("Json mapping exception for file {} to type {}", jsonFile.getPath(), messageClass);
       LoggerFactory.getLogger(AbstractJsonnable.class).error("Message: ", e);
 
-      throw new JsonFileException(e);
+      throw new RuntimeException(e);
     }
   }
 }
