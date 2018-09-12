@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.cgps.wgsa.paarsnp.core.LibraryMetadata;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -14,6 +15,10 @@ public class Paar implements LibraryMetadata {
   private final Map<String, ResistanceGene> genes;
   private final Map<String, ResistanceSet> sets;
   private final double minimumPid;
+
+  private Paar() {
+    this(Collections.emptyList(), Collections.emptyList());
+  }
 
   public Paar(final List<ResistanceGene> genes, final List<ResistanceSet> sets) {
 

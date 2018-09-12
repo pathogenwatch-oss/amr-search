@@ -18,7 +18,7 @@ public class Snpar implements LibraryMetadata {
   private Snpar() {
     this.genes = Collections.emptyMap();
     this.sets = Collections.emptyMap();
-    this.minimumPid = 0.0;
+    this.minimumPid = 100.0;
   }
 
   public Snpar(final Collection<SnparReferenceSequence> genes, final Collection<ResistanceSet> sets) {

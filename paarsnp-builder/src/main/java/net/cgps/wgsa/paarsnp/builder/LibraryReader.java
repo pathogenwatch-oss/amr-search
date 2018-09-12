@@ -13,10 +13,7 @@ import net.cgps.wgsa.paarsnp.core.snpar.json.Snpar;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparReferenceSequence;
 
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -38,12 +35,14 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
     final Map<String, String> paarSequences = new HashMap<>(500);
 
     final Paar paar = new Paar(
-        toml.getTables("paar.genes")
+        Optional.ofNullable(toml.getTables("paar.genes"))
+            .orElse(Collections.emptyList())
             .stream()
             .peek(geneToml -> paarSequences.put(geneToml.getString("name"), geneToml.getString("sequence")))
             .map(LibraryReader.parsePaarGene())
             .collect(Collectors.toList()),
-        toml.getTables("paar.sets")
+        Optional.ofNullable(toml.getTables("paar.sets"))
+            .orElse(Collections.emptyList())
             .stream()
             .map(LibraryReader.parsePaarSet())
             .collect(Collectors.toList()));
@@ -51,12 +50,14 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
     final Map<String, String> snparSequences = new HashMap<>(500);
 
     final Snpar snpar = new Snpar(
-        toml.getTables("snpar.genes")
+        Optional.ofNullable(toml.getTables("snpar.genes"))
+            .orElse(Collections.emptyList())
             .stream()
             .peek(geneToml -> snparSequences.put(geneToml.getString("name"), geneToml.getString("sequence")))
             .map(LibraryReader.parseSnparGene())
             .collect(Collectors.toList()),
-        toml.getTables("snpar.sets")
+        Optional.ofNullable(toml.getTables("snpar.sets"))
+            .orElse(Collections.emptyList())
             .stream()
             .map(LibraryReader.parseSnparSet())
             .collect(Collectors.toList()));

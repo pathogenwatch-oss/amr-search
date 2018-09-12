@@ -96,7 +96,7 @@ public class PaarsnpBuilderMain {
 
         final LibraryReader.PaarsnpLibraryAndSequences paarsnpLibraryAndSequences = new LibraryReader().apply(tomlPath);
 
-        final Path libraryFile = Paths.get(outputDirectory, tomlPath.getFileName().toString());
+        final Path libraryFile = Paths.get(outputDirectory, speciesId + ".jsn");
         final String paarLibraryName = speciesId + Constants.PAAR_APPEND;
         final String snparLibraryName = speciesId + Constants.SNPAR_APPEND;
         final Path paarFastaFile = Paths.get(outputDirectory, paarLibraryName + Constants.FASTA_APPEND);
@@ -108,45 +108,17 @@ public class PaarsnpBuilderMain {
           throw new RuntimeException("Unable to serialise to " + libraryFile, e);
         }
 
-        try (final BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(paarFastaFile.toFile()))) {
-          paarsnpLibraryAndSequences.getPaarSequences()
-              .entrySet()
-              .stream()
-              .map(idToSeq -> ">" + idToSeq.getKey() + "\n" + idToSeq.getValue() + "\n")
-              .forEach(fasta -> {
-                try {
-                  bw.write(fasta.getBytes());
-                } catch (final IOException e) {
-                  throw new RuntimeException("Unable to serialise to " + paarFastaFile.toAbsolutePath().toString(), e);
-                }
-              });
-        } catch (IOException e) {
-          throw new RuntimeException("Unable to serialise to " + paarFastaFile.toAbsolutePath().toString(), e);
-        }
-
-        try (final BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(snparFastaFile.toFile()))) {
-          paarsnpLibraryAndSequences.getSnparSequences()
-              .entrySet()
-              .stream()
-              .map(idToSeq -> ">" + idToSeq.getKey() + "\n" + idToSeq.getValue() + "\n")
-              .forEach(fasta -> {
-                try {
-                  bw.write(fasta.getBytes());
-                } catch (final IOException e) {
-                  throw new RuntimeException("Unable to serialise to " + snparFastaFile.toAbsolutePath().toString(), e);
-                }
-              });
-        } catch (IOException e) {
-          throw new RuntimeException("Unable to serialise to " + snparFastaFile.toAbsolutePath().toString(), e);
-        }
-
         try {
 
-          Files.write(libraryFile, paarsnpLibraryAndSequences.getPaarSequences().entrySet().stream().map(entry1 -> ">" + entry1.getKey() + "\n" + entry1.getValue() + "\n").collect(Collectors.joining()).getBytes(), StandardOpenOption.CREATE);
-          makeBlastDB.accept(paarLibraryName, paarFastaFile);
+          if (!paarsnpLibraryAndSequences.getPaarSequences().isEmpty()) {
+            Files.write(paarFastaFile, paarsnpLibraryAndSequences.getPaarSequences().entrySet().stream().map(entry1 -> ">" + entry1.getKey() + "\n" + entry1.getValue() + "\n").collect(Collectors.joining()).getBytes(), StandardOpenOption.CREATE);
+            makeBlastDB.accept(paarLibraryName, paarFastaFile);
+          }
 
-          Files.write(snparFastaFile, paarsnpLibraryAndSequences.getSnparSequences().entrySet().stream().map(entry -> ">" + entry.getKey() + "\n" + entry.getValue() + "\n").collect(Collectors.joining()).getBytes(), StandardOpenOption.CREATE);
-          makeBlastDB.accept(snparLibraryName, snparFastaFile);
+          if (!paarsnpLibraryAndSequences.getSnparSequences().isEmpty()) {
+            Files.write(snparFastaFile, paarsnpLibraryAndSequences.getSnparSequences().entrySet().stream().map(entry -> ">" + entry.getKey() + "\n" + entry.getValue() + "\n").collect(Collectors.joining()).getBytes(), StandardOpenOption.CREATE);
+            makeBlastDB.accept(snparLibraryName, snparFastaFile);
+          }
 
         } catch (final IOException e) {
           throw new RuntimeException(e);
