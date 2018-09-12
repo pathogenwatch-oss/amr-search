@@ -103,8 +103,6 @@ public class PaarsnpMain {
 
   private void run(final String speciesId, final Collection<Path> assemblyFiles, final Path workingDirectory, final boolean isToStdout, final String resourceDirectory) {
 
-//    final Paar paarLibrary;
-
     final Path paarsnpLibraryFile = Paths.get(resourceDirectory, speciesId + ".jsn");
     final PaarsnpLibrary paarsnpLibrary = AbstractJsonnable.fromJsonFile(paarsnpLibraryFile.toFile(), PaarsnpLibrary.class);
 

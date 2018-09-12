@@ -43,7 +43,8 @@ public class ResistanceSearch<T> implements Function<String, T> {
     options.add("-query");
     options.add(assemblyId);
 
-    return blastReader.apply(blastRunner.apply(options.toArray(new String[0])))
+    return this.blastReader.apply(this.blastRunner.apply(options.toArray(new String[0])))
+        .peek(match -> this.logger.debug("Checking match {}", match.toString()))
         .filter(this.blastMatchFilter)
         .peek(match -> this.logger.debug("Pre-overlap check: {}", match.getBlastSearchStatistics().toString()))
         .collect(this.matchOverlapRemover)

@@ -15,10 +15,10 @@ public class BlastMatch {
     this.forwardMatchSequence = this.buildMatchSequence(queryMatchSequence, blastSearchStatistics.getStrand());
   }
 
-  public double calculateCoverage() {
-    return (((double) this.blastSearchStatistics.getLibrarySequenceStop() - this.blastSearchStatistics.getLibrarySequenceStart() + 1.0)
-        / (double) this.blastSearchStatistics.getLibrarySequenceLength())
-        * 100;
+  public float calculateCoverage() {
+    return (((float) this.blastSearchStatistics.getLibrarySequenceStop() - this.blastSearchStatistics.getLibrarySequenceStart() + 1.0f)
+        / (float) this.blastSearchStatistics.getLibrarySequenceLength())
+        * 100.0f;
   }
 
   public final BlastSearchStatistics getBlastSearchStatistics() {
@@ -48,13 +48,13 @@ public class BlastMatch {
   }
 
   public String getReferenceMatchSequence() {
-    return referenceMatchSequence;
+    return this.referenceMatchSequence;
   }
 
   @Override
   public String toString() {
     return "BlastMatch{" +
-        "blastSearchStatistics=" + blastSearchStatistics +
+        "blastSearchStatistics=" + this.blastSearchStatistics +
         '}';
   }
 }

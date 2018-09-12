@@ -3,7 +3,10 @@ package net.cgps.wgsa.paarsnp.core.lib;
 
 public enum ResistanceState {
 
-  INDUCIBLE(2), RESISTANT(1), NOT_FOUND(4), INTERMEDIATE(3);
+  RESISTANT(1),
+  INDUCIBLE(2),
+  INTERMEDIATE(3),
+  NOT_FOUND(4);
 
   private final int rank;
   ResistanceState(final int rank) {

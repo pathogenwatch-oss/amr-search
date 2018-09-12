@@ -38,7 +38,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
     // Now build the profiles.
 //    final Map<String, AntibioticProfile> antibioticProfiles = new LinkedHashMap<>(50);
 
-    final ProfileAggregator profileAggregator = new ProfileAggregator(this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> ResistanceState.INTERMEDIATE)));
+    final ProfileAggregator profileAggregator = new ProfileAggregator(this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> ResistanceState.NOT_FOUND)));
     final Map<String, Collection<String>> resistanceSets = this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> new ArrayList<>()));
 
     final Predicate<Modifier> paarModSelector = modifier -> paarsnpResultData.paarResult.getBlastMatches().containsKey(modifier.getName());
@@ -77,7 +77,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
 
     paarsnpResultData.snparResult.getPartialSets()
         .forEach(resistanceSet -> resistanceSet.getPhenotypes()
-            .forEach(phenotype -> this.determineResistanceState(phenotype, selector, Completeness.COMPLETE)
+            .forEach(phenotype -> this.determineResistanceState(phenotype, selector, Completeness.PARTIAL)
                 .forEach(agentToNewState -> {
                   // Only add to the sets if it can impact resistance, as above
                   if (ResistanceState.NOT_FOUND != agentToNewState.getValue()) {

@@ -2,7 +2,6 @@ package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
-import net.cgps.wgsa.paarsnp.core.lib.SimpleBlastMatchFilter;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.paar.PaarCalculation;
 import net.cgps.wgsa.paarsnp.core.paar.PaarResult;
@@ -52,7 +51,7 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
     if (!this.paarLibrary.getSets().isEmpty()) {
       paarResult = new ResistanceSearch<>(
           new ResistanceSearch.InputOptions(
-              this.buildBlastOptions(this.paarLibrary.getMinimumPid(), "1e-5", Constants.PAAR_APPEND)),
+              this.buildBlastOptions(this.paarLibrary.getMinimumPid(), "1e-20", Constants.PAAR_APPEND)),
           new PaarCalculation(this.paarLibrary),
           FilterByIndividualThresholds.build(this.paarLibrary)).apply(assemblyFile.toAbsolutePath().toString()
       );
@@ -62,9 +61,11 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
     final SnparResult snparResult;
     if (!this.snparLibrary.getSets().isEmpty()) {
-      snparResult = new ResistanceSearch<>(new ResistanceSearch.InputOptions(
-          this.buildBlastOptions(this.snparLibrary.getMinimumPid(), "1e-40", Constants.SNPAR_APPEND)
-      ), new SnparCalculation(this.snparLibrary, new ProcessVariants(this.snparLibrary)), new SimpleBlastMatchFilter(60.0)).apply(assemblyFile.toAbsolutePath().toString());
+      snparResult = new ResistanceSearch<>(
+          new ResistanceSearch.InputOptions(
+              this.buildBlastOptions(this.snparLibrary.getMinimumPid(), "1e-20", Constants.SNPAR_APPEND)),
+          new SnparCalculation(this.snparLibrary, new ProcessVariants(this.snparLibrary)),
+          FilterByIndividualThresholds.build(this.snparLibrary)).apply(assemblyFile.toAbsolutePath().toString());
     } else {
       snparResult = SnparResult.buildEmpty();
     }
