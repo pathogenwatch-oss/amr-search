@@ -1,4 +1,0 @@
-Gene Name,Resistance Group,Set Effect,Effect,Resistance Profile,PID Threshold,Coverage Threshold,Source
-blaTEM,blaTem,RESISTANT,RESISTANCE,"PEN,MET",80.0,80.0,"Simon Harris"
-tetM,,RESISTANT,RESISTANCE,TCY,80.0,80.0,"Simon Harris"
-porA_WHO_U_01087c,porA,RESISTANT,RESISTANCE,POA,80.0,80.0,"Simon Harris"

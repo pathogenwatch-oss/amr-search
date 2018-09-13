@@ -2,6 +2,7 @@ package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
+import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
 import net.cgps.wgsa.paarsnp.core.snpar.SnparCalculation;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
@@ -10,9 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
@@ -23,21 +21,16 @@ public class ResistanceSearchTest {
   @org.junit.Test
   public void apply() {
 
-    final File paarsnpLibraryFile = Paths.get("src/test/resources", "90370.toml").toFile();
+
+    final File paarsnpLibraryFile = Paths.get("src/test/resources", "90370.jsn").toFile();
 
     this.logger.info("Using snpar DB {}", paarsnpLibraryFile.getPath());
 
-    final PaarsnpLibrary paarsnpLibrary;
-
-    try (final ObjectInputStream os = new ObjectInputStream(new FileInputStream(paarsnpLibraryFile))) {
-      paarsnpLibrary = (PaarsnpLibrary) os.readObject();
-    } catch (final IOException | ClassNotFoundException e) {
-      throw new RuntimeException("Unable to deserialise to " + paarsnpLibraryFile.getName(), e);
-    }
+    final PaarsnpLibrary paarsnpLibrary = AbstractJsonnable.fromJsonFile(paarsnpLibraryFile, PaarsnpLibrary.class);
 
     final ResistanceSearch.InputOptions inputOptions = new ResistanceSearch.InputOptions(
         Arrays.asList(
-            "-db", paarsnpLibraryFile.getPath().replace(".toml", "") + "_snpar",
+            "-db", paarsnpLibraryFile.getPath().replace(".jsn", "_snpar"),
             "-perc_identity", String.valueOf(paarsnpLibrary.getSnpar().getMinimumPid()),
             "-evalue", "1e-5"
         )
