@@ -51,7 +51,7 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
     if (!this.paarLibrary.getSets().isEmpty()) {
       paarResult = new ResistanceSearch<>(
           new ResistanceSearch.InputOptions(
-              this.buildBlastOptions(this.paarLibrary.getMinimumPid(), "1e-20", Constants.PAAR_APPEND)),
+              this.buildBlastOptions(this.paarLibrary.getMinimumPid(), "1e-10", Constants.PAAR_APPEND)),
           new PaarCalculation(this.paarLibrary),
           FilterByIndividualThresholds.build(this.paarLibrary)).apply(assemblyFile.toAbsolutePath().toString()
       );
