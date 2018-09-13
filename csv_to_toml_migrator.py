@@ -1,5 +1,6 @@
 import csv
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -93,7 +94,7 @@ class GeneInfo:
 
     def as_toml(self):
         variants_str = '"' if 0 == len(self.variants) else '"\nvariants = [ ' + ','.join(
-            TomlString(variant).as_toml() for variant in self.variants) + ' ]'
+            variant.as_toml() for variant in self.variants) + ' ]'
 
         return '[[' + self.source + \
                '.genes]]\nname = "' + self.name + \
@@ -103,6 +104,24 @@ class GeneInfo:
                variants_str + \
                '\nsequence = "' + self.sequence + \
                '"'
+
+
+# Deals with multinucleotide mutations
+def parse_snpar_mutation(mutation_str: str):
+    # print(mutation_str, file=sys.stderr)
+    matches = re.search('^([-A-Z]+)(\d+)([-A-Z]+)$', mutation_str)
+    wildtype = matches.group(1)
+    position = matches.group(2)
+    replacement = matches.group(3)
+
+    length = len(wildtype)
+
+    mutation_strings = list()
+    for i in range(0, length):
+        mut_str = wildtype[i] + str(int(position) + i) + replacement[i]
+        # print(mut_str, file=sys.stderr)
+        mutation_strings.append(TomlString(mut_str))
+    return mutation_strings
 
 
 def process_paar():
@@ -185,11 +204,12 @@ def process_snpar():
                 # Add resistance element to the set
                 # At the moment, assuming 1 gene per resistance group (this is true)
                 if 0 == len(snpar_sets[set_name].members):
-                    snpar_sets[set_name].add_member(SnparMember(row['Gene Name'], [TomlString(row['Mutation'])]))
+                    snpar_sets[set_name].add_member(
+                        SnparMember(row['Gene Name'], parse_snpar_mutation(row['Mutation'])))
                 else:
-                    snpar_sets[set_name].members[0].variants.add(TomlString(row['Mutation']))
+                    snpar_sets[set_name].members[0].variants.update(parse_snpar_mutation(row['Mutation']))
             else:
-                snpar_sets[set_name].members[0].variants.append(TomlString(row['Mutation']))
+                # snpar_sets[set_name].members[0].variants.append(TomlString(row['Mutation']))
                 # Add modifier element (assumes set will have already been initialised.
                 snpar_sets[set_name].phenotypes[row['Resistance Profile']].modifiers.append(Modifier(row['Gene Name'],
                                                                                                      row['Effect']))
@@ -197,7 +217,7 @@ def process_snpar():
             if row['Gene Name'] not in snpar_genes.keys():
                 # Initialise the gene metadata
                 snpar_genes[row['Gene Name']] = GeneInfo(row['Gene Name'], 'snpar', '80.0', '60.0', 'Protein')
-            snpar_genes[row['Gene Name']].variants.add(row['Mutation'])
+            snpar_genes[row['Gene Name']].variants.update(parse_snpar_mutation(row['Mutation']))
 
     # Now read in sequences from FASTA
     with open(snps_fna, 'r') as snp_seqs_fh:

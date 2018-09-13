@@ -1,8 +1,6 @@
-label = 561
-antimicrobials = [{key = "ETP", type = "Carbapenemase", name = "Ertapenem"},
-                  {key = "MEM", type = "Carbapenemase", name = "Meropenem"},
-                  {key = "IPM", type = "Carbapenemase", name = "Imipenem"},
-                  {key = "CST", type = "Colistin", name = "Colistin"},
+label = 570
+antimicrobials = [{key = "Carbapenemase", type = "Carbapenemase", name = "Carbapenemase"},
+                  {key = "Colistin", type = "Colistin", name = "Colistin"},
                   {key = "CRO", type = "Extended Spectrum Beta-Lactamses", name = "Ceftriaxone"},
                   {key = "CAZ", type = "Extended Spectrum Beta-Lactamses", name = "Ceftazidime"},
                   {key = "FEP", type = "Extended Spectrum Beta-Lactamses", name = "Cefepime"},
@@ -12,1742 +10,1742 @@ antimicrobials = [{key = "ETP", type = "Carbapenemase", name = "Ertapenem"},
 
 [[paar.sets]]
 name = "blaBIC1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaBIC1_1"]
 
 [[paar.sets]]
 name = "blaDIM1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaDIM1_1"]
 
 [[paar.sets]]
 name = "blaGES8_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES8_1"]
 
 [[paar.sets]]
 name = "blaGES4_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES4_1"]
 
 [[paar.sets]]
 name = "blaGES3_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES3_1"]
 
 [[paar.sets]]
 name = "blaGES10_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES10_1"]
 
 [[paar.sets]]
 name = "blaGES9_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES9_1"]
 
 [[paar.sets]]
 name = "blaGES7_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES7_1"]
 
 [[paar.sets]]
 name = "blaGES14_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES14_1"]
 
 [[paar.sets]]
 name = "blaGES11_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES11_1"]
 
 [[paar.sets]]
 name = "blaGES12_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES12_1"]
 
 [[paar.sets]]
 name = "blaGES17_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES17_1"]
 
 [[paar.sets]]
 name = "blaGES1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES1_1"]
 
 [[paar.sets]]
 name = "blaGES6_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES6_1"]
 
 [[paar.sets]]
 name = "blaGES13_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES13_1"]
 
 [[paar.sets]]
 name = "blaGES2_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES2_1"]
 
 [[paar.sets]]
 name = "blaGES5_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES5_1"]
 
 [[paar.sets]]
 name = "blaGES15_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES15_1"]
 
 [[paar.sets]]
 name = "blaGES16_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES16_1"]
 
 [[paar.sets]]
 name = "blaGIM1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGIM1_1"]
 
 [[paar.sets]]
 name = "blaIMI1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMI1_1"]
 
 [[paar.sets]]
 name = "blaIMI2_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMI2_1"]
 
 [[paar.sets]]
 name = "blaIMP1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP1_1"]
 
 [[paar.sets]]
 name = "blaIMP5_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP5_1"]
 
 [[paar.sets]]
 name = "blaIMP27_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP27_1"]
 
 [[paar.sets]]
 name = "blaIMP18_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP18_1"]
 
 [[paar.sets]]
 name = "blaIMP1_5"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP1_5"]
 
 [[paar.sets]]
 name = "blaIMP19_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP19_1"]
 
 [[paar.sets]]
 name = "blaIMP6_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP6_1"]
 
 [[paar.sets]]
 name = "blaIMP25_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP25_1"]
 
 [[paar.sets]]
 name = "blaIMP13_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP13_1"]
 
 [[paar.sets]]
 name = "blaIMP26_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP26_1"]
 
 [[paar.sets]]
 name = "blaIMP4_2"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP4_2"]
 
 [[paar.sets]]
 name = "blaIMP4_3"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP4_3"]
 
 [[paar.sets]]
 name = "blaIMP9_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP9_1"]
 
 [[paar.sets]]
 name = "blaIMP25_3"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP25_3"]
 
 [[paar.sets]]
 name = "blaIMP8_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP8_1"]
 
 [[paar.sets]]
 name = "blaIMP15_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP15_1"]
 
 [[paar.sets]]
 name = "blaIMP22_2"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP22_2"]
 
 [[paar.sets]]
 name = "blaIMP14_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP14_1"]
 
 [[paar.sets]]
 name = "blaIMP14_2"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP14_2"]
 
 [[paar.sets]]
 name = "blaIMP1_11"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP1_11"]
 
 [[paar.sets]]
 name = "blaIMP16_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP16_1"]
 
 [[paar.sets]]
 name = "blaIMP10_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP10_1"]
 
 [[paar.sets]]
 name = "blaIMP4_6"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP4_6"]
 
 [[paar.sets]]
 name = "blaIMP13_5"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP13_5"]
 
 [[paar.sets]]
 name = "blaIMP12_3"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP12_3"]
 
 [[paar.sets]]
 name = "blaIMP2_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP2_1"]
 
 [[paar.sets]]
 name = "blaIMP14_3"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP14_3"]
 
 [[paar.sets]]
 name = "blaIMP28_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP28_1"]
 
 [[paar.sets]]
 name = "blaIMP29_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP29_1"]
 
 [[paar.sets]]
 name = "blaIMP32"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP32"]
 
 [[paar.sets]]
 name = "blaIMP33_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP33_1"]
 
 [[paar.sets]]
 name = "blaIMP34_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP34_1"]
 
 [[paar.sets]]
 name = "blaIMP35_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP35_1"]
 
 [[paar.sets]]
 name = "blaIMP37_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP37_1"]
 
 [[paar.sets]]
 name = "blaIMP38_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP38_1"]
 
 [[paar.sets]]
 name = "blaIMP40_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP40_1"]
 
 [[paar.sets]]
 name = "blaIMP41_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP41_1"]
 
 [[paar.sets]]
 name = "blaIMP42_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP42_1"]
 
 [[paar.sets]]
 name = "blaKPC3_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC3_1"]
 
 [[paar.sets]]
 name = "blaKPC11_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC11_1"]
 
 [[paar.sets]]
 name = "blaKPC7_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC7_1"]
 
 [[paar.sets]]
 name = "blaKPC1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC1_1"]
 
 [[paar.sets]]
 name = "blaKPC8_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC8_1"]
 
 [[paar.sets]]
 name = "blaKPC5_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC5_1"]
 
 [[paar.sets]]
 name = "blaKPC4_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC4_1"]
 
 [[paar.sets]]
 name = "blaKPC10_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC10_1"]
 
 [[paar.sets]]
 name = "blaKPC6_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC6_1"]
 
 [[paar.sets]]
 name = "blaNDM1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM1_1"]
 
 [[paar.sets]]
 name = "blaNMCA_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNMCA_1"]
 
 [[paar.sets]]
 name = "blaOXA104_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA104_1"]
 
 [[paar.sets]]
 name = "blaOXA134_2"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA134_2"]
 
 [[paar.sets]]
 name = "blaOXA133_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA133_1"]
 
 [[paar.sets]]
 name = "blaOXA49_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA49_1"]
 
 [[paar.sets]]
 name = "blaOXA166_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA166_1"]
 
 [[paar.sets]]
 name = "blaOXA167_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA167_1"]
 
 [[paar.sets]]
 name = "blaOXA170_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA170_1"]
 
 [[paar.sets]]
 name = "blaOXA168_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA168_1"]
 
 [[paar.sets]]
 name = "blaOXA27_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA27_1"]
 
 [[paar.sets]]
 name = "blaOXA73_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA73_1"]
 
 [[paar.sets]]
 name = "blaOXA169_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA169_1"]
 
 [[paar.sets]]
 name = "blaOXA165_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA165_1"]
 
 [[paar.sets]]
 name = "blaOXA225_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA225_1"]
 
 [[paar.sets]]
 name = "blaOXA171_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA171_1"]
 
 [[paar.sets]]
 name = "blaOXA23_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA23_1"]
 
 [[paar.sets]]
 name = "blaOXA146_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA146_1"]
 
 [[paar.sets]]
 name = "blaOXA134_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA134_1"]
 
 [[paar.sets]]
 name = "blaOXA67_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA67_1"]
 
 [[paar.sets]]
 name = "blaOXA89_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA89_1"]
 
 [[paar.sets]]
 name = "blaOXA164_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA164_1"]
 
 [[paar.sets]]
 name = "blaOXA58_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA58_1"]
 
 [[paar.sets]]
 name = "blaOXA97_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA97_1"]
 
 [[paar.sets]]
 name = "blaOXA96_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA96_1"]
 
 [[paar.sets]]
 name = "blaOXA130_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA130_1"]
 
 [[paar.sets]]
 name = "blaOXA51_4"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA51_4"]
 
 [[paar.sets]]
 name = "blaOXA108_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA108_1"]
 
 [[paar.sets]]
 name = "blaOXA88_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA88_1"]
 
 [[paar.sets]]
 name = "blaOXA94_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA94_1"]
 
 [[paar.sets]]
 name = "blaOXA65_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA65_1"]
 
 [[paar.sets]]
 name = "blaOXA90_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA90_1"]
 
 [[paar.sets]]
 name = "blaOXA200_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA200_1"]
 
 [[paar.sets]]
 name = "blaOXA206"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA206"]
 
 [[paar.sets]]
 name = "blaOXA84_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA84_1"]
 
 [[paar.sets]]
 name = "blaOXA202_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA202_1"]
 
 [[paar.sets]]
 name = "blaOXA196_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA196_1"]
 
 [[paar.sets]]
 name = "blaOXA175_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA175_1"]
 
 [[paar.sets]]
 name = "blaOXA138_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA138_1"]
 
 [[paar.sets]]
 name = "blaOXA197_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA197_1"]
 
 [[paar.sets]]
 name = "blaOXA194_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA194_1"]
 
 [[paar.sets]]
 name = "blaOXA195_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA195_1"]
 
 [[paar.sets]]
 name = "blaOXA176_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA176_1"]
 
 [[paar.sets]]
 name = "blaOXA174_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA174_1"]
 
 [[paar.sets]]
 name = "blaOXA177_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA177_1"]
 
 [[paar.sets]]
 name = "blaOXA82_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA82_1"]
 
 [[paar.sets]]
 name = "blaOXA51_3"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA51_3"]
 
 [[paar.sets]]
 name = "blaOXA79_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA79_1"]
 
 [[paar.sets]]
 name = "blaOXA80_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA80_1"]
 
 [[paar.sets]]
 name = "blaOXA115_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA115_1"]
 
 [[paar.sets]]
 name = "blaOXA178_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA178_1"]
 
 [[paar.sets]]
 name = "blaOXA109_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA109_1"]
 
 [[paar.sets]]
 name = "blaOXA201_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA201_1"]
 
 [[paar.sets]]
 name = "blaOXA66_4"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA66_4"]
 
 [[paar.sets]]
 name = "blaOXA76_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA76_1"]
 
 [[paar.sets]]
 name = "blaOXA131_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA131_1"]
 
 [[paar.sets]]
 name = "blaOXA173_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA173_1"]
 
 [[paar.sets]]
 name = "blaOXA172_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA172_1"]
 
 [[paar.sets]]
 name = "blaOXA83_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA83_1"]
 
 [[paar.sets]]
 name = "blaOXA95_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA95_1"]
 
 [[paar.sets]]
 name = "blaOXA203_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA203_1"]
 
 [[paar.sets]]
 name = "blaOXA150_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA150_1"]
 
 [[paar.sets]]
 name = "blaOXA149_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA149_1"]
 
 [[paar.sets]]
 name = "blaOXA68_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA68_1"]
 
 [[paar.sets]]
 name = "blaOXA128_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA128_1"]
 
 [[paar.sets]]
 name = "blaOXA144_2"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA144_2"]
 
 [[paar.sets]]
 name = "blaOXA78_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA78_1"]
 
 [[paar.sets]]
 name = "blaOXA217"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA217"]
 
 [[paar.sets]]
 name = "blaOXA117_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA117_1"]
 
 [[paar.sets]]
 name = "blaOXA98_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA98_1"]
 
 [[paar.sets]]
 name = "blaOXA77_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA77_1"]
 
 [[paar.sets]]
 name = "blaOXA91_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA91_1"]
 
 [[paar.sets]]
 name = "blaOXA89_2"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA89_2"]
 
 [[paar.sets]]
 name = "blaOXA75_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA75_1"]
 
 [[paar.sets]]
 name = "blaOXA93_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA93_1"]
 
 [[paar.sets]]
 name = "blaOXA106_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA106_1"]
 
 [[paar.sets]]
 name = "blaOXA51_5"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA51_5"]
 
 [[paar.sets]]
 name = "blaOXA70_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA70_1"]
 
 [[paar.sets]]
 name = "blaOXA148_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA148_1"]
 
 [[paar.sets]]
 name = "blaOXA51_7"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA51_7"]
 
 [[paar.sets]]
 name = "blaOXA92_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA92_1"]
 
 [[paar.sets]]
 name = "blaOXA112_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA112_1"]
 
 [[paar.sets]]
 name = "blaOXA110_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA110_1"]
 
 [[paar.sets]]
 name = "blaOXA69_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA69_1"]
 
 [[paar.sets]]
 name = "blaOXA107_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA107_1"]
 
 [[paar.sets]]
 name = "blaOXA51_10"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA51_10"]
 
 [[paar.sets]]
 name = "blaOXA51_6"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA51_6"]
 
 [[paar.sets]]
 name = "blaOXA208_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA208_1"]
 
 [[paar.sets]]
 name = "blaOXA216_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA216_1"]
 
 [[paar.sets]]
 name = "blaOXA180_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA180_1"]
 
 [[paar.sets]]
 name = "blaOXA99_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA99_1"]
 
 [[paar.sets]]
 name = "blaOXA111_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA111_1"]
 
 [[paar.sets]]
 name = "blaOXA223_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA223_1"]
 
 [[paar.sets]]
 name = "blaOXA219_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA219_1"]
 
 [[paar.sets]]
 name = "blaOXA132_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA132_1"]
 
 [[paar.sets]]
 name = "blaOXA51_8"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA51_8"]
 
 [[paar.sets]]
 name = "blaOXA179_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA179_1"]
 
 [[paar.sets]]
 name = "blaOXA51_9"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA51_9"]
 
 [[paar.sets]]
 name = "blaOXA71_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA71_1"]
 
 [[paar.sets]]
 name = "blaOXA113_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA113_1"]
 
 [[paar.sets]]
 name = "blaOXA64_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA64_1"]
 
 [[paar.sets]]
 name = "blaOXA86_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA86_1"]
 
 [[paar.sets]]
 name = "blaOXA87_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA87_1"]
 
 [[paar.sets]]
 name = "blaOXA162_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA162_1"]
 
 [[paar.sets]]
 name = "blaOXA244_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA244_1"]
 
 [[paar.sets]]
 name = "blaOXA48_2"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA48_2"]
 
 [[paar.sets]]
 name = "blaOXA245_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA245_1"]
 
 [[paar.sets]]
 name = "blaOXA163_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA163_1"]
 
 [[paar.sets]]
 name = "blaOXA247_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA247_1"]
 
 [[paar.sets]]
 name = "blaOXA181_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA181_1"]
 
 [[paar.sets]]
 name = "blaOXA54_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA54_1"]
 
 [[paar.sets]]
 name = "blaSIM1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaSIM1_1"]
 
 [[paar.sets]]
 name = "blaSPM1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaSPM1_1"]
 
 [[paar.sets]]
 name = "blaVIM29_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM29_1"]
 
 [[paar.sets]]
 name = "blaVIM30_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM30_1"]
 
 [[paar.sets]]
 name = "blaVIM31_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM31_1"]
 
 [[paar.sets]]
 name = "blaVIM32_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM32_1"]
 
 [[paar.sets]]
 name = "blaVIM33_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM33_1"]
 
 [[paar.sets]]
 name = "blaVIM34_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM34_1"]
 
 [[paar.sets]]
 name = "blaVIM35_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM35_1"]
 
 [[paar.sets]]
 name = "blaVIM36_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM36_1"]
 
 [[paar.sets]]
 name = "blaVIM37_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM37_1"]
 
 [[paar.sets]]
 name = "blaVIM38"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM38"]
 
 [[paar.sets]]
 name = "blaVIM28_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM28_1"]
 
 [[paar.sets]]
 name = "blaVIM27_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM27_1"]
 
 [[paar.sets]]
 name = "blaVIM24_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM24_1"]
 
 [[paar.sets]]
 name = "blaVIM1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM1_1"]
 
 [[paar.sets]]
 name = "blaVIM3_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM3_1"]
 
 [[paar.sets]]
 name = "blaVIM25_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM25_1"]
 
 [[paar.sets]]
 name = "blaVIM19_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM19_1"]
 
 [[paar.sets]]
 name = "blaVIM14_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM14_1"]
 
 [[paar.sets]]
 name = "blaVIM4_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM4_1"]
 
 [[paar.sets]]
 name = "blaVIM6_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM6_1"]
 
 [[paar.sets]]
 name = "blaVIM11_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM11_1"]
 
 [[paar.sets]]
 name = "blaVIM12_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM12_1"]
 
 [[paar.sets]]
 name = "blaVIM5_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM5_1"]
 
 [[paar.sets]]
 name = "blaVIM10_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM10_1"]
 
 [[paar.sets]]
 name = "blaVIM9_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM9_1"]
 
 [[paar.sets]]
 name = "blaVIM8_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM8_1"]
 
 [[paar.sets]]
 name = "blaVIM20_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM20_1"]
 
 [[paar.sets]]
 name = "blaVIM23_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM23_1"]
 
 [[paar.sets]]
 name = "blaVIM18_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM18_1"]
 
 [[paar.sets]]
 name = "blaVIM13_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM13_1"]
 
 [[paar.sets]]
 name = "blaVIM16_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM16_1"]
 
 [[paar.sets]]
 name = "blaVIM15_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM15_1"]
 
 [[paar.sets]]
 name = "blaVIM7_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM7_1"]
 
 [[paar.sets]]
 name = "blaVIM17_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM17_1"]
 
 [[paar.sets]]
 name = "blaVIM26_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM26_1"]
 
 [[paar.sets]]
 name = "blaVIM2_2"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM2_2"]
 
 [[paar.sets]]
 name = "blaAIM"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaAIM"]
 
 [[paar.sets]]
 name = "blaNDM10"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM10"]
 
 [[paar.sets]]
 name = "blaNDM11"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM11"]
 
 [[paar.sets]]
 name = "blaNDM12"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM12"]
 
 [[paar.sets]]
 name = "blaNDM13"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM13"]
 
 [[paar.sets]]
 name = "blaNDM14"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM14"]
 
 [[paar.sets]]
 name = "blaNDM15"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM15"]
 
 [[paar.sets]]
 name = "blaNDM16"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM16"]
 
 [[paar.sets]]
 name = "blaNDM2"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM2"]
 
 [[paar.sets]]
 name = "blaNDM3"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM3"]
 
 [[paar.sets]]
 name = "blaNDM4"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM4"]
 
 [[paar.sets]]
 name = "blaNDM5"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM5"]
 
 [[paar.sets]]
 name = "blaNDM6"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM6"]
 
 [[paar.sets]]
 name = "blaNDM7"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM7"]
 
 [[paar.sets]]
 name = "blaNDM8"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM8"]
 
 [[paar.sets]]
 name = "blaNDM9"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaNDM9"]
 
 [[paar.sets]]
 name = "blaOXA100"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA100"]
 
 [[paar.sets]]
 name = "blaOXA120"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA120"]
 
 [[paar.sets]]
 name = "blaOXA199"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA199"]
 
 [[paar.sets]]
 name = "blaOXA204"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA204"]
 
 [[paar.sets]]
 name = "blaOXA232"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA232"]
 
 [[paar.sets]]
 name = "blaOXA248"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA248"]
 
 [[paar.sets]]
 name = "blaOXA249"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA249"]
 
 [[paar.sets]]
 name = "blaOXA250"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA250"]
 
 [[paar.sets]]
 name = "blaOXA254"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA254"]
 
 [[paar.sets]]
 name = "blaOXA259"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA259"]
 
 [[paar.sets]]
 name = "blaOXA261"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA261"]
 
 [[paar.sets]]
 name = "blaOXA262"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA262"]
 
 [[paar.sets]]
 name = "blaOXA263"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA263"]
 
 [[paar.sets]]
 name = "blaOXA312"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA312"]
 
 [[paar.sets]]
 name = "blaOXA313"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA313"]
 
 [[paar.sets]]
 name = "blaOXA314"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA314"]
 
 [[paar.sets]]
 name = "blaOXA315"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA315"]
 
 [[paar.sets]]
 name = "blaOXA316"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA316"]
 
 [[paar.sets]]
 name = "blaOXA317"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA317"]
 
 [[paar.sets]]
 name = "blaOXA338"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA338"]
 
 [[paar.sets]]
 name = "blaOXA365"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA365"]
 
 [[paar.sets]]
 name = "blaOXA366"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA366"]
 
 [[paar.sets]]
 name = "blaOXA370"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA370"]
 
 [[paar.sets]]
 name = "blaOXA371"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA371"]
 
 [[paar.sets]]
 name = "blaOXA374"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA374"]
 
 [[paar.sets]]
 name = "blaOXA375"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA375"]
 
 [[paar.sets]]
 name = "blaOXA376"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA376"]
 
 [[paar.sets]]
 name = "blaOXA377"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA377"]
 
 [[paar.sets]]
 name = "blaOXA378"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA378"]
 
 [[paar.sets]]
 name = "blaOXA379"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA379"]
 
 [[paar.sets]]
 name = "blaOXA380"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA380"]
 
 [[paar.sets]]
 name = "blaOXA381"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA381"]
 
 [[paar.sets]]
 name = "blaOXA382"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA382"]
 
 [[paar.sets]]
 name = "blaOXA383"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA383"]
 
 [[paar.sets]]
 name = "blaOXA384"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA384"]
 
 [[paar.sets]]
 name = "blaOXA385"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA385"]
 
 [[paar.sets]]
 name = "blaOXA386"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA386"]
 
 [[paar.sets]]
 name = "blaOXA388"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA388"]
 
 [[paar.sets]]
 name = "blaOXA389"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA389"]
 
 [[paar.sets]]
 name = "blaOXA390"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA390"]
 
 [[paar.sets]]
 name = "blaOXA391"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA391"]
 
 [[paar.sets]]
 name = "blaOXA397"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA397"]
 
 [[paar.sets]]
 name = "blaOXA398"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA398"]
 
 [[paar.sets]]
 name = "blaOXA405"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA405"]
 
 [[paar.sets]]
 name = "blaOXA420"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA420"]
 
 [[paar.sets]]
 name = "blaOXA422"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA422"]
 
 [[paar.sets]]
 name = "blaOXA423"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA423"]
 
 [[paar.sets]]
 name = "blaOXA424"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA424"]
 
 [[paar.sets]]
 name = "blaOXA425"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA425"]
 
 [[paar.sets]]
 name = "blaOXA426"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA426"]
 
 [[paar.sets]]
 name = "blaOXA429"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA429"]
 
 [[paar.sets]]
 name = "blaOXA430"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA430"]
 
 [[paar.sets]]
 name = "blaOXA431"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA431"]
 
 [[paar.sets]]
 name = "blaOXA432"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA432"]
 
 [[paar.sets]]
 name = "blaOXA433"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA433"]
 
 [[paar.sets]]
 name = "blaOXA435"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA435"]
 
 [[paar.sets]]
 name = "blaOXA439"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA439"]
 
 [[paar.sets]]
 name = "blaOXA440"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA440"]
 
 [[paar.sets]]
 name = "blaOXA481"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA481"]
 
 [[paar.sets]]
 name = "blaOXA482"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA482"]
 
 [[paar.sets]]
 name = "blaOXA483"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA483"]
 
 [[paar.sets]]
 name = "blaOXA484"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA484"]
 
 [[paar.sets]]
 name = "blaOXA239"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA239"]
 
 [[paar.sets]]
 name = "blaOXA241"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA241"]
 
 [[paar.sets]]
 name = "blaOXA242"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA242"]
 
 [[paar.sets]]
 name = "blaIMP11"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP11"]
 
 [[paar.sets]]
 name = "blaIMP20"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP20"]
 
 [[paar.sets]]
 name = "blaIMP21"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP21"]
 
 [[paar.sets]]
 name = "blaIMP24"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP24"]
 
 [[paar.sets]]
 name = "blaIMP30"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP30"]
 
 [[paar.sets]]
 name = "blaIMP31"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP31"]
 
 [[paar.sets]]
 name = "blaIMP3"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP3"]
 
 [[paar.sets]]
 name = "blaIMP43"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP43"]
 
 [[paar.sets]]
 name = "blaIMP44"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP44"]
 
 [[paar.sets]]
 name = "blaIMP45"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP45"]
 
 [[paar.sets]]
 name = "blaIMP48"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP48"]
 
 [[paar.sets]]
 name = "blaIMP49"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP49"]
 
 [[paar.sets]]
 name = "blaIMP51"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP51"]
 
 [[paar.sets]]
 name = "blaIMP52"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP52"]
 
 [[paar.sets]]
 name = "blaIMP7"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP7"]
 
 [[paar.sets]]
 name = "blaKPC12"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC12"]
 
 [[paar.sets]]
 name = "blaKPC13"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC13"]
 
 [[paar.sets]]
 name = "blaKPC14"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC14"]
 
 [[paar.sets]]
 name = "blaKPC15"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC15"]
 
 [[paar.sets]]
 name = "blaKPC16"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC16"]
 
 [[paar.sets]]
 name = "blaKPC17"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC17"]
 
 [[paar.sets]]
 name = "blaKPC18"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC18"]
 
 [[paar.sets]]
 name = "blaKPC19"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC19"]
 
 [[paar.sets]]
 name = "blaKPC22"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC22"]
 
 [[paar.sets]]
 name = "blaKPC24"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC24"]
 
 [[paar.sets]]
 name = "blaKPC2"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC2"]
 
 [[paar.sets]]
 name = "blaGES18"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES18"]
 
 [[paar.sets]]
 name = "blaGES19"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES19"]
 
 [[paar.sets]]
 name = "blaGES20"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES20"]
 
 [[paar.sets]]
 name = "blaGES21"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES21"]
 
 [[paar.sets]]
 name = "blaGES22"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES22"]
 
 [[paar.sets]]
 name = "blaGES23"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES23"]
 
 [[paar.sets]]
 name = "blaGES24"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES24"]
 
 [[paar.sets]]
 name = "blaGES26"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES26"]
 
 [[paar.sets]]
 name = "blaVIM39"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM39"]
 
 [[paar.sets]]
 name = "blaVIM40"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM40"]
 
 [[paar.sets]]
 name = "blaVIM41"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM41"]
 
 [[paar.sets]]
 name = "blaVIM42"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM42"]
 
 [[paar.sets]]
 name = "blaVIM43"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM43"]
 
 [[paar.sets]]
 name = "blaVIM44"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM44"]
 
 [[paar.sets]]
 name = "blaVIM45"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM45"]
 
 [[paar.sets]]
 name = "blaVIM46"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM46"]
 
 [[paar.sets]]
 name = "blaVIM47"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM47"]
 
 [[paar.sets]]
 name = "blaVIM49"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM49"]
 
 [[paar.sets]]
 name = "blaVIM50"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM50"]
 
 [[paar.sets]]
 name = "blaVIM51"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaVIM51"]
 
 [[paar.sets]]
 name = "blaKPC21"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC21"]
 
 [[paar.sets]]
 name = "blaKPC25"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC25"]
 
 [[paar.sets]]
 name = "blaKPC26"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaKPC26"]
 
 [[paar.sets]]
@@ -2042,957 +2040,974 @@ members = ["blaOXA510_NG"]
 
 [[paar.sets]]
 name = "blaOXA467"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA467"]
 
 [[paar.sets]]
 name = "blaOXA514"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA514"]
 
 [[paar.sets]]
 name = "blaOXA515"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA515"]
 
 [[paar.sets]]
 name = "blaOXA260"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA260"]
 
 [[paar.sets]]
 name = "blaOXA103"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaOXA103"]
 
 [[paar.sets]]
 name = "blaIMP23"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP23"]
 
 [[paar.sets]]
 name = "blaIMP54"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP54"]
 
 [[paar.sets]]
 name = "blaIMP55"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP55"]
 
 [[paar.sets]]
 name = "blaIMP56"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP56"]
 
 [[paar.sets]]
 name = "blaIMP58"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP58"]
 
 [[paar.sets]]
 name = "blaIMP53"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaIMP53"]
 
 [[paar.sets]]
 name = "blaGES25"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES25"]
 
 [[paar.sets]]
 name = "blaGES27"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES27"]
 
 [[paar.sets]]
 name = "blaGES28"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES28"]
 
 [[paar.sets]]
 name = "blaGES29"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES29"]
 
 [[paar.sets]]
 name = "blaGES30"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES30"]
 
 [[paar.sets]]
 name = "blaGES31"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaGES31"]
 
 [[paar.sets]]
 name = "blaLMB_1"
-phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Carbapenemase"], modifiers = []}]
 members = ["blaLMB_1"]
 
 [[paar.sets]]
 name = "Mcr1"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr1"]
 
 [[paar.sets]]
 name = "Mcr2"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr2"]
 
 [[paar.sets]]
 name = "Mcr3"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr3"]
 
 [[paar.sets]]
 name = "Mcr4"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr4"]
 
 [[paar.sets]]
 name = "Mcr1-2"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr1-2"]
 
 [[paar.sets]]
 name = "Mcr1_Mcr1-3"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr1_Mcr1-3"]
 
 [[paar.sets]]
 name = "Mcr1_Mcr1-4"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr1_Mcr1-4"]
 
 [[paar.sets]]
 name = "Mcr1_Mcr1-5"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr1_Mcr1-5"]
 
 [[paar.sets]]
 name = "Mcr1_Mcr1-6"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr1_Mcr1-6"]
 
 [[paar.sets]]
 name = "Mcr1_Mcr1-7"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr1_Mcr1-7"]
 
 [[paar.sets]]
 name = "Mcr-5_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr-5_1"]
 
 [[paar.sets]]
 name = "Mcr-5.2_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr-5.2_1"]
 
 [[paar.sets]]
 name = "Mcr-6.1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr-6.1_1"]
 
 [[paar.sets]]
 name = "Mcr-7.1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr-7.1_1"]
 
 [[paar.sets]]
 name = "Mcr-8_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CST"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Colistin"], modifiers = []}]
 members = ["Mcr-8_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-142_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-142_1"]
 
 [[paar.sets]]
 name = "blaVEB-2_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaVEB-2_1"]
 
 [[paar.sets]]
 name = "blaVEB-1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaVEB-1_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-60_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-60_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-67_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-67_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-147_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-147_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-34_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-34_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-13_2"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-13_2"]
 
 [[paar.sets]]
 name = "blaCTX-M-123_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO"], modifiers = []}]
 members = ["blaCTX-M-123_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-124_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-124_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-136_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-136_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-92_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-92_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-12_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-12_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-1_6"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-1_6"]
 
 [[paar.sets]]
 name = "blaCTX-M-91_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-91_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-26_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-26_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-64_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CRO","FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CAZ"], modifiers = []}]
 members = ["blaCTX-M-64_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-101_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-101_1"]
 
 [[paar.sets]]
 name = "blaSHV12_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO"], modifiers = []}]
 members = ["blaSHV12_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-43_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-43_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-24_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-24_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-51_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-51_1"]
 
 [[paar.sets]]
 name = "blaTEM124_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaTEM124_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-31_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-31_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-15_70"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CAZ","CRO"], modifiers = []}]
 members = ["blaCTX-M-15_70"]
 
 [[paar.sets]]
 name = "blaCTX-M-121_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-121_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-100_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-100_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-17_2"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-17_2"]
 
 [[paar.sets]]
 name = "blaCTX-M-25_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-25_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-125_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-125_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-16_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-16_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-98_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-98_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-69_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-69_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-48_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-48_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-94_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-94_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-77_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-77_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-126_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-126_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-83_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-83_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-134_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-134_1"]
 
 [[paar.sets]]
 name = "blaSHV41_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO"], modifiers = []}]
 members = ["blaSHV41_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-40_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-40_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-54_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-54_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-86_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-86_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-14_5"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-14_5"]
 
 [[paar.sets]]
 name = "blaCTX-M-33_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-33_1"]
 
 [[paar.sets]]
 name = "blaSHV31_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO"], modifiers = []}]
 members = ["blaSHV31_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-19_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-19_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-27_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO"], modifiers = []}]
 members = ["blaCTX-M-27_1"]
 
 [[paar.sets]]
 name = "blaVEB-7_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaVEB-7_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-105_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-105_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-15_64"
-phenotypes = [{effect = "RESISTANT", profile = ["FEP","FOX","CRO","CAZ"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO","CAZ"], modifiers = []}]
 members = ["blaCTX-M-15_64"]
 
 [[paar.sets]]
 name = "blaCTX-M-52_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-52_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-9_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-9_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-66_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-66_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-32_2"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-32_2"]
 
 [[paar.sets]]
 name = "blaCTX-M-55_2"
-phenotypes = [{effect = "RESISTANT", profile = ["FEP","FOX","CAZ","CRO"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CAZ","CRO"], modifiers = []}]
 members = ["blaCTX-M-55_2"]
 
 [[paar.sets]]
 name = "blaVEB-4_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaVEB-4_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-111_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-111_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-1_4"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO"], modifiers = []}]
 members = ["blaCTX-M-1_4"]
 
 [[paar.sets]]
 name = "blaCTX-M-82_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-82_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-131_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-131_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-90_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-90_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-22_3"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-22_3"]
 
 [[paar.sets]]
 name = "blaCTX-M-39_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-39_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-130_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-130_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-129_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-129_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-139_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-139_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-58_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-58_1"]
 
 [[paar.sets]]
 name = "blaVEB-8_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaVEB-8_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-28_6"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-28_6"]
 
 [[paar.sets]]
 name = "blaCTX-M-5_8"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-5_8"]
 
 [[paar.sets]]
 name = "blaCTX-M-24_2"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO"], modifiers = []}]
 members = ["blaCTX-M-24_2"]
 
 [[paar.sets]]
 name = "blaCTX-M-50_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-50_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-72_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-72_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-78_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-78_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-59_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-59_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-96_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-96_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-113_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-113_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-62_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-62_1"]
 
 [[paar.sets]]
 name = "blaVEB-3_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaVEB-3_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-36_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-36_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-37_2"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-37_2"]
 
 [[paar.sets]]
 name = "blaCTX-M-132_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-132_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-116_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-116_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-61_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-61_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-49_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-49_1"]
 
 [[paar.sets]]
 name = "blaVEB-1_3"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaVEB-1_3"]
 
 [[paar.sets]]
 name = "blaCTX-M-68_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-68_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-87_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-87_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-65_2"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO"], modifiers = []}]
 members = ["blaCTX-M-65_2"]
 
 [[paar.sets]]
 name = "blaCTX-M-29_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-29_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-103_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-103_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-24_8"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO"], modifiers = []}]
 members = ["blaCTX-M-24_8"]
 
 [[paar.sets]]
 name = "blaCTX-M-46_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-46_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-99_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-99_1"]
 
 [[paar.sets]]
 name = "blaPER-1_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaPER-1_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-5_6"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-5_6"]
 
 [[paar.sets]]
 name = "blaCTX-M-93_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-93_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-97_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-97_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-112_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-112_1"]
 
 [[paar.sets]]
 name = "blaVEB-6_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaVEB-6_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-11_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-11_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-38_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-38_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-14_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CFO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO"], modifiers = []}]
 members = ["blaCTX-M-14_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-74_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-74_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-79_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-79_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-65_11"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-65_11"]
 
 [[paar.sets]]
 name = "blaCTX-M-76_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-76_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-44_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-44_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-23_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-23_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-22_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-22_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-35_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-35_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-63_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-63_1"]
 
 [[paar.sets]]
 name = "blaOXA-15_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaOXA-15_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-3_8"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-3_8"]
 
 [[paar.sets]]
 name = "blaVEB-1_4"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaVEB-1_4"]
 
 [[paar.sets]]
 name = "blaCTX-M-30_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-30_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-45_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-45_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-84_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-84_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-10_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-10_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-14b_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-14b_1"]
 
 [[paar.sets]]
 name = "blaSHV27_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO"], modifiers = []}]
 members = ["blaSHV27_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-2_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-2_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-110_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-110_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-4_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-4_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-71_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-71_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-21_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-21_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-102_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-102_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-95_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-95_1"]
 
 [[paar.sets]]
 name = "blaSHV5_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaSHV5_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-20_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-20_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-89_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-89_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-81_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-81_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-41_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-41_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-104_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-104_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-88_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-88_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-89_2"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-89_2"]
 
 [[paar.sets]]
 name = "blaTEM10_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaTEM10_1"]
 
 [[paar.sets]]
 name = "blaSHV16_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaSHV16_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-106_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-106_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-85_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-85_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-6_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-6_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-8_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-8_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-15_23"
-phenotypes = [{effect = "RESISTANT", profile = ["FEP","FOX","CRO","CAZ"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO","CAZ"], modifiers = []}]
 members = ["blaCTX-M-15_23"]
 
 [[paar.sets]]
 name = "blaCTX-M-53_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-53_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-3_2"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","FEP","FOX"], modifiers = []},
+              {effect = "RESISTANT", profile = ["CRO"], modifiers = []}]
 members = ["blaCTX-M-3_2"]
 
 [[paar.sets]]
 name = "blaOXA-11_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaOXA-11_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-114_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-114_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-80_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-80_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-14b_4"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-14b_4"]
 
 [[paar.sets]]
 name = "blaCTX-M-9_7"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-9_7"]
 
 [[paar.sets]]
 name = "blaCTX-M-17_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-17_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-56_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-56_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-75_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-75_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-117_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-117_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-47_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-47_1"]
 
 [[paar.sets]]
 name = "blaVEB-5_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaVEB-5_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-42_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-42_1"]
 
 [[paar.genes]]
