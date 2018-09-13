@@ -13,7 +13,7 @@ antimicrobials = [{key = "AZM", type = "Macrolides", name = "Azithromycin"},
 
 [[paar.sets]]
 name = "blaTem"
-phenotypes = [{effect = "RESISTANT", profile = ["PEN","MET"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PEN"], modifiers = []}]
 members = ["blaTEM"]
 
 [[paar.sets]]

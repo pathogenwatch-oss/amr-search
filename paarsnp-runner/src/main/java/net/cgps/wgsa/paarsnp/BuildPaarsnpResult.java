@@ -50,8 +50,12 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
         .forEach(resistanceSet -> resistanceSet.getPhenotypes()
             .forEach(phenotype -> this.determineResistanceState(phenotype, paarModSelector, Completeness.COMPLETE)
                 .forEach(agentToNewState -> {
-                  resistanceSets.get(agentToNewState.getKey()).add(resistanceSet.getName());
-                  profileAggregator.addPhenotype(agentToNewState.getKey(), agentToNewState.getValue());
+                  this.logger.debug("{} {}", agentToNewState.getKey(), agentToNewState.getValue().name());
+                  final Optional<Collection<String>> setOpt = Optional.ofNullable(resistanceSets.get(agentToNewState.getKey()));
+                  setOpt.ifPresent(set -> {
+                    set.add(resistanceSet.getName());
+                    profileAggregator.addPhenotype(agentToNewState.getKey(), agentToNewState.getValue());
+                  });
                 })));
 
     paarsnpResultData.paarResult.getPartialResistanceSets()
