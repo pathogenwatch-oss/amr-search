@@ -5,6 +5,7 @@ import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.paar.json.Paar;
+import net.cgps.wgsa.paarsnp.core.snpar.json.SetMember;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -61,7 +62,7 @@ public class PaarCalculation implements Collector<BlastMatch, Collection<BlastMa
 
       this.paarLibrary.getSets().values()
           .forEach(set -> {
-            if (matches.keySet().containsAll(set.getMembers())) {
+            if (matches.keySet().containsAll(set.getMembers().stream().map(SetMember::getGene).collect(Collectors.toList()))) {
               completedSets.add(set);
             } else if (set.getMembers().stream().anyMatch(member -> matches.keySet().contains(member.getGene()))) {
               partialSets.add(set);
