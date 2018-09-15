@@ -14,10 +14,10 @@ public class MutationBuilder {
    */
   public Mutation build(final char querySequence, final char referenceSequence, final Mutation.MutationType mutationType, final int queryLocation, final int referenceLocation, final DnaSequence.Strand strand) {
 
-    return new Mutation(mutationType, queryLocation, this.determineSequence(querySequence, strand), this.determineSequence(referenceSequence, strand), this.determineActualLocation(referenceLocation, mutationType, strand));
+    return new Mutation(mutationType, queryLocation, this.determineSequence(querySequence), this.determineSequence(referenceSequence), this.determineActualLocation(referenceLocation, mutationType, strand));
   }
 
-  private char determineSequence(final char sequence, final DnaSequence.Strand strand) {
+  private char determineSequence(final char sequence) {
 
     return Character.toUpperCase(sequence);
   }

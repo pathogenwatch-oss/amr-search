@@ -29,7 +29,7 @@ public class BlastRunnerTest {
 
     final List<BlastMatch> mutationSearchResultList = new BlastReader().apply(apply).collect(Collectors.toList());
 
-    Assert.assertTrue("Result exists", null != mutationSearchResultList && mutationSearchResultList.size() != 0);
+    Assert.assertTrue("Result exists", mutationSearchResultList.size() != 0);
 
     this.logger.info("Result size: {}", mutationSearchResultList.size());
   }

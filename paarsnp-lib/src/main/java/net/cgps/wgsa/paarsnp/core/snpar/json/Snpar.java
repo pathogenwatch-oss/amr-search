@@ -1,6 +1,5 @@
 package net.cgps.wgsa.paarsnp.core.snpar.json;
 
-import net.cgps.wgsa.paarsnp.core.LibraryMetadata;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 
 import java.util.Collection;
@@ -9,7 +8,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Snpar implements LibraryMetadata {
+public class Snpar {
 
   private final Map<String, SnparReferenceSequence> genes;
   private final Map<String, ResistanceSet> sets;
@@ -38,7 +37,6 @@ public class Snpar implements LibraryMetadata {
     return this.sets;
   }
 
-  @Override
   public double getMinimumPid() {
     return this.minimumPid;
   }

@@ -24,11 +24,6 @@ public class AntibioticProfile extends AbstractJsonnable {
     this.resistanceSets = resistanceSets;
   }
 
-  public static AntibioticProfile buildDefault(final AntimicrobialAgent name) {
-
-    return new AntibioticProfile(name, ResistanceState.NOT_FOUND, Collections.emptyList());
-  }
-
   public ResistanceState getResistanceState() {
 
     return this.resistanceState;
@@ -44,8 +39,4 @@ public class AntibioticProfile extends AbstractJsonnable {
     return this.name;
   }
 
-  public void addSet(final ResistanceSet resistanceSet) {
-
-    this.resistanceSets.add(resistanceSet);
-  }
 }

@@ -1,6 +1,7 @@
 package net.cgps.wgsa.paarsnp;
 
 import ch.qos.logback.classic.Level;
+import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import org.apache.commons.cli.*;
@@ -103,7 +104,7 @@ public class PaarsnpMain {
 
   private void run(final String speciesId, final Collection<Path> assemblyFiles, final Path workingDirectory, final boolean isToStdout, final String resourceDirectory) {
 
-    final Path paarsnpLibraryFile = Paths.get(resourceDirectory, speciesId + ".jsn");
+    final Path paarsnpLibraryFile = Paths.get(resourceDirectory, speciesId + Constants.JSON_APPEND);
     final PaarsnpLibrary paarsnpLibrary = AbstractJsonnable.fromJsonFile(paarsnpLibraryFile.toFile(), PaarsnpLibrary.class);
 
     final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(speciesId, paarsnpLibrary.getPaar(), paarsnpLibrary.getSnpar(), paarsnpLibrary.getAntimicrobials(), resourceDirectory);

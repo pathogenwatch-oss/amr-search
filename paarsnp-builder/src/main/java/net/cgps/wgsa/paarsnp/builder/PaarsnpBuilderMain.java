@@ -96,7 +96,7 @@ public class PaarsnpBuilderMain {
 
         final LibraryReader.PaarsnpLibraryAndSequences paarsnpLibraryAndSequences = new LibraryReader().apply(tomlPath);
 
-        final Path libraryFile = Paths.get(outputDirectory, speciesId + ".jsn");
+        final Path libraryFile = Paths.get(outputDirectory, speciesId + Constants.JSON_APPEND);
         final String paarLibraryName = speciesId + Constants.PAAR_APPEND;
         final String snparLibraryName = speciesId + Constants.SNPAR_APPEND;
         final Path paarFastaFile = Paths.get(outputDirectory, paarLibraryName + Constants.FASTA_APPEND);

@@ -22,7 +22,7 @@ public class ResistanceSearch<T> implements Function<String, T> {
   private final Collector<BlastMatch, ?, T> interpreter;
   private final OverlapRemover<BlastMatch> matchOverlapRemover;
   private final InputOptions searchOptions;
-  private Predicate<BlastMatch> blastMatchFilter;
+  private final Predicate<BlastMatch> blastMatchFilter;
 
   ResistanceSearch(final InputOptions searchOptions, final Collector<BlastMatch, ?, T> collector, final Predicate<BlastMatch> blastMatchFilter) {
     this.searchOptions = searchOptions;
