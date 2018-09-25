@@ -1752,292 +1752,292 @@ members = ["blaKPC26"]
 
 [[paar.sets]]
 name = "blaOXA387_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA387_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA387_NG"]
 
 [[paar.sets]]
 name = "blaOXA400_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA400_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA400_NG"]
 
 [[paar.sets]]
 name = "blaOXA401_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA401_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA401_NG"]
 
 [[paar.sets]]
 name = "blaOXA402_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA402_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA402_NG"]
 
 [[paar.sets]]
 name = "blaOXA403_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA403_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA403_NG"]
 
 [[paar.sets]]
 name = "blaOXA404_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA404_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA404_NG"]
 
 [[paar.sets]]
 name = "blaOXA406_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA406_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA406_NG"]
 
 [[paar.sets]]
 name = "blaOXA407_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA407_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA407_NG"]
 
 [[paar.sets]]
 name = "blaOXA408_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA408_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA408_NG"]
 
 [[paar.sets]]
 name = "blaOXA409_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA409_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA409_NG"]
 
 [[paar.sets]]
 name = "blaOXA411_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA411_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA411_NG"]
 
 [[paar.sets]]
 name = "blaOXA412_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA412_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA412_NG"]
 
 [[paar.sets]]
 name = "blaOXA413_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA413_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA413_NG"]
 
 [[paar.sets]]
 name = "blaOXA414_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA414_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA414_NG"]
 
 [[paar.sets]]
 name = "blaOXA416_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA416_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA416_NG"]
 
 [[paar.sets]]
 name = "blaOXA480_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA480_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA480_NG"]
 
 [[paar.sets]]
 name = "blaOXA436_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA436_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA436_NG"]
 
 [[paar.sets]]
 name = "blaOXA438_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA438_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA438_NG"]
 
 [[paar.sets]]
 name = "blaOXA441_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA441_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA441_NG"]
 
 [[paar.sets]]
 name = "blaOXA442_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA442_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA442_NG"]
 
 [[paar.sets]]
 name = "blaOXA497_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA497_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA497_NG"]
 
 [[paar.sets]]
 name = "blaOXA505_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA505_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA505_NG"]
 
 [[paar.sets]]
 name = "blaOXA507_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA507_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA507_NG"]
 
 [[paar.sets]]
 name = "blaOXA508_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA508_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA508_NG"]
 
 [[paar.sets]]
 name = "blaOXA509_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA509_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA509_NG"]
 
 [[paar.sets]]
 name = "blaOXA512_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA512_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA512_NG"]
 
 [[paar.sets]]
 name = "blaOXA516_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA516_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA516_NG"]
 
 [[paar.sets]]
 name = "blaOXA234_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA234_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA234_NG"]
 
 [[paar.sets]]
 name = "blaOXA252_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA252_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA252_NG"]
 
 [[paar.sets]]
 name = "blaOXA521_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA521_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA521_NG"]
 
 [[paar.sets]]
 name = "blaOXA121_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA121_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA121_NG"]
 
 [[paar.sets]]
 name = "blaOXA122_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA122_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA122_NG"]
 
 [[paar.sets]]
 name = "blaOXA123_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA123_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA123_NG"]
 
 [[paar.sets]]
 name = "blaOXA124_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA124_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA124_NG"]
 
 [[paar.sets]]
 name = "blaOXA125_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA125_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA125_NG"]
 
 [[paar.sets]]
 name = "blaOXA126_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA126_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA126_NG"]
 
 [[paar.sets]]
 name = "blaOXA127_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA127_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA127_NG"]
 
 [[paar.sets]]
 name = "blaOXA336_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA336_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA336_NG"]
 
 [[paar.sets]]
 name = "blaOXA337_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA337_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA337_NG"]
 
 [[paar.sets]]
 name = "blaOXA339_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA339_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA339_NG"]
 
 [[paar.sets]]
 name = "blaOXA340_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA340_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA340_NG"]
 
 [[paar.sets]]
 name = "blaOXA341_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA341_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA341_NG"]
 
 [[paar.sets]]
 name = "blaOXA342_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA342_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA342_NG"]
 
 [[paar.sets]]
 name = "blaOXA343_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA343_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA343_NG"]
 
 [[paar.sets]]
 name = "blaOXA344_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA344_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA344_NG"]
 
 [[paar.sets]]
 name = "blaOXA345_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA345_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA345_NG"]
 
 [[paar.sets]]
 name = "blaOXA346_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA346_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA346_NG"]
 
 [[paar.sets]]
 name = "blaOXA532_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA532_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA532_NG"]
 
 [[paar.sets]]
 name = "blaOXA531_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA531_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA531_NG"]
 
 [[paar.sets]]
 name = "blaOXA530_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA530_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA530_NG"]
 
 [[paar.sets]]
 name = "blaOXA529_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA529_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA529_NG"]
 
 [[paar.sets]]
 name = "blaOXA528_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA528_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA528_NG"]
 
 [[paar.sets]]
 name = "blaOXA527_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA527_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA527_NG"]
 
 [[paar.sets]]
 name = "blaOXA525_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA525_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA525_NG"]
 
 [[paar.sets]]
 name = "blaOXA524_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA524_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA524_NG"]
 
 [[paar.sets]]
 name = "blaOXA523_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA523_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA523_NG"]
 
 [[paar.sets]]
 name = "blaOXA511_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA511_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA511_NG"]
 
 [[paar.sets]]
 name = "blaOXA510_NG"
-phenotypes = [{effect = "RESISTANT", profile = ["blaOXA510_NG"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["IPM","MEM","ETP"], modifiers = []}]
 members = ["blaOXA510_NG"]
 
 [[paar.sets]]
