@@ -1,4 +1,4 @@
-"Gene","Name","Resistance","Group","Set","Effect","Effect","Resistance","Profile","PID","Threshold","Coverage","Threshold","Source"
+Gene Name,Resistance Group,Set Effect,Effect,Resistance Profile,PID Threshold,Coverage Threshold,Source
 "blaBIC1_1",,"RESISTANT","RESISTANCE","IPM,MEM,ETP",80,80,,,,,,,
 "blaDIM1_1",,"RESISTANT","RESISTANCE","IPM,MEM,ETP",80,80,,,,,,,
 "blaGES8_1",,"RESISTANT","RESISTANCE","IPM,MEM,ETP",80,80,,,,,,,
