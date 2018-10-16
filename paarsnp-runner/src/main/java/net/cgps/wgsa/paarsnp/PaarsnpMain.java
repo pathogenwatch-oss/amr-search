@@ -108,7 +108,7 @@ public class PaarsnpMain {
     final PaarsnpLibrary paarsnpLibrary = AbstractJsonnable.fromJsonFile(paarsnpLibraryFile.toFile(), PaarsnpLibrary.class);
 
     final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(speciesId, paarsnpLibrary.getPaar(), paarsnpLibrary.getSnpar(), paarsnpLibrary.getAntimicrobials(), resourceDirectory);
-    final Consumer<PaarsnpResult> resultWriter = this.getWriter(isToStdout, workingDirectory);
+    final Consumer<Result> resultWriter = this.getWriter(isToStdout, workingDirectory);
 
     // Run paarsnp on each assembly file.
     assemblyFiles
@@ -116,10 +116,11 @@ public class PaarsnpMain {
         .peek(assemblyFile -> this.logger.info("{}", assemblyFile.toString()))
         .map(paarsnpRunner)
         .peek(paarsnpResult -> this.logger.debug("{}", paarsnpResult.toPrettyJson()))
+        .map(result -> new ConvertResultFormat().apply(result))
         .forEach(resultWriter);
   }
 
-  private Consumer<PaarsnpResult> getWriter(final boolean isToStdout, final Path workingDirectory) {
+  private Consumer<Result> getWriter(final boolean isToStdout, final Path workingDirectory) {
 
     if (isToStdout) {
       return paarsnpResult -> {

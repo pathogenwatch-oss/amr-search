@@ -4,7 +4,7 @@ import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.paar.PaarCalculation;
-import net.cgps.wgsa.paarsnp.core.paar.PaarResult;
+import net.cgps.wgsa.paarsnp.core.paar.json.PaarResult;
 import net.cgps.wgsa.paarsnp.core.paar.json.Paar;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
 import net.cgps.wgsa.paarsnp.core.snpar.SnparCalculation;

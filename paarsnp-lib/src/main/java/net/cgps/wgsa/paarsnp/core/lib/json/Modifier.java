@@ -4,11 +4,12 @@ import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
 
 import java.util.Objects;
 
-public class Modifier {
+public class Modifier extends AbstractJsonnable {
 
   private final String name;
   private final ElementEffect effect;
 
+  @SuppressWarnings("unused")
   private Modifier() {
     this("", ElementEffect.MODIFIES_INDUCED);
   }

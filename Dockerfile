@@ -12,11 +12,11 @@ RUN mkdir /opt/blast \
 
 ENV PATH /opt/blast/bin:$PATH
 
-ADD *.sh /usr/local/bin/
-
-COPY settings.template.xml /root/.m2/settings.xml
-
-RUN /usr/local/bin/run_replace.sh
+#ADD *.sh /usr/local/bin/
+#
+#COPY settings.template.xml /root/.m2/settings.xml
+#
+#RUN /usr/local/bin/run_replace.sh
 
 RUN mkdir paarsnp-runner \
     && mkdir paarsnp-builder \

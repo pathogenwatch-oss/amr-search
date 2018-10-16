@@ -9,10 +9,10 @@ with open(sys.argv[1], 'r') as library_file:
 
 paar_profiles = defaultdict(set)
 
-for amr_set in library['paar']['sets']:
+for amr_set in library['snpar']['sets']:
     for phenotype in amr_set['phenotypes']:
         for am in phenotype['profile']:
-            paar_profiles[am].update(amr_set['members'])
+            paar_profiles[am].add(amr_set['name'])
 
 processed_paar = dict()
 
@@ -23,7 +23,7 @@ for am in paar_profiles:
 
 paarsnp_library = dict()
 
-paarsnp_library['paar'] = processed_paar
+paarsnp_library['snpar'] = processed_paar
 
 ams = list()
 
@@ -37,6 +37,6 @@ for am in library['antimicrobials']:
 
 paarsnp_library['antimicrobial'] = ams
 
-paarsnp_library['snpar'] = {}
+paarsnp_library['paar'] = {}
 
 print(json.dumps(paarsnp_library))

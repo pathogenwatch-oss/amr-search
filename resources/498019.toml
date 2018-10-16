@@ -14,23 +14,17 @@ members = [{gene="FUR1", variants=["F211I"]}]
 
 [[snpar.sets]]
 name = "FKS1_S639P"
-phenotypes = [{effect = "RESISTANT", profile = ["Micafungin"], modifiers = []},
-              {effect = "RESISTANT", profile = ["Caspofungin"], modifiers = []},
-              {effect = "RESISTANT", profile = ["Anidulafungin"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Micafungin", "Caspofungin", "Anidulafungin"], modifiers = []}]
 members = [{gene="FKS1", variants=["S639P"]}]
 
 [[snpar.sets]]
 name = "FKS1_S639F"
-phenotypes = [{effect = "RESISTANT", profile = ["Micafungin"], modifiers = []},
-              {effect = "RESISTANT", profile = ["Caspofungin"], modifiers = []},
-              {effect = "RESISTANT", profile = ["Anidulafungin"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Micafungin", "Caspofungin", "Anidulafungin"], modifiers = []}]
 members = [{gene="FKS1", variants=["S639F"]}]
 
 [[snpar.sets]]
 name = "FKS1_S639Y"
-phenotypes = [{effect = "RESISTANT", profile = ["Micafungin"], modifiers = []},
-              {effect = "RESISTANT", profile = ["Caspofungin"], modifiers = []},
-              {effect = "RESISTANT", profile = ["Anidulafungin"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Micafungin", "Caspofungin", "Anidulafungin"], modifiers = []}]
 members = [{gene="FKS1", variants=["S639Y"]}]
 
 [[snpar.sets]]

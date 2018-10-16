@@ -1,28 +1,25 @@
-package net.cgps.wgsa.paarsnp.core.paar;
+package net.cgps.wgsa.paarsnp.core.paar.json;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
-import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
+import net.cgps.wgsa.paarsnp.core.lib.json.OldStyleSetDescription;
 
 import java.util.*;
 
-/**
- * Document class for storing the P/A AR result for an assembly. AR genes come in sets, which are required to be complete (all found in the query assembly) in order to confer resistance.
- */
-public class PaarResult extends AbstractJsonnable {
+public class OldStylePaarResult extends AbstractJsonnable {
 
   private final Collection<String> paarElementIds;
-  private final Collection<ResistanceSet> completeResistanceSets; // set ID -> resistance Gene
-  private final Collection<ResistanceSet> partialResistanceSets; // set ID -> resistance Gene
+  private final Collection<OldStyleSetDescription> completeResistanceSets; // set ID -> resistance Gene
+  private final Collection<OldStyleSetDescription> partialResistanceSets; // set ID -> resistance Gene
   private final Map<String, List<BlastSearchStatistics>> blastMatches;
 
   @SuppressWarnings("unused")
-  private PaarResult() {
+  private OldStylePaarResult() {
 
     this(Collections.emptyList(), Collections.emptyList(), Collections.emptyMap(), Collections.emptyList());
   }
 
-  public PaarResult(final Collection<ResistanceSet> completeResistanceSets, final Collection<ResistanceSet> partialResistanceSets, final Map<String, List<BlastSearchStatistics>> blastMatches, final Collection<String> paarElementIds) {
+  public OldStylePaarResult(final Collection<OldStyleSetDescription> completeResistanceSets, final Collection<OldStyleSetDescription> partialResistanceSets, final Map<String, List<BlastSearchStatistics>> blastMatches, final Collection<String> paarElementIds) {
 
     this.completeResistanceSets = new ArrayList<>(completeResistanceSets);
     this.partialResistanceSets = new ArrayList<>(partialResistanceSets);
@@ -30,8 +27,8 @@ public class PaarResult extends AbstractJsonnable {
     this.paarElementIds = paarElementIds;
   }
 
-  public static PaarResult buildEmpty() {
-    return new PaarResult();
+  public static OldStylePaarResult buildEmpty() {
+    return new OldStylePaarResult();
   }
 
   @SuppressWarnings("unused") // for json serialisation.
@@ -40,13 +37,13 @@ public class PaarResult extends AbstractJsonnable {
     return this.blastMatches;
   }
 
-  public Collection<ResistanceSet> getCompleteResistanceSets() {
+  public Collection<OldStyleSetDescription> getCompleteResistanceSets() {
 
     return this.completeResistanceSets;
   }
 
   @SuppressWarnings("unused") // for json serialisation.
-  public Collection<ResistanceSet> getPartialResistanceSets() {
+  public Collection<OldStyleSetDescription> getPartialResistanceSets() {
 
     return this.partialResistanceSets;
   }
@@ -56,4 +53,5 @@ public class PaarResult extends AbstractJsonnable {
 
     return this.paarElementIds;
   }
+
 }

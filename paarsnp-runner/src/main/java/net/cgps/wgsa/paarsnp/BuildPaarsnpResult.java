@@ -5,7 +5,7 @@ import net.cgps.wgsa.paarsnp.core.lib.PhenotypeEffect;
 import net.cgps.wgsa.paarsnp.core.lib.ProfileAggregator;
 import net.cgps.wgsa.paarsnp.core.lib.ResistanceState;
 import net.cgps.wgsa.paarsnp.core.lib.json.*;
-import net.cgps.wgsa.paarsnp.core.paar.PaarResult;
+import net.cgps.wgsa.paarsnp.core.paar.json.PaarResult;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,14 +41,14 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
     final ProfileAggregator profileAggregator = new ProfileAggregator(this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> ResistanceState.NOT_FOUND)));
     final Map<String, Collection<String>> resistanceSets = this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> new ArrayList<>()));
 
-    final Predicate<Modifier> paarModSelector = modifier -> paarsnpResultData.paarResult.getBlastMatches().containsKey(modifier.getName());
+    final Predicate<Modifier> modifyingSequencePresent = modifier -> paarsnpResultData.paarResult.getBlastMatches().containsKey(modifier.getName());
     // Modifiers currently not supported for SNPAR
-    final Predicate<Modifier> selector = modifier -> false;
+    final Predicate<Modifier> modifyingSnpPresent = modifier -> paarsnpResultData.snparResult.getBlastMatches().c;
 
     // Start with resolving PAAR
     paarsnpResultData.paarResult.getCompleteResistanceSets()
         .forEach(resistanceSet -> resistanceSet.getPhenotypes()
-            .forEach(phenotype -> this.determineResistanceState(phenotype, paarModSelector, Completeness.COMPLETE)
+            .forEach(phenotype -> this.determineResistanceState(phenotype, modifyingSequencePresent, Completeness.COMPLETE)
                 .forEach(agentToNewState -> {
                   this.logger.debug("{} {}", agentToNewState.getKey(), agentToNewState.getValue().name());
                   final Optional<Collection<String>> setOpt = Optional.ofNullable(resistanceSets.get(agentToNewState.getKey()));
@@ -60,7 +60,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
 
     paarsnpResultData.paarResult.getPartialResistanceSets()
         .forEach(resistanceSet -> resistanceSet.getPhenotypes()
-            .forEach(phenotype -> this.determineResistanceState(phenotype, paarModSelector, Completeness.PARTIAL)
+            .forEach(phenotype -> this.determineResistanceState(phenotype, modifyingSequencePresent, Completeness.PARTIAL)
                 .forEach(agentToNewState -> {
                   // Only add to the sets if it can impact resistance
                   if (ResistanceState.NOT_FOUND != agentToNewState.getValue()) {
@@ -72,7 +72,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
     // Now add SNPAR
     paarsnpResultData.snparResult.getCompleteSets()
         .forEach(resistanceSet -> resistanceSet.getPhenotypes()
-            .forEach(phenotype -> this.determineResistanceState(phenotype, selector, Completeness.COMPLETE)
+            .forEach(phenotype -> this.determineResistanceState(phenotype, modifyingSnpPresent, Completeness.COMPLETE)
                 .forEach(agentToNewState -> {
                   resistanceSets.get(agentToNewState.getKey()).add(resistanceSet.getName());
                   profileAggregator.addPhenotype(agentToNewState.getKey(), agentToNewState.getValue());
@@ -81,7 +81,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
 
     paarsnpResultData.snparResult.getPartialSets()
         .forEach(resistanceSet -> resistanceSet.getPhenotypes()
-            .forEach(phenotype -> this.determineResistanceState(phenotype, selector, Completeness.PARTIAL)
+            .forEach(phenotype -> this.determineResistanceState(phenotype, modifyingSnpPresent, Completeness.PARTIAL)
                 .forEach(agentToNewState -> {
                   // Only add to the sets if it can impact resistance, as above
                   if (ResistanceState.NOT_FOUND != agentToNewState.getValue()) {

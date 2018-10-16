@@ -11,7 +11,7 @@ import java.io.StringWriter;
 /**
  * The base class for Jsonnable objects. Provides JSON serialisation/deserialisation
  */
-public abstract class AbstractJsonnable {
+public abstract class AbstractJsonnable implements Jsonnable {
 
   @Override
   public String toString() {
@@ -24,7 +24,7 @@ public abstract class AbstractJsonnable {
    * @param jsonnableObject - an object that conforms to the Jackson requirements for serialisation.
    * @return A pretty representation of the JSON string.
    */
-  public static String toPrettyJson(final AbstractJsonnable jsonnableObject) {
+  public static String toPrettyJson(final Jsonnable jsonnableObject) {
 
     final ObjectMapper mapper = new ObjectMapper();
 
@@ -42,11 +42,13 @@ public abstract class AbstractJsonnable {
   }
 
   @JsonIgnore
+  @Override
   public final String toJson() {
 
     return toJson(this);
   }
 
+  @Override
   public final String toPrettyJson() {
 
     return toPrettyJson(this);
