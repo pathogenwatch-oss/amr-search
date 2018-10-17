@@ -11,18 +11,20 @@ public class OldStylePaarResult extends AbstractJsonnable {
   private final Collection<String> paarElementIds;
   private final Collection<OldStyleSetDescription> completeResistanceSets; // set ID -> resistance Gene
   private final Collection<OldStyleSetDescription> partialResistanceSets; // set ID -> resistance Gene
+  private final Collection<OldStyleSetDescription> modifiedResistanceSets;
   private final Map<String, List<BlastSearchStatistics>> blastMatches;
 
   @SuppressWarnings("unused")
   private OldStylePaarResult() {
 
-    this(Collections.emptyList(), Collections.emptyList(), Collections.emptyMap(), Collections.emptyList());
+    this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyMap(), Collections.emptyList());
   }
 
-  public OldStylePaarResult(final Collection<OldStyleSetDescription> completeResistanceSets, final Collection<OldStyleSetDescription> partialResistanceSets, final Map<String, List<BlastSearchStatistics>> blastMatches, final Collection<String> paarElementIds) {
+  public OldStylePaarResult(final Collection<OldStyleSetDescription> completeResistanceSets, final Collection<OldStyleSetDescription> partialResistanceSets, final Collection<OldStyleSetDescription> modifiedResistanceSets, final Map<String, List<BlastSearchStatistics>> blastMatches, final Collection<String> paarElementIds) {
 
     this.completeResistanceSets = new ArrayList<>(completeResistanceSets);
     this.partialResistanceSets = new ArrayList<>(partialResistanceSets);
+    this.modifiedResistanceSets = modifiedResistanceSets;
     this.blastMatches = new HashMap<>(blastMatches);
     this.paarElementIds = paarElementIds;
   }
@@ -54,4 +56,7 @@ public class OldStylePaarResult extends AbstractJsonnable {
     return this.paarElementIds;
   }
 
+  public Collection<OldStyleSetDescription> getModifiedResistanceSets() {
+    return this.modifiedResistanceSets;
+  }
 }

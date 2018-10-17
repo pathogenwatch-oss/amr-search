@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,85 +32,65 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
   @Override
   public PaarsnpResult apply(final PaarsnpResultData paarsnpResultData) {
 
-    this.logger.debug("Building net.cgps.wgsa.paarsnp result from match data for assemblyId={}", paarsnpResultData.assemblyId);
+    this.logger.debug("Building paarsnp result from match data for assemblyId={}", paarsnpResultData.assemblyId);
 
     // Now build the profiles.
-//    final Map<String, AntibioticProfile> antibioticProfiles = new LinkedHashMap<>(50);
+    final ProfileAggregator profileAggregator = ProfileAggregator.initialise(this.agents);
 
-    final ProfileAggregator profileAggregator = new ProfileAggregator(this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> ResistanceState.NOT_FOUND)));
     final Map<String, Collection<String>> resistanceSets = this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> new ArrayList<>()));
 
-    final Predicate<Modifier> modifyingSequencePresent = modifier -> paarsnpResultData.paarResult.getBlastMatches().containsKey(modifier.getName());
-    // Modifiers currently not supported for SNPAR
-    final Predicate<Modifier> modifyingSnpPresent = modifier -> paarsnpResultData.snparResult.getBlastMatches().c;
-
     // Start with resolving PAAR
-    paarsnpResultData.paarResult.getCompleteResistanceSets()
-        .forEach(resistanceSet -> resistanceSet.getPhenotypes()
-            .forEach(phenotype -> this.determineResistanceState(phenotype, modifyingSequencePresent, Completeness.COMPLETE)
-                .forEach(agentToNewState -> {
-                  this.logger.debug("{} {}", agentToNewState.getKey(), agentToNewState.getValue().name());
-                  final Optional<Collection<String>> setOpt = Optional.ofNullable(resistanceSets.get(agentToNewState.getKey()));
-                  setOpt.ifPresent(set -> {
-                    set.add(resistanceSet.getName());
-                    profileAggregator.addPhenotype(agentToNewState.getKey(), agentToNewState.getValue());
-                  });
-                })));
+    paarsnpResultData.paarResult.getSetResults()
+        .forEach(setResult -> {
 
-    paarsnpResultData.paarResult.getPartialResistanceSets()
-        .forEach(resistanceSet -> resistanceSet.getPhenotypes()
-            .forEach(phenotype -> this.determineResistanceState(phenotype, modifyingSequencePresent, Completeness.PARTIAL)
-                .forEach(agentToNewState -> {
-                  // Only add to the sets if it can impact resistance
-                  if (ResistanceState.NOT_FOUND != agentToNewState.getValue()) {
-                    resistanceSets.get(agentToNewState.getKey()).add(resistanceSet.getName());
-                  }
-                  profileAggregator.addPhenotype(agentToNewState.getKey(), agentToNewState.getValue());
-                })));
+          final Completeness completeness = setResult.getFoundMembers().size() == setResult.getSet().getMembers().size() ? Completeness.COMPLETE : Completeness.PARTIAL;
 
-    // Now add SNPAR
-    paarsnpResultData.snparResult.getCompleteSets()
-        .forEach(resistanceSet -> resistanceSet.getPhenotypes()
-            .forEach(phenotype -> this.determineResistanceState(phenotype, modifyingSnpPresent, Completeness.COMPLETE)
-                .forEach(agentToNewState -> {
-                  resistanceSets.get(agentToNewState.getKey()).add(resistanceSet.getName());
-                  profileAggregator.addPhenotype(agentToNewState.getKey(), agentToNewState.getValue());
-                })));
+          setResult.getSet().getPhenotypes()
+              .forEach(phenotype -> this.determineResistanceState(
+                  phenotype,
+                  phenotype.getModifiers().stream().filter(modifier -> setResult.getFoundModifiers().contains(modifier.getName())).collect(Collectors.toList()),
+                  completeness)
+                  .forEach(agentState -> {
+                    this.logger.debug("{} {}", agentState.getKey(), agentState.getValue().name());
+                    resistanceSets.get(agentState.getKey()).add(setResult.getSet().getName());
+                    profileAggregator.addPhenotype(agentState.getKey(), agentState.getValue());
+                  }));
+        });
 
+    // Then add the SNPAR result
+    paarsnpResultData.snparResult.getSetResults()
+        .forEach(setResult -> {
 
-    paarsnpResultData.snparResult.getPartialSets()
-        .forEach(resistanceSet -> resistanceSet.getPhenotypes()
-            .forEach(phenotype -> this.determineResistanceState(phenotype, modifyingSnpPresent, Completeness.PARTIAL)
-                .forEach(agentToNewState -> {
-                  // Only add to the sets if it can impact resistance, as above
-                  if (ResistanceState.NOT_FOUND != agentToNewState.getValue()) {
-                    resistanceSets.get(agentToNewState.getKey()).add(resistanceSet.getName());
-                  }
-                  profileAggregator.addPhenotype(agentToNewState.getKey(), agentToNewState.getValue());
-                })));
+          final Completeness completeness = setResult.getFoundMembers().size() == setResult.getSet().getMembers().size() ? Completeness.COMPLETE : Completeness.PARTIAL;
+
+          setResult.getSet().getPhenotypes()
+              .forEach(phenotype -> this.determineResistanceState(
+                  phenotype,
+                  phenotype.getModifiers().stream().filter(modifier -> setResult.getFoundModifiers().contains(modifier.getName())).collect(Collectors.toList()),
+                  completeness)
+              );
+        });
 
     // Work out the profile in the specified order
     final Collection<AntibioticProfile> antibioticProfiles = paarsnpResultData.referenceProfile
         .stream()
-        .map(agent -> {
-          Collection<ResistanceSet> combinedSets = resistanceSets.get(agent)
-              .stream()
-              .map(this.resistanceSetMap::get)
-              .collect(Collectors.toList());
-          return new AntibioticProfile(this.agents.get(agent), profileAggregator.getProfileMap().get(agent), combinedSets);
-        })
+        .map(agent -> new AntibioticProfile(
+            this.agents.get(agent),
+            profileAggregator.getProfileMap().get(agent),
+            resistanceSets.get(agent)
+                .stream()
+                .map(this.resistanceSetMap::get)
+                .collect(Collectors.toList())))
         .collect(Collectors.toList());
 
     // Sorts the profile and adds the antibiotics with no matches.
     return new PaarsnpResult(paarsnpResultData.assemblyId, paarsnpResultData.snparResult, paarsnpResultData.paarResult, antibioticProfiles);
   }
 
-  private Stream<Map.Entry<String, ResistanceState>> determineResistanceState(final Phenotype phenotype, final Predicate<Modifier> selector, final BuildPaarsnpResult.Completeness completeness) {
+  private Stream<Map.Entry<String, ResistanceState>> determineResistanceState(final Phenotype phenotype, final List<Modifier> phenotypeModifiers, final BuildPaarsnpResult.Completeness completeness) {
 
-    final ElementEffect modifierEffect = phenotype.getModifiers()
-        .stream()
-        .filter(selector)
-        .findFirst()
+    // NB At the moment only the first modifier is dealt with (assumes only one allowed modifier at a time)
+    final ElementEffect modifierEffect = Optional.ofNullable(phenotypeModifiers.get(0))
         .orElse(DEFAULT_MODIFIER).getEffect();
 
     return phenotype.getProfile()

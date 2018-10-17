@@ -1,8 +1,8 @@
 package net.cgps.wgsa.paarsnp.core.paar.json;
 
+import net.cgps.wgsa.paarsnp.core.lib.SetResult;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
-import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 
 import java.util.*;
 
@@ -12,20 +12,17 @@ import java.util.*;
 public class PaarResult extends AbstractJsonnable {
 
   private final Collection<String> paarElementIds;
-  private final Collection<ResistanceSet> completeResistanceSets; // set ID -> resistance Gene
-  private final Collection<ResistanceSet> partialResistanceSets; // set ID -> resistance Gene
+  private final Collection<SetResult> setResults;
   private final Map<String, List<BlastSearchStatistics>> blastMatches;
 
   @SuppressWarnings("unused")
   private PaarResult() {
 
-    this(Collections.emptyList(), Collections.emptyList(), Collections.emptyMap(), Collections.emptyList());
+    this(Collections.emptyList(), Collections.emptyMap(), Collections.emptyList());
   }
 
-  public PaarResult(final Collection<ResistanceSet> completeResistanceSets, final Collection<ResistanceSet> partialResistanceSets, final Map<String, List<BlastSearchStatistics>> blastMatches, final Collection<String> paarElementIds) {
-
-    this.completeResistanceSets = new ArrayList<>(completeResistanceSets);
-    this.partialResistanceSets = new ArrayList<>(partialResistanceSets);
+  public PaarResult(final Collection<SetResult> setResults, final Map<String, List<BlastSearchStatistics>> blastMatches, final Collection<String> paarElementIds) {
+    this.setResults = setResults;
     this.blastMatches = new HashMap<>(blastMatches);
     this.paarElementIds = paarElementIds;
   }
@@ -40,20 +37,13 @@ public class PaarResult extends AbstractJsonnable {
     return this.blastMatches;
   }
 
-  public Collection<ResistanceSet> getCompleteResistanceSets() {
-
-    return this.completeResistanceSets;
-  }
-
-  @SuppressWarnings("unused") // for json serialisation.
-  public Collection<ResistanceSet> getPartialResistanceSets() {
-
-    return this.partialResistanceSets;
-  }
-
   @SuppressWarnings("unused")
   public Collection<String> getPaarElementIds() {
 
     return this.paarElementIds;
+  }
+
+  public Collection<SetResult> getSetResults() {
+    return this.setResults;
   }
 }

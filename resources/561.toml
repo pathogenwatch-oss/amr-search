@@ -2722,7 +2722,7 @@ members = ["blaCTX-M-38_1"]
 
 [[paar.sets]]
 name = "blaCTX-M-14_1"
-phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CFO","FEP","FOX"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["CAZ","CRO","FEP","FOX"], modifiers = []}]
 members = ["blaCTX-M-14_1"]
 
 [[paar.sets]]
