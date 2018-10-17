@@ -34,7 +34,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, OldStylePaar
     final Set<String> seenSnparSets = snparModifiedSets.stream().map(OldStyleSetDescription::getResistanceSetName).collect(Collectors.toSet());
 
     final List<OldStyleSetDescription> snparCompleteSets = paarsnpResult.getSnparResult().getSetResults().stream()
-        .filter(setResult -> seenSnparSets.contains(setResult.getSet().getName()))
+        .filter(setResult -> !seenSnparSets.contains(setResult.getSet().getName()))
         .filter(setResult -> setResult.getFoundMembers().size() == this.countSnparSetSize(setResult.getSet()))
         .map(SetResult::getSet)
         .flatMap(convertSetFormat)
@@ -58,8 +58,8 @@ public class ConvertResultFormat implements Function<PaarsnpResult, OldStylePaar
     final Set<String> seenPaarSets = paarModifiedSets.stream().map(OldStyleSetDescription::getResistanceSetName).collect(Collectors.toSet());
 
     final List<OldStyleSetDescription> paarCompleteSets = paarsnpResult.getPaarResult().getSetResults().stream()
+        .filter(setResult -> !seenPaarSets.contains(setResult.getSet().getName()))
         .filter(setResult -> setResult.getFoundMembers().size() == setResult.getSet().getMembers().size())
-        .filter(setResult -> seenPaarSets.contains(setResult.getSet().getName()))
         .map(SetResult::getSet)
         .flatMap(convertSetFormat)
         .collect(Collectors.toList());

@@ -1,6 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.lib.json;
 
 import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
+import net.cgps.wgsa.paarsnp.core.lib.PhenotypeEffect;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 public class OldStyleSetDescription extends AbstractJsonnable {
 
+  private final PhenotypeEffect effect;
   private final String resistanceSetName;
   private final Collection<String> agents;
   private final Collection<String> elementIds;
@@ -15,10 +17,11 @@ public class OldStyleSetDescription extends AbstractJsonnable {
 
   @SuppressWarnings("unused")
   private OldStyleSetDescription() {
-    this("", Collections.emptyList(), Collections.emptyList(), Collections.emptyMap());
+    this(PhenotypeEffect.RESISTANT, "", Collections.emptyList(), Collections.emptyList(), Collections.emptyMap());
   }
 
-  public OldStyleSetDescription(final String resistanceSetName, final Collection<String> agents, final Collection<String> elementIds, final Map<String, ElementEffect> modifiers) {
+  public OldStyleSetDescription(final PhenotypeEffect effect, final String resistanceSetName, final Collection<String> agents, final Collection<String> elementIds, final Map<String, ElementEffect> modifiers) {
+    this.effect = effect;
     this.resistanceSetName = resistanceSetName;
     this.agents = agents;
     this.elementIds = elementIds;
@@ -39,5 +42,9 @@ public class OldStyleSetDescription extends AbstractJsonnable {
 
   public Map<String, ElementEffect> getModifiers() {
     return this.modifiers;
+  }
+
+  public PhenotypeEffect getEffect() {
+    return this.effect;
   }
 }

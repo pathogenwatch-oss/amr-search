@@ -41,6 +41,8 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
 
     // Start with resolving PAAR
     paarsnpResultData.paarResult.getSetResults()
+        .stream()
+        .filter(setResult -> !setResult.getFoundMembers().isEmpty())
         .forEach(setResult -> {
 
           final Completeness completeness = setResult.getFoundMembers().size() == setResult.getSet().getMembers().size() ? Completeness.COMPLETE : Completeness.PARTIAL;
@@ -59,6 +61,8 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
 
     // Then add the SNPAR result
     paarsnpResultData.snparResult.getSetResults()
+        .stream()
+        .filter(setResult -> !setResult.getFoundMembers().isEmpty())
         .forEach(setResult -> {
 
           final Completeness completeness = setResult.getFoundMembers().size() == setResult.getSet().getMembers().size() ? Completeness.COMPLETE : Completeness.PARTIAL;
@@ -90,8 +94,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
   private Stream<Map.Entry<String, ResistanceState>> determineResistanceState(final Phenotype phenotype, final List<Modifier> phenotypeModifiers, final BuildPaarsnpResult.Completeness completeness) {
 
     // NB At the moment only the first modifier is dealt with (assumes only one allowed modifier at a time)
-    final ElementEffect modifierEffect = Optional.ofNullable(phenotypeModifiers.get(0))
-        .orElse(DEFAULT_MODIFIER).getEffect();
+    final ElementEffect modifierEffect = phenotypeModifiers.isEmpty() ? ElementEffect.RESISTANCE : phenotypeModifiers.get(0).getEffect();
 
     return phenotype.getProfile()
         .stream()
