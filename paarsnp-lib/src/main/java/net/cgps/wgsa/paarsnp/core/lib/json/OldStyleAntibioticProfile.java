@@ -5,9 +5,9 @@ import net.cgps.wgsa.paarsnp.core.lib.ResistanceState;
 import java.util.Collection;
 import java.util.Collections;
 
-public class OldStyleAntibioticProfile extends AbstractJsonnable{
+public class OldStyleAntibioticProfile extends AbstractJsonnable {
 
-  private final AntimicrobialAgent name;
+  private final OldStyleAntimicrobialAgent name;
   private final ResistanceState resistanceState;
   private final Collection<OldStyleSetDescription> resistanceSets;
 
@@ -19,7 +19,7 @@ public class OldStyleAntibioticProfile extends AbstractJsonnable{
 
   public OldStyleAntibioticProfile(final AntimicrobialAgent name, final ResistanceState resistanceState, final Collection<OldStyleSetDescription> resistanceSets) {
 
-    this.name = name;
+    this.name = new OldStyleAntimicrobialAgent(name.getKey(), name.getName(), name.getType());
     this.resistanceState = resistanceState;
     this.resistanceSets = resistanceSets;
   }
@@ -34,7 +34,7 @@ public class OldStyleAntibioticProfile extends AbstractJsonnable{
     return this.resistanceSets;
   }
 
-  public AntimicrobialAgent getAgent() {
+  public OldStyleAntimicrobialAgent getAgent() {
 
     return this.name;
   }
