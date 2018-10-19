@@ -74,10 +74,7 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
               .stream()
               .map(match -> new MatchJson(
                   match.getSearchStatistics(),
-                  match.getSnpResistanceElements()
-                      .stream()
-                      .map(ResistanceMutation::getName)
-                      .collect(Collectors.toList())))
+                  match.getSnpResistanceElements()))
               .collect(Collectors.toList())
       );
     };

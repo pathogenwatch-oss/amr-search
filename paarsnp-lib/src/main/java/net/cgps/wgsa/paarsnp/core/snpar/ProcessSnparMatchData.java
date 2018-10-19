@@ -2,6 +2,7 @@ package net.cgps.wgsa.paarsnp.core.snpar;
 
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.snpar.json.ResistanceMutation;
+import net.cgps.wgsa.paarsnp.core.snpar.json.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparMatchData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,7 @@ public class ProcessSnparMatchData implements Function<SnparMatchData, ProcessSn
 
     final Set<String> seenIds = snparMatchData.getSnpResistanceElements()
         .stream()
+        .map(ResistanceMutationMatch::getResistanceMutation)
         .map(ResistanceMutation::getName)
         .collect(Collectors.toSet());
 

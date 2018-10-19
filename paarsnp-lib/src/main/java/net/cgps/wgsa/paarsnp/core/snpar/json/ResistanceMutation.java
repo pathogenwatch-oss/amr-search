@@ -12,7 +12,7 @@ public class ResistanceMutation extends AbstractJsonnable {
   private final String name;
   private final String referenceId;
   private final char originalSequence;
-  private final int repLocation;
+  private final int referenceLocation;
   private final char mutationSequence;
   private final int aaLocation;
 
@@ -22,12 +22,12 @@ public class ResistanceMutation extends AbstractJsonnable {
     this("", "", 'A', 0, 'T', "", 0);
   }
 
-  public ResistanceMutation(final String name, final String referenceId, final char originalSequence, final int repLocation, final char mutationSequence, final String source, final int aaLocation) {
+  public ResistanceMutation(final String name, final String referenceId, final char originalSequence, final int referenceLocation, final char mutationSequence, final String source, final int aaLocation) {
     // NB for the SNP archive the query location is the same as the representative location.
     this.name = name;
     this.referenceId = referenceId;
     this.originalSequence = originalSequence;
-    this.repLocation = repLocation;
+    this.referenceLocation = referenceLocation;
     this.mutationSequence = mutationSequence;
     this.source = source;
     this.aaLocation = aaLocation;
@@ -43,8 +43,8 @@ public class ResistanceMutation extends AbstractJsonnable {
     return this.originalSequence;
   }
 
-  public int getRepLocation() {
-    return this.repLocation;
+  public int getReferenceLocation() {
+    return this.referenceLocation;
   }
 
   public char getMutationSequence() {
@@ -66,7 +66,7 @@ public class ResistanceMutation extends AbstractJsonnable {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ResistanceMutation that = (ResistanceMutation) o;
-    return repLocation == that.repLocation &&
+    return referenceLocation == that.referenceLocation &&
         Objects.equals(source, that.source) &&
         Objects.equals(name, that.name) &&
         Objects.equals(referenceId, that.referenceId) &&
@@ -77,7 +77,7 @@ public class ResistanceMutation extends AbstractJsonnable {
   @Override
   public int hashCode() {
 
-    return Objects.hash(source, name, referenceId, originalSequence, repLocation, mutationSequence);
+    return Objects.hash(source, name, referenceId, originalSequence, referenceLocation, mutationSequence);
   }
 
   @SuppressWarnings("unused")

@@ -7,17 +7,17 @@ import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
  * Factory class for building mutations. Handles positioning on reverse matches etc.
  */
 public class MutationBuilder {
+
   /**
-   * Building resets the builder so it can be used to build another mutation.
    *
    * @return the mutation as configured by the builder.
    */
   public Mutation build(final char querySequence, final char referenceSequence, final Mutation.MutationType mutationType, final int queryLocation, final int referenceLocation, final DnaSequence.Strand strand) {
 
-    return new Mutation(mutationType, queryLocation, this.determineSequence(querySequence, strand), this.determineSequence(referenceSequence, strand), this.determineActualLocation(referenceLocation, mutationType, strand));
+    return new Mutation(mutationType, queryLocation, this.determineSequence(querySequence), this.determineSequence(referenceSequence), this.determineActualLocation(referenceLocation, mutationType, strand));
   }
 
-  private char determineSequence(final char sequence, final DnaSequence.Strand strand) {
+  private char determineSequence(final char sequence) {
 
     return Character.toUpperCase(sequence);
   }
