@@ -13,19 +13,20 @@ public class ResistanceMutation {
 
   private final String name;
   private final char originalSequence;
-  private final int repLocation;
+  private final int referenceLocation;
   private final char mutationSequence;
   private final int aaLocation;
 
+  @SuppressWarnings("unused")
   private ResistanceMutation() {
     this("", '0', 0, '0', 0);
   }
 
-  public ResistanceMutation(final String name, final char originalSequence, final int repLocation, final char mutationSequence, final int aaLocation) {
+  public ResistanceMutation(final String name, final char originalSequence, final int referenceLocation, final char mutationSequence, final int aaLocation) {
     // NB for the SNP archive the query location is the same as the representative location.
     this.name = name;
     this.originalSequence = originalSequence;
-    this.repLocation = repLocation;
+    this.referenceLocation = referenceLocation;
     this.mutationSequence = mutationSequence;
     this.aaLocation = aaLocation;
   }
@@ -59,8 +60,8 @@ public class ResistanceMutation {
     };
   }
 
-  public int getRepLocation() {
-    return this.repLocation;
+  public int getReferenceLocation() {
+    return this.referenceLocation;
   }
 
   public char getMutationSequence() {
@@ -86,7 +87,7 @@ public class ResistanceMutation {
     if (o == null || this.getClass() != o.getClass()) return false;
     final ResistanceMutation that = (ResistanceMutation) o;
     return this.originalSequence == that.originalSequence &&
-        this.repLocation == that.repLocation &&
+        this.referenceLocation == that.referenceLocation &&
         this.mutationSequence == that.mutationSequence &&
         this.aaLocation == that.aaLocation &&
         Objects.equals(this.name, that.name);
@@ -94,6 +95,6 @@ public class ResistanceMutation {
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.name, this.originalSequence, this.repLocation, this.mutationSequence, this.aaLocation);
+    return Objects.hash(this.name, this.originalSequence, this.referenceLocation, this.mutationSequence, this.aaLocation);
   }
 }

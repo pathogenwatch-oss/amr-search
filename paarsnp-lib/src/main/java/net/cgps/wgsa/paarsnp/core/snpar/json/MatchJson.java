@@ -7,9 +7,9 @@ import java.util.Collection;
 public class MatchJson {
 
   private final BlastSearchStatistics searchStatistics;
-  private final Collection<SnpResistanceElement> snpResistanceElements;
+  private final Collection<ResistanceMutationMatch> snpResistanceElements;
 
-  public MatchJson(final BlastSearchStatistics searchStatistics, final Collection<String> snpResistanceElements) {
+  public MatchJson(final BlastSearchStatistics searchStatistics, final Collection<ResistanceMutationMatch> snpResistanceElements) {
     this.searchStatistics = searchStatistics;
     this.snpResistanceElements = snpResistanceElements;
   }
@@ -20,7 +20,7 @@ public class MatchJson {
     return this.searchStatistics;
   }
 
-  public Collection<String> getSnpResistanceElements() {
+  public Collection<ResistanceMutationMatch> getSnpResistanceElements() {
     return this.snpResistanceElements;
   }
 }

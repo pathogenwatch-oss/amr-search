@@ -4,7 +4,6 @@ import net.cgps.wgsa.paarsnp.core.lib.SetResult;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.json.Modifier;
 import net.cgps.wgsa.paarsnp.core.lib.json.Phenotype;
-import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.snpar.json.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,7 +73,8 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
                         .stream()
                         .map(match -> match.getSnpResistanceElements()
                             .stream()
-                            .filter(mutation -> member.getVariants().contains(mutation.getName()))
+                            .filter(mutation -> member.getVariants().contains(mutation.getResistanceMutation().getName()))
+                            .map(ResistanceMutationMatch::getResistanceMutation)
                             .map(ResistanceMutation::getName)
                             .map(snp -> member.getGene() + "_" + snp)
                             .collect(Collectors.toList()))
@@ -141,12 +141,7 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
           setResults,
           selectedMatches
               .stream()
-              .map(match -> new MatchJson(
-                  match.getSearchStatistics(),
-                  match.getSnpResistanceElements()
-                      .stream()
-                      .map(ResistanceMutation::getName)
-                      .collect(Collectors.toList())))
+              .map(match -> new MatchJson(match.getSearchStatistics(), match.getSnpResistanceElements()))
               .collect(Collectors.toList())
       );
     };
