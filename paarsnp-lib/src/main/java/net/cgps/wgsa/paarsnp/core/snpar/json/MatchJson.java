@@ -7,7 +7,7 @@ import java.util.Collection;
 public class MatchJson {
 
   private final BlastSearchStatistics searchStatistics;
-  private final Collection<String> snpResistanceElements;
+  private final Collection<SnpResistanceElement> snpResistanceElements;
 
   public MatchJson(final BlastSearchStatistics searchStatistics, final Collection<String> snpResistanceElements) {
     this.searchStatistics = searchStatistics;
