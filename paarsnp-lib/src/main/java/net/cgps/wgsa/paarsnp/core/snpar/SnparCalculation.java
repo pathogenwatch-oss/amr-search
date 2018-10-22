@@ -22,7 +22,7 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
   private final SnparLibrary snparLibrary;
   private final ProcessVariants processVariants;
 
-  public SnparCalculation(final SnparLibrary snparLibrary, ProcessVariants processVariants) {
+  public SnparCalculation(final SnparLibrary snparLibrary, final ProcessVariants processVariants) {
 
     this.snparLibrary = snparLibrary;
     this.processVariants = processVariants;
