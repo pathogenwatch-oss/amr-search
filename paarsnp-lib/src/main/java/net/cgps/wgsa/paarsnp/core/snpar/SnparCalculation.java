@@ -93,48 +93,6 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
               set
           ))
           .collect(Collectors.toList());
-//      final Collection<ResistanceSet> completedSets = new HashSet<>(10);
-//      final Collection<ResistanceSet> partialSets = new HashSet<>(10);
-//      final Set<String> seenMutationNames = new HashSet<>(50);
-//
-//      this.snparLibrary.getSets().values()
-//          .forEach(set -> {
-//            final boolean complete = set.getMembers().size() == (int) set.getMembers().stream()
-//                .filter(setMember -> matches.keySet().contains(setMember.getGene()))
-//                // Check that all mutations are present
-//                .filter(setMember -> matches.get(setMember.getGene())
-//                    .stream()
-//                    .anyMatch(match -> setMember.getVariants().size() == setMember.getVariants()
-//                        .stream()
-//                        .filter(variant -> match.getSnpResistanceElements()
-//                            .stream()
-//                            .map(ResistanceMutation::getName)
-//                            .anyMatch(name -> name.equals(variant)))
-//                        // Since we check for the presence of every member we can add observed ones here.
-//                        .peek(seenMutationNames::add)
-//                        .count())
-//                )
-//                .count();
-//            if (complete) {
-//              completedSets.add(set);
-//            } else {
-//              final boolean partial = set.getMembers().stream()
-//                  .filter(setMember -> matches.keySet().contains(setMember.getGene()))
-//                  .anyMatch(setMember -> matches.get(setMember.getGene())
-//                      .stream()
-//                      .anyMatch(match -> setMember.getVariants()
-//                          .stream()
-//                          .anyMatch(variant -> match.getSnpResistanceElements()
-//                              .stream()
-//                              .map(ResistanceMutation::getName)
-//                              .anyMatch(name -> name.equals(variant))
-//                          )
-//                      ));
-//              if (partial) {
-//                partialSets.add(set);
-//              }
-//            }
-//          });
 
       // Finally generate the result document.
       return new SnparResult(
@@ -145,8 +103,6 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
               .collect(Collectors.toList())
       );
     };
-
-
   }
 
   @Override
