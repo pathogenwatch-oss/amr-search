@@ -1,4 +1,5 @@
-label = 1313
+# S. pneumoniae
+label = "1313"
 antimicrobials = [{key = "KAN", type = "Aminoglycosides", name = "Kanamycin"},
                   {key = "MAC", type = "Macrolides", name = "Macrolides"},
                   {key = "CHL", type = "Phenicols", name = "Chloramphenicol"},

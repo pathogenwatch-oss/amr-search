@@ -1,4 +1,5 @@
-label = 485
+# N. gonorrheae
+label = "485"
 antimicrobials = [{key = "AZM", type = "Macrolides", name = "Azithromycin"},
                   {key = "CRO", type = "Extended-Spectrum Cephalosporins", name = "Ceftriaxone"},
                   {key = "CFM", type = "Broad-spectrum Cephalosporins", name = "Cefixime"},

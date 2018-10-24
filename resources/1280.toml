@@ -1,4 +1,5 @@
-label = 1280
+# S. aureus
+label = "1280"
 antimicrobials = [{key = "AMI", type = "Aminoglycosides", name = "Amikacin"},
                   {key = "GEN", type = "Aminoglycosides", name = "Gentamicin"},
                   {key = "TOB", type = "Aminoglycosides", name = "Tobramycin"},
