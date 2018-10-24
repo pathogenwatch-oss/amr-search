@@ -1,4 +1,5 @@
-label = 498019
+# Candida auris
+label = "498019"
 antimicrobials = [{key = "5-flucytosine", type = "5-flucytosine", name = "5-flucytosine"},
                   {key = "Anidulafungin", type = "Anidulafungin", name = "Anidulafungin"},
                   {key = "Caspofungin", type = "Caspofungin", name = "Caspofungin"},

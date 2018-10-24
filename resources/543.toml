@@ -1,4 +1,0 @@
- # Enterobacteriaceae
-label = 543
-
-extends = ["enterobacteriaceae_carbapenemases", "enterobacteriaceae_esbl", "enterobacteriaceae_colistin"]
