@@ -2,8 +2,8 @@ package net.cgps.wgsa.paarsnp.core.snpar.json;
 
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -12,12 +12,10 @@ public class Snpar {
 
   private final Map<String, SnparReferenceSequence> genes;
   private final Map<String, ResistanceSet> sets;
-  private final double minimumPid;
+  private double minimumPid;
 
-  private Snpar() {
-    this.genes = Collections.emptyMap();
-    this.sets = Collections.emptyMap();
-    this.minimumPid = 100.0;
+  public Snpar() {
+    this(new ArrayList<>(100), new ArrayList<>(500));
   }
 
   public Snpar(final Collection<SnparReferenceSequence> genes, final Collection<ResistanceSet> sets) {
@@ -39,5 +37,25 @@ public class Snpar {
 
   public double getMinimumPid() {
     return this.minimumPid;
+  }
+
+  public void addResistanceGenes(final Map<String, SnparReferenceSequence> genes) {
+    this.genes.putAll(genes);
+
+    final double newMinimum = genes
+        .values()
+        .stream()
+        .mapToDouble(SnparReferenceSequence::getPid)
+        .min()
+        .orElse(100.0);
+
+    if (newMinimum < this.minimumPid) {
+      this.minimumPid = newMinimum;
+    }
+  }
+
+  public void addResistanceSets(final Map<String, ResistanceSet> sets) {
+
+    this.sets.putAll(sets);
   }
 }

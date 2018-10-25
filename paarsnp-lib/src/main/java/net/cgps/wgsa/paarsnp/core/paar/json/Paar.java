@@ -2,7 +2,7 @@ package net.cgps.wgsa.paarsnp.core.paar.json;
 
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -12,10 +12,10 @@ public class Paar {
 
   private final Map<String, ResistanceGene> genes;
   private final Map<String, ResistanceSet> sets;
-  private final double minimumPid;
+  private double minimumPid;
 
-  private Paar() {
-    this(Collections.emptyList(), Collections.emptyList());
+  public Paar() {
+    this(new ArrayList<>(1000), new ArrayList<>(1000));
   }
 
   public Paar(final List<ResistanceGene> genes, final List<ResistanceSet> sets) {
@@ -38,5 +38,25 @@ public class Paar {
   public double getMinimumPid() {
 
     return this.minimumPid;
+  }
+
+  public void addResistanceGenes(final Map<String, ResistanceGene> resistanceGene) {
+
+    this.genes.putAll(resistanceGene);
+
+    final double newMinimum = resistanceGene
+        .values()
+        .stream()
+        .mapToDouble(ResistanceGene::getPid)
+        .min()
+        .orElse(100.0);
+
+    if (newMinimum < this.minimumPid) {
+      this.minimumPid = newMinimum;
+    }
+  }
+
+  public void addResistanceSets(final Map<String, ResistanceSet> sets) {
+    this.sets.putAll(sets);
   }
 }

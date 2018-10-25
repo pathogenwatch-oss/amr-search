@@ -5,7 +5,7 @@ import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.paar.json.Paar;
 import net.cgps.wgsa.paarsnp.core.snpar.json.Snpar;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PaarsnpLibrary extends AbstractJsonnable {
@@ -17,7 +17,11 @@ public class PaarsnpLibrary extends AbstractJsonnable {
 
   @SuppressWarnings("unused")
   private PaarsnpLibrary() {
-    this("", Collections.emptyList(), null, null);
+    this("");
+  }
+
+  public PaarsnpLibrary(final String label) {
+    this(label, new ArrayList<>(50), new Paar(), new Snpar());
   }
 
   public PaarsnpLibrary(final String label, final List<AntimicrobialAgent> antimicrobials, final Paar paar, final Snpar snpar) {

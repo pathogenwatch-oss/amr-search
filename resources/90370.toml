@@ -1,5 +1,6 @@
 # Typhi
 label = "90370"
+
 antimicrobials = [{key = "AMP", type = "Beta-lactam", name = "Ampicillin"},
                   {key = "CEP", type = "Beta-lactam", name = "Broad-Spectrum Cephalosporins"},
                   {key = "CHL", type = "Phenicols", name = "Chloramphenicol"},

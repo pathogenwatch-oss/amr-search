@@ -18,7 +18,7 @@ public class PaarsnpBuilderMain {
 
   // Filter for species sub-directories.
   private static final DirectoryStream.Filter<Path> SPECIES_FOLDER_FILTER =
-      entry -> Files.isRegularFile(entry) && entry.getFileName().toString().matches("^\\w+.toml$");
+      entry -> Files.isRegularFile(entry) && entry.getFileName().toString().matches("^\\d+.toml$");
 
   private final Logger logger = LoggerFactory.getLogger(PaarsnpBuilderMain.class);
 
