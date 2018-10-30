@@ -28,6 +28,8 @@ RUN mkdir paarsnp-runner \
 # https://issues.apache.org/jira/browse/MDEP-516
 COPY ./pom.xml ./pom.xml
 
+COPY ./pw-config-utils/ ./pw-config-utils/
+
 COPY ./paarsnp-runner/ ./paarsnp-runner/
 
 COPY ./paarsnp-builder/ ./paarsnp-builder/
@@ -42,7 +44,8 @@ RUN mvn clean package dependency:go-offline -U
 
 RUN mkdir /paarsnp/ \
     && mv ./build/paarsnp.jar /paarsnp/paarsnp.jar \
-    && mv ./build/databases /paarsnp
+    && mv ./build/databases /paarsnp \
+    && mv ./resources/taxid.map /paarsnp/databases/
 
 FROM openjdk:10-jre
 
