@@ -17,8 +17,6 @@ import java.util.stream.Stream;
 
 public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpResultData, PaarsnpResult> {
 
-  private static final Modifier DEFAULT_MODIFIER = new Modifier("default", ElementEffect.RESISTANCE);
-
   private final Logger logger = LoggerFactory.getLogger(BuildPaarsnpResult.class);
 
   private final Map<String, AntimicrobialAgent> agents;
@@ -52,6 +50,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
                   phenotype,
                   phenotype.getModifiers().stream().filter(modifier -> setResult.getFoundModifiers().contains(modifier.getName())).collect(Collectors.toList()),
                   completeness)
+                  .filter(state -> state.getValue() != ResistanceState.NOT_FOUND)
                   .forEach(agentState -> {
                     this.logger.debug("{} {}", agentState.getKey(), agentState.getValue().name());
                     resistanceSets.get(agentState.getKey()).add(setResult.getSet().getName());
@@ -72,7 +71,12 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
                   phenotype,
                   phenotype.getModifiers().stream().filter(modifier -> setResult.getFoundModifiers().contains(modifier.getName())).collect(Collectors.toList()),
                   completeness)
-              );
+                  .filter(state -> state.getValue() != ResistanceState.NOT_FOUND)
+                  .forEach(agentState -> {
+                    this.logger.debug("{} {}", agentState.getKey(), agentState.getValue().name());
+                    resistanceSets.get(agentState.getKey()).add(setResult.getSet().getName());
+                    profileAggregator.addPhenotype(agentState.getKey(), agentState.getValue());
+                  }));
         });
 
     // Work out the profile in the specified order

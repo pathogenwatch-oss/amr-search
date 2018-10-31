@@ -39,4 +39,12 @@ public class SetMember {
   public int hashCode() {
     return Objects.hash(this.gene, this.variants);
   }
+
+  @Override
+  public String toString() {
+    return "SetMember{" +
+        "gene='" + this.gene + '\'' +
+        ", variants=" + this.variants +
+        '}';
+  }
 }
