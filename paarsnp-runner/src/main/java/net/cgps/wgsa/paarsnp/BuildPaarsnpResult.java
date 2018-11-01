@@ -6,6 +6,7 @@ import net.cgps.wgsa.paarsnp.core.lib.ProfileAggregator;
 import net.cgps.wgsa.paarsnp.core.lib.ResistanceState;
 import net.cgps.wgsa.paarsnp.core.lib.json.*;
 import net.cgps.wgsa.paarsnp.core.paar.json.PaarResult;
+import net.cgps.wgsa.paarsnp.core.snpar.json.SetMember;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +65,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
         .filter(setResult -> !setResult.getFoundMembers().isEmpty())
         .forEach(setResult -> {
 
-          final Completeness completeness = setResult.getFoundMembers().size() == setResult.getSet().getMembers().size() ? Completeness.COMPLETE : Completeness.PARTIAL;
+          final Completeness completeness = setResult.getFoundMembers().size() == setResult.getSet().getMembers().stream().map(SetMember::getVariants).mapToLong(Collection::size).sum() ? Completeness.COMPLETE : Completeness.PARTIAL;
 
           setResult.getSet().getPhenotypes()
               .forEach(phenotype -> this.determineResistanceState(
@@ -88,6 +89,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
             resistanceSets.get(agent)
                 .stream()
                 .map(this.resistanceSetMap::get)
+                .map(set -> new ResistanceSet(set.getName(), set.getPhenotypes().stream().filter(phenotype -> phenotype.getProfile().contains(agent)).collect(Collectors.toList()), set.getMembers()))
                 .collect(Collectors.toList())))
         .collect(Collectors.toList());
 
