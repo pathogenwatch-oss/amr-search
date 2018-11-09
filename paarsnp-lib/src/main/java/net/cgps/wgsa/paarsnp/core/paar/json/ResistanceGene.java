@@ -7,7 +7,6 @@ public class ResistanceGene {
   private final String familyName;
   private final float coverage;
   private final float pid;
-  private final String type = "Protein";
 
   private ResistanceGene() {
     this("", 0.0f, 0.0f);
@@ -35,17 +34,12 @@ public class ResistanceGene {
     return this.pid;
   }
 
-  public String getType() {
-    return this.type;
-  }
-
   @Override
   public String toString() {
     return "ResistanceGene{" +
         "familyName='" + this.familyName + '\'' +
         ", coverage=" + this.coverage +
         ", pid=" + this.pid +
-        ", type='" + this.type + '\'' +
         '}';
   }
 
@@ -56,12 +50,11 @@ public class ResistanceGene {
     final ResistanceGene that = (ResistanceGene) o;
     return Float.compare(that.coverage, this.coverage) == 0 &&
         Float.compare(that.pid, this.pid) == 0 &&
-        Objects.equals(this.familyName, that.familyName) &&
-        Objects.equals(this.type, that.type);
+        Objects.equals(this.familyName, that.familyName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.familyName, this.coverage, this.pid, this.type);
+    return Objects.hash(this.familyName, this.coverage, this.pid);
   }
 }

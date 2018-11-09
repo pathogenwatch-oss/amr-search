@@ -21,6 +21,10 @@ public class BlastMatch {
         * 100.0f;
   }
 
+  public boolean containsPosition(final int position) {
+    return this.getBlastSearchStatistics().getLibrarySequenceStart() <= position && position <= this.getBlastSearchStatistics().getLibrarySequenceStop();
+  }
+
   public final BlastSearchStatistics getBlastSearchStatistics() {
     return this.blastSearchStatistics;
   }

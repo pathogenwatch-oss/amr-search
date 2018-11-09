@@ -1,7 +1,5 @@
 package net.cgps.wgsa.paarsnp.core.snpar.json;
 
-import net.cgps.wgsa.paarsnp.core.lib.SequenceType;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -10,35 +8,27 @@ import java.util.stream.Collectors;
 public class SnparReferenceSequence {
 
   private final String name;
-  private final SequenceType type;
   private final float pid;
   private final float coverage;
   private final Collection<String> variants;
   private final Collection<ResistanceMutation> mappedVariants;
 
   private SnparReferenceSequence() {
-    this("", SequenceType.PROTEIN, 0.0f, 0.0f, Collections.emptyList());
+    this("", 0.0f, 0.0f, Collections.emptyList());
   }
 
-  public SnparReferenceSequence(final String name, final SequenceType type, final float pid, final float coverage, final Collection<String> variants) {
+  public SnparReferenceSequence(final String name, final float pid, final float coverage, final Collection<String> variants) {
 
     this.name = name;
-    this.type = type;
     this.pid = pid;
     this.coverage = coverage;
     this.variants = variants;
-    this.mappedVariants = this.mapVariants(variants, type);
+    this.mappedVariants = this.mapVariants(variants);
   }
 
-  private Collection<ResistanceMutation> mapVariants(final Collection<String> variants, final SequenceType type) {
+  private Collection<ResistanceMutation> mapVariants(final Collection<String> variants) {
 
-    switch (type) {
-      case DNA:
-        return variants.stream().map(ResistanceMutation.parseSnp()).collect(Collectors.toList());
-      case PROTEIN:
-      default:
-        return variants.stream().map(ResistanceMutation.parseAaVariant()).collect(Collectors.toList());
-    }
+    return variants.stream().map(ResistanceMutation.parseVariant()).collect(Collectors.toList());
   }
 
   public Collection<ResistanceMutation> getMappedVariants() {
@@ -53,11 +43,6 @@ public class SnparReferenceSequence {
   public String getName() {
 
     return this.name;
-  }
-
-  public SequenceType getType() {
-
-    return this.type;
   }
 
   public float getPid() {
@@ -77,12 +62,11 @@ public class SnparReferenceSequence {
     return Float.compare(that.pid, this.pid) == 0 &&
         Float.compare(that.coverage, this.coverage) == 0 &&
         Objects.equals(this.name, that.name) &&
-        this.type == that.type &&
         Objects.equals(this.variants, that.variants);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.name, this.type, this.pid, this.coverage, this.variants, this.mappedVariants);
+    return Objects.hash(this.name, this.pid, this.coverage, this.variants, this.mappedVariants);
   }
 }
