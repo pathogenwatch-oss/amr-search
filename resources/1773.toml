@@ -14,967 +14,791 @@ antimicrobials = [{key = "ISH", type = "Isoniazid", name = "Isoniazid"},
 # Reminder to add this variant somehow.
 #[[snpar.sets]]
 #name = "inhA_c-15t"
-#phenotypes = [{effect = "RESISTANT", profile = ["ISH"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}]
 #members = [{gene="inhA", variants=["C-15T"]}]
 
 [[snpar.sets]]
-name = "katG-S315I"
-phenotypes = [{effect = "RESISTANT", profile = ["ISH"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}]
 members = [{gene="katG", variants=["S315I"]}]
 
 [[snpar.sets]]
-name = "katG-S315N"
-phenotypes = [{effect = "RESISTANT", profile = ["ISH"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}]
 members = [{gene="katG", variants=["S315N"]}]
 
 [[snpar.sets]]
-name = "katG-S315T"
-phenotypes = [{effect = "RESISTANT", profile = ["ISH"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}]
 members = [{gene="katG", variants=["S315T"]}]
 
 #name = "katG-disrupted"
-#phenotypes = [{effect = "RESISTANT", profile = ["ISH"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}]
 #members = [{gene="katG", variants=["frameshift or premature stop"]}]
 
 #name = "inh_C-15T__katG-S315G"
-#phenotypes = [{effect = "RESISTANT", profile = ["ISH"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}]
 #members = [{gene="katG", variants=["S315G"]}, {gene="inh", variants=["C-15T"]}]
 
 [[snpar.sets]]
-name = "mabA_g609a"
-phenotypes = [{effect = "RESISTANT", profile = ["ISH"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}]
 members = [{gene="mabA", variants=["G609A"]}]
 
 [[snpar.sets]]
-name = "rpoB_Q432K"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["Q432K"]}]
 
 [[snpar.sets]]
-name = "rpoB_Q432L"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["Q432L"]}]
 
 [[snpar.sets]]
-name = "rpoB_Q432P"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["Q432P"]}]
 
 #name = "rpoB_F433dupl"
-#phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 #members = [{gene="rpoB", variants=["F433dupl"]}]
 
 [[snpar.sets]]
-name = "rpoB_D435A"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["D435A"]}]
 
 [[snpar.sets]]
-name = "rpoB_D435F"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["D435F"]}]
 
 [[snpar.sets]]
-name = "rpoB_D435G_L452P"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["D435G", "L452P"]}]
 
 [[snpar.sets]]
-name = "rpoB_D435V"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["D435V"]}]
 
 [[snpar.sets]]
-name = "rpoB_delN437"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["N437-"]}]
 
 [[snpar.sets]]
-name = "rpoB_H445C"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["H445C"]}]
 
 [[snpar.sets]]
-name = "rpoB_H445D"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["H445D"]}]
 
 [[snpar.sets]]
-name = "rpoB_H445G"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["H445G"]}]
 
 [[snpar.sets]]
-name = "rpoB_H445L"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["H445L"]}]
 
 [[snpar.sets]]
-name = "rpoB_H445R"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["H445R"]}]
 
 [[snpar.sets]]
-name = "rpoB_H445Y"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["H445Y"]}]
 
 [[snpar.sets]]
-name = "rpoB_S450F"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["S450F"]}]
 
 [[snpar.sets]]
-name = "rpoB_S450L"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["S450L"]}]
 
 [[snpar.sets]]
-name = "rpoB_S450W"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["D435W"]}]
 
 [[snpar.sets]]
-name = "rpoB_D435Y"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["D435Y"]}]
 
 [[snpar.sets]]
-name = "rpoB_S441L"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["S441L"]}]
 
 [[snpar.sets]]
-name = "rpoB_S441P"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["S441P"]}]
 
 [[snpar.sets]]
-name = "rpoB_L452P"
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["L452P"]}]
 
 [[snpar.sets]]
-name = "rpoB_L430P"
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["L430P"]}]
 
 [[snpar.sets]]
-name = "rpoB_H445N"
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["H445N"]}]
 
 [[snpar.sets]]
-name = "rpoB_I491F"
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["RIF"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["I491F"]}]
 
 [[snpar.sets]]
-name = "gyrA_G88C"
-phenotypes = [{effect = "RESISTANT", profile = ["MFX"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 members = [{gene="gyrA", variants=["G88C"]}]
 
 [[snpar.sets]]
-name = "gyrA_D89N"
-phenotypes = [{effect = "RESISTANT", profile = ["MFX"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 members = [{gene="gyrA", variants=["D89N"]}]
 
 [[snpar.sets]]
-name = "gyrA_A90V"
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["MFX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["MFX"]}]
 members = [{gene="gyrA", variants=["A90V"]}]
 
 [[snpar.sets]]
-name = "gyrA_S91P"
-phenotypes = [{effect = "RESISTANT", profile = ["MFX"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 members = [{gene="gyrA", variants=["S91P"]}]
 
 [[snpar.sets]]
-name = "gyrA_D94A"
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["MFX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["MFX"]}]
 members = [{gene="gyrA", variants=["D94A"]}]
 
 [[snpar.sets]]
-name = "gyrA_D94G"
-phenotypes = [{effect = "RESISTANT", profile = ["MFX"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 members = [{gene="gyrA", variants=["D94G"]}]
 
 [[snpar.sets]]
-name = "gyrA_D94H"
-phenotypes = [{effect = "RESISTANT", profile = ["MFX"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 members = [{gene="gyrA", variants=["D94H"]}]
 
 [[snpar.sets]]
-name = "gyrA_D94N"
-phenotypes = [{effect = "RESISTANT", profile = ["MFX"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 members = [{gene="gyrA", variants=["D94N"]}]
 
 [[snpar.sets]]
-name = "gyrA_D94Y"
-phenotypes = [{effect = "RESISTANT", profile = ["MFX"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 members = [{gene="gyrA", variants=["D94Y"]}]
 
 # All the gyrB mutations except one need more data on MICs
 #name = "gyrB_D461H"
-#phenotypes = [{effect = "RESISTANT", profile = ["MFX"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 #members = [{gene="gyrB", variants=["D461H"]}]
 #
 #name = "gyrB_D461N"
-#phenotypes = [{effect = "RESISTANT", profile = ["MFX"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 #members = [{gene="gyrB", variants=["D461N"]}]
 #
 #[[snpar.sets]]
 #name = "gyrB_N499D"
-#phenotypes = [{effect = "RESISTANT", profile = ["MFX"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 #members = [{gene="gyrB", variants=["N499D"]}]
 #
 #[[snpar.sets]]
 #name = "gyrB_N499S"
-#phenotypes = [{effect = "RESISTANT", profile = ["MFX"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 #members = [{gene="gyrB", variants=["N499S"]}]
 #
 #[[snpar.sets]]
 #name = "gyrB_N499K"
-#phenotypes = [{effect = "RESISTANT", profile = ["MFX"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 #members = [{gene="gyrB", variants=["N499K"]}]
 
 [[snpar.sets]]
-name = "gyrB_A504V"
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["MFX"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["MFX"]}]
 members = [{gene="gyrB", variants=["A504V"]}]
 
 #[[snpar.sets]]
 #name = "pncA_a-11g"
-#phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 #members = [{gene="pncA", variants=["a-11g"]}]
 
 #[[snpar.sets]]
 #name = "pncA_t-7c"
-#phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 #members = [{gene="pncA", variants=["t-7c"]}]
 
 [[snpar.sets]]
-name = "pncA_A3E"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["A3E"]}]
 
 # Says more data needed, but it's probably fine.
 [[snpar.sets]]
-name = "pncA_A3P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["A3P"]}]
 
 [[snpar.sets]]
-name = "pncA_L4S"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["L4S"]}]
 
 [[snpar.sets]]
-name = "pncA_I6T"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["I6T"]}]
 
 # Says more data needed but it's probably fine
 [[snpar.sets]]
-name = "pncA_V7A"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V7A"]}]
 
 [[snpar.sets]]
-name = "pncA_D8G"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["D8G"]}]
 
 [[snpar.sets]]
-name = "pncA_D8N"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["D8N"]}]
 
 [[snpar.sets]]
-name = "pncA_D8A"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["D8A"]}]
 
 [[snpar.sets]]
-name = "pncA_V9G"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V9G"]}]
 
 [[snpar.sets]]
-name = "pncA_Q10P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["Q10P"]}]
 
 [[snpar.sets]]
-name = "pncA_D12A"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["D12A"]}]
 
 [[snpar.sets]]
-name = "pncA_D12N"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["D12A"]}]
 
 [[snpar.sets]]
-name = "pncA_F13L"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["F13L"]}]
 
 [[snpar.sets]]
-name = "pncA_F13S"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["F13S"]}]
 
 [[snpar.sets]]
-name = "pncA_C14R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["C14R"]}]
 
 [[snpar.sets]]
-name = "pncA_G16S"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["G16S"]}]
 
 [[snpar.sets]]
-name = "pncA_G17D"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["G17D"]}]
 
 [[snpar.sets]]
-name = "pncA_L19P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["L19P"]}]
 
 [[snpar.sets]]
-name = "pncA_G24D"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["G24D"]}]
 
 [[snpar.sets]]
-name = "pncA_A28T"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["A28T"]}]
 
 [[snpar.sets]]
-name = "pncA_D33A"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["D33A"]}]
 
 [[snpar.sets]]
-name = "pncA_Y34D"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["Y34D"]}]
 
 [[snpar.sets]]
-name = "pncA_Y34S"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["Y34S"]}]
 
 [[snpar.sets]]
-name = "pncA_Y41H"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["Y41H"]}]
 
 [[snpar.sets]]
-name = "pncA_H43P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H43P"]}]
 
 [[snpar.sets]]
-name = "pncA_A46V"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["A46V"]}]
 
 [[snpar.sets]]
-name = "pncA_T47P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["T47P"]}]
 
 [[snpar.sets]]
-name = "pncA_H51Q"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H51Q"]}]
 
 [[snpar.sets]]
-name = "pncA_H51R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H51R"]}]
 
 [[snpar.sets]]
-name = "pncA_H51P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H51P"]}]
 
 [[snpar.sets]]
-name = "pncA_H51Y"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H51Y"]}]
 
 [[snpar.sets]]
-name = "pncA_P54S"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["P54S"]}]
 
 [[snpar.sets]]
-name = "pncA_P54Q"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["P54Q"]}]
 
 [[snpar.sets]]
-name = "pncA_P54T"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["P54T"]}]
 
 [[snpar.sets]]
-name = "pncA_H57D"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H57D"]}]
 
 [[snpar.sets]]
-name = "pncA_H57P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H57P"]}]
 
 [[snpar.sets]]
-name = "pncA_H57R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H57R"]}]
 
 [[snpar.sets]]
-name = "pncA_H57Y"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H57Y"]}]
 
 [[snpar.sets]]
-name = "pncA_H57Q"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H57Q"]}]
 
 [[snpar.sets]]
-name = "pncA_H57N"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H57N"]}]
 
 [[snpar.sets]]
-name = "pncA_F58S"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["F58S"]}]
 
 [[snpar.sets]]
-name = "pncA_S59P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["S59P"]}]
 
 [[snpar.sets]]
-name = "pncA_P62Q"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["P62Q"]}]
 
 [[snpar.sets]]
-name = "pncA_P62T"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["P62T"]}]
 
 [[snpar.sets]]
-name = "pncA_P62R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["P62R"]}]
 
 [[snpar.sets]]
-name = "pncA_D63G"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["D63G"]}]
 
 [[snpar.sets]]
-name = "pncA_S65P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["S65P"]}]
 
 [[snpar.sets]]
-name = "pncA_S67P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["S67P"]}]
 
 [[snpar.sets]]
-name = "pncA_W68C"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["W68C"]}]
 
 [[snpar.sets]]
-name = "pncA_W68R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["W68R"]}]
 
 [[snpar.sets]]
-name = "pncA_W68L"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["W68L"]}]
 
 [[snpar.sets]]
-name = "pncA_P69R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["P69R"]}]
 
 [[snpar.sets]]
-name = "pncA_H71Y"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H71Y"]}]
 
 [[snpar.sets]]
-name = "pncA_C72R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["C72R"]}]
 
 [[snpar.sets]]
-name = "pncA_C72P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["C72P"]}]
 
 [[snpar.sets]]
-name = "pncA_T76P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["T76P"]}]
 
 [[snpar.sets]]
-name = "pncA_H82R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H82R"]}]
 
 [[snpar.sets]]
-name = "pncA_H82Y"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H82Y"]}]
 
 [[snpar.sets]]
-name = "pncA_L85P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["L85P"]}]
 
 [[snpar.sets]]
-name = "pncA_F94L"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["F94L"]}]
 
 [[snpar.sets]]
-name = "pncA_F94C"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["F94C"]}]
 
 [[snpar.sets]]
-name = "pncA_F94S"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["F94S"]}]
 
 [[snpar.sets]]
-name = "pncA_K96N"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["K96N"]}]
 
 [[snpar.sets]]
-name = "pncA_K96R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["K96R"]}]
 
 [[snpar.sets]]
-name = "pncA_K96Q"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["K96Q"]}]
 
 [[snpar.sets]]
-name = "pncA_K96D"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["K96D"]}]
 
 [[snpar.sets]]
-name = "pncA_G97D"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["G97D"]}]
 
 [[snpar.sets]]
-name = "pncA_G97S"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["G97S"]}]
 
 [[snpar.sets]]
-name = "pncA_G97A"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["G97A"]}]
 
 [[snpar.sets]]
-name = "pncA_T100P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["T100P"]}]
 
 [[snpar.sets]]
-name = "pncA_S104R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["S104R"]}]
 
 [[snpar.sets]]
-name = "pncA_G105D"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["G105D"]}]
 
 [[snpar.sets]]
-name = "pncA_G108R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["G108R"]}]
 
 [[snpar.sets]]
-name = "pncA_T114P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["T114P"]}]
 
 [[snpar.sets]]
-name = "pncA_N188T"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["N188T"]}]
 
 [[snpar.sets]]
-name = "pncA_L120P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["L120P"]}]
 
 [[snpar.sets]]
-name = "pncA_L120R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["L120R"]}]
 
 [[snpar.sets]]
-name = "pncA_R121P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["R121P"]}]
 
 [[snpar.sets]]
-name = "pncA_R123P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["R123P"]}]
 
 [[snpar.sets]]
-name = "pncA_V125F"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V125F"]}]
 
 [[snpar.sets]]
-name = "pncA_V128G"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V128G"]}]
 
 [[snpar.sets]]
-name = "pncA_V130G"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V130G"]}]
 
 [[snpar.sets]]
-name = "pncA_V130A"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V130A"]}]
 
 [[snpar.sets]]
-name = "pncA_G132A"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["G132A"]}]
 
 [[snpar.sets]]
-name = "pncA_G132D"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["G132D"]}]
 
 [[snpar.sets]]
-name = "pncA_G132S"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["G132S"]}]
 
 [[snpar.sets]]
-name = "pncA_G132C"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["G132C"]}]
 
 [[snpar.sets]]
-name = "pncA_I133S"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["I133S"]}]
 
 [[snpar.sets]]
-name = "pncA_A134V"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["A134V"]}]
 
 [[snpar.sets]]
-name = "pncA_T135P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["T135P"]}]
 
 [[snpar.sets]]
-name = "pncA_H137P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H137P"]}]
 
 [[snpar.sets]]
-name = "pncA_H137R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H137R"]}]
 
 [[snpar.sets]]
-name = "pncA_H137D"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H137D"]}]
 
 [[snpar.sets]]
-name = "pncA_C138Y"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["C138Y"]}]
 
 [[snpar.sets]]
-name = "pncA_C138R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["C138R"]}]
 
 [[snpar.sets]]
-name = "pncA_C138W"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["C138W"]}]
 
 [[snpar.sets]]
-name = "pncA_V139G"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V139G"]}]
 
 [[snpar.sets]]
-name = "pncA_V139L"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V139L"]}]
 
 [[snpar.sets]]
-name = "pncA_V139A"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V139A"]}]
 
 [[snpar.sets]]
-name = "pncA_Q141P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["Q141P"]}]
 
 [[snpar.sets]]
-name = "pncA_T142A"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["T142A"]}]
 
 [[snpar.sets]]
-name = "pncA_T142K"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["T142K"]}]
 
 [[snpar.sets]]
-name = "pncA_T142M"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["T142M"]}]
 
 [[snpar.sets]]
-name = "pncA_T142P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["T142P"]}]
 
 [[snpar.sets]]
-name = "pncA_A143G"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["A143G"]}]
 
 [[snpar.sets]]
-name = "pncA_A146V"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["A146V"]}]
 
 [[snpar.sets]]
-name = "pncA_T153I"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["T153I"]}]
 
 [[snpar.sets]]
-name = "pncA_T153N"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["T153N"]}]
 
 [[snpar.sets]]
-name = "pncA_V155G"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V155G"]}]
 
 [[snpar.sets]]
-name = "pncA_V155E"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V155E"]}]
 
 [[snpar.sets]]
-name = "pncA_V163G"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V163G"]}]
 
 [[snpar.sets]]
-name = "pncA_V163A"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V163A"]}]
 
 [[snpar.sets]]
-name = "pncA_S164P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["S164P"]}]
 
 [[snpar.sets]]
-name = "pncA_L172P"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["L172P"]}]
 
 [[snpar.sets]]
-name = "pncA_M175T"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["M175T"]}]
 
 [[snpar.sets]]
-name = "pncA_M175V"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["M175V"]}]
 
 [[snpar.sets]]
-name = "pncA_V180F"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V180F"]}]
 
 #name = "pncA_disrupted"
-#phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 #members = [{gene="pncA", variants=["frameshift or premature stop"]}]
 
 [[snpar.sets]]
-name = "pncA_V7G"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V7G"]}]
 
 [[snpar.sets]]
-name = "pncA_Q10R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["Q10R"]}]
 
 [[snpar.sets]]
-name = "pncA_P54L"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["P54L"]}]
 
 [[snpar.sets]]
-name = "pncA_W68G"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["W68G"]}]
 
 [[snpar.sets]]
-name = "pncA_K96E"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["K96E"]}]
 
 [[snpar.sets]]
-name = "pncA_K96T"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["K96T"]}]
 
 [[snpar.sets]]
-name = "pncA_A171T"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["A171T"]}]
 
 [[snpar.sets]]
-name = "pncA_M175I"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["M175I"]}]
 
 [[snpar.sets]]
-name = "pncA_D12G"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["D12G"]}]
 
 [[snpar.sets]]
-name = "pncA_E37V"
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["E37V"]}]
 
 # The below set are all minimal confidence but high MIC
 [[snpar.sets]]
-name = "pncA_F58L"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["F58L"]}]
 
 [[snpar.sets]]
-name = "pncA_H71R"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["H71R"]}]
 
 [[snpar.sets]]
-name = "pncA_I133T"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["I133T"]}]
 
 [[snpar.sets]]
-name = "pncA_I133N"
-phenotypes = [{effect = "RESISTANT", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["I133N"]}]
 
 # Remaining PZA are minimal confidence & low MIC
 [[snpar.sets]]
-name = "pncA_S65A"
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["S65A"]}]
 
 [[snpar.sets]]
-name = "pncA_D110G"
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["D110G"]}]
 
 [[snpar.sets]]
-name = "pncA_A170V"
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["A170V"]}]
 
 [[snpar.sets]]
-name = "pncA_V180I"
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V180I"]}]
 
 [[snpar.sets]]
-name = "rrs_a1401g"
-phenotypes = [{effect = "RESISTANT", profile = ["AMI, KAN", "CAP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AMI, KAN", "CAP"]}]
 members = [{gene="rrs", variants=["A1401G"]}]
 
 [[snpar.sets]]
-name = "rrs_c1402t"
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["AMI", "KAN", "CAP"], modifiers = []}]
+phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["AMI", "KAN", "CAP"]}]
 members = [{gene="rrs", variants=["C1402T"]}]
 
 [[snpar.sets]]
-name = "rrs_g1484t"
-phenotypes = [{effect = "RESISTANT", profile = ["AMI", "KAN", "CAP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AMI", "KAN", "CAP"]}]
 members = [{gene="rrs", variants=["G1484T"]}]
 
 #[[snpar.sets]]
 #name = "eis_c-14t"
-#phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["AMI"], modifiers = []},
-#              {effect = "RESISTANT", profile = ["KAN"], modifiers = []}]
+#phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["AMI"]},
+#              {effect = "RESISTANT", profile = ["KAN"]}]
 #members = [{gene="eis", variants=["c-14t"]}]
 #
 #[[snpar.sets]]
 #name = "eis_g-10a"
-#phenotypes = [{effect = "RESISTANT", profile = ["KAN"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["KAN"]}]
 #members = [{gene="eis", variants=["g-10a"]}]
 #
 #[[snpar.sets]]
 #name = "eis_c-12t"
-#phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["KAN"], modifiers = []}]
+#phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["KAN"]}]
 #members = [{gene="eis", variants=["c-12t"]}]
 #
 ## This one is minimal confidence
 #[[snpar.sets]]
 #name = "eis_g-37t"
-#phenotypes = [{effect = "RESISTANT", profile = ["KAN"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["KAN"]}]
 #members = [{gene="eis", variants=["g-37t"]}]
 
 #name = "tlyA_any"
-#phenotypes = [{effect = "RESISTANT", profile = ["KAN"], modifiers = []}]
+#phenotypes = [{effect = "RESISTANT", profile = ["KAN"]}]
 #members = [{gene="tlyA", variants=["all except D149H"]}]
 
 

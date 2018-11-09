@@ -9,38 +9,31 @@ antimicrobials = [{key = "5-flucytosine", type = "5-flucytosine", name = "5-fluc
 [snpar]
 
 [[snpar.sets]]
-name = "FUR1_F211I"
-phenotypes = [{effect = "RESISTANT", profile = ["5-flucytosine"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["5-flucytosine"]}]
 members = [{gene="FUR1", variants=["F211I"]}]
 
 [[snpar.sets]]
-name = "FKS1_S639P"
-phenotypes = [{effect = "RESISTANT", profile = ["Micafungin", "Caspofungin", "Anidulafungin"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Micafungin", "Caspofungin", "Anidulafungin"]}]
 members = [{gene="FKS1", variants=["S639P"]}]
 
 [[snpar.sets]]
-name = "FKS1_S639F"
-phenotypes = [{effect = "RESISTANT", profile = ["Micafungin", "Caspofungin", "Anidulafungin"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Micafungin", "Caspofungin", "Anidulafungin"]}]
 members = [{gene="FKS1", variants=["S639F"]}]
 
 [[snpar.sets]]
-name = "FKS1_S639Y"
-phenotypes = [{effect = "RESISTANT", profile = ["Micafungin", "Caspofungin", "Anidulafungin"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Micafungin", "Caspofungin", "Anidulafungin"]}]
 members = [{gene="FKS1", variants=["S639Y"]}]
 
 [[snpar.sets]]
-name = "ERG11_Y132F"
-phenotypes = [{effect = "RESISTANT", profile = ["Fluconazole"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Fluconazole"]}]
 members = [{gene="ERG11", variants=["Y132F"]}]
 
 [[snpar.sets]]
-name = "ERG11_K143R"
-phenotypes = [{effect = "RESISTANT", profile = ["Fluconazole"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Fluconazole"]}]
 members = [{gene="ERG11", variants=["K143R"]}]
 
 [[snpar.sets]]
-name = "ERG11_F126T"
-phenotypes = [{effect = "RESISTANT", profile = ["Fluconazole"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["Fluconazole"]}]
 members = [{gene="ERG11", variants=["F126T"]}]
 
 [[snpar.genes]]

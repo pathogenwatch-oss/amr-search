@@ -16,238 +16,191 @@ antimicrobials = [{key = "AMP", type = "Beta-lactam", name = "Ampicillin"},
 [paar]
 
 [[paar.sets]]
-name = "TEM-1"
-phenotypes = [{effect = "RESISTANT", profile = ["AMP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AMP"]}]
 members = ["TEM-1"]
 
 [[paar.sets]]
-name = "OXA-1"
-phenotypes = [{effect = "RESISTANT", profile = ["AMP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AMP"]}]
 members = ["OXA-1"]
 
 [[paar.sets]]
-name = "OXA-7"
-phenotypes = [{effect = "RESISTANT", profile = ["AMP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AMP"]}]
 members = ["OXA-7"]
 
 [[paar.sets]]
-name = "OXA-23"
-phenotypes = [{effect = "RESISTANT", profile = ["AMP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AMP"]}]
 members = ["OXA-23"]
 
 [[paar.sets]]
-name = "beta-lactamase_class-C"
-phenotypes = [{effect = "RESISTANT", profile = ["CEP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["CEP"]}]
 members = ["beta-lactamase_class-C"]
 
 [[paar.sets]]
-name = "CTX-M-15"
-phenotypes = [{effect = "RESISTANT", profile = ["CEP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["CEP"]}]
 members = ["CTX-M-15"]
 
 [[paar.sets]]
-name = "SHV-12"
-phenotypes = [{effect = "RESISTANT", profile = ["CEP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["CEP"]}]
 members = ["SHV-12"]
 
 [[paar.sets]]
-name = "CMY-2"
-phenotypes = [{effect = "RESISTANT", profile = ["CEP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["CEP"]}]
 members = ["CMY-2"]
 
 [[paar.sets]]
-name = "qnr-S"
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
 members = ["qnr-S"]
 
 [[paar.sets]]
-name = "qnrA"
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
 members = ["qnrA"]
 
 [[paar.sets]]
-name = "qnrB"
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
 members = ["qnrB"]
 
 [[paar.sets]]
-name = "qnrD"
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
 members = ["qnrD"]
 
 [[paar.sets]]
-name = "aac6-Ib-cr"
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
 members = ["aac6-Ib-cr"]
 
 [[paar.sets]]
-name = "catA1"
-phenotypes = [{effect = "RESISTANT", profile = ["CHL"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["CHL"]}]
 members = ["catA1"]
 
 [[paar.sets]]
-name = "catQ"
-phenotypes = [{effect = "RESISTANT", profile = ["CHL"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["CHL"]}]
 members = ["catQ"]
 
 [[paar.sets]]
-name = "tetA(A)"
-phenotypes = [{effect = "RESISTANT", profile = ["TCY"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}]
 members = ["tetA(A)"]
 
 [[paar.sets]]
-name = "tetA(B)"
-phenotypes = [{effect = "RESISTANT", profile = ["TCY"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}]
 members = ["tetA(B)"]
 
 [[paar.sets]]
-name = "tetR(A)"
-phenotypes = [{effect = "RESISTANT", profile = ["SIL"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}]
 members = ["tetR(A)"]
 
 [[paar.sets]]
-name = "tetR(B)"
-phenotypes = [{effect = "RESISTANT", profile = ["SIL"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}]
 members = ["tetR(B)"]
 
 [[paar.sets]]
-name = "tetA(C)"
-phenotypes = [{effect = "RESISTANT", profile = ["TCY"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}]
 members = ["tetA(C)"]
 
 [[paar.sets]]
-name = "tetA(D)"
-phenotypes = [{effect = "RESISTANT", profile = ["TCY"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}]
 members = ["tetA(D)"]
 
 [[paar.sets]]
-name = "cmlA"
-phenotypes = [{effect = "RESISTANT", profile = ["CHL"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["CHL"]}]
 members = ["cmlA"]
 
 [[paar.sets]]
-name = "sul1"
-phenotypes = [{effect = "RESISTANT", profile = ["SMX"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SMX"]}]
 members = ["sul1"]
 
 [[paar.sets]]
-name = "sul2"
-phenotypes = [{effect = "RESISTANT", profile = ["SMX"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SMX"]}]
 members = ["sul2"]
 
 [[paar.sets]]
-name = "dfrA7"
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
 members = ["dfrA7"]
 
 [[paar.sets]]
-name = "dfrA1"
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
 members = ["dfrA1"]
 
 [[paar.sets]]
-name = "dfrA5"
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
 members = ["dfrA5"]
 
 [[paar.sets]]
-name = "dfrA14"
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
 members = ["dfrA14"]
 
 [[paar.sets]]
-name = "dfrA18"
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
 members = ["dfrA18"]
 
 [[paar.sets]]
-name = "mphA"
-phenotypes = [{effect = "RESISTANT", profile = ["AZM"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AZM"]}]
 members = ["mphA"]
 
 [[paar.sets]]
-name = "mphB"
-phenotypes = [{effect = "RESISTANT", profile = ["AZM"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AZM"]}]
 members = ["mphB"]
 
 [[paar.sets]]
-name = "ermA"
-phenotypes = [{effect = "RESISTANT", profile = ["AZM"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AZM"]}]
 members = ["ermA"]
 
 [[paar.sets]]
-name = "ermB"
-phenotypes = [{effect = "RESISTANT", profile = ["AZM"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AZM"]}]
 members = ["ermB"]
 
 [[paar.sets]]
-name = "ermC"
-phenotypes = [{effect = "RESISTANT", profile = ["AZM"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AZM"]}]
 members = ["ermC"]
 
 [[paar.sets]]
-name = "ereB"
-phenotypes = [{effect = "RESISTANT", profile = ["AZM"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AZM"]}]
 members = ["ereB"]
 
 [[paar.sets]]
-name = "mefA"
-phenotypes = [{effect = "RESISTANT", profile = ["AZM"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AZM"]}]
 members = ["mefA"]
 
 [[paar.sets]]
-name = "ereA"
-phenotypes = [{effect = "RESISTANT", profile = ["AZM"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AZM"]}]
 members = ["ereA"]
 
 [[paar.sets]]
-name = "msrA"
-phenotypes = [{effect = "RESISTANT", profile = ["AZM"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AZM"]}]
 members = ["msrA"]
 
 [[paar.sets]]
-name = "msrD"
-phenotypes = [{effect = "RESISTANT", profile = ["AZM"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["AZM"]}]
 members = ["msrD"]
 
 [[paar.sets]]
-name = "sul1-dfrA7"
-phenotypes = [{effect = "RESISTANT", profile = ["SXT"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SXT"]}]
 members = ["sul1", "dfrA7"]
 
 [[paar.sets]]
-name = "sul1-dfrA1"
-phenotypes = [{effect = "RESISTANT", profile = ["SXT"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SXT"]}]
 members = ["sul1", "dfrA1"]
 
 [[paar.sets]]
-name = "sul1-dfrA5"
-phenotypes = [{effect = "RESISTANT", profile = ["SXT"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SXT"]}]
 members = ["dfrA5", "sul1"]
 
 [[paar.sets]]
-name = "sul1-dfrA14"
-phenotypes = [{effect = "RESISTANT", profile = ["SXT"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SXT"]}]
 members = ["dfrA14", "sul1"]
 
 [[paar.sets]]
-name = "sul2-dfrA7"
-phenotypes = [{effect = "RESISTANT", profile = ["SXT"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SXT"]}]
 members = ["sul2", "dfrA7"]
 
 [[paar.sets]]
-name = "sul2-dfrA1"
-phenotypes = [{effect = "RESISTANT", profile = ["SXT"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SXT"]}]
 members = ["sul2", "dfrA1"]
 
 [[paar.sets]]
-name = "sul2-dfrA5"
-phenotypes = [{effect = "RESISTANT", profile = ["SXT"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SXT"]}]
 members = ["sul2", "dfrA5"]
 
 [[paar.sets]]
-name = "sul2-dfrA14"
-phenotypes = [{effect = "RESISTANT", profile = ["SXT"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SXT"]}]
 members = ["sul2", "dfrA14"]
 
 [[paar.genes]]
@@ -527,103 +480,83 @@ sequence = "ATGGAATTAATATTAAAAGCAAAAGACATTCGTGTGGAATTCAAAGGACGCGATGTTTTAGATATAAA
 [snpar]
 
 [[snpar.sets]]
-name = "gyrA_S83F"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="gyrA", variants=["S83F"]}]
 
 [[snpar.sets]]
-name = "gyrA_S83Y"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="gyrA", variants=["S83Y"]}]
 
 [[snpar.sets]]
-name = "gyrA_D87N"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="gyrA", variants=["D87N"]}]
 
 [[snpar.sets]]
-name = "gyrA_D87Y"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="gyrA", variants=["D87Y"]}]
 
 [[snpar.sets]]
-name = "gyrA_D87A"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="gyrA", variants=["D87A"]}]
 
 [[snpar.sets]]
-name = "gyrA_D87G"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="gyrA", variants=["D87G"]}]
 
 [[snpar.sets]]
-name = "gyrA_D87V"
-phenotypes = [{effect = "RESISTANT", profile = ["SIL"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}]
 members = [{gene="gyrA", variants=["D87V"]}]
 
 [[snpar.sets]]
-name = "gyrB_S464F"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="gyrB", variants=["S464F"]}]
 
 [[snpar.sets]]
-name = "gyrB_S464Y"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="gyrB", variants=["S464Y"]}]
 
 [[snpar.sets]]
-name = "gyrB_Q465R"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="gyrB", variants=["Q465R"]}]
 
 [[snpar.sets]]
-name = "gyrB_Q465L"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="gyrB", variants=["Q465L"]}]
 
 [[snpar.sets]]
-name = "gyrB_A574V"
-phenotypes = [{effect = "RESISTANT", profile = ["SIL"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}]
 members = [{gene="gyrB", variants=["A574V"]}]
 
 [[snpar.sets]]
-name = "parC_S80I"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="parC", variants=["S80I"]}]
 
 [[snpar.sets]]
-name = "parC_E84G"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="parC", variants=["E84G"]}]
 
 [[snpar.sets]]
-name = "parC_E84K"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="parC", variants=["E84K"]}]
 
 [[snpar.sets]]
-name = "parE_L416F"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="parE", variants=["L416F"]}]
 
 [[snpar.sets]]
-name = "parE_D420N"
-phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}]
 members = [{gene="parE", variants=["D420N"]}]
 
 [[snpar.sets]]
-name = "parE_A353V"
-phenotypes = [{effect = "RESISTANT", profile = ["SIL"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}]
 members = [{gene="parE", variants=["A353V"]}]
 
 [[snpar.sets]]
-name = "parE_A364V"
-phenotypes = [{effect = "RESISTANT", profile = ["SIL"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}]
 members = [{gene="parE", variants=["A364V"]}]
 
 [[snpar.sets]]
-name = "parE_E460K"
-phenotypes = [{effect = "RESISTANT", profile = ["SIL"], modifiers = []}]
+phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}]
 members = [{gene="parE", variants=["E460K"]}]
 
 [[snpar.genes]]
