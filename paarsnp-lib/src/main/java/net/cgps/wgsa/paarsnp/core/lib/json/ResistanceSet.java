@@ -1,27 +1,33 @@
 package net.cgps.wgsa.paarsnp.core.lib.json;
 
 import net.cgps.wgsa.paarsnp.core.snpar.json.SetMember;
+import org.apache.commons.lang3.StringUtils;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-public class ResistanceSet extends AbstractJsonnable{
+public class ResistanceSet extends AbstractJsonnable {
 
   private final List<Phenotype> phenotypes;
   private final String name;
   private final List<SetMember> members;
 
+  @SuppressWarnings("unused")
   private ResistanceSet() {
     this("", Collections.emptyList(), Collections.emptyList());
   }
 
-  public ResistanceSet(final String name, final List<Phenotype> phenotypes, final List<SetMember> members) {
+  private ResistanceSet(final String name, final List<Phenotype> phenotypes, final List<SetMember> members) {
 
     this.name = name;
     this.phenotypes = phenotypes;
     this.members = members;
   }
+
+  public static ResistanceSet build(final Optional<String> name, final List<Phenotype> phenotypes, final List<SetMember> members) {
+    members.sort(Comparator.comparing(SetMember::getGene));
+    return new ResistanceSet(name.orElse(StringUtils.join(members, "_")), phenotypes, members);
+  }
+
 
   public String getName() {
 

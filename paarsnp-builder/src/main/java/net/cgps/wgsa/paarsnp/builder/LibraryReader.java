@@ -125,8 +125,8 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
           .map(LibraryReader.parsePhenotype())
           .collect(Collectors.toList());
 
-      return new ResistanceSet(
-          toml.getString("name"),
+      return ResistanceSet.build(
+          Optional.ofNullable(toml.getString("name")),
           phenotypes,
           toml.getTables("members")
               .stream()
@@ -146,8 +146,8 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
           .map(LibraryReader.parsePhenotype())
           .collect(Collectors.toList());
 
-      return new ResistanceSet(
-          toml.getString("name"),
+      return ResistanceSet.build(
+          Optional.ofNullable(toml.getString("name")),
           phenotypes,
           toml.<String>getList("members")
               .stream()
@@ -212,11 +212,14 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
     public PaarsnpLibraryAndSequences merge(final PaarsnpLibraryAndSequences that) {
 
       this.addAntibiotics(that.paarsnpLibrary.getAntimicrobials());
+
       this.paarSequences.putAll(that.getPaarSequences());
       this.snparSequences.putAll(that.getSnparSequences());
+
       this.paarsnpLibrary.getPaar().addResistanceGenes(that.paarsnpLibrary.getPaar().getGenes());
-      this.paarsnpLibrary.getPaar().addResistanceSets(that.paarsnpLibrary.getPaar().getSets());
       this.paarsnpLibrary.getSnpar().addResistanceGenes(that.paarsnpLibrary.getSnpar().getGenes());
+
+      this.paarsnpLibrary.getPaar().addResistanceSets(that.paarsnpLibrary.getPaar().getSets());
       this.paarsnpLibrary.getSnpar().addResistanceSets(that.paarsnpLibrary.getSnpar().getSets());
 
       return this;
