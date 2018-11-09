@@ -17,6 +17,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class LibraryReaderTest {
@@ -68,7 +69,7 @@ public class LibraryReaderTest {
         "members = [\"tetM_8_X04388\"]\n")
         .getTables("paar.sets")
         .get(0);
-    final ResistanceSet resistanceSet = new ResistanceSet("tetM_8", Collections.singletonList(new Phenotype(PhenotypeEffect.RESISTANT, Collections.singletonList("TCY"), Collections.emptyList())), Collections.singletonList(new SetMember("tetM_8_X04388", Collections.emptyList())));
+    final ResistanceSet resistanceSet = ResistanceSet.build(Optional.of("tetM_8"), Collections.singletonList(new Phenotype(PhenotypeEffect.RESISTANT, Collections.singletonList("TCY"), Collections.emptyList())), Collections.singletonList(new SetMember("tetM_8_X04388", Collections.emptyList())));
     Assert.assertEquals(resistanceSet, LibraryReader.parsePaarSet().apply(toml));
   }
 
@@ -88,8 +89,8 @@ public class LibraryReaderTest {
 
     Assert.assertEquals(
 
-        new ResistanceSet(
-            "penA_I312M_G545S_V316T",
+        ResistanceSet.build(
+            Optional.of("penA_I312M_G545S_V316T"),
             Arrays.asList(
                 new Phenotype(PhenotypeEffect.INTERMEDIATE_NOT_ADDITIVE, Arrays.asList("CRO", "PEN"), Collections.emptyList()),
                 new Phenotype(PhenotypeEffect.INTERMEDIATE_ADDITIVE, Collections.singletonList("CFM"), Collections.emptyList())),
