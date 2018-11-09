@@ -3,7 +3,6 @@ package net.cgps.wgsa.paarsnp.builder;
 import com.moandjiezana.toml.Toml;
 import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
 import net.cgps.wgsa.paarsnp.core.lib.PhenotypeEffect;
-import net.cgps.wgsa.paarsnp.core.lib.SequenceType;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.lib.json.Modifier;
 import net.cgps.wgsa.paarsnp.core.lib.json.Phenotype;
@@ -128,7 +127,6 @@ public class LibraryReaderTest {
     Assert.assertEquals(
         new SnparReferenceSequence(
             "penA",
-            SequenceType.PROTEIN,
             80.0f,
             60.0f,
             Arrays.asList("A501P", "I312M", "V316P", "P551S", "A501V", "G545S", "G542S", "A311V", "V316T", "T483S")),

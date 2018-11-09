@@ -2,7 +2,6 @@ package net.cgps.wgsa.paarsnp.builder;
 
 import com.moandjiezana.toml.Toml;
 import net.cgps.wgsa.paarsnp.core.PaarsnpLibrary;
-import net.cgps.wgsa.paarsnp.core.lib.SequenceType;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.lib.json.Phenotype;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
@@ -175,7 +174,6 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
   public static Function<Toml, SnparReferenceSequence> parseSnparGene() {
     return toml -> new SnparReferenceSequence(
         toml.getString("name"),
-        SequenceType.valueOf(toml.getString("type").toUpperCase()),
         toml.getDouble("pid").floatValue(),
         toml.getDouble("coverage").floatValue(),
         toml.getList("variants")
