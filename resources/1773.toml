@@ -263,7 +263,7 @@ members = [{gene="pncA", variants=["D12A"]}]
 
 [[snpar.sets]]
 phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
-members = [{gene="pncA", variants=["D12A"]}]
+members = [{gene="pncA", variants=["D12N"]}]
 
 [[snpar.sets]]
 phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]

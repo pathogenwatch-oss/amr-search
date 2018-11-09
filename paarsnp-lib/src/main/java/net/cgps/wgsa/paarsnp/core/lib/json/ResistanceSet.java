@@ -4,6 +4,7 @@ import net.cgps.wgsa.paarsnp.core.snpar.json.SetMember;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ResistanceSet extends AbstractJsonnable {
 
@@ -24,10 +25,21 @@ public class ResistanceSet extends AbstractJsonnable {
   }
 
   public static ResistanceSet build(final Optional<String> name, final List<Phenotype> phenotypes, final List<SetMember> members) {
-    members.sort(Comparator.comparing(SetMember::getGene));
-    return new ResistanceSet(name.orElse(StringUtils.join(members, "_")), phenotypes, members);
+    return new ResistanceSet(name.orElse(generateName(members)), phenotypes, members);
   }
 
+  public static String generateName(final List<SetMember> members) {
+    members.sort(Comparator.comparing(SetMember::getGene));
+    return members
+        .stream()
+        .map(member -> {
+          member.getVariants().sort(Comparator.comparingInt(variant -> Integer.valueOf(variant.replaceAll("\\D+", ""))));
+          return member.getVariants().isEmpty() ?
+                 member.getGene() :
+                 member.getGene() + "_" + StringUtils.join(member.getGene(), member.getVariants(), "_");
+        })
+        .collect(Collectors.joining("__"));
+  }
 
   public String getName() {
 
