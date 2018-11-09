@@ -112,7 +112,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
                 resistanceState = ResistanceState.RESISTANT;
               } else if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE_ADDITIVE && Completeness.COMPLETE == completeness) {
                 resistanceState = ResistanceState.RESISTANT;
-              } else if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE_NOT_ADDITIVE && Completeness.COMPLETE == completeness) {
+              } else if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE && Completeness.COMPLETE == completeness) {
                 resistanceState = ResistanceState.INTERMEDIATE;
               } else {
                 if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE_ADDITIVE && Completeness.PARTIAL == completeness) {

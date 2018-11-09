@@ -92,7 +92,7 @@ public class LibraryReaderTest {
         ResistanceSet.build(
             Optional.of("penA_I312M_G545S_V316T"),
             Arrays.asList(
-                new Phenotype(PhenotypeEffect.INTERMEDIATE_NOT_ADDITIVE, Arrays.asList("CRO", "PEN"), Collections.emptyList()),
+                new Phenotype(PhenotypeEffect.INTERMEDIATE, Arrays.asList("CRO", "PEN"), Collections.emptyList()),
                 new Phenotype(PhenotypeEffect.INTERMEDIATE_ADDITIVE, Collections.singletonList("CFM"), Collections.emptyList())),
             Collections.singletonList(new SetMember("penA", Arrays.asList("G545S", "I312M", "V316T")))
         ),
@@ -100,7 +100,7 @@ public class LibraryReaderTest {
         LibraryReader.parseSnparSet().apply(new Toml()
             .read("[[snpar.sets]]\n" +
                 "name = \"penA_I312M_G545S_V316T\"\n" +
-                "phenotypes = [{effect = \"INTERMEDIATE_NOT_ADDITIVE\", profile = [\"CRO\",\"PEN\"], modifiers = []},\n" +
+                "phenotypes = [{effect = \"INTERMEDIATE\", profile = [\"CRO\",\"PEN\"], modifiers = []},\n" +
                 "              {effect = \"INTERMEDIATE_ADDITIVE\", profile = [\"CFM\"], modifiers = []}]\n" +
                 "members = [{gene=\"penA\", variants=[\"G545S\",\"I312M\",\"V316T\"]}]\n")
             .getTables("snpar.sets")

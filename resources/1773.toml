@@ -130,15 +130,15 @@ phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["L452P"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["RIF"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["L430P"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["RIF"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["H445N"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["RIF"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["RIF"]}]
 members = [{gene="rpoB", variants=["I491F"]}]
 
 [[snpar.sets]]
@@ -150,7 +150,7 @@ phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 members = [{gene="gyrA", variants=["D89N"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["MFX"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["MFX"]}]
 members = [{gene="gyrA", variants=["A90V"]}]
 
 [[snpar.sets]]
@@ -158,7 +158,7 @@ phenotypes = [{effect = "RESISTANT", profile = ["MFX"]}]
 members = [{gene="gyrA", variants=["S91P"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["MFX"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["MFX"]}]
 members = [{gene="gyrA", variants=["D94A"]}]
 
 [[snpar.sets]]
@@ -202,7 +202,7 @@ members = [{gene="gyrA", variants=["D94Y"]}]
 #members = [{gene="gyrB", variants=["N499K"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["MFX"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["MFX"]}]
 members = [{gene="gyrB", variants=["A504V"]}]
 
 #[[snpar.sets]]
@@ -726,7 +726,7 @@ phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["D12G"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["E37V"]}]
 
 # The below set are all minimal confidence but high MIC
@@ -748,19 +748,19 @@ members = [{gene="pncA", variants=["I133N"]}]
 
 # Remaining PZA are minimal confidence & low MIC
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["S65A"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["D110G"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["A170V"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PZA"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["PZA"]}]
 members = [{gene="pncA", variants=["V180I"]}]
 
 [[snpar.sets]]
@@ -768,7 +768,7 @@ phenotypes = [{effect = "RESISTANT", profile = ["AMI, KAN", "CAP"]}]
 members = [{gene="rrs", variants=["A1401G"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["AMI", "KAN", "CAP"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["AMI", "KAN", "CAP"]}]
 members = [{gene="rrs", variants=["C1402T"]}]
 
 [[snpar.sets]]
@@ -777,7 +777,7 @@ members = [{gene="rrs", variants=["G1484T"]}]
 
 #[[snpar.sets]]
 #name = "eis_c-14t"
-#phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["AMI"]},
+#phenotypes = [{effect = "INTERMEDIATE", profile = ["AMI"]},
 #              {effect = "RESISTANT", profile = ["KAN"]}]
 #members = [{gene="eis", variants=["c-14t"]}]
 #
@@ -788,7 +788,7 @@ members = [{gene="rrs", variants=["G1484T"]}]
 #
 #[[snpar.sets]]
 #name = "eis_c-12t"
-#phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["KAN"]}]
+#phenotypes = [{effect = "INTERMEDIATE", profile = ["KAN"]}]
 #members = [{gene="eis", variants=["c-12t"]}]
 #
 ## This one is minimal confidence

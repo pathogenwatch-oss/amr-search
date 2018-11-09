@@ -49,27 +49,27 @@ sequence = "ATGCGAAAAAAACTTACCGCCCTCGTATTGTCCGCACTGCCGCTTGCGGCAGTTGCCGATGTCAGCCT
 [snpar]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["AZM","CFM","CRO","PEN","TCY"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["AZM","CFM","CRO","PEN","TCY"]}]
 members = [{gene="mtrR_promoter", variants=["A24-"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["AZM","CFM","CRO","PEN","TCY"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["AZM","CFM","CRO","PEN","TCY"]}]
 members = [{gene="mtrR", variants=["G45D"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PEN"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["PEN"]}]
 members = [{gene="porB1b", variants=["G120K"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PEN"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["PEN"]}]
 members = [{gene="porB1b", variants=["A121D"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PEN"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["PEN"]}]
 members = [{gene="porB1b", variants=["A121N"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["PEN"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["PEN"]}]
 members = [{gene="ponA1", variants=["L421P"]}]
 
 [[snpar.sets]]
@@ -81,27 +81,27 @@ phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
 members = [{gene="gyrA", variants=["D95N"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CIP"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}]
 members = [{gene="gyrA", variants=["D95G"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CIP"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}]
 members = [{gene="parC", variants=["D86N"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CIP"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}]
 members = [{gene="parC", variants=["S87R"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CIP"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}]
 members = [{gene="parC", variants=["S87I"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CIP"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}]
 members = [{gene="parC", variants=["S87W"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CIP"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}]
 members = [{gene="parC", variants=["S88P"]}]
 
 [[snpar.sets]]
@@ -117,7 +117,7 @@ phenotypes = [{effect = "RESISTANT", profile = ["SPT"]}]
 members = [{gene="16S_rDNA", variants=["C1184T"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["TCY"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["TCY"]}]
 members = [{gene="rpsJ", variants=["V57M"]}]
 
 [[snpar.sets]]
@@ -125,36 +125,36 @@ phenotypes = [{effect = "RESISTANT", profile = ["SMX"]}]
 members = [{gene="folP", variants=["R228S"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CFM","CRO","PEN"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CFM","CRO","PEN"]}]
 members = [{gene="penA", variants=["A311V"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CRO","PEN"]},
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CRO","PEN"]},
               {effect = "INTERMEDIATE_ADDITIVE", profile = ["CFM"]}]
 members = [{gene="penA", variants=["I312M","V316T","G545S"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CFM","CRO","PEN"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CFM","CRO","PEN"]}]
 members = [{gene="penA", variants=["V316P"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CFM","CRO","PEN"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CFM","CRO","PEN"]}]
 members = [{gene="penA", variants=["T483S"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CFM","CRO","PEN"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CFM","CRO","PEN"]}]
 members = [{gene="penA", variants=["A501V"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CFM","CRO","PEN"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CFM","CRO","PEN"]}]
 members = [{gene="penA", variants=["A501P"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CFM","CRO","PEN"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CFM","CRO","PEN"]}]
 members = [{gene="penA", variants=["G542S"]}]
 
 [[snpar.sets]]
-phenotypes = [{effect = "INTERMEDIATE_NOT_ADDITIVE", profile = ["CFM","CRO","PEN"]}]
+phenotypes = [{effect = "INTERMEDIATE", profile = ["CFM","CRO","PEN"]}]
 members = [{gene="penA", variants=["P551S"]}]
 
 [[snpar.genes]]
