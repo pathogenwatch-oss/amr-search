@@ -7,10 +7,11 @@ import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.*;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class PaarsnpBuilderMain {
 
@@ -111,12 +112,12 @@ public class PaarsnpBuilderMain {
         try {
 
           if (!paarsnpLibraryAndSequences.getPaarSequences().isEmpty()) {
-            Files.write(paarFastaFile, paarsnpLibraryAndSequences.getPaarSequences().entrySet().stream().map(entry1 -> ">" + entry1.getKey() + "\n" + entry1.getValue() + "\n").collect(Collectors.joining()).getBytes(), StandardOpenOption.CREATE);
+            Files.write(paarFastaFile, String.join("", paarsnpLibraryAndSequences.getPaarSequences().values()).getBytes(), StandardOpenOption.CREATE);
             makeBlastDB.accept(paarLibraryName, paarFastaFile);
           }
 
           if (!paarsnpLibraryAndSequences.getSnparSequences().isEmpty()) {
-            Files.write(snparFastaFile, paarsnpLibraryAndSequences.getSnparSequences().entrySet().stream().map(entry -> ">" + entry.getKey() + "\n" + entry.getValue() + "\n").collect(Collectors.joining()).getBytes(), StandardOpenOption.CREATE);
+            Files.write(snparFastaFile, String.join("", paarsnpLibraryAndSequences.getSnparSequences().values()).getBytes(), StandardOpenOption.CREATE);
             makeBlastDB.accept(snparLibraryName, snparFastaFile);
           }
 

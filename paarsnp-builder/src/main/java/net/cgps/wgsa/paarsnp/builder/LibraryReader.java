@@ -2,12 +2,13 @@ package net.cgps.wgsa.paarsnp.builder;
 
 import com.moandjiezana.toml.Toml;
 import net.cgps.wgsa.paarsnp.core.formats.PaarsnpLibrary;
+import net.cgps.wgsa.paarsnp.core.formats.ReferenceSequence;
+import net.cgps.wgsa.paarsnp.core.formats.SetMember;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.lib.json.Phenotype;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
-import net.cgps.wgsa.paarsnp.core.formats.ReferenceSequence;
-import net.cgps.wgsa.paarsnp.core.formats.SetMember;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,11 +41,13 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
 
     baseLibrary.addAntibiotics(antimicrobials);
 
-    final Map<String, ReferenceSequence> newGenes = Optional.ofNullable(toml.getTables("genes"))
+    final Map<String, Pair<String, ReferenceSequence>> newGenes = Optional.ofNullable(toml.getTables("genes"))
         .orElse(Collections.emptyList())
         .stream()
-        .map(LibraryReader.parseSnparGene())
-        .map(gene -> new ImmutablePair<>(gene.getName(), gene))
+        .map(geneToml -> new ImmutablePair<>(
+            ">" + geneToml.getString("name") + "\n" + geneToml.getString("sequence") + "\n",
+            LibraryReader.parseSnparGene().apply(geneToml)))
+        .map(gene -> new ImmutablePair<>(gene.getRight().getName(), gene))
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
     // Construct the paar library
@@ -66,7 +69,14 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
             .map(Optional::ofNullable)
             .filter(Optional::isPresent)
             .map(Optional::get)
+            .map(Map.Entry::getValue)
             .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
+
+    // Store the sequences for the FASTA
+    baseLibrary.getPaarsnpLibrary().getPaar().getGenes().keySet()
+        .stream()
+        .filter(geneId -> !baseLibrary.getPaarSequences().containsKey(geneId))
+        .forEach(key -> baseLibrary.getPaarSequences().put(key, newGenes.get(key).getKey()));
 
     // Construct SNPAR
     baseLibrary.getPaarsnpLibrary().getSnpar().addResistanceSets(
@@ -84,7 +94,10 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
         .flatMap(Collection::stream)
         .map(member -> new ImmutablePair<String, Collection<String>>(member.getGene(), member.getVariants())
         )
-        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> {
+          a.addAll(b);
+          return a;
+        }));
 
     // Add the genes
     // Need to update all the SNPs
@@ -94,11 +107,15 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
             .map(ResistanceSet::getMembers)
             .flatMap(Collection::stream)
             .map(SetMember::getGene)
-            .map(newGene ->
-                Optional.ofNullable(newGenes.get(newGene))
-                    .orElse(baseLibrary.getPaarsnpLibrary().getSnpar().getGenes().get(newGene)))
+            .map(newGene -> newGenes.containsKey(newGene) ? newGenes.get(newGene).getValue() : baseLibrary.getPaarsnpLibrary().getSnpar().getGenes().get(newGene))
             .peek(snparReferenceSequence -> snparReferenceSequence.addVariants(sequenceIdToVariants.get(snparReferenceSequence.getName())))
             .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
+
+    // Store the sequences for the FASTA
+    baseLibrary.getPaarsnpLibrary().getSnpar().getGenes().keySet()
+        .stream()
+        .filter(geneId -> !baseLibrary.getSnparSequences().containsKey(geneId))
+        .forEach(key -> baseLibrary.getSnparSequences().put(key, newGenes.get(key).getKey()));
 
     return baseLibrary;
   }
