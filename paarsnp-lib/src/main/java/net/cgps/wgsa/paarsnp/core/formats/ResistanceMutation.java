@@ -1,4 +1,4 @@
-package net.cgps.wgsa.paarsnp.core.snpar.json;
+package net.cgps.wgsa.paarsnp.core.formats;
 
 import org.apache.commons.lang3.CharUtils;
 

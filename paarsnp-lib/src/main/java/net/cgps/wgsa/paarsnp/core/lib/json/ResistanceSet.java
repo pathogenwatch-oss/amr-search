@@ -1,6 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.lib.json;
 
-import net.cgps.wgsa.paarsnp.core.snpar.json.SetMember;
+import net.cgps.wgsa.paarsnp.core.formats.SetMember;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;

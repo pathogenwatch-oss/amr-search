@@ -1,4 +1,4 @@
-package net.cgps.wgsa.paarsnp.core.snpar.json;
+package net.cgps.wgsa.paarsnp.core.formats;
 
 import net.cgps.wgsa.paarsnp.core.lib.SetResult;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;

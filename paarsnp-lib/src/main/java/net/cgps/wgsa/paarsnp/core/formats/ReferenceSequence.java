@@ -1,11 +1,11 @@
-package net.cgps.wgsa.paarsnp.core.snpar.json;
+package net.cgps.wgsa.paarsnp.core.formats;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class SnparReferenceSequence {
+public class ReferenceSequence {
 
   private final String name;
   private final float pid;
@@ -13,11 +13,11 @@ public class SnparReferenceSequence {
   private final Collection<String> variants;
   private final Collection<ResistanceMutation> mappedVariants;
 
-  private SnparReferenceSequence() {
+  private ReferenceSequence() {
     this("", 0.0f, 0.0f);
   }
 
-  public SnparReferenceSequence(final String name, final float pid, final float coverage) {
+  public ReferenceSequence(final String name, final float pid, final float coverage) {
 
     this.name = name;
     this.pid = pid;
@@ -53,7 +53,7 @@ public class SnparReferenceSequence {
   public boolean equals(final Object o) {
     if (this == o) return true;
     if (o == null || this.getClass() != o.getClass()) return false;
-    final SnparReferenceSequence that = (SnparReferenceSequence) o;
+    final ReferenceSequence that = (ReferenceSequence) o;
     return Float.compare(that.pid, this.pid) == 0 &&
         Float.compare(that.coverage, this.coverage) == 0 &&
         Objects.equals(this.name, that.name) &&

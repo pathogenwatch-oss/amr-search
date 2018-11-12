@@ -5,9 +5,9 @@ import net.cgps.wgsa.paarsnp.core.lib.PhenotypeEffect;
 import net.cgps.wgsa.paarsnp.core.lib.ProfileAggregator;
 import net.cgps.wgsa.paarsnp.core.lib.ResistanceState;
 import net.cgps.wgsa.paarsnp.core.lib.json.*;
-import net.cgps.wgsa.paarsnp.core.paar.json.PaarResult;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SetMember;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
+import net.cgps.wgsa.paarsnp.core.formats.PaarResult;
+import net.cgps.wgsa.paarsnp.core.formats.SetMember;
+import net.cgps.wgsa.paarsnp.core.formats.SnparResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

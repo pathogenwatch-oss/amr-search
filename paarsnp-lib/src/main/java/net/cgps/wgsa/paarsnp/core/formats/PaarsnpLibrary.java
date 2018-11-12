@@ -1,9 +1,7 @@
-package net.cgps.wgsa.paarsnp.core;
+package net.cgps.wgsa.paarsnp.core.formats;
 
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
-import net.cgps.wgsa.paarsnp.core.paar.json.Paar;
-import net.cgps.wgsa.paarsnp.core.snpar.json.Snpar;
 
 import java.util.ArrayList;
 import java.util.List;

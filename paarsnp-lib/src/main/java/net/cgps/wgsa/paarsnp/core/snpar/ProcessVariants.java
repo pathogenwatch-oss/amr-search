@@ -1,9 +1,9 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
+import net.cgps.wgsa.paarsnp.core.formats.*;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.MutationBuilder;
 import net.cgps.wgsa.paarsnp.core.lib.blast.SequenceProcessor;
-import net.cgps.wgsa.paarsnp.core.snpar.json.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,12 +27,12 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
   @Override
   public SnparMatchData apply(final BlastMatch mutationSearchResult) {
 
-    final SnparReferenceSequence snparReferenceSequence = this.snparLibrary.getGenes().get(mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceId());
+    final ReferenceSequence referenceSequence = this.snparLibrary.getGenes().get(mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceId());
     final Map<Integer, Collection<Mutation>> mutations = new SequenceProcessor(mutationSearchResult.getReferenceMatchSequence(), mutationSearchResult.getBlastSearchStatistics().getLibrarySequenceStart(), mutationSearchResult.getBlastSearchStatistics().getStrand(), mutationSearchResult.getForwardQuerySequence(), mutationSearchResult.getBlastSearchStatistics().getQuerySequenceStart(), new MutationBuilder()).call();
 
     final CodonMap codonMap = new CodonMapper().apply(mutationSearchResult);
 
-    final Collection<ResistanceMutationMatch> resistanceMutations = snparReferenceSequence
+    final Collection<ResistanceMutationMatch> resistanceMutations = referenceSequence
         .getMappedVariants()
         .stream()
         .peek(mutation -> this.logger.debug("Resistance mutation {}", mutation.getName()))

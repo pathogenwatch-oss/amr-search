@@ -1,11 +1,11 @@
 package net.cgps.wgsa.paarsnp;
 
-import net.cgps.wgsa.paarsnp.core.PaarsnpLibrary;
+import net.cgps.wgsa.paarsnp.core.formats.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
 import net.cgps.wgsa.paarsnp.core.snpar.SnparCalculation;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
+import net.cgps.wgsa.paarsnp.core.formats.SnparResult;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

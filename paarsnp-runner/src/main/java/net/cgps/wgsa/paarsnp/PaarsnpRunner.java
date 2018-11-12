@@ -4,12 +4,12 @@ import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.paar.PaarCalculation;
-import net.cgps.wgsa.paarsnp.core.paar.json.PaarResult;
-import net.cgps.wgsa.paarsnp.core.paar.json.Paar;
+import net.cgps.wgsa.paarsnp.core.formats.PaarResult;
+import net.cgps.wgsa.paarsnp.core.formats.Paar;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
 import net.cgps.wgsa.paarsnp.core.snpar.SnparCalculation;
-import net.cgps.wgsa.paarsnp.core.snpar.json.Snpar;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
+import net.cgps.wgsa.paarsnp.core.formats.Snpar;
+import net.cgps.wgsa.paarsnp.core.formats.SnparResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

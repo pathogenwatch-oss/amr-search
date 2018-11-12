@@ -1,10 +1,10 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
+import net.cgps.wgsa.paarsnp.core.formats.*;
 import net.cgps.wgsa.paarsnp.core.lib.SetResult;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.json.Modifier;
 import net.cgps.wgsa.paarsnp.core.lib.json.Phenotype;
-import net.cgps.wgsa.paarsnp.core.snpar.json.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

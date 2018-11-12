@@ -6,9 +6,9 @@ import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.lib.json.Modifier;
 import net.cgps.wgsa.paarsnp.core.lib.json.Phenotype;
-import net.cgps.wgsa.paarsnp.core.paar.json.Paar;
-import net.cgps.wgsa.paarsnp.core.paar.json.PaarResult;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SetMember;
+import net.cgps.wgsa.paarsnp.core.formats.Paar;
+import net.cgps.wgsa.paarsnp.core.formats.PaarResult;
+import net.cgps.wgsa.paarsnp.core.formats.SetMember;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

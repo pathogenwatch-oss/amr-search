@@ -1,4 +1,4 @@
-package net.cgps.wgsa.paarsnp.core.paar.json;
+package net.cgps.wgsa.paarsnp.core.formats;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;

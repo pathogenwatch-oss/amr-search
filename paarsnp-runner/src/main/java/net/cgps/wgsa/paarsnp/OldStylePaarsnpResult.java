@@ -2,8 +2,8 @@ package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.json.OldStyleAntibioticProfile;
-import net.cgps.wgsa.paarsnp.core.paar.json.OldStylePaarResult;
-import net.cgps.wgsa.paarsnp.core.snpar.json.OldStyleSnparResult;
+import net.cgps.wgsa.paarsnp.core.formats.OldStylePaarResult;
+import net.cgps.wgsa.paarsnp.core.formats.OldStyleSnparResult;
 
 import java.util.Collection;
 import java.util.Collections;

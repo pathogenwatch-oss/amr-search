@@ -1,6 +1,7 @@
-package net.cgps.wgsa.paarsnp.core.paar.json;
+package net.cgps.wgsa.paarsnp.core.formats;
 
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
+import net.cgps.wgsa.paarsnp.core.formats.ReferenceSequence;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class Paar {
 
-  private final Map<String, ResistanceGene> genes;
+  private final Map<String, ReferenceSequence> genes;
   private final Map<String, ResistanceSet> sets;
   private double minimumPid;
 
@@ -18,14 +19,14 @@ public class Paar {
     this(new ArrayList<>(1000), new ArrayList<>(1000));
   }
 
-  public Paar(final List<ResistanceGene> genes, final List<ResistanceSet> sets) {
+  public Paar(final List<ReferenceSequence> genes, final List<ResistanceSet> sets) {
 
-    this.genes = genes.stream().collect(Collectors.toMap(ResistanceGene::getFamilyName, Function.identity()));
+    this.genes = genes.stream().collect(Collectors.toMap(ReferenceSequence::getName, Function.identity()));
     this.sets = sets.stream().collect(Collectors.toMap(ResistanceSet::getName, Function.identity()));
-    this.minimumPid = genes.stream().mapToDouble(ResistanceGene::getPid).min().orElse(100.0);
+    this.minimumPid = genes.stream().mapToDouble(ReferenceSequence::getPid).min().orElse(100.0);
   }
 
-  public Map<String, ResistanceGene> getGenes() {
+  public Map<String, ReferenceSequence> getGenes() {
 
     return this.genes;
   }
@@ -40,14 +41,14 @@ public class Paar {
     return this.minimumPid;
   }
 
-  public void addResistanceGenes(final Map<String, ResistanceGene> resistanceGene) {
+  public void addResistanceGenes(final Map<String, ReferenceSequence> resistanceGene) {
 
     this.genes.putAll(resistanceGene);
 
     final double newMinimum = resistanceGene
         .values()
         .stream()
-        .mapToDouble(ResistanceGene::getPid)
+        .mapToDouble(ReferenceSequence::getPid)
         .min()
         .orElse(100.0);
 

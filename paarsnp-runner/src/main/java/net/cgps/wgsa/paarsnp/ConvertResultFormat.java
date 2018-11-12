@@ -5,9 +5,9 @@ import net.cgps.wgsa.paarsnp.core.lib.json.OldStyleAntibioticProfile;
 import net.cgps.wgsa.paarsnp.core.lib.json.OldStyleSetDescription;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.lib.utils.ConvertSetDescription;
-import net.cgps.wgsa.paarsnp.core.paar.json.OldStylePaarResult;
-import net.cgps.wgsa.paarsnp.core.snpar.json.OldStyleSnparResult;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SetMember;
+import net.cgps.wgsa.paarsnp.core.formats.OldStylePaarResult;
+import net.cgps.wgsa.paarsnp.core.formats.OldStyleSnparResult;
+import net.cgps.wgsa.paarsnp.core.formats.SetMember;
 
 import java.util.Collection;
 import java.util.List;

@@ -2,8 +2,8 @@ package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntibioticProfile;
-import net.cgps.wgsa.paarsnp.core.paar.json.PaarResult;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
+import net.cgps.wgsa.paarsnp.core.formats.PaarResult;
+import net.cgps.wgsa.paarsnp.core.formats.SnparResult;
 
 import java.util.Collection;
 import java.util.Collections;

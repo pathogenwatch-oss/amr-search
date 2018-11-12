@@ -1,7 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
-import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
+import net.cgps.wgsa.paarsnp.core.formats.Mutation;
 
 /**
  * Factory class for building mutations. Handles positioning on reverse matches etc.

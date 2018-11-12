@@ -1,13 +1,12 @@
 package net.cgps.wgsa.paarsnp.builder;
 
 import com.moandjiezana.toml.Toml;
-import net.cgps.wgsa.paarsnp.core.PaarsnpLibrary;
+import net.cgps.wgsa.paarsnp.core.formats.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.lib.json.Phenotype;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
-import net.cgps.wgsa.paarsnp.core.paar.json.ResistanceGene;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SetMember;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparReferenceSequence;
+import net.cgps.wgsa.paarsnp.core.formats.ReferenceSequence;
+import net.cgps.wgsa.paarsnp.core.formats.SetMember;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.nio.file.Path;
@@ -41,6 +40,13 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
 
     baseLibrary.addAntibiotics(antimicrobials);
 
+    final Map<String, ReferenceSequence> newGenes = Optional.ofNullable(toml.getTables("genes"))
+        .orElse(Collections.emptyList())
+        .stream()
+        .map(LibraryReader.parseSnparGene())
+        .map(gene -> new ImmutablePair<>(gene.getName(), gene))
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
     // Construct the paar library
     baseLibrary.getPaarsnpLibrary().getPaar().addResistanceSets(
         Optional.ofNullable(toml.getTables("paar.sets"))
@@ -49,14 +55,20 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
             .map(LibraryReader.parsePaarSet())
             .collect(Collectors.toMap(ResistanceSet::getName, Function.identity())));
 
+    // Add the new paar genes
     baseLibrary.getPaarsnpLibrary().getPaar().addResistanceGenes(
-        Optional.ofNullable(toml.getTables("paar.genes"))
-            .orElse(Collections.emptyList())
+        baseLibrary.getPaarsnpLibrary().getPaar().getSets().values()
             .stream()
-            .peek(geneToml -> baseLibrary.getPaarSequences().put(geneToml.getString("name"), geneToml.getString("sequence")))
-            .map(LibraryReader.parsePaarGene())
-            .collect(Collectors.toMap(ResistanceGene::getFamilyName, Function.identity())));
+            .map(ResistanceSet::getMembers)
+            .flatMap(Collection::stream)
+            .map(SetMember::getGene)
+            .map(newGenes::get)
+            .map(Optional::ofNullable)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
 
+    // Construct SNPAR
     baseLibrary.getPaarsnpLibrary().getSnpar().addResistanceSets(
         Optional.ofNullable(toml.getTables("snpar.sets"))
             .orElse(Collections.emptyList())
@@ -74,17 +86,19 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
         )
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
+    // Add the genes
+    // Need to update all the SNPs
     baseLibrary.getPaarsnpLibrary().getSnpar().addResistanceGenes(
-        Optional.ofNullable(toml.getTables("snpar.genes"))
-            .orElse(Collections.emptyList())
+        baseLibrary.getPaarsnpLibrary().getSnpar().getSets().values()
             .stream()
-            .peek(geneToml -> baseLibrary.getSnparSequences().put(geneToml.getString("name"), geneToml.getString("sequence")))
-            .map(LibraryReader.parseSnparGene())
-            .peek(snparReferenceSequence -> {
-                snparReferenceSequence.addVariants(sequenceIdToVariants.get(snparReferenceSequence.getName()));
-            })
-            .collect(Collectors.toMap(SnparReferenceSequence::getName, Function.identity()))
-    );
+            .map(ResistanceSet::getMembers)
+            .flatMap(Collection::stream)
+            .map(SetMember::getGene)
+            .map(newGene ->
+                Optional.ofNullable(newGenes.get(newGene))
+                    .orElse(baseLibrary.getPaarsnpLibrary().getSnpar().getGenes().get(newGene)))
+            .peek(snparReferenceSequence -> snparReferenceSequence.addVariants(sequenceIdToVariants.get(snparReferenceSequence.getName())))
+            .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
 
     return baseLibrary;
   }
@@ -176,16 +190,12 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
     return toml -> toml.to(AntimicrobialAgent.class);
   }
 
-  public static Function<Toml, ResistanceGene> parsePaarGene() {
-    return geneToml -> new ResistanceGene(geneToml.getString("name"), geneToml.getDouble("coverage").floatValue(), geneToml.getDouble("pid").floatValue());
-  }
-
   public static Function<String, SetMember> parsePaarMember() {
     return memberName -> new SetMember(memberName, Collections.emptyList());
   }
 
-  public static Function<Toml, SnparReferenceSequence> parseSnparGene() {
-    return toml -> new SnparReferenceSequence(
+  public static Function<Toml, ReferenceSequence> parseSnparGene() {
+    return toml -> new ReferenceSequence(
         toml.getString("name"),
         toml.getDouble("pid").floatValue(),
         toml.getDouble("coverage").floatValue()

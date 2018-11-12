@@ -7,9 +7,8 @@ import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.lib.json.Modifier;
 import net.cgps.wgsa.paarsnp.core.lib.json.Phenotype;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
-import net.cgps.wgsa.paarsnp.core.paar.json.ResistanceGene;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SetMember;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparReferenceSequence;
+import net.cgps.wgsa.paarsnp.core.formats.ReferenceSequence;
+import net.cgps.wgsa.paarsnp.core.formats.SetMember;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -35,11 +34,10 @@ public class LibraryReaderTest {
         "name = \"aph_3prime_III_1_M26832\"\n" +
         "pid = 80.0\n" +
         "coverage = 80.0\n" +
-        "type = \"Protein\"\n" +
         "sequence = \"ATGGCTAAAATGAGAATATCACCGGAATTGAAAAAACTGATCGAAAAATACCGCTGCGTAAAAGATACGGAAGGAATGTCTCCTGCTAAGGTATATAAGCTGGTGGGAGAAAATGAAAACCTATATTTAAAAATGACGGACAGCCGGTATAAAGGGACCACCTATGATGTGGAACGGGAAAAGGACATGATGCTATGGCTGGAAGGAAAGCTGCCTGTTCCAAAGGTCCTGCACTTTGAACGGCATGATGGCTGGAGCAATCTGCTCATGAGTGAGGCCGATGGCGTCCTTTGCTCGGAAGAGTATGAAGATGAACAAAGCCCTGAAAAGATTATCGAGCTGTATGCGGAGTGCATCAGGCTCTTTCACTCCATCGACATATCGGATTGTCCCTATACGAATAGCTTAGACAGCCGCTTAGCCGAATTGGATTACTTACTGAATAACGATCTGGCCGATGTGGATTGCGAAAACTGGGAAGAAGACACTCCATTTAAAGATCCGCGCGAGCTGTATGATTTTTTAAAGACGGAAAAGCCCGAAGAGGAACTTGTCTTTTCCCACGGCGACCTGGGAGACAGCAACATCTTTGTGAAAGATGGCAAAGTAAGTGGCTTTATTGATCTTGGGAGAAGCGGCAGGGCGGACAAGTGGTATGACATTGCCTTCTGCGTCCGGTCGATCAGGGAGGATATCGGGGAAGAACAGTATGTCGAGCTATTTTTTGACTTACTGGGGATCAAGCCTGATTGGGAGAAAATAAAATATTATATTTTACTGGATGAATTGTTTTAG\"\n")
         .getTables("paar.genes").get(0);
-    final ResistanceGene resistanceGene = new ResistanceGene("aph_3prime_III_1_M26832", 80.0f, 80.0f);
-    Assert.assertEquals(resistanceGene, LibraryReader.parsePaarGene().apply(geneToml));
+    final ReferenceSequence resistanceGene = new ReferenceSequence("aph_3prime_III_1_M26832", 80.0f, 80.0f);
+    Assert.assertEquals(resistanceGene, LibraryReader.parseSnparGene().apply(geneToml));
   }
 
   @Test
@@ -124,18 +122,20 @@ public class LibraryReaderTest {
 
   @Test
   public void parseSnparGene() {
+    final ReferenceSequence referenceSequence = new ReferenceSequence(
+        "penA",
+        80.0f,
+        60.0f
+    );
+
+//    referenceSequence.addVariants(Arrays.asList("A501P", "I312M", "V316P", "P551S", "A501V", "G545S", "G542S", "A311V", "V316T", "T483S"));
+
     Assert.assertEquals(
-        new SnparReferenceSequence(
-            "penA",
-            80.0f,
-            60.0f,
-            Arrays.asList("A501P", "I312M", "V316P", "P551S", "A501V", "G545S", "G542S", "A311V", "V316T", "T483S")),
+        referenceSequence,
         LibraryReader.parseSnparGene().apply(new Toml().read("[[snpar.genes]]\n" +
             "name = \"penA\"\n" +
             "pid = 80.0\n" +
             "coverage = 60.0\n" +
-            "type = \"Protein\"\n" +
-            "variants = [ \"A501P\",\"I312M\",\"V316P\",\"P551S\",\"A501V\",\"G545S\",\"G542S\",\"A311V\",\"V316T\",\"T483S\" ]\n" +
             "sequence = \"ATGTTGATT\"\n")
             .getTables("snpar.genes")
             .get(0))
