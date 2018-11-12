@@ -1,7 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.snpar.json;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -14,21 +14,16 @@ public class SnparReferenceSequence {
   private final Collection<ResistanceMutation> mappedVariants;
 
   private SnparReferenceSequence() {
-    this("", 0.0f, 0.0f, Collections.emptyList());
+    this("", 0.0f, 0.0f);
   }
 
-  public SnparReferenceSequence(final String name, final float pid, final float coverage, final Collection<String> variants) {
+  public SnparReferenceSequence(final String name, final float pid, final float coverage) {
 
     this.name = name;
     this.pid = pid;
     this.coverage = coverage;
-    this.variants = variants;
-    this.mappedVariants = this.mapVariants(variants);
-  }
-
-  private Collection<ResistanceMutation> mapVariants(final Collection<String> variants) {
-
-    return variants.stream().map(ResistanceMutation.parseVariant()).collect(Collectors.toList());
+    this.variants = new HashSet<>(100);
+    this.mappedVariants = new HashSet<>(100);
   }
 
   public Collection<ResistanceMutation> getMappedVariants() {
@@ -68,5 +63,10 @@ public class SnparReferenceSequence {
   @Override
   public int hashCode() {
     return Objects.hash(this.name, this.pid, this.coverage, this.variants, this.mappedVariants);
+  }
+
+  public void addVariants(final Collection<String> newVariants) {
+    this.variants.addAll(newVariants);
+    this.mappedVariants.addAll(newVariants.stream().map(ResistanceMutation.parseVariant()).collect(Collectors.toList()));
   }
 }

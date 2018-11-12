@@ -8,6 +8,7 @@ import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.paar.json.ResistanceGene;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SetMember;
 import net.cgps.wgsa.paarsnp.core.snpar.json.SnparReferenceSequence;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,6 +42,13 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
     baseLibrary.addAntibiotics(antimicrobials);
 
     // Construct the paar library
+    baseLibrary.getPaarsnpLibrary().getPaar().addResistanceSets(
+        Optional.ofNullable(toml.getTables("paar.sets"))
+            .orElse(Collections.emptyList())
+            .stream()
+            .map(LibraryReader.parsePaarSet())
+            .collect(Collectors.toMap(ResistanceSet::getName, Function.identity())));
+
     baseLibrary.getPaarsnpLibrary().getPaar().addResistanceGenes(
         Optional.ofNullable(toml.getTables("paar.genes"))
             .orElse(Collections.emptyList())
@@ -49,12 +57,22 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
             .map(LibraryReader.parsePaarGene())
             .collect(Collectors.toMap(ResistanceGene::getFamilyName, Function.identity())));
 
-    baseLibrary.getPaarsnpLibrary().getPaar().addResistanceSets(
-        Optional.ofNullable(toml.getTables("paar.sets"))
+    baseLibrary.getPaarsnpLibrary().getSnpar().addResistanceSets(
+        Optional.ofNullable(toml.getTables("snpar.sets"))
             .orElse(Collections.emptyList())
             .stream()
-            .map(LibraryReader.parsePaarSet())
-            .collect(Collectors.toMap(ResistanceSet::getName, Function.identity())));
+            .map(LibraryReader.parseSnparSet())
+            .collect(Collectors.toMap(ResistanceSet::getName, Function.identity()))
+    );
+
+    final Map<String, Collection<String>> sequenceIdToVariants = baseLibrary.getPaarsnpLibrary().getSnpar().getSets()
+        .values()
+        .stream()
+        .map(ResistanceSet::getMembers)
+        .flatMap(Collection::stream)
+        .map(member -> new ImmutablePair<String, Collection<String>>(member.getGene(), member.getVariants())
+        )
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
     baseLibrary.getPaarsnpLibrary().getSnpar().addResistanceGenes(
         Optional.ofNullable(toml.getTables("snpar.genes"))
@@ -62,15 +80,10 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
             .stream()
             .peek(geneToml -> baseLibrary.getSnparSequences().put(geneToml.getString("name"), geneToml.getString("sequence")))
             .map(LibraryReader.parseSnparGene())
+            .peek(snparReferenceSequence -> {
+                snparReferenceSequence.addVariants(sequenceIdToVariants.get(snparReferenceSequence.getName()));
+            })
             .collect(Collectors.toMap(SnparReferenceSequence::getName, Function.identity()))
-    );
-
-    baseLibrary.getPaarsnpLibrary().getSnpar().addResistanceSets(
-        Optional.ofNullable(toml.getTables("snpar.sets"))
-            .orElse(Collections.emptyList())
-            .stream()
-            .map(LibraryReader.parseSnparSet())
-            .collect(Collectors.toMap(ResistanceSet::getName, Function.identity()))
     );
 
     return baseLibrary;
@@ -175,8 +188,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
     return toml -> new SnparReferenceSequence(
         toml.getString("name"),
         toml.getDouble("pid").floatValue(),
-        toml.getDouble("coverage").floatValue(),
-        toml.getList("variants")
+        toml.getDouble("coverage").floatValue()
     );
   }
 
