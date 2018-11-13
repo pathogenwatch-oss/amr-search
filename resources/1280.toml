@@ -74,574 +74,149 @@ genes = [
 {name = "mprF", pid = 80.0, coverage = 75.0, sequence = "ATGAATCAGGAAGTTAAAAACAAAATATTTTCAATCTTAAAAATTACGTTTGCTACAGCTTTATTTATTTTTGTAGCAATCACATTGTATCGGGAGTTATCTGGTATTAACTTTAAAGATACGTTGGTTGAATTTAGTAAGATTAACCGTATGTCCTTAGTGTTACTATTTATTGGTGGTGGGGCATCGCTTGTTATTCTATCAATGTATGATGTGATTTTATCTAGAGCTTTAAAAATGGATATATCCTTAGGCAAAGTTTTAAGAGTAAGTTATATCATCAATGCATTGAATGCGATTGTAGGTTTCGGTGGCTTTATTGGTGCAGGCGTTAGAGCAATGGTTTATAAAAACTATACGCATGATAAAAAGAAATTAGTTCACTTTATATCCTTAATACTTATTTCAATGTTGACAGGTTTAAGCTTATTATCATTGCTAATTGTATTCCATGTTTTCGATGCATCTTTAATCTTAGATAAGATTACATGGGTAAGATGGGTATTATATGTAGTGTCATTTTTCTTACCATTATTCATTATTTATTCAATGGTTAGACCACCCGATAAAAACAATCGTTTTGTAGGATTGTACTGCACTTTAGTGTCGTGTGTTGAATGGTTAGCAGCTGCAGTTGTATTATATTTCTGTGGTGTAATTGTTGACGCTCATGTATCATTCATGTCCTTTATTGCAATATTTATCATTGCTGCATTATCAGGTTTAGTCAGCTTTATTCCTGGTGGTTTCGGCGCTTTCGATTTAGTTGTATTACTAGGATTTAAAACTTTAGGTGTCCCTGAGGAAAAAGTATTATTAATGCTACTTCTATATCGTTTTGCGTACTATTTTGTACCGGTAATTATTGCATTAATTTTATCATCATTTGAATTTGGTACATCAGCTAAGAAGTACATTGAGGGATCTAAATACTTTATTCCTGCTAAAGATGTTACGTCATTTTTAATGTCTTATCAAAAGGATATTATTGCTAAAATTCCATCATTATCATTAGCAATTTTAGTATTCTTTACAAGTATGATCTTTTTTGTAAATAACTTAACGATTGTTTACGATGCTTTATATGACGGAAATCACTTAACGTATTATATTCTATTGGCAATTCATACTAGTGCTTGTTTATTACTTTTACTGAATGTAGTTGGTATTTATAAGCAAAGTAGACGTGCCATTATCTTTGCTATGATTTCAATTTTATTAATCACAGTGGCGACATTCTTCACTTACGCTTCATATATTTTAATAACATGGTTAGCTATTATTTTTGTTCTGCTTATTGTAGCTTTCCGTAGAGCACGTAGGTTGAAACGCCCAGTAAGAATGAGAAATATAGTTGCAATGCTTTTATTCAGTTTATTTATTTTATATGTTAACCATATATTTATTGCTGGAACGTTATATGCATTAGATATTTATACGATTGAAATGCATACATCTGTATTGCGCTATTACTTCTGGCTTACGATTTTAATCATCGCTATCATCATAGGTATGATTGCATGGTTGTTTGATTATCAATTTAGCAAAGTACGTATTTCTTCTAAAATTGAAGATTGCGAGGAGATTATTAATCAGTACGGCGGTAATTATTTGAGTCACTTGATATATAGTGGTGACAAGCAGTTTTTCACTAATGAAAATAAAACAGCATTTTTAATGTATCGTTATAAAGCAAGTTCATTAGTGGTTCTTGGAGATCCGTTAGGTGATGAAAATGCCTTTGATGAATTGTTAGAAGCATTCTATAATTACGCTGAGTATTTAGGCTATGATGTTATATTCTATCAAGTTACAGATCAACACATGCCTTTATATCATAATTTCGGTAATCAATTTTTCAAATTAGGTGAAGAAGCAATTATTGATTTAACGCAATTTTCAACTTCAGGTAAAAAACGCCGTGGATTTAGAGCGACTTTAAATAAATTCGATGAACTTAATATTTCGTTCGAAATTATTGAACCACCGTTTTCAACTGAATTTATAAATGAACTTCAACATGTAAGTGATTTATGGCTAGATAATCGTCAGGAAATGCATTTCTCTGTTGGTGAATTTAATGAAGAATACTTATCTAAAGCGCCAATTGGTGTAATGCGAAATGAAGAAAATGAAGTAATTGCATTTTGTAGTTTAATGCCAACATACTTTAATGATGCCATTTCAGTCGATTTAATTAGATGGTTGCCAGAGTTAGATTTACCATTAATGGATGGTCTATACTTGCATATGTTACTTTGGAGTAAAGAACAAGGTTATACAAAATTTAATATGGGTATGGCAACGTTATCGAACGTTGGTCAATTGCATTATTCATATTTAAGAGAACGACTTGCAGGCCGTGTCTTTGAACATTTCAACGGTCTATATCGTTTCCAAGGATTACGTCGTTATAAATCTAAATATAATCCGAATTGGGAACCACGCTTTTTAGTTTATCGTAAAGATAATTCGCTTTGGGAATCACTTTCTAAAGTAATGCGTGTAATACGTCACAAATAA"},
 ]
 
-[paar]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["PEN"]}]
-members = ["blaZ"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["PEN"]}]
-members = ["blaZ_LGA251"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["MET","PEN"]}]
-members = ["mecA"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["MET"]}]
-members = ["mecC"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TOB","AMI","KAN"]}]
-members = ["aphA-3"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["AMI","TOB","KAN"]}]
-members = ["aadD"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TOB","GEN","KAN"]}]
-members = ["aacA-aphD"]
-
-[[paar.sets]]
-name = "ermA_ERY"
-phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}]
-members = ["ermA"]
-
-[[paar.sets]]
-name = "ermA_CLI" 
-phenotypes = [{effect = "RESISTANT", profile = ["CLI"]}]
-members = ["ermA", "ermA_SDS"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}]
-members = ["ermB"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["ERY"]},
-              {effect = "RESISTANT", profile = ["CLI"], modifiers = [{name = "ermC_LP", effect = "MODIFIES_INDUCED"}]}]
-members = ["ermC"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}]
-members = ["erm33"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}]
-members = ["ermT"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}]
-members = ["mefA"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}]
-members = ["mefE"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}]
-members = ["msrA"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}]
-members = ["ereA"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}]
-members = ["ereB"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CLI"]}]
-members = ["linA"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CLI"]}]
-members = ["linB"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CLI"]}]
-members = ["linC"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}]
-members = ["tetK"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}]
-members = ["tetM"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}]
-members = ["tetL"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}]
-members = ["tetO"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = ["fusB"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = ["fusC"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = ["fusD"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["LNZ"]}]
-members = ["cfr"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}]
-members = ["ileS-2"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}]
-members = ["mupB"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
-members = ["dfrK"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
-members = ["dfrA"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
-members = ["dfrG"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["VAN","TEC"]}]
-members = ["vanA"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["VAN","TEC"]}]
-members = ["vanZ"]
-
-[snpar]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="grlA", variants=["S80F"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="grlA", variants=["S80Y"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="grlA", variants=["E84K"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="grlA", variants=["A116V"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="grlA", variants=["A116E"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="grlB", variants=["D432V"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="grlB", variants=["D432N"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="grlB", variants=["D432H"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="grlB", variants=["D443E"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="grlB", variants=["R444S"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="grlB", variants=["P451S"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="grlB", variants=["R470D"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="grlB", variants=["P585S"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="gyrA", variants=["D73G"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="gyrA", variants=["G82C"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="gyrA", variants=["S84L"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="gyrA", variants=["S84V"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="gyrA", variants=["S84A"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="gyrA", variants=["S85P"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="gyrA", variants=["E88K"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="gyrA", variants=["E88L"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="gyrA", variants=["E88R"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="gyrA", variants=["G106D"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="gyrB", variants=["D437N"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]
-members = [{gene="gyrB", variants=["E477D"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["F88L"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["V90A"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["V90I"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["P114H"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["Q115L"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["T385N"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["P404L"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["P404Q"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["P406L"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["D434N"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["T436I"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["H438N"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["E444K"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["G451V"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["E444V"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["G452S"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["G452C"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["N453I"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["L456F"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["H457Q"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["H457Y"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["L461K"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["L461S"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["L461F"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["D436G"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["R464C"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["R464S"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["R464H"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["P478S"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["G556S"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["G617D"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["F652S"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["Y654N"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["A655E"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["A655P"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["T656K"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["R659C"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["R659L"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["R659S"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}]
-members = [{gene="fusA", variants=["G664S"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["LNZ"]}]
-members = [{gene="rplD", variants=["K68Q"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["LNZ"]}]
-members = [{gene="rplC", variants=["G139R"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["LNZ"]}]
-members = [{gene="rplC", variants=["G152D"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["LNZ"]}]
-members = [{gene="rplC", variants=["G155R"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["LNZ"]}]
-members = [{gene="rplC", variants=["M169L"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}]
-members = [{gene="ileS-1", variants=["H67Q"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}]
-members = [{gene="ileS-1", variants=["F563L"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}]
-members = [{gene="ileS-1", variants=["V588F"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}]
-members = [{gene="ileS-1", variants=["G593V"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}]
-members = [{gene="ileS-1", variants=["V631F"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}]
-members = [{gene="ileS-1", variants=["R816C"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["S464P"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["S463P"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["I527F"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["N474K"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["Q468R"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["Q468K"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["Q468L"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["S486L"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["D471Y"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["D552N"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["D550G"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["R484H"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["A477T"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["A477V"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["A477D"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["A477G"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["H481Y"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["H481N"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}]
-members = [{gene="rpoB", variants=["H481D"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["DAP","TEC","VAN"]}]
-members = [{gene="rpoB", variants=["A621E"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
-members = [{gene="dfrB", variants=["L21V"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
-members = [{gene="dfrB", variants=["H31N"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
-members = [{gene="dfrB", variants=["L41F"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
-members = [{gene="dfrB", variants=["F99S"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
-members = [{gene="dfrB", variants=["F99Y"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
-members = [{gene="dfrB", variants=["F99I"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}]
-members = [{gene="dfrB", variants=["H150R"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["DAP"]}]
-members = [{gene="mprF", variants=["S295L"]}]
-
-[[snpar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["DAP"]}]
-members = [{gene="mprF", variants=["T345A"]}]
-
+paar = [
+{phenotypes = [{effect = "RESISTANT", profile = ["PEN"]}], members = ["blaZ"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["PEN"]}], members = ["blaZ_LGA251"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["MET","PEN"]}], members = ["mecA"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["MET"]}], members = ["mecC"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TOB","AMI","KAN"]}], members = ["aphA-3"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["AMI","TOB","KAN"]}], members = ["aadD"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TOB","GEN","KAN"]}], members = ["aacA-aphD"]},
+{name = "ermA_ERY", phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["ermA"]},
+{name = "ermA_CLI", phenotypes = [{effect = "RESISTANT", profile = ["CLI"]}], members = ["ermA", "ermA_SDS"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["ermB"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}, {effect = "RESISTANT", profile = ["CLI"], modifiers = [{name = "ermC_LP", effect = "MODIFIES_INDUCED"}]}], members = ["ermC"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["erm33"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["ermT"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["mefA"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["mefE"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["msrA"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["ereA"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["ereB"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CLI"]}], members = ["linA"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CLI"]}], members = ["linB"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CLI"]}], members = ["linC"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}], members = ["tetK"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}], members = ["tetM"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}], members = ["tetL"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}], members = ["tetO"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = ["fusB"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = ["fusC"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = ["fusD"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["LNZ"]}], members = ["cfr"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}], members = ["ileS-2"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}], members = ["mupB"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}], members = ["dfrK"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}], members = ["dfrA"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}], members = ["dfrG"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["VAN","TEC"]}], members = ["vanA"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["VAN","TEC"]}], members = ["vanZ"]}
+]
+
+snpar = [
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["S80F"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["S80Y"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["E84K"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["A116V"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["A116E"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlB", variants=["D432V"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlB", variants=["D432N"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlB", variants=["D432H"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlB", variants=["D443E"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlB", variants=["R444S"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlB", variants=["P451S"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlB", variants=["R470D"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlB", variants=["P585S"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="gyrA", variants=["D73G"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="gyrA", variants=["G82C"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="gyrA", variants=["S84L"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="gyrA", variants=["S84V"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="gyrA", variants=["S84A"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="gyrA", variants=["S85P"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="gyrA", variants=["E88K"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="gyrA", variants=["E88L"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="gyrA", variants=["E88R"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="gyrA", variants=["G106D"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="gyrB", variants=["D437N"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="gyrB", variants=["E477D"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["F88L"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["V90A"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["V90I"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["P114H"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["Q115L"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["T385N"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["P404L"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["P404Q"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["P406L"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["D434N"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["T436I"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["H438N"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["E444K"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["G451V"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["E444V"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["G452S"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["G452C"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["N453I"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["L456F"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["H457Q"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["H457Y"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["L461K"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["L461S"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["L461F"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["D436G"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["R464C"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["R464S"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["R464H"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["P478S"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["G556S"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["G617D"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["F652S"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["Y654N"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["A655E"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["A655P"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["T656K"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["R659C"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["R659L"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["R659S"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FUS"]}], members = [{gene="fusA", variants=["G664S"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["LNZ"]}], members = [{gene="rplD", variants=["K68Q"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["LNZ"]}], members = [{gene="rplC", variants=["G139R"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["LNZ"]}], members = [{gene="rplC", variants=["G152D"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["LNZ"]}], members = [{gene="rplC", variants=["G155R"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["LNZ"]}], members = [{gene="rplC", variants=["M169L"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}], members = [{gene="ileS-1", variants=["H67Q"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}], members = [{gene="ileS-1", variants=["F563L"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}], members = [{gene="ileS-1", variants=["V588F"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}], members = [{gene="ileS-1", variants=["G593V"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}], members = [{gene="ileS-1", variants=["V631F"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["MUP"]}], members = [{gene="ileS-1", variants=["R816C"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["S464P"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["S463P"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["I527F"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["N474K"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["Q468R"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["Q468K"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["Q468L"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["S486L"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["D471Y"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["D552N"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["D550G"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["R484H"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["A477T"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["A477V"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["A477D"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["A477G"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["H481Y"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["H481N"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["H481D"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["DAP","TEC","VAN"]}], members = [{gene="rpoB", variants=["A621E"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}], members = [{gene="dfrB", variants=["L21V"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}], members = [{gene="dfrB", variants=["H31N"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}], members = [{gene="dfrB", variants=["L41F"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}], members = [{gene="dfrB", variants=["F99S"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}], members = [{gene="dfrB", variants=["F99Y"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}], members = [{gene="dfrB", variants=["F99I"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}], members = [{gene="dfrB", variants=["H150R"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["DAP"]}], members = [{gene="mprF", variants=["S295L"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["DAP"]}], members = [{gene="mprF", variants=["T345A"]}]}
+]

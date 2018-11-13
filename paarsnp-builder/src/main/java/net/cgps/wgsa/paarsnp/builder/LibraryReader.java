@@ -52,7 +52,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
 
     // Construct the paar library
     baseLibrary.getPaarsnpLibrary().getPaar().addResistanceSets(
-        Optional.ofNullable(toml.getTables("paar.sets"))
+        Optional.ofNullable(toml.getTables("paar"))
             .orElse(Collections.emptyList())
             .stream()
             .map(LibraryReader.parsePaarSet())
@@ -80,7 +80,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
 
     // Construct SNPAR
     baseLibrary.getPaarsnpLibrary().getSnpar().addResistanceSets(
-        Optional.ofNullable(toml.getTables("snpar.sets"))
+        Optional.ofNullable(toml.getTables("snpar"))
             .orElse(Collections.emptyList())
             .stream()
             .map(LibraryReader.parseSnparSet())

@@ -20,64 +20,20 @@ genes = [
 {name = "Mcr-8_1", pid = 80.0, coverage = 80.0, sequence = "ATGTTCAAGTATCTTTTATCTTTCAAACTGAACCCGGTACAACGGACCTGGGCTGCAGCATTTTTTTTCACTACAATCGGCAACATAGCACTTTGGCAAACACTATGGATTAATGTAGATGTTCATAATATACATAATCTACTTTTTTTTGCCAGTCTGCCAATATTTCTTTTCTGCTTTCTAAGTATCTTACTTACACCAGTCATGGTTATTCCATATTTATGCAGGCCTCTACTTGTAGTTCTTATTCTAATCAGTGCCTGCTGTAGTTATTTCATGATGAAATACAACATATTAATTGACCGCAGCATGGTGCAAAACTTTTTTGAGACTAATCAGGCTGAATTAACATCATACTTATCCGTTCCTTTTCTTTCCACTCTATTTCTACTTGGCATTGTACCAGCAATTATCCTGGCGTTGCCTTCAACAGACAATAAGCGGGGAGCTTTTAGAATTGAATTGTGGTGGTTGGCGCATATTTGCATAGCTGTAGTCTTATTAGCCATGGTTACCATGGTGTTTTATAAGGATTACGCATCTCTCATACGAAACAATATGCAGATTAAAGACCAGGCTTTACCTTTTAACTTTGTGCGTAATACGAATGGTTACCTTAAAAGAAAATACCAGGCATCTTCAACAATTCTACAAAGCGTGGGGGAGGATGCTGTACGTCCAATATATTCAAATGCTCCACCGAAACTGGTGGTTGTCGTCGTGGGCGAAACCGCCAGAGCACAGAATTTCCAGCTGAATGGCTATTCGCGGGTAACCAACCCCTATCTTTCCAGACGACATGATGTTATCAGTTTCAAAAATGTGTCGTCATGCGGAACGGCTACCGCAATATCACTACCCTGCATGTTCTCGCGAATGTCACGTAACGAATACAATGAAGTCCGTGCCGCATCAGAAGAAAACTTGCTGGATATCCTTAAACGTACAGGTGTTGAGGTGCTATGGCGCAACAATAACAATGGTGGTTGTAAGGGAATCTGCAAGCGAGTACCCACAGATGATATGCCGGCAATGAAAGTAATTGGGGAATGTGTTAACAAAGATGGTACATGCTTTGATGAGGTGTTATTAAATCAACTCTCATCCCGAATTAATGCAATGCAGGGTGATGCGCTTATTGTTTTACATCAAATGGGCAGTCATGGACCAACATATTTTGAACGTTATCCGTCTACAAGTAAAGTCTTTAGCCCAACTTGCGACAGCAACCTGATCGAAAAATGCTCAAATAAAGAACTGGTCAATACATACGACAATACGCTAGTTTATACTGATCGTATGCTGAGCAAAACTATTGAACTGTTGCAACGTTATTCCGGGATGCGTGACGTTGCTATGATATATCTTTCTGATCATGGAGAATCGCTGGGGGAAAGCGGAATATATCTTCATGGCACACCATATATTATTGCCCCCAATGAACAAACACACATCCCGATGTTTATGTGGTTTTCGTCTTCATTCGCGCAGCATTCCAAATTAAATCTAGAATGCCTGACCGGTAATGCCGACAAACAATACAGTCATGATAATTTTTATCATTCAATACTTGGTCTCTTCAACGTAAAAACCAGTGTATATAAACCGGAGTTAGATATGTTTACTCTATGTCGACAATCTGACCACACACCACTGTCTTCCGCAGTTGTAAGAGAGAAAACAGATGGGAATGGTTAG"},
 ]
 
-[paar]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr1"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr2"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr3"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr4"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr1-2"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr1_Mcr1-3"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr1_Mcr1-4"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr1_Mcr1-5"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr1_Mcr1-6"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr1_Mcr1-7"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr-5_1"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr-5.2_1"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr-6.1_1"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr-7.1_1"]
-
-[[paar.sets]]
-phenotypes = [{effect = "RESISTANT", profile = ["CST"]}]
-members = ["Mcr-8_1"]
+paar = [
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr1"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr2"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr3"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr4"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr1-2"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr1_Mcr1-3"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr1_Mcr1-4"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr1_Mcr1-5"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr1_Mcr1-6"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr1_Mcr1-7"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr-5_1"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr-5.2_1"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr-6.1_1"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr-7.1_1"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CST"]}], members = ["Mcr-8_1"]},
+]
