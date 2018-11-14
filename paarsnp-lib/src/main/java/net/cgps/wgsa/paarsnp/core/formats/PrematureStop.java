@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.formats;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
 
@@ -9,6 +10,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@JsonDeserialize(as = PrematureStop.class)
 public class PrematureStop implements Variant {
 
   private final Integer expectedStop;
