@@ -214,6 +214,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
   public static Function<Toml, ReferenceSequence> parseSnparGene() {
     return toml -> new ReferenceSequence(
         toml.getString("name"),
+        toml.getString("sequence").length(),
         toml.getDouble("pid").floatValue(),
         toml.getDouble("coverage").floatValue()
     );

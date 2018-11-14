@@ -36,7 +36,7 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
         .getMappedVariants()
         .stream()
         .peek(mutation -> this.logger.debug("Resistance mutation {}", mutation.getName()))
-        .filter(mutation -> mutation.isWithin(match))
+        .filter(mutation -> mutation.isWithinBoundaries(match))
         .map(resistanceMutation -> resistanceMutation.isPresent(mutations, codonMap))
         .filter(Optional::isPresent)
         .map(Optional::get)

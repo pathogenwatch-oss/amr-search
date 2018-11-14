@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 public class ReferenceSequence {
 
   private final String name;
+  private final int length;
   private final float pid;
   private final float coverage;
   private final Collection<String> variants;
@@ -15,12 +16,13 @@ public class ReferenceSequence {
 
   @SuppressWarnings("unused")
   private ReferenceSequence() {
-    this("", 0.0f, 0.0f);
+    this("", 0, 0.0f, 0.0f);
   }
 
-  public ReferenceSequence(final String name, final float pid, final float coverage) {
+  public ReferenceSequence(final String name, final int length, final float pid, final float coverage) {
 
     this.name = name;
+    this.length = length;
     this.pid = pid;
     this.coverage = coverage;
     this.variants = new HashSet<>(100);
@@ -40,6 +42,11 @@ public class ReferenceSequence {
   public String getName() {
 
     return this.name;
+  }
+
+  @SuppressWarnings("unused")
+  public int getLength() {
+    return this.length;
   }
 
   public float getPid() {
@@ -69,6 +76,7 @@ public class ReferenceSequence {
 
   public void addVariants(final Collection<String> newVariants) {
     this.variants.addAll(newVariants);
-    this.mappedVariants.addAll(newVariants.stream().map(ResistanceMutation.parseVariant()).collect(Collectors.toList()));
+    final VariantParser variantParser = new VariantParser(this.length);
+    this.mappedVariants.addAll(newVariants.stream().map(variantParser).collect(Collectors.toList()));
   }
 }

@@ -13,5 +13,5 @@ public interface Variant {
 
   Optional<ResistanceMutationMatch> isPresent(Map<Integer, Collection<Mutation>> mutations, CodonMap codonMap);
 
-  boolean isWithin(BlastMatch match);
+  boolean isWithinBoundaries(BlastMatch match);
 }

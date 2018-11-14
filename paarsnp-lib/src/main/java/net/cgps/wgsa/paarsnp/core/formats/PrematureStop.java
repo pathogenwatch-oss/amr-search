@@ -11,22 +11,20 @@ import java.util.stream.Stream;
 
 public class PrematureStop implements Variant {
 
-  private final String name;
   private final Integer expectedStop;
 
   @SuppressWarnings("unused")
   private PrematureStop() {
-    this("", 1000000);
+    this(1000000);
   }
 
-  public PrematureStop(final String name, final Integer expectedStop) {
-    this.name = name;
+  public PrematureStop(final Integer expectedStop) {
     this.expectedStop = expectedStop;
   }
 
   @Override
   public String getName() {
-    return this.name;
+    return "Truncated";
   }
 
   @Override
@@ -56,7 +54,7 @@ public class PrematureStop implements Variant {
   }
 
   @Override
-  public boolean isWithin(final BlastMatch match) {
+  public boolean isWithinBoundaries(final BlastMatch match) {
     return true;
   }
 }
