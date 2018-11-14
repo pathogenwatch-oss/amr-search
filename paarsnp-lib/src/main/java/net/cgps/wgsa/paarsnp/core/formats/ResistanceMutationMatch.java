@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public class ResistanceMutationMatch {
 
-  private final ResistanceMutation resistanceMutation;
+  private final Variant resistanceMutation;
   private final Collection<Mutation> causalMutations;
 
   @SuppressWarnings("unused")
@@ -12,13 +12,13 @@ public class ResistanceMutationMatch {
     this(null, null);
   }
 
-  public ResistanceMutationMatch(final ResistanceMutation resistanceMutation, final Collection<Mutation> causalMutations) {
+  public ResistanceMutationMatch(final Variant resistanceMutation, final Collection<Mutation> causalMutations) {
 
     this.resistanceMutation = resistanceMutation;
     this.causalMutations = causalMutations;
   }
 
-  public ResistanceMutation getResistanceMutation() {
+  public Variant getResistanceMutation() {
     return this.resistanceMutation;
   }
 

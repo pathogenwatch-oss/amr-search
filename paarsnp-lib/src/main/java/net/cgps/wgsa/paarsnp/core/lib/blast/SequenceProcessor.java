@@ -58,18 +58,18 @@ public class SequenceProcessor {
 
           // Deletion
           refSeqLocation++;
-          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.D, querySeqLocation, refSeqLocation, strand));
+          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.D, querySeqLocation, refSeqLocation, this.strand));
         } else if (DELETION_CHAR == refChar) {
 
           // Insert
           querySeqLocation++;
-          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.I, querySeqLocation, refSeqLocation, strand));
+          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.I, querySeqLocation, refSeqLocation, this.strand));
         } else {
 
           // Substitution
           querySeqLocation++;
           refSeqLocation++;
-          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.S, querySeqLocation, refSeqLocation, strand));
+          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.S, querySeqLocation, refSeqLocation, this.strand));
         }
       }
     }

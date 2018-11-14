@@ -75,7 +75,7 @@ public class SnparCalculation implements Collector<BlastMatch, List<SnparMatchDa
                             .stream()
                             .filter(mutation -> member.getVariants().contains(mutation.getResistanceMutation().getName()))
                             .map(ResistanceMutationMatch::getResistanceMutation)
-                            .map(ResistanceMutation::getName)
+                            .map(Variant::getName)
                             .map(snp -> member.getGene() + "_" + snp)
                             .collect(Collectors.toList()))
                         .max(Comparator.comparingInt(Collection::size))

@@ -11,8 +11,9 @@ public class ReferenceSequence {
   private final float pid;
   private final float coverage;
   private final Collection<String> variants;
-  private final Collection<ResistanceMutation> mappedVariants;
+  private final Collection<Variant> mappedVariants;
 
+  @SuppressWarnings("unused")
   private ReferenceSequence() {
     this("", 0.0f, 0.0f);
   }
@@ -26,11 +27,12 @@ public class ReferenceSequence {
     this.mappedVariants = new HashSet<>(100);
   }
 
-  public Collection<ResistanceMutation> getMappedVariants() {
+  public Collection<Variant> getMappedVariants() {
 
     return this.mappedVariants;
   }
 
+  @SuppressWarnings("unused")
   public Collection<String> getVariants() {
     return this.variants;
   }

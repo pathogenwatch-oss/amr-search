@@ -1,18 +1,61 @@
 package net.cgps.wgsa.paarsnp.core.formats;
 
+import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
+import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
 import org.apache.commons.lang3.CharUtils;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public class ResistanceMutation {
+public class ResistanceMutation implements Variant {
 
   public TYPE getType() {
-    return type;
+    return this.type;
+  }
+
+  @Override
+  public Optional<ResistanceMutationMatch> isPresent(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+
+    switch (this.type) {
+      case DNA:
+        if (mutations.containsKey(this.getReferenceLocation()) && mutations.get(this.getReferenceLocation())
+            .stream()
+            .anyMatch(queryMutation -> queryMutation.getMutationSequence() == this.getMutationSequence())) {
+
+          return Optional.of(new ResistanceMutationMatch(
+              this,
+              mutations.get(this.getReferenceLocation())
+                  .stream()
+                  .filter(queryMutation -> queryMutation.getMutationSequence() == this.getMutationSequence())
+                  .collect(Collectors.toList())));
+
+        } else {
+          return Optional.empty();
+        }
+      case AA:
+      default:
+        if (this.getMutationSequence() == codonMap.get(this.getAaLocation())) {
+          return Optional.of(new ResistanceMutationMatch(
+              this,
+              Stream.of(this.getReferenceLocation(), this.getReferenceLocation() + 1, this.getReferenceLocation() + 2)
+                  .filter(index -> mutations.keySet().contains(index))
+                  .map(mutations::get)
+                  .flatMap(Collection::stream)
+                  .collect(Collectors.toList())));
+
+        } else {
+          return Optional.empty();
+        }
+    }
+  }
+
+  public boolean isWithin(final BlastMatch match) {
+    return match.containsPosition(this.referenceLocation)
+        && this.getType() == ResistanceMutation.TYPE.DNA || match.containsPosition(this.getReferenceLocation() + 2);
   }
 
   public enum TYPE {
@@ -33,7 +76,8 @@ public class ResistanceMutation {
     this("", '0', 0, '0', TYPE.DNA, 0);
   }
 
-  public ResistanceMutation(final String name, final char originalSequence, final int referenceLocation, final char mutationSequence, final TYPE type, final int aaLocation) {
+  public ResistanceMutation(final String name, final char originalSequence, final int referenceLocation,
+                            final char mutationSequence, final TYPE type, final int aaLocation) {
     // NB for the SNP archive the query location is the same as the representative location.
     this.name = name;
     this.originalSequence = originalSequence;
@@ -108,6 +152,7 @@ public class ResistanceMutation {
     return this.aaLocation;
   }
 
+  @SuppressWarnings("unused")
   public char getOriginalSequence() {
     return this.originalSequence;
   }
