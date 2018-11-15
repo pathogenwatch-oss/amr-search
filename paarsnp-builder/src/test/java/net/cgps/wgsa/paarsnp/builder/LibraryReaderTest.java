@@ -39,7 +39,7 @@ public class LibraryReaderTest {
 
     final ReferenceSequence resistanceGene = new ReferenceSequence("aph_3prime_III_1_M26832", 795, 80.0f, 80.0f);
 
-    Assert.assertEquals(resistanceGene, LibraryReader.parseSnparGene().apply(geneToml));
+    Assert.assertEquals(resistanceGene, LibraryReader.parseGene().apply(geneToml));
   }
 
   @Test
@@ -135,7 +135,7 @@ public class LibraryReaderTest {
 
     Assert.assertEquals(
         referenceSequence,
-        LibraryReader.parseSnparGene().apply(new Toml().read("[[snpar.genes]]\n" +
+        LibraryReader.parseGene().apply(new Toml().read("[[snpar.genes]]\n" +
             "name = \"penA\"\n" +
             "pid = 80.0\n" +
             "coverage = 60.0\n" +

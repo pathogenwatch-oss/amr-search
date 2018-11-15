@@ -33,10 +33,11 @@ public class ResistanceSet extends AbstractJsonnable {
     return members
         .stream()
         .map(member -> {
-          member.getVariants().sort(Comparator.comparingInt(variant -> Integer.valueOf(variant.replaceAll("\\D+", ""))));
-          return member.getVariants().isEmpty() ?
+          final List<String> variants = new ArrayList<>(member.getVariants());
+          variants.sort(Comparator.comparingInt(variant -> Integer.valueOf(variant.replaceAll("\\D+", ""))));
+          return variants.isEmpty() ?
                  member.getGene() :
-                 member.getGene() + "_" + StringUtils.join(member.getVariants(), "_");
+                 member.getGene() + "_" + StringUtils.join(variants, "_");
         })
         .collect(Collectors.joining("__"));
   }

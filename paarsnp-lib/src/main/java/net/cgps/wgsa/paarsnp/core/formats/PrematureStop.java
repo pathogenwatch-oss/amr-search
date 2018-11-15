@@ -1,19 +1,22 @@
 package net.cgps.wgsa.paarsnp.core.formats;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @JsonDeserialize(as = PrematureStop.class)
 public class PrematureStop implements Variant {
 
   private final Integer expectedStop;
+  private final String name = "truncated";
+  @JsonIgnore
+  private final Logger logger = LoggerFactory.getLogger(PrematureStop.class);
 
   @SuppressWarnings("unused")
   private PrematureStop() {
@@ -24,9 +27,13 @@ public class PrematureStop implements Variant {
     this.expectedStop = expectedStop;
   }
 
+  public Integer getExpectedStop() {
+    return this.expectedStop;
+  }
+
   @Override
   public String getName() {
-    return "Truncated";
+    return this.name;
   }
 
   @Override
@@ -35,7 +42,8 @@ public class PrematureStop implements Variant {
     final Collection<Integer> prematureStops = codonMap
         .getTranslation()
         .filter(position -> '*' == position.getValue())
-        .filter(position -> position.getKey() < this.expectedStop)
+        // NB the position is aa, while the stop is nt.
+        .filter(position -> position.getKey() * 3 < this.expectedStop)
         .map(Map.Entry::getKey)
         .collect(Collectors.toList());
 
@@ -45,8 +53,14 @@ public class PrematureStop implements Variant {
           prematureStops
               .stream()
               .map(aaPosition -> (aaPosition * 3) - 2)
-              .flatMap(codonStart -> Stream.of(codonStart, codonStart + 1, codonStart + 2))
+
+              .map(codonStart -> Arrays.asList(codonStart, codonStart + 1, codonStart + 2))
+              .flatMap(Collection::stream)
+              .peek(position -> this.logger.info("{}", position))
               .map(mutations::get)
+              .map(Optional::ofNullable)
+              .filter(Optional::isPresent)
+              .map(Optional::get)
               .flatMap(Collection::stream)
               .collect(Collectors.toList())
       ));
@@ -58,5 +72,18 @@ public class PrematureStop implements Variant {
   @Override
   public boolean isWithinBoundaries(final BlastMatch match) {
     return true;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) return true;
+    if (o == null || this.getClass() != o.getClass()) return false;
+    final PrematureStop that = (PrematureStop) o;
+    return Objects.equals(this.name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.name);
   }
 }

@@ -41,13 +41,14 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
 
     baseLibrary.addAntibiotics(antimicrobials);
 
+    // Read in the new set of genes
     final Map<String, Pair<String, ReferenceSequence>> newGenes = Optional.ofNullable(toml.getTables("genes"))
         .orElse(Collections.emptyList())
         .stream()
         .map(geneToml -> new ImmutablePair<>(
             ">" + geneToml.getString("name") + "\n" + geneToml.getString("sequence") + "\n",
-            LibraryReader.parseSnparGene().apply(geneToml)))
-        .map(gene -> new ImmutablePair<>(gene.getRight().getName(), gene))
+            LibraryReader.parseGene().apply(geneToml)))
+        .map(geneInfo -> new ImmutablePair<>(geneInfo.getRight().getName(), geneInfo))
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
     // Construct the paar library
@@ -69,6 +70,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
             .map(Optional::ofNullable)
             .filter(Optional::isPresent)
             .map(Optional::get)
+            .filter(nameToSeq -> !baseLibrary.getPaarSequences().containsKey(nameToSeq.getKey()))
             .map(Map.Entry::getValue)
             .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
 
@@ -92,7 +94,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
         .stream()
         .map(ResistanceSet::getMembers)
         .flatMap(Collection::stream)
-        .map(member -> new ImmutablePair<String, Collection<String>>(member.getGene(), member.getVariants())
+        .map(member -> new ImmutablePair<String, Collection<String>>(member.getGene(), new ArrayList<>(member.getVariants()))
         )
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> {
           a.addAll(b);
@@ -124,7 +126,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
 
     return parentLibrary.stream()
         .map(libName -> Paths.get(libraryDirectory.toString(), libName + ".toml"))
-        .map(new LibraryReader())
+        .map(libPath -> new LibraryReader().apply(libPath))
         .collect(new Collector<PaarsnpLibraryAndSequences, PaarsnpLibraryAndSequences, PaarsnpLibraryAndSequences>() {
 
           @Override
@@ -211,7 +213,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
     return memberName -> new SetMember(memberName, Collections.emptyList());
   }
 
-  public static Function<Toml, ReferenceSequence> parseSnparGene() {
+  public static Function<Toml, ReferenceSequence> parseGene() {
     return toml -> new ReferenceSequence(
         toml.getString("name"),
         toml.getString("sequence").length(),

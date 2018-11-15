@@ -9,6 +9,7 @@ public class SetMember {
   private final String gene;
   private final List<String> variants;
 
+  @SuppressWarnings("unused")
   private SetMember() {
     this("", Collections.emptyList());
   }
@@ -19,7 +20,7 @@ public class SetMember {
   }
 
   public List<String> getVariants() {
-    return this.variants;
+    return Collections.unmodifiableList(this.variants);
   }
 
   public String getGene() {
