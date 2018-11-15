@@ -17,11 +17,12 @@ public class ResistanceSet extends AbstractJsonnable {
     this("", Collections.emptyList(), Collections.emptyList());
   }
 
-  private ResistanceSet(final String name, final List<Phenotype> phenotypes, final List<SetMember> members) {
+  public ResistanceSet(final String name, final List<Phenotype> phenotypes, final List<SetMember> members) {
 
     this.name = name;
     this.phenotypes = phenotypes;
     this.members = members;
+
   }
 
   public static ResistanceSet build(final Optional<String> name, final List<Phenotype> phenotypes, final List<SetMember> members) {
@@ -29,7 +30,6 @@ public class ResistanceSet extends AbstractJsonnable {
   }
 
   public static String generateName(final List<SetMember> members) {
-    members.sort(Comparator.comparing(SetMember::getGene));
     return members
         .stream()
         .map(member -> {

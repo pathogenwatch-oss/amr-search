@@ -89,7 +89,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
             resistanceSets.get(agent)
                 .stream()
                 .map(this.resistanceSetMap::get)
-                .map(set -> ResistanceSet.build(Optional.ofNullable(set.getName()), set.getPhenotypes().stream().filter(phenotype -> phenotype.getProfile().contains(agent)).collect(Collectors.toList()), set.getMembers()))
+                .map(set -> new ResistanceSet(set.getName(), set.getPhenotypes().stream().filter(phenotype -> phenotype.getProfile().contains(agent)).collect(Collectors.toList()), set.getMembers()))
                 .collect(Collectors.toList())))
         .collect(Collectors.toList());
 
