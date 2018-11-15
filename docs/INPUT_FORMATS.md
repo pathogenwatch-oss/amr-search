@@ -1,28 +1,79 @@
-# PAARSNP Input Formats
+# PAARSNP Input Format
 
 For the current databases look in the [resources directory](../resources)
 
 ## Directory Structure
 
 ```
-/{taxon-id}/
-             ar_agents.csv
-             ar_snps.csv  
-             ar_snps.fa
-             resistance_genes.csv
-             resistance_genes.fa
+/resources/{library-name}.toml
 ```  
-`{taxon-id}` takes the form of the NCBI species code, e.g. `1280` for _Staphylococcus aureus_.   
+`{library-name}` can be any string, but only NCBI taxon IDs can be bound to the taxon map.   
 
-To add a new species create a new directory containing those files. To extend a species modify the appropriate files ([Current Species](../README.md#current-species))
-        
-## Files 
-### Antimicrobial Agents (_ar_agents.csv_)
+e.g. 
+- `1280.toml` provides the library for _Staphylococcus aureus_,
+- `gram_neg_esbl` provides a general library of genes for use in other libraries.
 
-Specifies the set of antimicrobial agents that will be reported in the results. Three columns:
-1. The short name, typically a three letter code.
-1. The class or type
-1. The full or descriptive name
+## Format Outline
+
+The TOML files consist of 5 main fields. All fields except `label` are optional in any given file.
+
+1. `label` - [Required] The library name
+1. `extends` - Other libraries to inherit from. For more details see below.
+1. `antimicrobials` - The list of antimicrobials.
+1. `genes` - The AMR-associated genes.
+1. `paar` - Resistance based on presence/absence of the genes.
+1. `snpar` - Resistance based on gene variants.
+
+### A simple example
+
+```
+# Comments are allowed in the file like this.
+# Staph aureus example
+label = "1280"
+
+# It's possible to include another library by name.
+# For details on how they are merged, see the detailed description of `extends`.
+# extend = ["another_library"]
+
+antimicrobials = [
+{key = "AMI", type = "Aminoglycosides", name = "Amikacin"},
+{key = "GEN", type = "Aminoglycosides", name = "Gentamicin"},
+{key = "TOB", type = "Aminoglycosides", name = "Tobramycin"},
+{key = "KAN", type = "Aminoglycosides", name = "Kanamycin"},
+{key = "CIP", type = "Fluoroquinolones", name = "Ciprofloxacin"},
+]
+
+genes = [
+{name = "aphA-3", pid = 80.0, coverage = 75.0, sequence = "ATGAGAA..."},
+{name = "aadD", pid = 80.0, coverage = 75.0, sequence = "ATGAGAATA..."},
+{name = "aacA-aphD", pid = 80.0, coverage = 75.0, sequence = "ATGA..."},
+{name = "grlA", pid = 80.0, coverage = 75.0, sequence = "ATGAGTGAA..."},
+]
+
+paar = [
+{phenotypes = [{effect = "RESISTANT", profile = ["TOB","AMI","KAN"]}], members = ["aphA-3"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["AMI","TOB","KAN"]}], members = ["aadD"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["TOB","GEN","KAN"]}], members = ["aacA-aphD"]},
+]
+
+snpar = [
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["S80F"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["S80Y"]}]},
+]
+```
+ 
+## Detailed Description
+
+### Label
+
+The name of the library. If this is an NCBI numeric ID, it will be used as the representative library for that part of the tree.
+If the taxon rank of the ID is higher than genus, it can be run using any of the children genus IDs as well.
+
+e.g. 
+1. "1280" will only run for _S. aureus_, 
+2. "570" will run for all Klebsiella, 
+3. "1224" will run with any genus ID from Proteobacteria
+NB A library labelled "570" will take precendence over one generated from "1224"
 
 #### Example ar_agents.csv
 ```
