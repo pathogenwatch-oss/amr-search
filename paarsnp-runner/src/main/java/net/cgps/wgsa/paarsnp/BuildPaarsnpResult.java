@@ -122,10 +122,10 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
                 }
               }
               break;
-            case MODIFIES_SUPPRESSES:
+            case SUPPRESSES:
               resistanceState = ResistanceState.NOT_FOUND;
               break;
-            case MODIFIES_INDUCED:
+            case INDUCED:
               if (phenotype.getEffect() == PhenotypeEffect.RESISTANT && Completeness.COMPLETE == completeness) {
                 resistanceState = ResistanceState.INDUCIBLE;
               } else if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE_ADDITIVE && Completeness.COMPLETE == completeness) {

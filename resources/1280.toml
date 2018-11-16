@@ -85,7 +85,7 @@ paar = [
 {name = "ermA_ERY", phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["ermA"]},
 {name = "ermA_CLI", phenotypes = [{effect = "RESISTANT", profile = ["CLI"]}], members = ["ermA", "ermA_SDS"]},
 {phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["ermB"]},
-{phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}, {effect = "RESISTANT", profile = ["CLI"], modifiers = [{name = "ermC_LP", effect = "MODIFIES_INDUCED"}]}], members = ["ermC"]},
+{phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}, {effect = "RESISTANT", profile = ["CLI"], modifiers = [{name = "ermC_LP", effect = "INDUCED"}]}], members = ["ermC"]},
 {phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["erm33"]},
 {phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["ermT"]},
 {phenotypes = [{effect = "RESISTANT", profile = ["ERY"]}], members = ["mefA"]},

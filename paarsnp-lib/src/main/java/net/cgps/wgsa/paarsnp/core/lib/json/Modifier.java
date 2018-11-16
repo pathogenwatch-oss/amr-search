@@ -11,7 +11,7 @@ public class Modifier extends AbstractJsonnable {
 
   @SuppressWarnings("unused")
   private Modifier() {
-    this("", ElementEffect.MODIFIES_INDUCED);
+    this("", ElementEffect.INDUCED);
   }
 
   public Modifier(final String name, final ElementEffect effect) {

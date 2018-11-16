@@ -47,13 +47,13 @@ public class LibraryReaderTest {
 
     final List<Phenotype> phenotypes = Arrays.asList(
         new Phenotype(PhenotypeEffect.RESISTANT, Collections.singletonList("ERY"), Collections.emptyList()),
-        new Phenotype(PhenotypeEffect.RESISTANT, Collections.singletonList("CLI"), Collections.singletonList(new Modifier("ermC_LP", ElementEffect.MODIFIES_INDUCED)))
+        new Phenotype(PhenotypeEffect.RESISTANT, Collections.singletonList("CLI"), Collections.singletonList(new Modifier("ermC_LP", ElementEffect.INDUCED)))
     );
 
     Assert.assertEquals(
         phenotypes,
         new Toml().read("phenotypes = [{effect = \"RESISTANT\", profile = [\"ERY\"], modifiers = []},\n" +
-            "              {effect = \"RESISTANT\", profile = [\"CLI\"], modifiers = [{name = \"ermC_LP\", effect = \"MODIFIES_INDUCED\"}]}]\n")
+            "              {effect = \"RESISTANT\", profile = [\"CLI\"], modifiers = [{name = \"ermC_LP\", effect = \"INDUCED\"}]}]\n")
             .getTables("phenotypes")
             .stream()
             .map(LibraryReader.parsePhenotype())
