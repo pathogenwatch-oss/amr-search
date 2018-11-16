@@ -7,7 +7,7 @@ For the current databases look in the [resources directory](../resources)
 ```
 /resources/{library-name}.toml
 ```  
-`{library-name}` can be any string, but only NCBI taxon IDs can be bound to the taxon map.   
+`{library-name}` can be any string, but only NCBI taxon IDs can be used for searching assemblies.
 
 e.g. 
 - `1280.toml` provides the library for _Staphylococcus aureus_,
