@@ -11,7 +11,7 @@ For the current databases look in the [resources directory](../resources)
 
 e.g. 
 - `1280.toml` provides the library for _Staphylococcus aureus_,
-- `gram_neg_esbl` provides a general library of genes for use in other libraries.
+- `gram_neg_esbl.toml` provides a general library of genes for use in other libraries.
 
 ## Format Outline
 
