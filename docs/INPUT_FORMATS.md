@@ -143,7 +143,7 @@ Each record consists of two required fields and one optional field:
 
 *Note*: for clarity the records are split over multiple lines in the following examples. These need to be joined into a single line in the final TOML file.
 
-_Simple gene presence-absence_
+### Simple gene presence-absence
 
 The presence of aphA-3 confers resistance to Tobramycin, Amikacin & Kanamycin. 
 ```
@@ -156,7 +156,7 @@ members = ["aphA-3"]
 }
 ```
 
-_Multiple gene presence-absence_
+### Multiple gene presence-absence
 
 If both sul1 and dfrA7 are present, then Co-Trimoxazole resistance is conferred. Note that if either were required, these would be descibed in two different records.
 ```
@@ -169,7 +169,7 @@ members = ["sul1", "dfrA7"]
 }
 ```
 
-_Simple SNP presence-absence_
+### Simple SNP presence-absence
 
 The S80F (serine -> phenylalanine at position 80) in grlA confers resistance to Ciprofloxacin.
 ```
@@ -185,7 +185,7 @@ members = [{
 }
 ```
 
-_Multiple Variant presence-absence_
+### Multiple Variant presence-absence
 
 If rpoB contains the D435G and L452P variant then Rifampicin resistance is conferred.
 ```
