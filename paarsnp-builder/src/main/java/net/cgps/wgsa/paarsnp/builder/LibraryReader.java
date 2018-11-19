@@ -52,7 +52,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
     // Construct the paar library
-    baseLibrary.getPaarsnpLibrary().getPaar().addResistanceSets(
+    baseLibrary.getPaarsnpLibrary().getPaar().addRecords(
         Optional.ofNullable(toml.getTables("paar"))
             .orElse(Collections.emptyList())
             .stream()
@@ -81,7 +81,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
         .forEach(key -> baseLibrary.getPaarSequences().put(key, newGenes.get(key).getKey()));
 
     // Construct SNPAR
-    baseLibrary.getPaarsnpLibrary().getSnpar().addResistanceSets(
+    baseLibrary.getPaarsnpLibrary().getSnpar().addRecords(
         Optional.ofNullable(toml.getTables("snpar"))
             .orElse(Collections.emptyList())
             .stream()
@@ -259,8 +259,8 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
       this.paarsnpLibrary.getPaar().addResistanceGenes(that.paarsnpLibrary.getPaar().getGenes());
       this.paarsnpLibrary.getSnpar().addResistanceGenes(that.paarsnpLibrary.getSnpar().getGenes());
 
-      this.paarsnpLibrary.getPaar().addResistanceSets(that.paarsnpLibrary.getPaar().getSets());
-      this.paarsnpLibrary.getSnpar().addResistanceSets(that.paarsnpLibrary.getSnpar().getSets());
+      this.paarsnpLibrary.getPaar().addRecords(that.paarsnpLibrary.getPaar().getSets());
+      this.paarsnpLibrary.getSnpar().addRecords(that.paarsnpLibrary.getSnpar().getSets());
 
       return this;
     }

@@ -1,7 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.formats;
 
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
-import net.cgps.wgsa.paarsnp.core.formats.ReferenceSequence;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +56,10 @@ public class Paar {
     }
   }
 
-  public void addResistanceSets(final Map<String, ResistanceSet> sets) {
+  public void addRecords(final Map<String, ResistanceSet> sets) {
+
+    // TODO: Update this to integrate phenotypes.
+
     this.sets.putAll(sets);
   }
 }

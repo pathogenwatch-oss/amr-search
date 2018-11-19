@@ -69,4 +69,8 @@ public class ResistanceSet extends AbstractJsonnable {
   public int hashCode() {
     return Objects.hash(this.phenotypes, this.name, this.members);
   }
+
+  public void addPhenotype(final Phenotype phenotype) {
+    this.phenotypes.add(phenotype);
+  }
 }

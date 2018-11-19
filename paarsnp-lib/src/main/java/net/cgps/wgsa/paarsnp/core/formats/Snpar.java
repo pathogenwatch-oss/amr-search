@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.formats;
 
+import net.cgps.wgsa.paarsnp.core.lib.json.Phenotype;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 
 import java.util.ArrayList;
@@ -54,8 +55,18 @@ public class Snpar {
     }
   }
 
-  public void addResistanceSets(final Map<String, ResistanceSet> sets) {
+  public void addRecords(final Map<String, ResistanceSet> newSets) {
 
-    this.sets.putAll(sets);
+    newSets
+        .forEach((key, value) -> {
+          if (this.sets.containsKey(key)) {
+            final Collection<String> newProfiles = value.getPhenotypes().stream().map(Phenotype::getProfile).flatMap(Collection::stream).collect(Collectors.toSet());
+            this.sets.get(key).getPhenotypes()
+                .stream()
+                .filter(phenotype -> phenotype.getProfile().stream().anyMatch(newProfiles::contains))
+                .forEach(value::addPhenotype);
+          }
+          this.sets.put(key, value);
+        });
   }
 }
