@@ -58,8 +58,20 @@ public class Paar {
 
   public void addRecords(final Map<String, ResistanceSet> sets) {
 
-    // TODO: Update this to integrate phenotypes.
+    // First update already existing sets.
+    sets.entrySet()
+        .stream()
+        .filter(set -> this.sets.containsKey(set.getKey()))
+        .forEach(updatedSet -> {
+          final ResistanceSet originalSet = this.sets.get(updatedSet.getKey());
+          originalSet.updatePhenotypes(updatedSet.getValue().getPhenotypes());
+        });
 
-    this.sets.putAll(sets);
+
+    // Finally add new sets
+    this.sets.putAll(sets.entrySet()
+        .stream()
+        .filter(set -> !this.sets.containsKey(set.getKey()))
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
   }
 }

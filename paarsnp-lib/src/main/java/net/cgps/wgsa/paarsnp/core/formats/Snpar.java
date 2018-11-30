@@ -1,6 +1,5 @@
 package net.cgps.wgsa.paarsnp.core.formats;
 
-import net.cgps.wgsa.paarsnp.core.lib.json.Phenotype;
 import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
 
 import java.util.ArrayList;
@@ -57,16 +56,21 @@ public class Snpar {
 
   public void addRecords(final Map<String, ResistanceSet> newSets) {
 
-    newSets
-        .forEach((key, value) -> {
-          if (this.sets.containsKey(key)) {
-            final Collection<String> newProfiles = value.getPhenotypes().stream().map(Phenotype::getProfile).flatMap(Collection::stream).collect(Collectors.toSet());
-            this.sets.get(key).getPhenotypes()
-                .stream()
-                .filter(phenotype -> phenotype.getProfile().stream().anyMatch(newProfiles::contains))
-                .forEach(value::addPhenotype);
-          }
-          this.sets.put(key, value);
+    // First update already existing sets.
+    newSets.entrySet()
+        .stream()
+        .filter(set -> this.sets.containsKey(set.getKey()))
+        .forEach(updatedSet -> {
+          final ResistanceSet originalSet = this.sets.get(updatedSet.getKey());
+          originalSet.updatePhenotypes(updatedSet.getValue().getPhenotypes());
         });
+
+
+    // Finally add new sets
+    this.sets.putAll(newSets.entrySet()
+        .stream()
+        .filter(set -> !this.sets.containsKey(set.getKey()))
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
+
   }
 }
