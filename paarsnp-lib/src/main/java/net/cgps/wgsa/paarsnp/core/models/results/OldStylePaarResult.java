@@ -1,0 +1,61 @@
+package net.cgps.wgsa.paarsnp.core.models.results;
+
+import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
+
+import java.util.*;
+
+public class OldStylePaarResult extends AbstractJsonnable {
+
+  private final Collection<String> paarElementIds;
+  private final Collection<OldStyleSetDescription> completeResistanceSets; // set ID -> resistance Gene
+  private final Collection<OldStyleSetDescription> partialResistanceSets; // set ID -> resistance Gene
+  private final Collection<OldStyleSetDescription> modifiedSets;
+  private final Map<String, List<BlastSearchStatistics>> blastMatches;
+
+  @SuppressWarnings("unused")
+  private OldStylePaarResult() {
+
+    this(Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyMap(), Collections.emptyList());
+  }
+
+  public OldStylePaarResult(final Collection<OldStyleSetDescription> completeResistanceSets, final Collection<OldStyleSetDescription> partialResistanceSets, final Collection<OldStyleSetDescription> modifiedSets, final Map<String, List<BlastSearchStatistics>> blastMatches, final Collection<String> paarElementIds) {
+
+    this.completeResistanceSets = new ArrayList<>(completeResistanceSets);
+    this.partialResistanceSets = new ArrayList<>(partialResistanceSets);
+    this.modifiedSets = modifiedSets;
+    this.blastMatches = new HashMap<>(blastMatches);
+    this.paarElementIds = paarElementIds;
+  }
+
+  public static OldStylePaarResult buildEmpty() {
+    return new OldStylePaarResult();
+  }
+
+  @SuppressWarnings("unused") // for results serialisation.
+  public Map<String, List<BlastSearchStatistics>> getBlastMatches() {
+
+    return this.blastMatches;
+  }
+
+  public Collection<OldStyleSetDescription> getCompleteResistanceSets() {
+
+    return this.completeResistanceSets;
+  }
+
+  @SuppressWarnings("unused") // for results serialisation.
+  public Collection<OldStyleSetDescription> getPartialResistanceSets() {
+
+    return this.partialResistanceSets;
+  }
+
+  @SuppressWarnings("unused")
+  public Collection<String> getPaarElementIds() {
+
+    return this.paarElementIds;
+  }
+
+  public Collection<OldStyleSetDescription> getModifiedSets() {
+    return this.modifiedSets;
+  }
+}

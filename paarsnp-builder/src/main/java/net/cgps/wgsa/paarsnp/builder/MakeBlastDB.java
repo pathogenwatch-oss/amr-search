@@ -1,6 +1,6 @@
 package net.cgps.wgsa.paarsnp.builder;
 
-import net.cgps.wgsa.paarsnp.core.lib.blast.StreamGobbler;
+import net.cgps.wgsa.paarsnp.core.lib.utils.StreamGobbler;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

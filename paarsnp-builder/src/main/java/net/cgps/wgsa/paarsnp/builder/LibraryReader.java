@@ -1,12 +1,12 @@
 package net.cgps.wgsa.paarsnp.builder;
 
 import com.moandjiezana.toml.Toml;
-import net.cgps.wgsa.paarsnp.core.formats.PaarsnpLibrary;
-import net.cgps.wgsa.paarsnp.core.formats.ReferenceSequence;
-import net.cgps.wgsa.paarsnp.core.formats.SetMember;
-import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
-import net.cgps.wgsa.paarsnp.core.lib.json.Phenotype;
-import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
+import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
+import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
+import net.cgps.wgsa.paarsnp.core.models.SetMember;
+import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
+import net.cgps.wgsa.paarsnp.core.models.Phenotype;
+import net.cgps.wgsa.paarsnp.core.models.ResistanceSet;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 

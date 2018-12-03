@@ -1,14 +1,14 @@
 package net.cgps.wgsa.paarsnp.core.paar;
 
 
-import net.cgps.wgsa.paarsnp.core.lib.SetResult;
+import net.cgps.wgsa.paarsnp.core.models.results.SetResult;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
-import net.cgps.wgsa.paarsnp.core.lib.json.Modifier;
-import net.cgps.wgsa.paarsnp.core.lib.json.Phenotype;
-import net.cgps.wgsa.paarsnp.core.formats.Paar;
-import net.cgps.wgsa.paarsnp.core.formats.PaarResult;
-import net.cgps.wgsa.paarsnp.core.formats.SetMember;
+import net.cgps.wgsa.paarsnp.core.models.results.Modifier;
+import net.cgps.wgsa.paarsnp.core.models.Phenotype;
+import net.cgps.wgsa.paarsnp.core.models.Paar;
+import net.cgps.wgsa.paarsnp.core.models.PaarResult;
+import net.cgps.wgsa.paarsnp.core.models.SetMember;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

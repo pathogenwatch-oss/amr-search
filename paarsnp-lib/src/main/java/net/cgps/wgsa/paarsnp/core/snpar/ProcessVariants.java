@@ -1,6 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
-import net.cgps.wgsa.paarsnp.core.formats.*;
+import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
+import net.cgps.wgsa.paarsnp.core.models.*;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.MutationBuilder;
 import net.cgps.wgsa.paarsnp.core.lib.blast.SequenceProcessor;

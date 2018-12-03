@@ -55,7 +55,7 @@ public class ConfigUtility {
         .addOption(Option.builder("t").longOpt("task").hasArg().argName("Task name").desc("Task name, e.g. 'core'.").required().build())
         .addOption(Option.builder("v").longOpt("version").hasArg().argName("New version").desc("Update to this version.").required().build())
         .addOption(Option.builder("f").longOpt("flag-name").hasArg().argName("Flag Name").desc("If the version is behind a feature flag, include that flag. If the flag is new for that ID then a new record will be added rather than the updated.").build())
-        .addOption(Option.builder("j").longOpt("json").hasArg().argName("Original tasks.json").desc("Use an existing tasks.js file as the base to add to").build())
+        .addOption(Option.builder("j").longOpt("results").hasArg().argName("Original tasks.results").desc("Use an existing tasks.js file as the base to add to").build())
         .addOption(Option.builder("o").longOpt("outfile").hasArg().argName("Out filename").desc("Output file name").build())
         .addOption(Option.builder("l").longOpt("log-level").hasArg().argName("Logging level").desc("INFO, DEBUG etc").build());
 

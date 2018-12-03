@@ -3,7 +3,7 @@ package net.cgps.wgsa.paarsnp;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastReader;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastRunner;
-import net.cgps.wgsa.paarsnp.core.lib.utils.OverlapRemover;
+import net.cgps.wgsa.paarsnp.core.lib.OverlapRemover;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

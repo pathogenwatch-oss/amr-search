@@ -1,13 +1,13 @@
 package net.cgps.wgsa.paarsnp;
 
-import net.cgps.wgsa.paarsnp.core.lib.SetResult;
-import net.cgps.wgsa.paarsnp.core.lib.json.OldStyleAntibioticProfile;
-import net.cgps.wgsa.paarsnp.core.lib.json.OldStyleSetDescription;
-import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
-import net.cgps.wgsa.paarsnp.core.lib.utils.ConvertSetDescription;
-import net.cgps.wgsa.paarsnp.core.formats.OldStylePaarResult;
-import net.cgps.wgsa.paarsnp.core.formats.OldStyleSnparResult;
-import net.cgps.wgsa.paarsnp.core.formats.SetMember;
+import net.cgps.wgsa.paarsnp.core.models.results.SetResult;
+import net.cgps.wgsa.paarsnp.core.models.results.OldStyleAntibioticProfile;
+import net.cgps.wgsa.paarsnp.core.models.results.OldStyleSetDescription;
+import net.cgps.wgsa.paarsnp.core.models.ResistanceSet;
+import net.cgps.wgsa.paarsnp.core.lib.ConvertSetDescription;
+import net.cgps.wgsa.paarsnp.core.models.results.OldStylePaarResult;
+import net.cgps.wgsa.paarsnp.core.models.results.OldStyleSnparResult;
+import net.cgps.wgsa.paarsnp.core.models.SetMember;
 
 import java.util.Collection;
 import java.util.List;

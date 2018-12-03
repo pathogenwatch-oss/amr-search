@@ -26,6 +26,7 @@ snpar = [
 {phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}], members = [{gene="katG", variants=["S315N"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}], members = [{gene="katG", variants=["S315T"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}], members = [{gene="katG", variants=["truncated"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}], members = [{gene="katG", variants=["frameshift"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}], members = [{gene="mabA", variants=["g609a"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["Q432K"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["RIF"]}], members = [{gene="rpoB", variants=["Q432L"]}]},
@@ -199,18 +200,14 @@ snpar = [
 {phenotypes = [{effect = "INTERMEDIATE", profile = ["PZA"]}], members = [{gene="pncA", variants=["A170V"]}]},
 {phenotypes = [{effect = "INTERMEDIATE", profile = ["PZA"]}], members = [{gene="pncA", variants=["V180I"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}], members = [{gene="pncA", variants=["truncated"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}], members = [{gene="pncA", variants=["frameshift"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["AMI, KAN", "CAP"]}], members = [{gene="rrs", variants=["a1401g"]}]},
 {phenotypes = [{effect = "INTERMEDIATE", profile = ["AMI", "KAN", "CAP"]}], members = [{gene="rrs", variants=["c1402t"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["AMI", "KAN", "CAP"]}], members = [{gene="rrs", variants=["g1484t"]}]}
 ]
 
-#name = "pncA_disrupted"
-#phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]},#members = [{gene="pncA", variants=["frameshift or premature stop"]}]},
-
 # Reminder to add this variant somehow.
 # {name = "inhA_c-15t", phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}], members = [{gene="inhA", variants=["C-15T"]}]},
-#name = "katG-disrupted"
-#phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}]},#members = [{gene="katG", variants=["frameshift or premature stop"]}]},
 #name = "inh_C-15T__katG-S315G"
 #phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}]},#members = [{gene="katG", variants=["S315G"]}, {gene="inh", variants=["C-15T"]}]},
 #name = "rpoB_F433dupl"

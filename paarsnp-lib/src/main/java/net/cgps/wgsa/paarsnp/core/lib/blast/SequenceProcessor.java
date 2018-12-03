@@ -3,7 +3,6 @@ package net.cgps.wgsa.paarsnp.core.lib.blast;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
-import net.cgps.wgsa.paarsnp.core.formats.Mutation;
 
 import java.util.Collection;
 import java.util.Map;

@@ -1,9 +1,9 @@
 package net.cgps.wgsa.paarsnp.core.lib;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
-import net.cgps.wgsa.paarsnp.core.formats.Paar;
-import net.cgps.wgsa.paarsnp.core.formats.Snpar;
-import net.cgps.wgsa.paarsnp.core.formats.ReferenceSequence;
+import net.cgps.wgsa.paarsnp.core.models.Paar;
+import net.cgps.wgsa.paarsnp.core.models.Snpar;
+import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
 
 import java.util.Map;
 import java.util.function.Predicate;

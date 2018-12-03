@@ -1,13 +1,10 @@
 package net.cgps.wgsa.paarsnp;
 
-import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
-import net.cgps.wgsa.paarsnp.core.lib.PhenotypeEffect;
-import net.cgps.wgsa.paarsnp.core.lib.ProfileAggregator;
-import net.cgps.wgsa.paarsnp.core.lib.ResistanceState;
-import net.cgps.wgsa.paarsnp.core.lib.json.*;
-import net.cgps.wgsa.paarsnp.core.formats.PaarResult;
-import net.cgps.wgsa.paarsnp.core.formats.SetMember;
-import net.cgps.wgsa.paarsnp.core.formats.SnparResult;
+import net.cgps.wgsa.paarsnp.core.models.*;
+import net.cgps.wgsa.paarsnp.core.models.ElementEffect;
+import net.cgps.wgsa.paarsnp.core.models.PhenotypeEffect;
+import net.cgps.wgsa.paarsnp.core.models.results.ResistanceState;
+import net.cgps.wgsa.paarsnp.core.models.results.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -147,10 +144,10 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
 
   public static class PaarsnpResultData {
 
-    final String assemblyId;
-    final SnparResult snparResult;
-    final PaarResult paarResult;
-    final Collection<String> referenceProfile;
+    public final String assemblyId;
+    public final SnparResult snparResult;
+    public final PaarResult paarResult;
+    public final Collection<String> referenceProfile;
 
     public PaarsnpResultData(final String assemblyId, final SnparResult snparResult, final PaarResult paarResult, final Collection<String> referenceProfile) {
 

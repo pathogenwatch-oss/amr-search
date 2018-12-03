@@ -2,14 +2,14 @@ package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
-import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
+import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.paar.PaarCalculation;
-import net.cgps.wgsa.paarsnp.core.formats.PaarResult;
-import net.cgps.wgsa.paarsnp.core.formats.Paar;
+import net.cgps.wgsa.paarsnp.core.models.PaarResult;
+import net.cgps.wgsa.paarsnp.core.models.Paar;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
-import net.cgps.wgsa.paarsnp.core.snpar.SnparCalculation;
-import net.cgps.wgsa.paarsnp.core.formats.Snpar;
-import net.cgps.wgsa.paarsnp.core.formats.SnparResult;
+import net.cgps.wgsa.paarsnp.core.snpar.ResultCombiner;
+import net.cgps.wgsa.paarsnp.core.models.Snpar;
+import net.cgps.wgsa.paarsnp.core.models.results.SnparResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,7 +64,7 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
       snparResult = new ResistanceSearch<>(
           new ResistanceSearch.InputOptions(
               this.buildBlastOptions(this.snparLibrary.getMinimumPid(), "1e-20", Constants.SNPAR_APPEND)),
-          new SnparCalculation(this.snparLibrary, new ProcessVariants(this.snparLibrary)),
+          new ResultCombiner(this.snparLibrary, new ProcessVariants(this.snparLibrary)),
           FilterByIndividualThresholds.build(this.snparLibrary)).apply(assemblyFile.toAbsolutePath().toString());
     } else {
       snparResult = SnparResult.buildEmpty();

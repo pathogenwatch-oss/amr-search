@@ -1,6 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.lib.blast;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.ncbi.BlastOutput;
+import net.cgps.wgsa.paarsnp.core.lib.utils.StreamGobbler;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

@@ -2,7 +2,7 @@ package net.cgps.wgsa.paarsnp.builder;
 
 import ch.qos.logback.classic.Level;
 import net.cgps.wgsa.paarsnp.core.Constants;
-import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
