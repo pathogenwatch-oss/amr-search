@@ -201,6 +201,26 @@ members = [{
 },
 ```
 
+### Frameshifts
+
+If disruption by frameshifts cause a resistance phenotype, this can also be indicated:
+```
+members = [{
+  gene = "rpoB", 
+  variants = ["frameshift"]
+  }]
+```
+
+### Truncated
+
+Premature stop variants can be annotated in a similar way to frameshifts:
+```
+members = [{
+  gene = "rpoB", 
+  variants = ["truncated"]
+  }]
+```
+
 ## Full paar/snpar Description
 
 It's best to understand the examples above before reading this bit.
