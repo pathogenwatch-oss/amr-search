@@ -1,29 +1,24 @@
-package net.cgps.wgsa.paarsnp.core.models.variants;
+package net.cgps.wgsa.paarsnp.core.models.variants.implementations;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
+import net.cgps.wgsa.paarsnp.core.models.variants.HasReferenceLocation;
+import net.cgps.wgsa.paarsnp.core.models.variants.TranscribedVariant;
 import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @JsonDeserialize(as = ResistanceMutation.class)
-public class ResistanceMutation implements Variant {
-
-  public TYPE getType() {
-    return this.type;
-  }
+public class ResistanceMutation implements HasReferenceLocation, TranscribedVariant {
 
   public enum TYPE {
     DNA, AA
   }
 
+  public final static Set<Character> dnaCharacters = new HashSet<>(Arrays.asList('a', 't', 'c', 'g'));
 
   private final String name;
   private final char originalSequence;
@@ -37,8 +32,7 @@ public class ResistanceMutation implements Variant {
     this("", '0', 0, '0', TYPE.DNA, 0);
   }
 
-  public ResistanceMutation(final String name, final char originalSequence, final int referenceLocation,
-                            final char mutationSequence, final TYPE type, final int aaLocation) {
+  private ResistanceMutation(final String name, final char originalSequence, final int referenceLocation, final char mutationSequence, final TYPE type, final int aaLocation) {
     // NB for the SNP archive the query location is the same as the representative location.
     this.name = name;
     this.originalSequence = originalSequence;
@@ -46,6 +40,15 @@ public class ResistanceMutation implements Variant {
     this.mutationSequence = mutationSequence;
     this.type = type;
     this.aaLocation = aaLocation;
+  }
+
+  public static ResistanceMutation build(final String name, final Map.Entry<Integer, Map.Entry<Character, Character>> mapping) {
+
+    final TYPE type = determineType(mapping.getValue());
+
+    final int aaLocation = TYPE.DNA == type ? mapping.getKey() : (mapping.getKey() * 3) - 2;
+
+    return new ResistanceMutation(name, mapping.getValue().getKey(), mapping.getKey(), mapping.getValue().getValue(), type, aaLocation);
   }
 
   @Override
@@ -84,13 +87,21 @@ public class ResistanceMutation implements Variant {
     }
   }
 
-  public boolean isWithinBoundaries(final BlastMatch match) {
-    return match.containsPosition(this.referenceLocation)
-        && this.getType() == ResistanceMutation.TYPE.DNA || match.containsPosition(this.getReferenceLocation() + 2);
+  @Override
+  public boolean isWithinBoundaries(final int start, final int stop) {
+    return (start <= this.referenceLocation && this.referenceLocation < stop) &&
+        (this.getType() == TYPE.DNA
+            ||
+            (start <= this.referenceLocation + 2 && this.referenceLocation + 2 < stop));
   }
 
+  @Override
   public int getReferenceLocation() {
     return this.referenceLocation;
+  }
+
+  public TYPE getType() {
+    return this.type;
   }
 
   public char getMutationSequence() {
@@ -127,4 +138,16 @@ public class ResistanceMutation implements Variant {
   public int hashCode() {
     return Objects.hash(this.name, this.originalSequence, this.referenceLocation, this.mutationSequence, this.aaLocation);
   }
+
+  public static TYPE determineType(final Map.Entry<Character, Character> mutation) {
+
+    if (dnaCharacters.contains(mutation.getKey()) || dnaCharacters.contains(mutation.getValue())) {
+      return TYPE.DNA;
+    } else {
+      return TYPE.AA;
+    }
+
+  }
+
+
 }

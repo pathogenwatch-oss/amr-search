@@ -6,10 +6,13 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import net.cgps.wgsa.paarsnp.core.models.variants.implementations.Frameshift;
+import net.cgps.wgsa.paarsnp.core.models.variants.implementations.PrematureStop;
+import net.cgps.wgsa.paarsnp.core.models.variants.implementations.ResistanceMutation;
 
 import java.io.IOException;
 
-public class VariantDeserializer extends JsonDeserializer {
+public class VariantJsonDeserializer extends JsonDeserializer {
 
   @Override
   public Object deserialize(final JsonParser p, final DeserializationContext ctxt) throws IOException, JsonProcessingException {

@@ -244,10 +244,12 @@ For snpar, the members field consists of a list of variant records. Each record 
         * Only the mutation is actually checked by PAARSNP and not the original sequence.
     1. Nucleotide substitutions take the same format as amino acid substitutions, but are in _lower case_.
         * e.g. cytosine to adenine at position 178 = `c178a` (_not_ `C178A`).
-    1. Deletions or inserts are specified using a '-' character on one side.
-        * e.g. A deletion at position 15 in an rRNA = `t15-`.
-        * e.g. An insert of a glutamate at 73 = `-73E`.
+    1. Deletions or inserts are specified using a '-' character on one side, or by adding `ins` or `del` as below.
+        * e.g. A deletion at position 15 in an rRNA = `t15-` or `t15del`.
+        * e.g. An insert of a glutamate after position 73 (i.e. before 74) = `-73E` or `ins73E`.
     1. Truncation by premature stop codon can be specified using `truncated`.
+    1. Promoter region variants can be encoded using a negative integer relative to the sequence start.
+        * e.g. substitution at "-10": `a-10t`, deletion `a-10del` or `a-10-`
 
 ```
 # Two variant sites are tested from geneA, and a deletion in geneB

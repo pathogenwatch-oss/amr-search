@@ -1,5 +1,9 @@
-package net.cgps.wgsa.paarsnp.core.models;
+package net.cgps.wgsa.paarsnp.core.snpar;
 
+import net.cgps.wgsa.paarsnp.core.models.Phenotype;
+import net.cgps.wgsa.paarsnp.core.models.PhenotypeEffect;
+import net.cgps.wgsa.paarsnp.core.models.ResistanceSet;
+import net.cgps.wgsa.paarsnp.core.models.Snpar;
 import org.junit.Assert;
 import org.junit.Test;
 

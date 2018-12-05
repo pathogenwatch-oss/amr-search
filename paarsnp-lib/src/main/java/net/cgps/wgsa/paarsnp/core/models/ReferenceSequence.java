@@ -1,13 +1,13 @@
 package net.cgps.wgsa.paarsnp.core.models;
 
-import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
-import net.cgps.wgsa.paarsnp.core.snpar.VariantParser;
+import net.cgps.wgsa.paarsnp.core.models.variants.*;
+import net.cgps.wgsa.paarsnp.core.models.variants.implementations.Frameshift;
+import net.cgps.wgsa.paarsnp.core.models.variants.implementations.PrematureStop;
+import net.cgps.wgsa.paarsnp.core.models.variants.implementations.PromoterMutation;
+import net.cgps.wgsa.paarsnp.core.models.variants.implementations.ResistanceMutation;
+import net.cgps.wgsa.paarsnp.core.models.variants.VariantParser;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class ReferenceSequence {
 
@@ -15,8 +15,8 @@ public class ReferenceSequence {
   private final int length;
   private final float pid;
   private final float coverage;
-  private final Collection<String> variants;
-  private final Collection<Variant> mappedVariants;
+  private final Collection<TranscribedVariant> transcribedVariants;
+  private final Collection<NonCodingVariant> promoterVariants;
 
   @SuppressWarnings("unused")
   private ReferenceSequence() {
@@ -29,18 +29,13 @@ public class ReferenceSequence {
     this.length = length;
     this.pid = pid;
     this.coverage = coverage;
-    this.variants = new HashSet<>(100);
-    this.mappedVariants = new HashSet<>(100);
+    this.transcribedVariants = new HashSet<>(100);
+    this.promoterVariants = new HashSet<>(100);
   }
 
-  public Collection<Variant> getMappedVariants() {
+  public Collection<TranscribedVariant> getTranscribedVariants() {
 
-    return this.mappedVariants;
-  }
-
-  @SuppressWarnings("unused")
-  public Collection<String> getVariants() {
-    return this.variants;
+    return this.transcribedVariants;
   }
 
   public String getName() {
@@ -69,19 +64,41 @@ public class ReferenceSequence {
     final ReferenceSequence that = (ReferenceSequence) o;
     return Float.compare(that.pid, this.pid) == 0 &&
         Float.compare(that.coverage, this.coverage) == 0 &&
-        Objects.equals(this.name, that.name) &&
-        Objects.equals(this.variants, that.variants);
+        Objects.equals(this.name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.name, this.pid, this.coverage, this.variants, this.mappedVariants);
+    return Objects.hash(this.name, this.pid, this.coverage, this.transcribedVariants);
   }
 
   public void addVariants(final Collection<String> newVariants) {
-    this.variants.addAll(newVariants);
-    final VariantParser variantParser = new VariantParser(this.length);
-    final List<Variant> mappedVariants = newVariants.stream().map(variantParser).collect(Collectors.toList());
-    this.mappedVariants.addAll(mappedVariants);
+
+    final VariantParser variantParser = new VariantParser();
+
+    final List<TranscribedVariant> mappedVariants = new ArrayList<>(500);
+    final List<NonCodingVariant> nonCodingVariants = new ArrayList<>(100);
+
+    for (final String newVariant : newVariants) {
+      if ("truncated".equals(newVariant.toLowerCase())) {
+        mappedVariants.add(new PrematureStop(this.length));
+      } else if ("frameshift".equals(newVariant.toLowerCase())) {
+        mappedVariants.add(new Frameshift());
+      } else {
+        final Map.Entry<Integer, Map.Entry<Character, Character>> mutation = variantParser.apply(newVariant);
+        if (mutation.getKey() < 0) {
+          nonCodingVariants.add(PromoterMutation.build(newVariant, mutation));
+        } else {
+          mappedVariants.add(ResistanceMutation.build(newVariant, mutation));
+        }
+      }
+    }
+
+    this.transcribedVariants.addAll(mappedVariants);
+    this.promoterVariants.addAll(nonCodingVariants);
+  }
+
+  public Collection<NonCodingVariant> getPromoterVariants() {
+    return this.promoterVariants;
   }
 }

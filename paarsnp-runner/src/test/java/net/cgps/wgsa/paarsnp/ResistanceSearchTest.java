@@ -4,6 +4,7 @@ import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
+import net.cgps.wgsa.paarsnp.core.snpar.PromoterFetcher;
 import net.cgps.wgsa.paarsnp.core.snpar.ResultCombiner;
 import net.cgps.wgsa.paarsnp.core.models.results.SnparResult;
 import org.junit.Assert;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
@@ -35,9 +37,16 @@ public class ResistanceSearchTest {
             "-evalue", "1e-5"
         )
     );
-    final ResistanceSearch<SnparResult> resistanceSearch = new ResistanceSearch<>(inputOptions, new ResultCombiner(paarsnpLibrary.getSnpar(), new ProcessVariants(paarsnpLibrary.getSnpar())), FilterByIndividualThresholds.build(paarsnpLibrary.getSnpar()));
+    final Path inputFasta = Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa");
 
-    final SnparResult result = resistanceSearch.apply(Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa").toAbsolutePath().toString());
+    final ResistanceSearch<SnparResult> resistanceSearch = new ResistanceSearch<>(
+        inputOptions,
+        new ResultCombiner(
+            paarsnpLibrary.getSnpar(),
+            new ProcessVariants(paarsnpLibrary.getSnpar(), new PromoterFetcher(inputFasta))),
+        FilterByIndividualThresholds.build(paarsnpLibrary.getSnpar()));
+
+    final SnparResult result = resistanceSearch.apply(inputFasta.toAbsolutePath().toString());
 
     Assert.assertNotNull("Result produced", result);
     Assert.assertTrue("Result not empty", !result.toJson().isEmpty());

@@ -19,10 +19,12 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
   private final Logger logger = LoggerFactory.getLogger(ProcessVariants.class);
 
   private final Snpar snparLibrary;
+  private final PromoterFetcher promoterFetcher;
 
-  public ProcessVariants(final Snpar snparLibrary) {
+  public ProcessVariants(final Snpar snparLibrary, final PromoterFetcher promoterFetcher) {
 
     this.snparLibrary = snparLibrary;
+    this.promoterFetcher = promoterFetcher;
   }
 
   @Override
@@ -34,15 +36,36 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
     final CodonMap codonMap = new CodonMapper().apply(match);
 
     final Collection<ResistanceMutationMatch> resistanceMutations = referenceSequence
-        .getMappedVariants()
+        .getTranscribedVariants()
         .stream()
-        .peek(mutation -> this.logger.debug("Resistance mutation {}", mutation.getName()))
-        .filter(mutation -> mutation.isWithinBoundaries(match))
+        .peek(mutation -> this.logger.debug("Testing resistance mutation {}", mutation.getName()))
+        .filter(mutation -> mutation.isWithinBoundaries(
+            match.getBlastSearchStatistics().getLibrarySequenceStart(),
+            match.getBlastSearchStatistics().getLibrarySequenceStop()))
         .map(resistanceMutation -> resistanceMutation.isPresent(mutations, codonMap))
         .filter(Optional::isPresent)
         .map(Optional::get)
         .collect(Collectors.toList());
 
+    if (!referenceSequence.getPromoterVariants().isEmpty()) {
+
+      final Optional<String> promoterQuery = this.promoterFetcher.apply(match.getBlastSearchStatistics());
+
+      if (promoterQuery.isPresent()) {
+        final String promoterSequence = promoterQuery.get();
+        final Collection<ResistanceMutationMatch> promoterMutations = referenceSequence
+            .getPromoterVariants()
+            .stream()
+            .peek(mutation -> this.logger.debug("Testing promoter mutation {}", mutation.getName()))
+            .filter(mutation -> mutation.isWithinBoundaries(-1, promoterSequence.length() * -1))
+            .map(mutation -> mutation.isPresent(promoterSequence, match.getBlastSearchStatistics().getQuerySequenceStart()))
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .collect(Collectors.toList());
+
+        resistanceMutations.addAll(promoterMutations);
+      }
+    }
     return new SnparMatchData(match.getBlastSearchStatistics(), resistanceMutations);
   }
 }

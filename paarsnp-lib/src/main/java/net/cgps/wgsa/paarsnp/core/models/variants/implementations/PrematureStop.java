@@ -1,10 +1,10 @@
-package net.cgps.wgsa.paarsnp.core.models.variants;
+package net.cgps.wgsa.paarsnp.core.models.variants.implementations;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
+import net.cgps.wgsa.paarsnp.core.models.variants.TranscribedVariant;
 import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @JsonDeserialize(as = PrematureStop.class)
-public class PrematureStop implements Variant {
+public class PrematureStop implements TranscribedVariant {
 
   private final Integer expectedStop;
   private final String name = "truncated";
@@ -29,6 +29,7 @@ public class PrematureStop implements Variant {
     this.expectedStop = expectedStop;
   }
 
+  @SuppressWarnings("unused")
   public Integer getExpectedStop() {
     return this.expectedStop;
   }
@@ -58,10 +59,8 @@ public class PrematureStop implements Variant {
               .map(codonStart -> Arrays.asList(codonStart, codonStart + 1, codonStart + 2))
               .flatMap(Collection::stream)
               .peek(position -> this.logger.info("{}", position))
+              .filter(mutations::containsKey)
               .map(mutations::get)
-              .map(Optional::ofNullable)
-              .filter(Optional::isPresent)
-              .map(Optional::get)
               .flatMap(Collection::stream)
               .collect(Collectors.toList())
       ));
@@ -71,9 +70,10 @@ public class PrematureStop implements Variant {
   }
 
   @Override
-  public boolean isWithinBoundaries(final BlastMatch match) {
+  public boolean isWithinBoundaries(final int start, final int stop) {
     return true;
   }
+
 
   @Override
   public boolean equals(final Object o) {

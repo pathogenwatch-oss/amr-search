@@ -109,7 +109,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
             .map(ResistanceSet::getMembers)
             .flatMap(Collection::stream)
             .map(SetMember::getGene)
-            .map(newGene -> newGenes.containsKey(newGene) ? newGenes.get(newGene).getValue() : baseLibrary.getPaarsnpLibrary().getSnpar().getGenes().get(newGene))
+            .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : baseLibrary.getPaarsnpLibrary().getSnpar().getGenes().get(gene))
             .peek(snparReferenceSequence -> snparReferenceSequence.addVariants(sequenceIdToVariants.get(snparReferenceSequence.getName())))
             .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
 
