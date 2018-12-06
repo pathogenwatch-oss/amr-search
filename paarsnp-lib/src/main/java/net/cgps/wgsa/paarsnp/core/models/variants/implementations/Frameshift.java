@@ -28,22 +28,22 @@ public class Frameshift implements TranscribedVariant {
   }
 
   @Override
-  public Optional<ResistanceMutationMatch> isPresent(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
 
     final Map<Integer, Mutation> inserts = this.keepFrameshiftingMutations(Mutation.select(I, mutations));
-
     final Map<Integer, Mutation> deletions = this.keepFrameshiftingMutations(Mutation.select(D, mutations));
 
-    if (inserts.isEmpty() && deletions.isEmpty()) {
-      return Optional.empty();
-    } else {
-      final Collection<Mutation> causalMutations = new ArrayList<>(50);
-      causalMutations.addAll(inserts.values());
-      causalMutations.addAll(deletions.values());
-      return Optional.of(new ResistanceMutationMatch(this, causalMutations));
-    }
+    return !inserts.isEmpty() || !deletions.isEmpty();
+  }
 
-
+  @Override
+  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final CodonMap resourceB) {
+    final Map<Integer, Mutation> inserts = this.keepFrameshiftingMutations(Mutation.select(I, mutations));
+    final Map<Integer, Mutation> deletions = this.keepFrameshiftingMutations(Mutation.select(D, mutations));
+    final Collection<Mutation> causalMutations = new ArrayList<>(50);
+    causalMutations.addAll(inserts.values());
+    causalMutations.addAll(deletions.values());
+    return new ResistanceMutationMatch(this, causalMutations);
   }
 
   private Map<Integer, Mutation> keepFrameshiftingMutations(final Map<Integer, Mutation> indels) {

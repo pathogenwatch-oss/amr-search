@@ -46,44 +46,45 @@ public class ResistanceMutation implements HasReferenceLocation, TranscribedVari
 
     final TYPE type = determineType(mapping.getValue());
 
-    final int aaLocation = TYPE.DNA == type ? mapping.getKey() : (mapping.getKey() * 3) - 2;
+    final int referenceLocation = TYPE.DNA == type ? mapping.getKey() : (mapping.getKey() * 3) - 2;
 
-    return new ResistanceMutation(name, mapping.getValue().getKey(), mapping.getKey(), mapping.getValue().getValue(), type, aaLocation);
+    return new ResistanceMutation(name, mapping.getValue().getKey(), referenceLocation, mapping.getValue().getValue(), type, mapping.getKey());
   }
 
   @Override
-  public Optional<ResistanceMutationMatch> isPresent(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
 
     switch (this.type) {
       case DNA:
-        if (mutations.containsKey(this.getReferenceLocation()) && mutations.get(this.getReferenceLocation())
+        return mutations.containsKey(this.getReferenceLocation()) && mutations.get(this.getReferenceLocation())
             .stream()
-            .anyMatch(queryMutation -> queryMutation.getMutationSequence() == this.getMutationSequence())) {
-
-          return Optional.of(new ResistanceMutationMatch(
-              this,
-              mutations.get(this.getReferenceLocation())
-                  .stream()
-                  .filter(queryMutation -> queryMutation.getMutationSequence() == this.getMutationSequence())
-                  .collect(Collectors.toList())));
-
-        } else {
-          return Optional.empty();
-        }
+            .anyMatch(queryMutation -> queryMutation.getMutationSequence() == this.getMutationSequence());
       case AA:
       default:
-        if (this.getMutationSequence() == codonMap.get(this.getAaLocation())) {
-          return Optional.of(new ResistanceMutationMatch(
-              this,
-              Stream.of(this.getReferenceLocation(), this.getReferenceLocation() + 1, this.getReferenceLocation() + 2)
-                  .filter(index -> mutations.keySet().contains(index))
-                  .map(mutations::get)
-                  .flatMap(Collection::stream)
-                  .collect(Collectors.toList())));
+        return this.getMutationSequence() == codonMap.get(this.getAaLocation());
+    }
+  }
 
-        } else {
-          return Optional.empty();
-        }
+  @Override
+  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+    switch (this.type) {
+      case DNA:
+        return new ResistanceMutationMatch(
+            this,
+            mutations.get(this.getReferenceLocation())
+                .stream()
+                .filter(queryMutation -> queryMutation.getMutationSequence() == this.getMutationSequence())
+                .collect(Collectors.toList()));
+
+      case AA:
+      default:
+        return new ResistanceMutationMatch(
+            this,
+            Stream.of(this.getReferenceLocation(), this.getReferenceLocation() + 1, this.getReferenceLocation() + 2)
+                .filter(index -> mutations.keySet().contains(index))
+                .map(mutations::get)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList()));
     }
   }
 
@@ -146,8 +147,5 @@ public class ResistanceMutation implements HasReferenceLocation, TranscribedVari
     } else {
       return TYPE.AA;
     }
-
   }
-
-
 }

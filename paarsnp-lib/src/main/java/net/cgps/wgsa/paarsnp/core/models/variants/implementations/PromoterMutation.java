@@ -1,14 +1,16 @@
 package net.cgps.wgsa.paarsnp.core.models.variants.implementations;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
+import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.HasReferenceLocation;
 import net.cgps.wgsa.paarsnp.core.models.variants.NonCodingVariant;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Objects;
 
 @JsonDeserialize(as = PromoterMutation.class)
 public class PromoterMutation implements HasReferenceLocation, NonCodingVariant {
@@ -32,7 +34,9 @@ public class PromoterMutation implements HasReferenceLocation, NonCodingVariant 
 
   public static PromoterMutation build(final String name, final Map.Entry<Integer, Map.Entry<Character, Character>> mutation) {
 
-    return new PromoterMutation(name, mutation.getKey(), Character.toUpperCase(mutation.getValue().getValue()), Character.toUpperCase(mutation.getValue().getKey()));
+    char mutation1 = Character.toUpperCase(mutation.getValue().getValue());
+    char originalSequence = Character.toUpperCase(mutation.getValue().getKey());
+    return new PromoterMutation(name, mutation.getKey(), mutation1, originalSequence);
   }
 
   @Override
@@ -42,7 +46,7 @@ public class PromoterMutation implements HasReferenceLocation, NonCodingVariant 
 
   @Override
   public boolean isWithinBoundaries(final int start, final int stop) {
-    return this.referenceLocation < stop && start < this.referenceLocation;
+    return this.referenceLocation <= start && stop <= this.referenceLocation;
   }
 
   @Override
@@ -50,31 +54,63 @@ public class PromoterMutation implements HasReferenceLocation, NonCodingVariant 
     return this.referenceLocation;
   }
 
+  public char getMutation() {
+    return this.mutation;
+  }
+
+  @SuppressWarnings("unused")
+  public char getOriginalSequence() {
+    return this.originalSequence;
+  }
+
   @Override
-  public Optional<ResistanceMutationMatch> isPresent(final String region, final Integer queryIndex) {
-    if (this.mutation == region.charAt(this.referenceLocation)) {
-      final Mutation.MutationType mutationType;
+  public boolean isPresent(final String region, final BlastSearchStatistics searchStatistics) {
+    return this.mutation == region.charAt(region.length() + this.referenceLocation);
+  }
 
-      if (this.mutation == '-') {
-        mutationType = Mutation.MutationType.D;
-      } else if (this.originalSequence == '-') {
-        mutationType = Mutation.MutationType.I;
-      } else {
-        mutationType = Mutation.MutationType.S;
-      }
+  @Override
+  public ResistanceMutationMatch buildMatch(final String sequence, final BlastSearchStatistics searchStatistics) {
+    final Mutation.MutationType mutationType;
 
-      return Optional.of(new ResistanceMutationMatch(
-          this,
-          Collections.singletonList(
-              new Mutation(
-                  mutationType,
-                  queryIndex + this.referenceLocation,
-                  this.originalSequence,
-                  this.mutation,
-                  this.referenceLocation))));
-
+    final int refOffset;
+    if (DnaSequence.Strand.FORWARD == searchStatistics.getStrand()) {
+      refOffset = this.referenceLocation;
     } else {
-      return Optional.empty();
+      refOffset = -1 * this.referenceLocation;
     }
+
+    if (this.mutation == '-') {
+      mutationType = Mutation.MutationType.D;
+    } else if (this.originalSequence == '-') {
+      mutationType = Mutation.MutationType.I;
+    } else {
+      mutationType = Mutation.MutationType.S;
+    }
+    return new ResistanceMutationMatch(
+        this,
+        Collections.singletonList(
+            new Mutation(
+                mutationType,
+                searchStatistics.getQuerySequenceStart() + refOffset,
+                this.originalSequence,
+                this.mutation,
+                this.referenceLocation)));
+
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) return true;
+    if (o == null || this.getClass() != o.getClass()) return false;
+    final PromoterMutation that = (PromoterMutation) o;
+    return this.referenceLocation == that.referenceLocation &&
+        this.mutation == that.mutation &&
+        this.originalSequence == that.originalSequence &&
+        Objects.equals(this.name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.name, this.referenceLocation, this.mutation, this.originalSequence);
   }
 }

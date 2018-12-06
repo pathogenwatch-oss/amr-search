@@ -1,4 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.models.variants;
 
-public interface NonCodingVariant extends Variant<String, Integer> {
+import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
+
+public interface NonCodingVariant extends Variant<String, BlastSearchStatistics> {
 }

@@ -1,6 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
+import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.models.*;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.MutationBuilder;
@@ -42,9 +43,8 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
         .filter(mutation -> mutation.isWithinBoundaries(
             match.getBlastSearchStatistics().getLibrarySequenceStart(),
             match.getBlastSearchStatistics().getLibrarySequenceStop()))
-        .map(resistanceMutation -> resistanceMutation.isPresent(mutations, codonMap))
-        .filter(Optional::isPresent)
-        .map(Optional::get)
+        .filter(resistanceMutation -> resistanceMutation.isPresent(mutations, codonMap))
+        .map(resistanceMutation -> resistanceMutation.buildMatch(mutations, codonMap))
         .collect(Collectors.toList());
 
     if (!referenceSequence.getPromoterVariants().isEmpty()) {
@@ -58,9 +58,16 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
             .stream()
             .peek(mutation -> this.logger.debug("Testing promoter mutation {}", mutation.getName()))
             .filter(mutation -> mutation.isWithinBoundaries(-1, promoterSequence.length() * -1))
-            .map(mutation -> mutation.isPresent(promoterSequence, match.getBlastSearchStatistics().getQuerySequenceStart()))
-            .filter(Optional::isPresent)
-            .map(Optional::get)
+            .filter(mutation -> mutation.isPresent(promoterSequence, match.getBlastSearchStatistics()))
+            .map(referenceMutation -> {
+              final String directionMarker;
+              if (DnaSequence.Strand.FORWARD == match.getBlastSearchStatistics().getStrand()) {
+                directionMarker = "+";
+              } else {
+                directionMarker = "-";
+              }
+              return referenceMutation.buildMatch(directionMarker, match.getBlastSearchStatistics());
+            })
             .collect(Collectors.toList());
 
         resistanceMutations.addAll(promoterMutations);

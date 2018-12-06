@@ -9,7 +9,10 @@ import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @JsonDeserialize(as = PrematureStop.class)
@@ -40,7 +43,7 @@ public class PrematureStop implements TranscribedVariant {
   }
 
   @Override
-  public Optional<ResistanceMutationMatch> isPresent(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
 
     final Collection<Integer> prematureStops = codonMap
         .getTranslation()
@@ -50,23 +53,32 @@ public class PrematureStop implements TranscribedVariant {
         .map(Map.Entry::getKey)
         .collect(Collectors.toList());
 
-    if (!prematureStops.isEmpty()) {
-      return Optional.of(new ResistanceMutationMatch(
-          this,
-          prematureStops
-              .stream()
-              .map(aaPosition -> (aaPosition * 3) - 2)
-              .map(codonStart -> Arrays.asList(codonStart, codonStart + 1, codonStart + 2))
-              .flatMap(Collection::stream)
-              .peek(position -> this.logger.info("{}", position))
-              .filter(mutations::containsKey)
-              .map(mutations::get)
-              .flatMap(Collection::stream)
-              .collect(Collectors.toList())
-      ));
-    } else {
-      return Optional.empty();
-    }
+    return !prematureStops.isEmpty();
+  }
+
+  @Override
+  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+    final Collection<Integer> prematureStops = codonMap
+        .getTranslation()
+        .filter(position -> '*' == position.getValue())
+        // NB the position is aa, while the stop is nt.
+        .filter(position -> position.getKey() * 3 < this.expectedStop)
+        .map(Map.Entry::getKey)
+        .collect(Collectors.toList());
+
+    return new ResistanceMutationMatch(
+        this,
+        prematureStops
+            .stream()
+            .map(aaPosition -> (aaPosition * 3) - 2)
+            .map(codonStart -> Arrays.asList(codonStart, codonStart + 1, codonStart + 2))
+            .flatMap(Collection::stream)
+            .peek(position -> this.logger.info("{}", position))
+            .filter(mutations::containsKey)
+            .map(mutations::get)
+            .flatMap(Collection::stream)
+            .collect(Collectors.toList())
+    );
   }
 
   @Override
