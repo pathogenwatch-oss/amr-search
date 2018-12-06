@@ -1,17 +1,18 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
-import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
-import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
-import net.cgps.wgsa.paarsnp.core.models.*;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
+import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.lib.blast.MutationBuilder;
 import net.cgps.wgsa.paarsnp.core.lib.blast.SequenceProcessor;
+import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
+import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
+import net.cgps.wgsa.paarsnp.core.models.Snpar;
+import net.cgps.wgsa.paarsnp.core.models.SnparMatchData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -20,12 +21,10 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
   private final Logger logger = LoggerFactory.getLogger(ProcessVariants.class);
 
   private final Snpar snparLibrary;
-  private final PromoterFetcher promoterFetcher;
 
-  public ProcessVariants(final Snpar snparLibrary, final PromoterFetcher promoterFetcher) {
+  public ProcessVariants(final Snpar snparLibrary) {
 
     this.snparLibrary = snparLibrary;
-    this.promoterFetcher = promoterFetcher;
   }
 
   @Override
@@ -47,32 +46,6 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
         .map(resistanceMutation -> resistanceMutation.buildMatch(mutations, codonMap))
         .collect(Collectors.toList());
 
-    if (!referenceSequence.getPromoterVariants().isEmpty()) {
-
-      final Optional<String> promoterQuery = this.promoterFetcher.apply(match.getBlastSearchStatistics());
-
-      if (promoterQuery.isPresent()) {
-        final String promoterSequence = promoterQuery.get();
-        final Collection<ResistanceMutationMatch> promoterMutations = referenceSequence
-            .getPromoterVariants()
-            .stream()
-            .peek(mutation -> this.logger.debug("Testing promoter mutation {}", mutation.getName()))
-            .filter(mutation -> mutation.isWithinBoundaries(-1, promoterSequence.length() * -1))
-            .filter(mutation -> mutation.isPresent(promoterSequence, match.getBlastSearchStatistics()))
-            .map(referenceMutation -> {
-              final String directionMarker;
-              if (DnaSequence.Strand.FORWARD == match.getBlastSearchStatistics().getStrand()) {
-                directionMarker = "+";
-              } else {
-                directionMarker = "-";
-              }
-              return referenceMutation.buildMatch(directionMarker, match.getBlastSearchStatistics());
-            })
-            .collect(Collectors.toList());
-
-        resistanceMutations.addAll(promoterMutations);
-      }
-    }
     return new SnparMatchData(match.getBlastSearchStatistics(), resistanceMutations);
   }
 }

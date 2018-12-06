@@ -42,11 +42,13 @@ public class ResistanceMutation implements HasReferenceLocation, TranscribedVari
     this.aaLocation = aaLocation;
   }
 
-  public static ResistanceMutation build(final String name, final Map.Entry<Integer, Map.Entry<Character, Character>> mapping) {
+  public static ResistanceMutation build(final String name, final Map.Entry<Integer, Map.Entry<Character, Character>> mapping, final int referenceLength) {
 
     final TYPE type = determineType(mapping.getValue());
 
-    final int referenceLocation = TYPE.DNA == type ? mapping.getKey() : (mapping.getKey() * 3) - 2;
+    final int offset = mapping.getKey() < 0 ? referenceLength - 49 : 0;
+
+    final int referenceLocation = TYPE.DNA == type ? offset + mapping.getKey() : (mapping.getKey() * 3) - 2;
 
     return new ResistanceMutation(name, mapping.getValue().getKey(), referenceLocation, mapping.getValue().getValue(), type, mapping.getKey());
   }

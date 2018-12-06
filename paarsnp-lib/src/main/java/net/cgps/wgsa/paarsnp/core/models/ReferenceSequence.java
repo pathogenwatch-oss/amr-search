@@ -1,11 +1,10 @@
 package net.cgps.wgsa.paarsnp.core.models;
 
-import net.cgps.wgsa.paarsnp.core.models.variants.*;
+import net.cgps.wgsa.paarsnp.core.models.variants.TranscribedVariant;
+import net.cgps.wgsa.paarsnp.core.models.variants.VariantParser;
 import net.cgps.wgsa.paarsnp.core.models.variants.implementations.Frameshift;
 import net.cgps.wgsa.paarsnp.core.models.variants.implementations.PrematureStop;
-import net.cgps.wgsa.paarsnp.core.models.variants.implementations.PromoterMutation;
 import net.cgps.wgsa.paarsnp.core.models.variants.implementations.ResistanceMutation;
-import net.cgps.wgsa.paarsnp.core.models.variants.VariantParser;
 
 import java.util.*;
 
@@ -16,7 +15,6 @@ public class ReferenceSequence {
   private final float pid;
   private final float coverage;
   private final Collection<TranscribedVariant> transcribedVariants;
-  private final Collection<NonCodingVariant> promoterVariants;
 
   @SuppressWarnings("unused")
   private ReferenceSequence() {
@@ -30,7 +28,6 @@ public class ReferenceSequence {
     this.pid = pid;
     this.coverage = coverage;
     this.transcribedVariants = new HashSet<>(100);
-    this.promoterVariants = new HashSet<>(100);
   }
 
   public Collection<TranscribedVariant> getTranscribedVariants() {
@@ -77,7 +74,6 @@ public class ReferenceSequence {
     final VariantParser variantParser = new VariantParser();
 
     final List<TranscribedVariant> mappedVariants = new ArrayList<>(500);
-    final List<NonCodingVariant> nonCodingVariants = new ArrayList<>(100);
 
     for (final String newVariant : newVariants) {
       if ("truncated".equals(newVariant.toLowerCase())) {
@@ -86,19 +82,10 @@ public class ReferenceSequence {
         mappedVariants.add(new Frameshift());
       } else {
         final Map.Entry<Integer, Map.Entry<Character, Character>> mutation = variantParser.apply(newVariant);
-        if (mutation.getKey() < 0) {
-          nonCodingVariants.add(PromoterMutation.build(newVariant, mutation));
-        } else {
-          mappedVariants.add(ResistanceMutation.build(newVariant, mutation));
-        }
+        mappedVariants.add(ResistanceMutation.build(newVariant, mutation, this.length));
       }
     }
 
     this.transcribedVariants.addAll(mappedVariants);
-    this.promoterVariants.addAll(nonCodingVariants);
-  }
-
-  public Collection<NonCodingVariant> getPromoterVariants() {
-    return this.promoterVariants;
   }
 }

@@ -7,7 +7,6 @@ import net.cgps.wgsa.paarsnp.core.paar.PaarCalculation;
 import net.cgps.wgsa.paarsnp.core.models.PaarResult;
 import net.cgps.wgsa.paarsnp.core.models.Paar;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
-import net.cgps.wgsa.paarsnp.core.snpar.PromoterFetcher;
 import net.cgps.wgsa.paarsnp.core.snpar.ResultCombiner;
 import net.cgps.wgsa.paarsnp.core.models.Snpar;
 import net.cgps.wgsa.paarsnp.core.models.results.SnparResult;
@@ -65,7 +64,7 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
       snparResult = new ResistanceSearch<>(
           new ResistanceSearch.InputOptions(
               this.buildBlastOptions(this.snparLibrary.getMinimumPid(), "1e-20", Constants.SNPAR_APPEND)),
-          new ResultCombiner(this.snparLibrary, new ProcessVariants(this.snparLibrary, new PromoterFetcher(assemblyFile))),
+          new ResultCombiner(this.snparLibrary, new ProcessVariants(this.snparLibrary)),
           FilterByIndividualThresholds.build(this.snparLibrary)).apply(assemblyFile.toAbsolutePath().toString());
     } else {
       snparResult = SnparResult.buildEmpty();
