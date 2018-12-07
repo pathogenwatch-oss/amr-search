@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.HasReferenceLocation;
-import net.cgps.wgsa.paarsnp.core.models.variants.TranscribedVariant;
+import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
 
 import java.util.*;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @JsonDeserialize(as = ResistanceMutation.class)
-public class ResistanceMutation implements HasReferenceLocation, TranscribedVariant {
+public class ResistanceMutation implements HasReferenceLocation, Variant {
 
   public enum TYPE {
     DNA, AA

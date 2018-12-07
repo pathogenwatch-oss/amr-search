@@ -1,12 +1,11 @@
 package net.cgps.wgsa.paarsnp;
 
-import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
-import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
-import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
-import net.cgps.wgsa.paarsnp.core.snpar.PromoterFetcher;
-import net.cgps.wgsa.paarsnp.core.snpar.ResultCombiner;
+import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
+import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.models.results.SnparResult;
+import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
+import net.cgps.wgsa.paarsnp.core.snpar.ResultCombiner;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +42,7 @@ public class ResistanceSearchTest {
         inputOptions,
         new ResultCombiner(
             paarsnpLibrary.getSnpar(),
-            new ProcessVariants(paarsnpLibrary.getSnpar(), new PromoterFetcher(inputFasta))),
+            new ProcessVariants(paarsnpLibrary.getSnpar())),
         FilterByIndividualThresholds.build(paarsnpLibrary.getSnpar()));
 
     final SnparResult result = resistanceSearch.apply(inputFasta.toAbsolutePath().toString());
