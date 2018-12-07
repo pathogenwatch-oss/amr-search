@@ -36,7 +36,7 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
     final CodonMap codonMap = new CodonMapper().apply(match);
 
     final Collection<ResistanceMutationMatch> resistanceMutations = referenceSequence
-        .getTranscribedVariants()
+        .getVariants()
         .stream()
         .peek(mutation -> this.logger.debug("Testing resistance mutation {}", mutation.getName()))
         .filter(mutation -> mutation.isWithinBoundaries(

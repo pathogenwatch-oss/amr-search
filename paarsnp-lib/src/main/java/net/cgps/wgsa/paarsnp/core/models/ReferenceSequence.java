@@ -1,6 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.models;
 
-import net.cgps.wgsa.paarsnp.core.models.variants.TranscribedVariant;
+import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 import net.cgps.wgsa.paarsnp.core.models.variants.VariantParser;
 import net.cgps.wgsa.paarsnp.core.models.variants.implementations.Frameshift;
 import net.cgps.wgsa.paarsnp.core.models.variants.implementations.PrematureStop;
@@ -14,7 +14,7 @@ public class ReferenceSequence {
   private final int length;
   private final float pid;
   private final float coverage;
-  private final Collection<TranscribedVariant> transcribedVariants;
+  private final Collection<Variant> variants;
 
   @SuppressWarnings("unused")
   private ReferenceSequence() {
@@ -27,12 +27,12 @@ public class ReferenceSequence {
     this.length = length;
     this.pid = pid;
     this.coverage = coverage;
-    this.transcribedVariants = new HashSet<>(100);
+    this.variants = new HashSet<>(100);
   }
 
-  public Collection<TranscribedVariant> getTranscribedVariants() {
+  public Collection<Variant> getVariants() {
 
-    return this.transcribedVariants;
+    return this.variants;
   }
 
   public String getName() {
@@ -66,14 +66,14 @@ public class ReferenceSequence {
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.name, this.pid, this.coverage, this.transcribedVariants);
+    return Objects.hash(this.name, this.pid, this.coverage, this.variants);
   }
 
   public void addVariants(final Collection<String> newVariants) {
 
     final VariantParser variantParser = new VariantParser();
 
-    final List<TranscribedVariant> mappedVariants = new ArrayList<>(500);
+    final List<Variant> mappedVariants = new ArrayList<>(500);
 
     for (final String newVariant : newVariants) {
       if ("truncated".equals(newVariant.toLowerCase())) {
@@ -86,6 +86,6 @@ public class ReferenceSequence {
       }
     }
 
-    this.transcribedVariants.addAll(mappedVariants);
+    this.variants.addAll(mappedVariants);
   }
 }

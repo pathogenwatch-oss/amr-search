@@ -23,7 +23,7 @@ public class ResistanceSearchTest {
   public void apply() {
 
 
-    final File paarsnpLibraryFile = Paths.get("src/test/resources", "90370.jsn").toFile();
+    final File paarsnpLibraryFile = Paths.get("../build/databases", "90370.jsn").toFile();
 
     this.logger.info("Using snpar DB {}", paarsnpLibraryFile.getPath());
 
