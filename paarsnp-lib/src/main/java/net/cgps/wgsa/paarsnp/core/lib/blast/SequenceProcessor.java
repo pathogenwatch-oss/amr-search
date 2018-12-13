@@ -5,6 +5,7 @@ import com.google.common.collect.ListMultimap;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -73,6 +74,6 @@ public class SequenceProcessor {
       }
     }
 
-    return mutations.asMap();
+    return Collections.unmodifiableMap(mutations.asMap());
   }
 }

@@ -24,7 +24,7 @@ public class BlastSearchStatistics extends AbstractJsonnable {
     this("", 0, "", 0, 0.0, 0.0, DnaSequence.Strand.FORWARD, 0, 0, 0);
   }
 
-  BlastSearchStatistics(final String librarySequenceId, final int librarySequenceStart, final String querySequenceId, final int querySequenceStart, final double percentIdentity, final double evalue, final DnaSequence.Strand strand, final int librarySequenceStop, final int querySequenceStop, final int librarySequenceLength) {
+  public BlastSearchStatistics(final String librarySequenceId, final int librarySequenceStart, final String querySequenceId, final int querySequenceStart, final double percentIdentity, final double evalue, final DnaSequence.Strand strand, final int librarySequenceStop, final int querySequenceStop, final int librarySequenceLength) {
 
     this.librarySequenceId = librarySequenceId;
     this.querySequenceId = querySequenceId;

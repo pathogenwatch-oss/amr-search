@@ -58,12 +58,17 @@ public class ResistanceMutation implements HasReferenceLocation, Variant {
 
     switch (this.type) {
       case DNA:
-        return mutations.containsKey(this.getReferenceLocation()) && mutations.get(this.getReferenceLocation())
+        return mutations.containsKey(this.referenceLocation) && mutations.get(this.referenceLocation)
             .stream()
-            .anyMatch(queryMutation -> queryMutation.getMutationSequence() == this.getMutationSequence());
+            .filter(mutation -> this.originalSequence == mutation.getOriginalSequence()) // Ensures inserts are compared to inserts and not substitutions.
+            .anyMatch(queryMutation -> queryMutation.getMutationSequence() == this.mutationSequence);
       case AA:
       default:
-        return this.getMutationSequence() == codonMap.get(this.getAaLocation());
+        if ('-' == this.originalSequence) {
+          return codonMap.containsInsert(this.aaLocation) && this.getMutationSequence() == codonMap.getInsertTranslation(this.aaLocation);
+        } else {
+          return this.getMutationSequence() == codonMap.get(this.aaLocation);
+        }
     }
   }
 
@@ -73,20 +78,32 @@ public class ResistanceMutation implements HasReferenceLocation, Variant {
       case DNA:
         return new ResistanceMutationMatch(
             this,
-            mutations.get(this.getReferenceLocation())
+            mutations.get(this.referenceLocation)
                 .stream()
-                .filter(queryMutation -> queryMutation.getMutationSequence() == this.getMutationSequence())
+                .filter(mutation -> this.originalSequence == mutation.getOriginalSequence()) // Ensures inserts are compared to inserts and not substitutions.
+                .filter(queryMutation -> queryMutation.getMutationSequence() == this.mutationSequence)
                 .collect(Collectors.toList()));
 
       case AA:
       default:
-        return new ResistanceMutationMatch(
-            this,
-            Stream.of(this.getReferenceLocation(), this.getReferenceLocation() + 1, this.getReferenceLocation() + 2)
-                .filter(index -> mutations.keySet().contains(index))
-                .map(mutations::get)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList()));
+        if ('-' == this.originalSequence) {
+          return new ResistanceMutationMatch(
+              this,
+              mutations.get(this.referenceLocation)
+                  .stream()
+                  .filter(mutation -> this.originalSequence == mutation.getOriginalSequence())
+                  .collect(Collectors.toList())
+          );
+        } else {
+          return new ResistanceMutationMatch(
+              this,
+              Stream.of(this.referenceLocation, this.referenceLocation + 1, this.referenceLocation + 2)
+                  .filter(index -> mutations.keySet().contains(index))
+                  .map(mutations::get)
+                  .flatMap(Collection::stream)
+                  .filter(mutation -> this.originalSequence == mutation.getOriginalSequence())
+                  .collect(Collectors.toList()));
+        }
     }
   }
 
@@ -116,6 +133,7 @@ public class ResistanceMutation implements HasReferenceLocation, Variant {
     return this.name;
   }
 
+  @SuppressWarnings("unused")
   public int getAaLocation() {
     return this.aaLocation;
   }

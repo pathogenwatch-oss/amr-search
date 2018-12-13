@@ -4,7 +4,6 @@ import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 
 public class BlastMatch {
 
-  // Don't use a char[] here as the internal elements aren't immutable.
   private final BlastSearchStatistics blastSearchStatistics;
   private final String referenceMatchSequence;
   private final String forwardMatchSequence;
@@ -46,7 +45,7 @@ public class BlastMatch {
     }
   }
 
-  public final String getForwardQuerySequence() {
+  public String getForwardQuerySequence() {
 
     return this.forwardMatchSequence;
   }
