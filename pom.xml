@@ -19,7 +19,7 @@
     <properties>
         <!-- compiler properties -->
         <paarsnp.maven-compiler.version>3.5</paarsnp.maven-compiler.version>
-        <paarsnp.java.version>10</paarsnp.java.version>
+        <paarsnp.java.version>11</paarsnp.java.version>
         <paarsnp.maven-assembly.version>3.0.0</paarsnp.maven-assembly.version>
         <paarsnp.maven-clean.version>3.0.0</paarsnp.maven-clean.version>
         <paarsnp.maven-exec.version>1.6.0</paarsnp.maven-exec.version>
@@ -33,12 +33,8 @@
         <paarsnp.jackson>2.9.6</paarsnp.jackson>
         <paarsnp.junit.version>4.12</paarsnp.junit.version>
         <paarsnp.logback-classic>1.2.3</paarsnp.logback-classic>
-        <paarsnp.guava>23.0</paarsnp.guava>
         <paarsnp.root>${basedir}</paarsnp.root>
         <paarsnp.toml.version>0.7.2</paarsnp.toml.version>
-        <!--<paarsnp.docker-repository>cgps/paarsnp</paarsnp.docker-repository>-->
-        <!--<paarsnp.docker-repository>registry.gitlab.com/cgps/wgsa-tasks/paarsnp</paarsnp.docker-repository>-->
-
     </properties>
 
     <build>
@@ -48,6 +44,15 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
                     <version>${paarsnp.maven-shade.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${paarsnp.maven-compiler.version}</version>
+                    <configuration>
+                        <source>${paarsnp.java.version}</source>
+                        <target>${paarsnp.java.version}</target>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

@@ -90,42 +90,6 @@
                     </filesets>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
-                <!--<groupId>com.spotify</groupId>-->
-                <!--<artifactId>dockerfile-maven-plugin</artifactId>-->
-                <!--<version>${paarsnp.df-mvn-plugin.version}</version>-->
-                <!--<executions>-->
-                    <!--&lt;!&ndash; for now all images will be explicitly tagged &ndash;&gt;-->
-                    <!--<execution>-->
-                        <!--<id>build-latest-image</id>-->
-                        <!--<phase>install</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>build</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<tag>latest</tag>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                    <!--<execution>-->
-                        <!--<id>tag-latest</id>-->
-                        <!--<phase>install</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>tag</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                    <!--&lt;!&ndash;<execution>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<id>push-tagged-image</id>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<phase>install</phase>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<goals>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<goal>push</goal>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</goals>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</execution>&ndash;&gt;-->
-                <!--</executions>-->
-                <!--<configuration>-->
-                    <!--<contextDirectory>${paarsnp.root}/build</contextDirectory>-->
-                    <!--<repository>${paarsnp.docker-repository}</repository>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
         </plugins>
     </build>
 

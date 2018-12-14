@@ -1,4 +1,4 @@
-FROM maven:3.5-jdk-10 AS builder
+FROM maven:3.5-jdk-11 AS builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		curl \
@@ -47,7 +47,7 @@ RUN mkdir /paarsnp/ \
     && mv ./build/databases /paarsnp \
     && mv ./resources/taxid.map /paarsnp/databases/
 
-FROM openjdk:10-jre
+FROM openjdk:11-jre
 
 RUN mkdir -p /opt/blast/bin
 
