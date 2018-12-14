@@ -75,7 +75,7 @@ public abstract class AbstractJsonnable implements Jsonnable {
       return new ObjectMapper().readValue(jsonFile, messageClass);
 
     } catch (final IOException | NullPointerException e) {
-      LoggerFactory.getLogger(AbstractJsonnable.class).error("Json mapping exception for file {} to type {}", jsonFile.getPath(), messageClass);
+      LoggerFactory.getLogger(AbstractJsonnable.class).error("Json mapping exception for file {} to type {}", jsonFile.getAbsolutePath(), messageClass);
       LoggerFactory.getLogger(AbstractJsonnable.class).error("Message: ", e);
 
       throw new RuntimeException(e);

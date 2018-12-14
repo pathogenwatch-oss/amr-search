@@ -48,7 +48,12 @@ public class ResistanceMutation implements HasReferenceLocation, Variant {
 
     final int offset = mapping.getKey() < 0 ? referenceLength - 49 : 0;
 
-    final int referenceLocation = TYPE.DNA == type ? offset + mapping.getKey() : (mapping.getKey() * 3) - 2;
+    final int referenceLocation =
+        TYPE.DNA == type ?
+        offset + mapping.getKey() :
+        '-' == mapping.getValue().getKey() ?
+        mapping.getKey() * 3 :
+        (mapping.getKey() * 3) - 2;
 
     return new ResistanceMutation(name, Character.toUpperCase(mapping.getValue().getKey()), referenceLocation, Character.toUpperCase(mapping.getValue().getValue()), type, mapping.getKey());
   }

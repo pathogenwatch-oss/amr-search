@@ -73,7 +73,7 @@ public class PrematureStop implements Variant {
             .map(aaPosition -> (aaPosition * 3) - 2)
             .map(codonStart -> Arrays.asList(codonStart, codonStart + 1, codonStart + 2))
             .flatMap(Collection::stream)
-            .peek(position -> this.logger.info("{}", position))
+            .peek(position -> this.logger.debug("{}", position))
             .filter(mutations::containsKey)
             .map(mutations::get)
             .flatMap(Collection::stream)

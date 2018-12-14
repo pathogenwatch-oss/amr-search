@@ -7,6 +7,7 @@ import net.cgps.wgsa.paarsnp.core.models.results.SnparResult;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
 import net.cgps.wgsa.paarsnp.core.snpar.ResultCombiner;
 import org.junit.Assert;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,7 @@ public class ResistanceSearchTest {
 
   private final Logger logger = LoggerFactory.getLogger(ResistanceSearchTest.class);
 
-  @org.junit.Test
+  @Test
   public void apply() {
 
 
