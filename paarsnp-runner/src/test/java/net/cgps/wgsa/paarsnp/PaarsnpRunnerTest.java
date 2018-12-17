@@ -109,5 +109,7 @@ public class PaarsnpRunnerTest {
             .orElseThrow(() -> new RuntimeException("No insert mutation"))
             .size()
     );
+
+    this.logger.info("Passed 1773 insert variant causal mutation check.");
   }
 }
