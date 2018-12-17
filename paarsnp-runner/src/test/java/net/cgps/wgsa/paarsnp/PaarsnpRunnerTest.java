@@ -63,24 +63,51 @@ public class PaarsnpRunnerTest {
     );
     this.logger.info("Passed 1773 reverse check.");
 
-    final Mutation causalMutation = AbstractJsonnable.fromJson("{\"originalSequence\" : \"T\", \"referenceLocation\" : 214, \"mutationSequence\" : \"C\", \"mutationType\" : \"S\", \"queryLocation\" : 214}", Mutation.class);
-
-    final Mutation failed_to_find_causal_mutation = snparResult
-        .getBlastMatches()
-        .stream()
-        .map(MatchJson::getSnpResistanceElements)
-        .flatMap(Collection::stream)
-        .filter(resistanceMatch -> "C72P".equals(resistanceMatch.getResistanceMutation().getName()))
-        .map(ResistanceMutationMatch::getCausalMutations)
-        .flatMap(Collection::stream)
-        .filter(mutation -> 214 == mutation.getReferenceLocation())
-        .findFirst()
-        .orElseThrow(() -> new RuntimeException("Failed to find causal mutation"));
     Assert.assertEquals(
-        causalMutation,
-        failed_to_find_causal_mutation
+        AbstractJsonnable.fromJson("{\"originalSequence\" : \"T\", \"referenceLocation\" : 214, \"mutationSequence\" : \"C\", \"mutationType\" : \"S\", \"queryLocation\" : 214}", Mutation.class),
+        snparResult
+            .getBlastMatches()
+            .stream()
+            .map(MatchJson::getSnpResistanceElements)
+            .flatMap(Collection::stream)
+            .filter(resistanceMatch -> "C72P".equals(resistanceMatch.getResistanceMutation().getName()))
+            .map(ResistanceMutationMatch::getCausalMutations)
+            .flatMap(Collection::stream)
+            .filter(mutation -> 214 == mutation.getReferenceLocation())
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Failed to find causal mutation"))
     );
-    this.logger.info("Passed 1773 causal mutation check.");
+    this.logger.info("Passed 1773 aa variant causal mutation check.");
 
+    Assert.assertEquals(
+        AbstractJsonnable.fromJson("{\"originalSequence\" : \"G\", \"referenceLocation\" : 21,\"mutationSequence\" : \"A\", \"mutationType\" : \"S\", \"queryLocation\" : 21}", Mutation.class),
+        snparResult
+            .getBlastMatches()
+            .stream()
+            .map(MatchJson::getSnpResistanceElements)
+            .flatMap(Collection::stream)
+            .filter(resistanceMatch -> "g-10a".equals(resistanceMatch.getResistanceMutation().getName()))
+            .map(ResistanceMutationMatch::getCausalMutations)
+            .flatMap(Collection::stream)
+            .filter(mutation -> 21 == mutation.getReferenceLocation())
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Failed to find causal mutation"))
+    );
+
+    this.logger.info("Passed 1773 promoter variant causal mutation check.");
+
+    Assert.assertEquals(
+        3,
+        snparResult
+            .getBlastMatches()
+            .stream()
+            .map(MatchJson::getSnpResistanceElements)
+            .flatMap(Collection::stream)
+            .filter(resistanceMatch -> "-433F".equals(resistanceMatch.getResistanceMutation().getName()))
+            .map(ResistanceMutationMatch::getCausalMutations)
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("No insert mutation"))
+            .size()
+    );
   }
 }
