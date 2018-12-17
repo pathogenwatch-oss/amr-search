@@ -106,7 +106,9 @@ public class ResistanceMutation implements HasReferenceLocation, Variant {
                   .filter(index -> mutations.keySet().contains(index))
                   .map(mutations::get)
                   .flatMap(Collection::stream)
-                  .filter(mutation -> this.originalSequence == mutation.getOriginalSequence())
+                  .filter(mutation -> '-' != mutation.getOriginalSequence())
+                  .filter(mutation -> '-' != mutation.getMutationSequence() ||
+                      ('-' == this.mutationSequence && this.mutationSequence == mutation.getMutationSequence()))
                   .collect(Collectors.toList()));
         }
     }
