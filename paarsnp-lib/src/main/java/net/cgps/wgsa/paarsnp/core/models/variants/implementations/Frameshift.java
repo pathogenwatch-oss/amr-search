@@ -1,6 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.models.variants.implementations;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
@@ -13,7 +14,7 @@ import static net.cgps.wgsa.paarsnp.core.lib.blast.Mutation.MutationType.D;
 import static net.cgps.wgsa.paarsnp.core.lib.blast.Mutation.MutationType.I;
 
 @JsonDeserialize(as = Frameshift.class)
-public class Frameshift implements Variant {
+public class Frameshift extends AbstractJsonnable implements Variant {
 
   @SuppressWarnings("FieldCanBeLocal")
   private final String name;

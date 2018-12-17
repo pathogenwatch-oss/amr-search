@@ -2,17 +2,26 @@ package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
+import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
+import net.cgps.wgsa.paarsnp.core.models.results.MatchJson;
+import net.cgps.wgsa.paarsnp.core.models.results.OldStyleSnparResult;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class PaarsnpRunnerTest {
+
+  private final Logger logger = LoggerFactory.getLogger(PaarsnpRunnerTest.class);
 
   @Test
   public void apply() {
@@ -40,14 +49,38 @@ public class PaarsnpRunnerTest {
     final PaarsnpRunner runner = new PaarsnpRunner(speciesId, paarsnpLibrary.getPaar(), paarsnpLibrary.getSnpar(), paarsnpLibrary.getAntimicrobials(), resourceDirectory);
     final ConvertResultFormat convertFormat = new ConvertResultFormat();
 
+    final OldStyleSnparResult snparResult = convertFormat.apply(runner.apply(testFasta)).getSnparResult();
+
     Assert.assertEquals(
         expectedVariants,
-        new TreeSet<>(convertFormat.apply(runner.apply(testFasta)).getSnparResult().getResistanceMutationIds())
+        new TreeSet<>(snparResult.getResistanceMutationIds())
     );
+    this.logger.info("Passed 1773 standard check.");
 
     Assert.assertEquals(
         expectedVariants,
         new TreeSet<>(convertFormat.apply(runner.apply(reverseTestFasta)).getSnparResult().getResistanceMutationIds())
     );
+    this.logger.info("Passed 1773 reverse check.");
+
+    final Mutation causalMutation = AbstractJsonnable.fromJson("{\"originalSequence\" : \"T\", \"referenceLocation\" : 214, \"mutationSequence\" : \"C\", \"mutationType\" : \"S\", \"queryLocation\" : 214}", Mutation.class);
+
+    final Mutation failed_to_find_causal_mutation = snparResult
+        .getBlastMatches()
+        .stream()
+        .map(MatchJson::getSnpResistanceElements)
+        .flatMap(Collection::stream)
+        .filter(resistanceMatch -> "C72P".equals(resistanceMatch.getResistanceMutation().getName()))
+        .map(ResistanceMutationMatch::getCausalMutations)
+        .flatMap(Collection::stream)
+        .filter(mutation -> 214 == mutation.getReferenceLocation())
+        .findFirst()
+        .orElseThrow(() -> new RuntimeException("Failed to find causal mutation"));
+    Assert.assertEquals(
+        causalMutation,
+        failed_to_find_causal_mutation
+    );
+    this.logger.info("Passed 1773 causal mutation check.");
+
   }
 }

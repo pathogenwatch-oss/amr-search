@@ -6,6 +6,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Mutation extends AbstractJsonnable {
@@ -70,4 +71,20 @@ public class Mutation extends AbstractJsonnable {
     S, I, D
   }
 
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) return true;
+    if (o == null || this.getClass() != o.getClass()) return false;
+    final Mutation mutation = (Mutation) o;
+    return this.originalSequence == mutation.originalSequence &&
+        this.referenceLocation == mutation.referenceLocation &&
+        this.mutationSequence == mutation.mutationSequence &&
+        this.queryLocation == mutation.queryLocation &&
+        this.mutationType == mutation.mutationType;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.originalSequence, this.referenceLocation, this.mutationSequence, this.mutationType, this.queryLocation);
+  }
 }

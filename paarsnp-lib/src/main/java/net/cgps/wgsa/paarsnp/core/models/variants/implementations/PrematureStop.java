@@ -2,6 +2,7 @@ package net.cgps.wgsa.paarsnp.core.models.variants.implementations;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
@@ -16,7 +17,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @JsonDeserialize(as = PrematureStop.class)
-public class PrematureStop implements Variant {
+public class PrematureStop extends AbstractJsonnable implements Variant {
 
   private final Integer expectedStop;
   private final String name = "truncated";

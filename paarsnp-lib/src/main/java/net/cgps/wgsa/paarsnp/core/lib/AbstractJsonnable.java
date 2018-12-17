@@ -13,6 +13,14 @@ import java.io.StringWriter;
  */
 public abstract class AbstractJsonnable implements Jsonnable {
 
+  public static <T extends Jsonnable> T fromJson(final String object, final Class<T> objectClass) {
+    try {
+      return new ObjectMapper().readValue(object.getBytes(), objectClass);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   @Override
   public String toString() {
     return this.toPrettyJson();
@@ -68,7 +76,7 @@ public abstract class AbstractJsonnable implements Jsonnable {
 
   }
 
-  public static <T extends AbstractJsonnable> T fromJsonFile(final File jsonFile, final Class<T> messageClass) {
+  public static <T extends Jsonnable> T fromJsonFile(final File jsonFile, final Class<T> messageClass) {
 
     try {
 
