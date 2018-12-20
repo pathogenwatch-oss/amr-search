@@ -38,6 +38,7 @@ _Install & run with Docker:_
 | Streptococcus pneumoniae | 1313 |
 | Klebisiella | 570 |
 | Escherichia | 561 |
+| Mycobacterium tuberculosis | 1773 |
 
 ## Getting Started
 
