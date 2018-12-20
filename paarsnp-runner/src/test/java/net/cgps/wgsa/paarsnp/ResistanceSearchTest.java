@@ -1,45 +1,52 @@
 package net.cgps.wgsa.paarsnp;
 
-import net.cgps.wgsa.paarsnp.core.Constants;
-import net.cgps.wgsa.paarsnp.core.lib.SimpleBlastMatchFilter;
-import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
+import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
+import net.cgps.wgsa.paarsnp.core.models.results.SnparResult;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
-import net.cgps.wgsa.paarsnp.core.snpar.SnparCalculation;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
+import net.cgps.wgsa.paarsnp.core.snpar.ResultCombiner;
 import org.junit.Assert;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Optional;
 
 public class ResistanceSearchTest {
 
   private final Logger logger = LoggerFactory.getLogger(ResistanceSearchTest.class);
 
-  @org.junit.Test
-  public void apply() throws Exception {
+  @Test
+  public void apply() {
 
-    final File snparDb = Paths.get("src/test/resources", "90370" + Constants.SNPAR_APPEND + Constants.JSON_APPEND).toFile();
 
-    this.logger.info("Using snpar DB {}", snparDb.getPath());
+    final File paarsnpLibraryFile = Paths.get("../build/databases", "90370.jsn").toFile();
 
-    final Optional<SnparLibrary> snparLibrary = Optional.ofNullable(AbstractJsonnable.fromJsonFile(snparDb, SnparLibrary.class));
+    this.logger.info("Using snpar DB {}", paarsnpLibraryFile.getPath());
+
+    final PaarsnpLibrary paarsnpLibrary = AbstractJsonnable.fromJsonFile(paarsnpLibraryFile, PaarsnpLibrary.class);
 
     final ResistanceSearch.InputOptions inputOptions = new ResistanceSearch.InputOptions(
         Arrays.asList(
-            "-db", snparDb.getPath().replace(Constants.JSON_APPEND, ""),
-            "-perc_identity", String.valueOf(snparLibrary.get().getMinimumPid()),
+            "-db", paarsnpLibraryFile.getPath().replace(".jsn", "_snpar"),
+            "-perc_identity", String.valueOf(paarsnpLibrary.getSnpar().getMinimumPid()),
             "-evalue", "1e-5"
         )
     );
-    final ResistanceSearch<SnparResult> resistanceSearch = new ResistanceSearch<>(inputOptions, new SnparCalculation(snparLibrary.get(), new ProcessVariants(snparLibrary.get())), new SimpleBlastMatchFilter(60.0));
+    final Path inputFasta = Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa");
 
+    final ResistanceSearch<SnparResult> resistanceSearch = new ResistanceSearch<>(
+        inputOptions,
+        new ResultCombiner(
+            paarsnpLibrary.getSnpar(),
+            new ProcessVariants(paarsnpLibrary.getSnpar())),
+        FilterByIndividualThresholds.build(paarsnpLibrary.getSnpar()));
 
-    final SnparResult result = resistanceSearch.apply(Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa").toAbsolutePath().toString());
+    final SnparResult result = resistanceSearch.apply(inputFasta.toAbsolutePath().toString());
 
     Assert.assertNotNull("Result produced", result);
     Assert.assertTrue("Result not empty", !result.toJson().isEmpty());

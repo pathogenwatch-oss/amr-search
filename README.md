@@ -181,7 +181,7 @@ The individual results and detailed BLAST data can be found in the `paarResult` 
       ],
       "agent": {
         "name": "AMP",
-        "fullName": "Ampicillin",
+        "name": "Ampicillin",
         "type": "Beta-lactam"
       }
     },
@@ -189,7 +189,7 @@ The individual results and detailed BLAST data can be found in the `paarResult` 
 
 ### Extending PAARSNP
 
-To use your own AMR libraries, the simplest way is to modify the files in the [resources folder](/build/resources).
+To use your own AMR libraries, the simplest way is to modify the files in the [resources folder](/resources).
 
 Each species has a set of plain text CSV files that define the resistance genes and SNPs. Current species can be extended by modifying the files, while new species can be add by creating a new directory corresponding to the species code.
 
@@ -199,7 +199,7 @@ Then run one of the build processes described in [Getting Started](#getting-star
 
 ### Contributing to PAARSNP
 
-The "best" way to contribute new resistance genes and SNPs to PAARSNP is to edit the files in the [resources folder](/build/resources), and then submit a pull request. Use the instructions in [Extending Paarsnp](#extending-paarsnp) and the [linked documentation](/docs/INPUT_FORMATS.md) to add and test the new resistance markers.
+The "best" way to contribute new resistance genes and SNPs to PAARSNP is to edit the files in the [resources folder](/resources), and then submit a pull request. Use the instructions in [Extending Paarsnp](#extending-paarsnp) and the [linked documentation](/docs/INPUT_FORMATS.md) to add and test the new resistance markers.
 
 Alternatively, create a GitHub issue with the request or contact CGPS directly.
 

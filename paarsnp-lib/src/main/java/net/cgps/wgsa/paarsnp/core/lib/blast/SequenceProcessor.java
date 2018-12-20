@@ -3,9 +3,9 @@ package net.cgps.wgsa.paarsnp.core.lib.blast;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
-import net.cgps.wgsa.paarsnp.core.snpar.json.Mutation;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -58,22 +58,22 @@ public class SequenceProcessor {
 
           // Deletion
           refSeqLocation++;
-          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.D, querySeqLocation, refSeqLocation, strand));
+          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.D, querySeqLocation, refSeqLocation, this.strand));
         } else if (DELETION_CHAR == refChar) {
 
           // Insert
           querySeqLocation++;
-          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.I, querySeqLocation, refSeqLocation, strand));
+          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.I, querySeqLocation, refSeqLocation, this.strand));
         } else {
 
           // Substitution
           querySeqLocation++;
           refSeqLocation++;
-          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.S, querySeqLocation, refSeqLocation, strand));
+          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.S, querySeqLocation, refSeqLocation, this.strand));
         }
       }
     }
 
-    return mutations.asMap();
+    return Collections.unmodifiableMap(mutations.asMap());
   }
 }

@@ -60,8 +60,6 @@
                                     <includes>
                                         <include>paarsnp-builder.jar</include>
                                     </includes>
-                                    <!--<directory>target</directory>-->
-                                    <!--<filtering>true</filtering>-->
                                 </resource>
                             </resources>
                         </configuration>
@@ -110,7 +108,7 @@
                     <mainClass>net.cgps.wgsa.paarsnp.builder.PaarsnpBuilderMain</mainClass>
                     <arguments>
                         <argument>-i</argument>
-                        <argument>${paarsnp.root}/build/resources</argument>
+                        <argument>${paarsnp.root}/resources</argument>
                         <argument>-o</argument>
                         <argument>${paarsnp.root}/build/databases</argument>
                     </arguments>
@@ -121,9 +119,20 @@
 
     <dependencies>
         <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${paarsnp.junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
             <version>${paarsnp.apache-commons-csv}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.moandjiezana.toml</groupId>
+            <artifactId>toml4j</artifactId>
+            <version>${paarsnp.toml.version}</version>
         </dependency>
         <dependency>
             <groupId>net.cgps.wgsa</groupId>

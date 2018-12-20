@@ -5,4 +5,4 @@
 // Generated on: 2014.07.29 at 08:18:25 PM BST
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED) package net.cgps.wgsa.paarsnp.core.lib.blast.ncbi;
+@javax.xml.bind.annotation.XmlSchema(elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED) package net.cgps.wgsa.paarsnp.core.lib.blast.ncbi;

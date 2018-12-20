@@ -2,17 +2,12 @@
 
 .idea/
 *.iml
-/build/resources/resfinder/
 build/databases/
-build/foo
 build/paarsnp-builder.jar
 build/paarsnp.jar
-external-fetcher/target/
 paarsnp-builder/dependency-reduced-pom.xml
-paarsnp-builder/src/main/resources/
 paarsnp-builder/target/
 paarsnp-lib/target/
 paarsnp-runner/target/
-/build/paarsnp-fetcher.jar
 
 venv/

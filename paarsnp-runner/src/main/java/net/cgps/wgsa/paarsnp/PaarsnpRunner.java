@@ -2,15 +2,14 @@ package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
-import net.cgps.wgsa.paarsnp.core.lib.SimpleBlastMatchFilter;
-import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgent;
+import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.paar.PaarCalculation;
-import net.cgps.wgsa.paarsnp.core.paar.PaarResult;
-import net.cgps.wgsa.paarsnp.core.paar.json.PaarLibrary;
+import net.cgps.wgsa.paarsnp.core.models.PaarResult;
+import net.cgps.wgsa.paarsnp.core.models.Paar;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
-import net.cgps.wgsa.paarsnp.core.snpar.SnparCalculation;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparResult;
+import net.cgps.wgsa.paarsnp.core.snpar.ResultCombiner;
+import net.cgps.wgsa.paarsnp.core.models.Snpar;
+import net.cgps.wgsa.paarsnp.core.models.results.SnparResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,18 +18,19 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
   private final Logger logger = LoggerFactory.getLogger(PaarsnpRunner.class);
 
   private final String speciesId;
-  private final Optional<PaarLibrary> paarLibrary;
-  private final Optional<SnparLibrary> snparLibrary;
+  private final Paar paarLibrary;
+  private final Snpar snparLibrary;
   private final Collection<AntimicrobialAgent> antimicrobialAgents;
   private final String resourceDirectory;
 
-  PaarsnpRunner(final String speciesId, final Optional<PaarLibrary> paarLibrary, final Optional<SnparLibrary> snparLibrary, final Collection<AntimicrobialAgent> antimicrobialAgents, String resourceDirectory) {
+  PaarsnpRunner(final String speciesId, final Paar paarLibrary, final Snpar snparLibrary, final Collection<AntimicrobialAgent> antimicrobialAgents, String resourceDirectory) {
 
     this.speciesId = speciesId;
     this.paarLibrary = paarLibrary;
@@ -48,27 +48,37 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
     this.logger.debug("Beginning {}", assemblyId);
 
     final PaarResult paarResult;
-    if (this.paarLibrary.isPresent()) {
-      paarResult = new ResistanceSearch<>(new ResistanceSearch.InputOptions(this.buildBlastOptions(this.paarLibrary.get().getMinimumPid(), "1e-5", Constants.PAAR_APPEND)), new PaarCalculation(this.paarLibrary.get()), FilterByIndividualThresholds.build(this.paarLibrary.get())).apply(assemblyFile.toAbsolutePath().toString());
-
+    if (!this.paarLibrary.getSets().isEmpty()) {
+      paarResult = new ResistanceSearch<>(
+          new ResistanceSearch.InputOptions(
+              this.buildBlastOptions(this.paarLibrary.getMinimumPid(), "1e-5", Constants.PAAR_APPEND)),
+          new PaarCalculation(this.paarLibrary),
+          FilterByIndividualThresholds.build(this.paarLibrary)).apply(assemblyFile.toAbsolutePath().toString()
+      );
     } else {
       paarResult = PaarResult.buildEmpty();
     }
 
     final SnparResult snparResult;
-    if (this.snparLibrary.isPresent()) {
-      snparResult = new ResistanceSearch<>(new ResistanceSearch.InputOptions(
-          this.buildBlastOptions(this.snparLibrary.get().getMinimumPid(), "1e-40", Constants.SNPAR_APPEND)
-      ), new SnparCalculation(this.snparLibrary.get(), new ProcessVariants(this.snparLibrary.get())), new SimpleBlastMatchFilter(60.0)).apply(assemblyFile.toAbsolutePath().toString());
+    if (!this.snparLibrary.getSets().isEmpty()) {
+      snparResult = new ResistanceSearch<>(
+          new ResistanceSearch.InputOptions(
+              this.buildBlastOptions(this.snparLibrary.getMinimumPid(), "1e-20", Constants.SNPAR_APPEND)),
+          new ResultCombiner(this.snparLibrary, new ProcessVariants(this.snparLibrary)),
+          FilterByIndividualThresholds.build(this.snparLibrary)).apply(assemblyFile.toAbsolutePath().toString());
     } else {
       snparResult = SnparResult.buildEmpty();
     }
 
-    final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(assemblyId, snparResult, paarResult, this.antimicrobialAgents.stream().map(AntimicrobialAgent::getName).collect(Collectors.toList()));
+    final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(assemblyId, snparResult, paarResult, this.antimicrobialAgents.stream().map(AntimicrobialAgent::getKey).collect(Collectors.toList()));
 
-    final Map<String, AntimicrobialAgent> agentMap = this.antimicrobialAgents.stream().collect(Collectors.toMap(AntimicrobialAgent::getName, Function.identity()));
+    final Map<String, AntimicrobialAgent> agentMap = this.antimicrobialAgents.stream().collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
 
-    return new BuildPaarsnpResult(agentMap).apply(paarsnpResultData);
+    return new BuildPaarsnpResult(agentMap, Stream.concat(
+        this.paarLibrary.getSets().entrySet().stream(),
+        this.snparLibrary.getSets().entrySet().stream())
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)))
+        .apply(paarsnpResultData);
   }
 
   private List<String> buildBlastOptions(final double minimumPid, final String evalue, final String libraryExtension) {

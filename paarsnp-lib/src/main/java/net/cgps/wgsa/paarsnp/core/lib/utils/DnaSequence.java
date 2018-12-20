@@ -1,6 +1,5 @@
 package net.cgps.wgsa.paarsnp.core.lib.utils;
 
-import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
@@ -14,10 +13,6 @@ import java.util.Optional;
 public class DnaSequence {
 
   public static final CodonTable DEFAULT_CODON_TABLE = new CodonTable();
-
-  public static char complement(final char base) {
-    return CharUtils.toChar(complement(CharUtils.toString(base)));
-  }
 
   public static String reverseTranscribe(final String dnaSequence) {
 

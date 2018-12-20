@@ -1,9 +1,10 @@
 package net.cgps.wgsa.paarsnp.core.lib;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
-import net.cgps.wgsa.paarsnp.core.paar.json.PaarLibrary;
+import net.cgps.wgsa.paarsnp.core.models.Paar;
+import net.cgps.wgsa.paarsnp.core.models.Snpar;
+import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
 
-import java.util.AbstractMap;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -17,20 +18,31 @@ public class FilterByIndividualThresholds implements Predicate<BlastMatch> {
     this.coverageThresholds = coverageThresholds;
   }
 
-  public static FilterByIndividualThresholds build(final PaarLibrary paarLibrary) {
+  public static FilterByIndividualThresholds build(final Paar paarLibrary) {
     return new FilterByIndividualThresholds(
         paarLibrary
-            .getResistanceGenes()
+            .getGenes()
             .values()
             .stream()
-            .map(gene -> new AbstractMap.SimpleImmutableEntry<>(gene.getFamilyName(), gene.getSimilarityThreshold()))
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)),
+            .collect(Collectors.toMap(ReferenceSequence::getName, ReferenceSequence::getPid)),
         paarLibrary
-            .getResistanceGenes()
+            .getGenes()
             .values()
             .stream()
-            .map(gene -> new AbstractMap.SimpleImmutableEntry<>(gene.getFamilyName(), gene.getLengthThreshold()))
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
+            .collect(Collectors.toMap(ReferenceSequence::getName, ReferenceSequence::getCoverage)));
+  }
+
+  public static FilterByIndividualThresholds build(final Snpar snparLibrary) {
+    return new FilterByIndividualThresholds(
+        snparLibrary.getGenes()
+            .values()
+            .stream()
+            .collect(Collectors.toMap(ReferenceSequence::getName, ReferenceSequence::getPid)),
+        snparLibrary.getGenes()
+            .values()
+            .stream()
+            .collect(Collectors.toMap(ReferenceSequence::getName, ReferenceSequence::getCoverage))
+    );
   }
 
   @Override

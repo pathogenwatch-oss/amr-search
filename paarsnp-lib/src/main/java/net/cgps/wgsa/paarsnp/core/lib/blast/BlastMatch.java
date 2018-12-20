@@ -4,7 +4,6 @@ import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 
 public class BlastMatch {
 
-  // Don't use a char[] here as the internal elements aren't immutable.
   private final BlastSearchStatistics blastSearchStatistics;
   private final String referenceMatchSequence;
   private final String forwardMatchSequence;
@@ -15,10 +14,14 @@ public class BlastMatch {
     this.forwardMatchSequence = this.buildMatchSequence(queryMatchSequence, blastSearchStatistics.getStrand());
   }
 
-  public double calculateCoverage() {
-    return (((double) this.blastSearchStatistics.getLibrarySequenceStop() - this.blastSearchStatistics.getLibrarySequenceStart() + 1.0)
-        / (double) this.blastSearchStatistics.getLibrarySequenceLength())
-        * 100;
+  public float calculateCoverage() {
+    return (((float) this.blastSearchStatistics.getLibrarySequenceStop() - this.blastSearchStatistics.getLibrarySequenceStart() + 1.0f)
+        / (float) this.blastSearchStatistics.getLibrarySequenceLength())
+        * 100.0f;
+  }
+
+  public boolean containsPosition(final int position) {
+    return this.getBlastSearchStatistics().getLibrarySequenceStart() <= position && position <= this.getBlastSearchStatistics().getLibrarySequenceStop();
   }
 
   public final BlastSearchStatistics getBlastSearchStatistics() {
@@ -42,7 +45,7 @@ public class BlastMatch {
     }
   }
 
-  public final String getForwardQuerySequence() {
+  public String getForwardQuerySequence() {
 
     return this.forwardMatchSequence;
   }

@@ -2,11 +2,8 @@ package net.cgps.wgsa.paarsnp;
 
 import ch.qos.logback.classic.Level;
 import net.cgps.wgsa.paarsnp.core.Constants;
-import net.cgps.wgsa.paarsnp.core.lib.blast.JsonFileException;
-import net.cgps.wgsa.paarsnp.core.lib.json.AbstractJsonnable;
-import net.cgps.wgsa.paarsnp.core.lib.json.AntimicrobialAgentLibrary;
-import net.cgps.wgsa.paarsnp.core.paar.json.PaarLibrary;
-import net.cgps.wgsa.paarsnp.core.snpar.json.SnparLibrary;
+import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
+import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +12,9 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class PaarsnpMain {
 
@@ -38,7 +33,6 @@ public class PaarsnpMain {
       System.exit(1);
     }
 
-//    try {
     final CommandLine commandLine;
     try {
       commandLine = parser.parse(options, args);
@@ -85,14 +79,14 @@ public class PaarsnpMain {
       databasePath = "/paarsnp/" + databasePath;
     }
 
-    new PaarsnpMain().run(commandLine.getOptionValue('s'), fastas, workingDirectory, commandLine.hasOption('o'), databasePath);
+    new PaarsnpMain().run(commandLine.getOptionValues('s'), fastas, workingDirectory, commandLine.hasOption('o'), databasePath);
     System.exit(0);
   }
 
   private static Options myOptions() {
 
     // Required
-    final Option speciesOption = Option.builder("s").longOpt("species").hasArg().argName("NCBI taxonomy numeric code").desc("Required: NCBI taxonomy numberic code for query species. e.g. 1280 for Staph. aureus").required().build();
+    final Option speciesOption = Option.builder("s").longOpt("species").hasArgs().argName("NCBI taxonomy numeric code").desc("Required: NCBI taxonomy numberic code for query species. e.g. 1280 for Staph. aureus. More than one code can be provided, paarsnp will use the first that matches a library.").required().build();
     // Optional
     final Option assemblyListOption = Option.builder("i").longOpt("input").hasArg().argName("Assembly file(s)").desc("If a directory is provided then all FASTAs (.fna, .fa, .fasta) are searched.").build();
     final Option resourceDirectoryOption = Option.builder("d").longOpt("database-directory").hasArg().argName("Database directory").desc("Location of the BLAST databases and resources for .").build();
@@ -109,21 +103,16 @@ public class PaarsnpMain {
     return options;
   }
 
-  private void run(final String speciesId, final Collection<Path> assemblyFiles, final Path workingDirectory, final boolean isToStdout, final String resourceDirectory) {
+  private void run(final String[] taxonIds, final Collection<Path> assemblyFiles, final Path workingDirectory, final boolean isToStdout, final String resourceDirectory) {
 
-//    final PaarLibrary paarLibrary;
-    final AntimicrobialAgentLibrary agentLibrary;
-    final Optional<PaarLibrary> paarLibrary = this.readLibrary(resourceDirectory, speciesId, Constants.PAAR_APPEND + Constants.JSON_APPEND, PaarLibrary.class);
-    final Optional<SnparLibrary> snparLibrary = this.readLibrary(resourceDirectory, speciesId, Constants.SNPAR_APPEND + Constants.JSON_APPEND, SnparLibrary.class);
+    final Optional<String> speciesIdOpt = this.selectLibrary(resourceDirectory, taxonIds);
+    final String speciesId = speciesIdOpt.orElseThrow(() -> new RuntimeException("No library found for supplied identifiers."));
+    this.logger.info("Selected {}", speciesId);
+    final Path paarsnpLibraryFile = Paths.get(resourceDirectory, speciesId + Constants.JSON_APPEND);
+    final PaarsnpLibrary paarsnpLibrary = AbstractJsonnable.fromJsonFile(paarsnpLibraryFile.toFile(), PaarsnpLibrary.class);
 
-    try {
-      agentLibrary = AbstractJsonnable.fromJsonFile(Paths.get(resourceDirectory, speciesId + Constants.AGENT_FILE_APPEND).toFile(), AntimicrobialAgentLibrary.class);
-    } catch (final JsonFileException e) {
-      throw new RuntimeException(e);
-    }
-
-    final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(speciesId, paarLibrary, snparLibrary, agentLibrary.getAgents(), resourceDirectory);
-    final Consumer<PaarsnpResult> resultWriter = this.getWriter(isToStdout, workingDirectory);
+    final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(speciesId, paarsnpLibrary.getPaar(), paarsnpLibrary.getSnpar(), paarsnpLibrary.getAntimicrobials(), resourceDirectory);
+    final Consumer<Result> resultWriter = this.getWriter(isToStdout, workingDirectory);
 
     // Run paarsnp on each assembly file.
     assemblyFiles
@@ -131,22 +120,33 @@ public class PaarsnpMain {
         .peek(assemblyFile -> this.logger.info("{}", assemblyFile.toString()))
         .map(paarsnpRunner)
         .peek(paarsnpResult -> this.logger.debug("{}", paarsnpResult.toPrettyJson()))
+        .map(result -> new ConvertResultFormat().apply(result))
         .forEach(resultWriter);
   }
 
-  private <L extends AbstractJsonnable> Optional<L> readLibrary(final String resourceDirectory, final String speciesId, final String file_end, final Class<L> libraryClass) {
-    final Path dbPath = Paths.get(resourceDirectory, speciesId + file_end);
-    if (!Files.exists(dbPath)) {
-      return Optional.empty();
+  private Optional<String> selectLibrary(final String resourceDirectory, final String[] taxonIds) {
+    final Map<String, String> taxonIdMap = this.readTaxonIdMap(resourceDirectory);
+    for (final String id : taxonIds) {
+      if (taxonIdMap.containsKey(id)) {
+        return Optional.of(taxonIdMap.get(id));
+      }
     }
+    return Optional.empty();
+  }
+
+  private Map<String, String> readTaxonIdMap(final String resourceDirectory) {
+
     try {
-      return Optional.of(AbstractJsonnable.fromJsonFile(Paths.get(resourceDirectory, speciesId + file_end).toFile(), libraryClass));
-    } catch (final JsonFileException e) {
+      return Files.readAllLines(Paths.get(resourceDirectory, "taxid.map"))
+          .stream()
+          .map(line -> line.split("\\s+"))
+          .collect(Collectors.toMap(a -> a[0], b -> b[1]));
+    } catch (final IOException e) {
       throw new RuntimeException(e);
     }
   }
 
-  private Consumer<PaarsnpResult> getWriter(final boolean isToStdout, final Path workingDirectory) {
+  private Consumer<Result> getWriter(final boolean isToStdout, final Path workingDirectory) {
 
     if (isToStdout) {
       return paarsnpResult -> {

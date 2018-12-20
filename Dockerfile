@@ -1,4 +1,4 @@
-FROM maven:3.5.4-jdk-10 AS builder
+FROM maven:3.5-jdk-11 AS builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		curl \
@@ -12,11 +12,11 @@ RUN mkdir /opt/blast \
 
 ENV PATH /opt/blast/bin:$PATH
 
-ADD *.sh /usr/local/bin/
-
-COPY settings.template.xml /root/.m2/settings.xml
-
-RUN /usr/local/bin/run_replace.sh
+#ADD *.sh /usr/local/bin/
+#
+#COPY settings.template.xml /root/.m2/settings.xml
+#
+#RUN /usr/local/bin/run_replace.sh
 
 RUN mkdir paarsnp-runner \
     && mkdir paarsnp-builder \
@@ -28,21 +28,26 @@ RUN mkdir paarsnp-runner \
 # https://issues.apache.org/jira/browse/MDEP-516
 COPY ./pom.xml ./pom.xml
 
+COPY ./pw-config-utils/ ./pw-config-utils/
+
 COPY ./paarsnp-runner/ ./paarsnp-runner/
 
 COPY ./paarsnp-builder/ ./paarsnp-builder/
 
 COPY ./paarsnp-lib/ ./paarsnp-lib/
 
-COPY ./build/ ./build/
+COPY ./resources ./resources
+
+RUN mkdir -p /build
 
 RUN mvn clean package dependency:go-offline -U
 
 RUN mkdir /paarsnp/ \
     && mv ./build/paarsnp.jar /paarsnp/paarsnp.jar \
-    && mv ./build/databases /paarsnp
+    && mv ./build/databases /paarsnp \
+    && mv ./resources/taxid.map /paarsnp/databases/
 
-FROM openjdk:10-jre
+FROM openjdk:11-jre
 
 RUN mkdir -p /opt/blast/bin
 

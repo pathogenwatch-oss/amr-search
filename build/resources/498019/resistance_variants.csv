@@ -1,8 +1,0 @@
-Mutation Type,Resistance Group,Mutation,Gene Name,Resistance Profile,Set Effect,Effect,Source
-SAP,,F211I,FUR1,5-flucytosine,RESISTANT,RESISTANCE,
-SAP,,S639P,FKS1,"Micafungin,Caspofungin,Anidulafungin",RESISTANT,RESISTANCE,
-SAP,,S639F,FKS1,"Micafungin,Caspofungin,Anidulafungin",RESISTANT,RESISTANCE,
-SAP,,S639Y,FKS1,"Micafungin,Caspofungin,Anidulafungin",RESISTANT,RESISTANCE,
-SAP,,Y132F,ERG11,Fluconazole,RESISTANT,RESISTANCE,
-SAP,,K143R,ERG11,Fluconazole,RESISTANT,RESISTANCE,
-SAP,,F126T,ERG11,Fluconazole,RESISTANT,RESISTANCE,

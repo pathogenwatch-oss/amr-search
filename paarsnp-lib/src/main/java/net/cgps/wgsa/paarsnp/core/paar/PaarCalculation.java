@@ -1,15 +1,14 @@
 package net.cgps.wgsa.paarsnp.core.paar;
 
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.SetMultimap;
-import net.cgps.wgsa.paarsnp.core.lib.ElementEffect;
+import net.cgps.wgsa.paarsnp.core.models.results.SetResult;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
-import net.cgps.wgsa.paarsnp.core.lib.json.ResistanceSet;
-import net.cgps.wgsa.paarsnp.core.paar.json.PaarLibrary;
-import net.cgps.wgsa.paarsnp.core.paar.json.ResistanceGene;
+import net.cgps.wgsa.paarsnp.core.models.results.Modifier;
+import net.cgps.wgsa.paarsnp.core.models.Phenotype;
+import net.cgps.wgsa.paarsnp.core.models.Paar;
+import net.cgps.wgsa.paarsnp.core.models.PaarResult;
+import net.cgps.wgsa.paarsnp.core.models.SetMember;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,14 +19,13 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PaarCalculation implements Collector<BlastMatch, Collection<BlastMatch>, PaarResult> {
 
   private final Logger logger = LoggerFactory.getLogger(PaarCalculation.class);
-  private final PaarLibrary paarLibrary;
+  private final Paar paarLibrary;
 
-  public PaarCalculation(final PaarLibrary paarLibrary) {
+  public PaarCalculation(final Paar paarLibrary) {
 
     this.paarLibrary = paarLibrary;
   }
@@ -55,61 +53,38 @@ public class PaarCalculation implements Collector<BlastMatch, Collection<BlastMa
   public Function<Collection<BlastMatch>, PaarResult> finisher() {
 
     return selectedMatches -> {  // Result data structures.
-      final Multimap<String, BlastSearchStatistics> matches = HashMultimap.create();
-      final Collection<ResistanceSet> completedSets = new HashSet<>(10);
-      final Collection<ResistanceSet> partialSets = new HashSet<>(10);
-      final Map<String, ElementEffect> modifiedSets = new HashMap<>(); // setId -> effect
 
-      // used to work out which are complete
-      // Need to use set to keep track since potentially >1 hit to each family, meaning that a single family match could be counted
-      // twice against the set score.
-      final SetMultimap<String, ResistanceGene> setCounts = HashMultimap.create();
+      this.logger.debug("Found {} PAAR resistance matches.", selectedMatches.size());
 
-      selectedMatches
+      // 1. Gather seen identifiers into Set<String>
+      // 2. For each resistance set check if complete/partial
+
+      final Map<String, List<BlastSearchStatistics>> matches = selectedMatches
           .stream()
-          .map(match ->
-              new AbstractMap.SimpleImmutableEntry<>(match, this.paarLibrary.getPaarGene(match.getBlastSearchStatistics().getLibrarySequenceId())))
-          // Check that the gene hasn't already been dealt with?
-          // NB this does rule out looking at additive effects as it removes duplicates.
-          .forEach(matchToGeneEntry -> {
-                // Add for each set the gene may belong to.
-                if (ElementEffect.RESISTANCE == matchToGeneEntry.getValue().getEffect()) {
+          .map(BlastMatch::getBlastSearchStatistics)
+          .collect(Collectors.groupingBy(BlastSearchStatistics::getLibrarySequenceId));
 
-                  this.logger.debug("Adding {} to sets {}", matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getValue().getResistanceSetNames().stream().collect(Collectors.joining(",")));
-
-                  // For each set the element is in, add the element to the set count hash.
-                  matchToGeneEntry.getValue().getResistanceSetNames().forEach(setName -> setCounts.put(setName, matchToGeneEntry.getValue()));
-
-                } else {
-                  // It's a modifier so work out which sets are modified and how, store as hash.
-                  this.logger.debug("{} modifying sets {}", matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getValue().getResistanceSetNames().stream().collect(Collectors.joining(",")));
-
-                  matchToGeneEntry.getValue().getResistanceSetNames().forEach(setName -> modifiedSets.put(setName, this.paarLibrary.getSetById(setName).getModifiers().get(matchToGeneEntry.getValue().getFamilyName())));
-                }
-
-            matches.put(matchToGeneEntry.getValue().getFamilyName(), matchToGeneEntry.getKey().getBlastSearchStatistics());
-              }
-          );
-
-      // Compare the sizes of observed vs expected sizes for each set and add to the appropriate data obj.
-      setCounts
-          .keySet()
-          .forEach(setId -> {
-                this.logger.debug("{} found {} out of {}", setId, setCounts.get(setId).size(), this.paarLibrary.getPaarGeneSet(setId).size());
-                if (setCounts.get(setId).size() == this.paarLibrary.getPaarGeneSet(setId).size()) {
-                  completedSets.add(this.paarLibrary.getSetById(setId));
-                } else {
-                  partialSets.add(this.paarLibrary.getSetById(setId));
-                }
-              }
-          );
+      final Collection<SetResult> setResults = this.paarLibrary.getSets().values()
+          .stream()
+          .map(set -> new SetResult(
+              set.getMembers()
+                  .stream()
+                  .map(SetMember::getGene)
+                  .filter(member -> matches.keySet().contains(member))
+                  .collect(Collectors.toList()),
+              set.getPhenotypes()
+                  .stream()
+                  .map(Phenotype::getModifiers)
+                  .flatMap(Collection::stream)
+                  .map(Modifier::getName)
+                  .filter(modifier -> matches.keySet().contains(modifier))
+                  .collect(Collectors.toList()), set))
+          .collect(Collectors.toList());
 
       return new PaarResult(
-          completedSets,
-          partialSets,
-          modifiedSets,
-          matches.asMap(),
-          Stream.concat(completedSets.stream(), partialSets.stream()).map(ResistanceSet::getResistanceSetName).collect(Collectors.toList()));
+          setResults,
+          matches,
+          setResults.stream().map(SetResult::getFoundMembers).flatMap(Collection::stream).collect(Collectors.toSet()));
     };
   }
 
