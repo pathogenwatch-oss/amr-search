@@ -6,7 +6,7 @@ antimicrobials = [
 {key = "GEN", type = "Aminoglycosides", name = "Gentamicin"},
 {key = "TOB", type = "Aminoglycosides", name = "Tobramycin"},
 {key = "KAN", type = "Aminoglycosides", name = "Kanamycin"},
-{key = "MET", type = "Beta-Lactam", name = "Methicillin"},
+{key = "MET", type = "Beta-Lactams", name = "Methicillin"},
 {key = "PEN", type = "Beta-lactams", name = "Penicillin"},
 {key = "FUS", type = "Fusidic Acid", name = "Fusidic Acid"},
 {key = "VAN", type = "Glycopeptides", name = "Vancomycin"},
