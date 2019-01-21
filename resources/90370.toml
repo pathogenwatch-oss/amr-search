@@ -2,8 +2,8 @@
 label = "90370"
 
 antimicrobials = [
-{key = "AMP", type = "Beta-lactam", name = "Ampicillin"},
-{key = "CEP", type = "Beta-lactam", name = "Broad-Spectrum Cephalosporins"},
+{key = "AMP", type = "Beta-lactams", name = "Ampicillin"},
+{key = "CEP", type = "Beta-lactams", name = "Broad-Spectrum Cephalosporins"},
 {key = "CHL", type = "Phenicols", name = "Chloramphenicol"},
 {key = "CIP", type = "Fluoroquinolones", name = "Ciprofloxacin"},
 {key = "NAL", type = "Fluoroquinolones", name = "Nalidixic acid"},
