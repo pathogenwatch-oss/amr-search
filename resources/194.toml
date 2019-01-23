@@ -12,5 +12,5 @@ genes = [
 paar = []
 
 snpar = [
-{members = [{gene="gyrA", variants=["T86I"]}], phenotypes = [{effect = "RESISTANT"}]}
+{members = [{gene="gyrA", variants=["T86I"]}], phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}]},
 ]

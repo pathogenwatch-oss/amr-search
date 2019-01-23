@@ -12,10 +12,10 @@ genes = [
 paar = []
 
 snpar = [
-{members = [{gene="23S_rRNA", variants=["a2142c"]}], phenotypes = [{effect = "RESISTANT"}]},
-{members = [{gene="23S_rRNA", variants=["a2142g"]}], phenotypes = [{effect = "RESISTANT"}]},
-{members = [{gene="23S_rRNA", variants=["a2143g"]}], phenotypes = [{effect = "RESISTANT"}]},
-{members = [{gene="23S_rRNA", variants=["t2182c"]}], phenotypes = [{effect = "INTERMEDIATE"}]},
-{members = [{gene="23S_rRNA", variants=["c2611a"]}], phenotypes = [{effect = "INTERMEDIATE"}]},
-{members = [{gene="23S_rRNA", variants=["t2717c"]}], phenotypes = [{effect = "INTERMEDIATE"}]},
+{members = [{gene="23S_rRNA", variants=["a2142c"]}], phenotypes = [{effect = "RESISTANT", profile = ["CLR"]}]},
+{members = [{gene="23S_rRNA", variants=["a2142g"]}], phenotypes = [{effect = "RESISTANT", profile = ["CLR"]}]},
+{members = [{gene="23S_rRNA", variants=["a2143g"]}], phenotypes = [{effect = "RESISTANT", profile = ["CLR"]}]},
+{members = [{gene="23S_rRNA", variants=["t2182c"]}], phenotypes = [{effect = "INTERMEDIATE", profile = ["CLR"]}]},
+{members = [{gene="23S_rRNA", variants=["c2611a"]}], phenotypes = [{effect = "INTERMEDIATE", profile = ["CLR"]}]},
+{members = [{gene="23S_rRNA", variants=["t2717c"]}], phenotypes = [{effect = "INTERMEDIATE", profile = ["CLR"]}]},
 ]
