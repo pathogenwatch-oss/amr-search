@@ -22,5 +22,5 @@ snpar = [
 {phenotypes = [{effect = "RESISTANT", profile = ["Micafungin", "Caspofungin", "Anidulafungin"]}], members = [{gene="FKS1", variants=["S639Y"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["Fluconazole"]}], members = [{gene="ERG11", variants=["Y132F"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["Fluconazole"]}], members = [{gene="ERG11", variants=["K143R"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["Fluconazole"]}], members = [{gene="ERG11", variants=["F126T"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["Fluconazole"]}], members = [{gene="ERG11", variants=["F126L"]}]},
 ]
