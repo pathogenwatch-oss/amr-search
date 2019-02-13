@@ -1,0 +1,4 @@
+# Escherichia genus
+label = "562"
+
+extends = ["561"]

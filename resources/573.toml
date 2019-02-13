@@ -1,0 +1,4 @@
+# Klebsiella genus
+label = "573"
+
+extends = ["570"]
