@@ -111,7 +111,7 @@ public class PaarsnpMain {
     final Path paarsnpLibraryFile = Paths.get(resourceDirectory, speciesId + Constants.JSON_APPEND);
     final PaarsnpLibrary paarsnpLibrary = AbstractJsonnable.fromJsonFile(paarsnpLibraryFile.toFile(), PaarsnpLibrary.class);
 
-    final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(speciesId, paarsnpLibrary.getPaar(), paarsnpLibrary.getSnpar(), paarsnpLibrary.getAntimicrobials(), resourceDirectory);
+    final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(speciesId, paarsnpLibrary.getPaar(), paarsnpLibrary.getMechanisms(), paarsnpLibrary.getAntimicrobials(), resourceDirectory);
     final Consumer<Result> resultWriter = this.getWriter(isToStdout, workingDirectory);
 
     // Run paarsnp on each assembly file.

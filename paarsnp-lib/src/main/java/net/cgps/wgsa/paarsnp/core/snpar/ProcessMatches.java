@@ -6,31 +6,39 @@ import net.cgps.wgsa.paarsnp.core.lib.blast.MutationBuilder;
 import net.cgps.wgsa.paarsnp.core.lib.blast.SequenceProcessor;
 import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
-import net.cgps.wgsa.paarsnp.core.models.Snpar;
-import net.cgps.wgsa.paarsnp.core.models.SnparMatchData;
+import net.cgps.wgsa.paarsnp.core.models.Mechanisms;
+import net.cgps.wgsa.paarsnp.core.models.ProcessedMatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
+public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
 
-  private final Logger logger = LoggerFactory.getLogger(ProcessVariants.class);
+  private final Logger logger = LoggerFactory.getLogger(ProcessMatches.class);
 
-  private final Snpar snparLibrary;
+  private final Mechanisms mechanismsLibrary;
 
-  public ProcessVariants(final Snpar snparLibrary) {
+  public ProcessMatches(final Mechanisms mechanismsLibrary) {
 
-    this.snparLibrary = snparLibrary;
+    this.mechanismsLibrary = mechanismsLibrary;
   }
 
   @Override
-  public SnparMatchData apply(final BlastMatch match) {
+  public ProcessedMatch apply(final BlastMatch match) {
 
-    final ReferenceSequence referenceSequence = this.snparLibrary.getGenes().get(match.getBlastSearchStatistics().getLibrarySequenceId());
+    final ReferenceSequence referenceSequence = this.mechanismsLibrary.getGenes().get(match.getBlastSearchStatistics().getLibrarySequenceId());
+
+    // if the mechanisms don't use SNPs just return match data with empty variants
+    if (referenceSequence.getVariants().isEmpty()) {
+      return new ProcessedMatch(match.getBlastSearchStatistics(), Collections.emptyList());
+    }
+
+    // Extract mutations from sequence
     final Map<Integer, Collection<Mutation>> mutations = new SequenceProcessor(match.getReferenceMatchSequence(), match.getBlastSearchStatistics().getLibrarySequenceStart(), match.getBlastSearchStatistics().getStrand(), match.getForwardQuerySequence(), match.getBlastSearchStatistics().getQuerySequenceStart(), new MutationBuilder()).call();
 
     final CodonMap codonMap = new CodonMapper().apply(match);
@@ -46,6 +54,6 @@ public class ProcessVariants implements Function<BlastMatch, SnparMatchData> {
         .map(resistanceMutation -> resistanceMutation.buildMatch(mutations, codonMap))
         .collect(Collectors.toList());
 
-    return new SnparMatchData(match.getBlastSearchStatistics(), resistanceMutations);
+    return new ProcessedMatch(match.getBlastSearchStatistics(), resistanceMutations);
   }
 }

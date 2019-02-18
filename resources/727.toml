@@ -19,7 +19,7 @@ paar = [
 {members = ["ROB-1"], phenotypes = [{effect = "RESISTANT", profile = ["AMP"]}]},
 ]
 
-snpar = [
+mechanisms = [
 {members = [{gene="ftsI", variants=["N526K"]}], phenotypes = [{effect = "INTERMEDIATE", profile = ["AMP"]}]},
 {members = [{gene="ftsI", variants=["R517H"]}], phenotypes = [{effect = "INTERMEDIATE", profile = ["AMP"]}]},
 {members = [{gene="ftsI", variants=["S385T", "N526K"]}], phenotypes = [{effect = "RESISTANT", profile = ["AMP"]}]},

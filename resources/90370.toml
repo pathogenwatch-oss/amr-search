@@ -111,7 +111,7 @@ paar = [
 {phenotypes = [{effect = "RESISTANT", profile = ["SXT"]}], members = ["sul2", "dfrA14"]}
 ]
 
-snpar = [
+mechanisms = [
 {phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["S83F"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["S83Y"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["D87N"]}]},

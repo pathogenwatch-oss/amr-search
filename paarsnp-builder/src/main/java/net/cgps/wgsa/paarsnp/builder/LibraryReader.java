@@ -81,7 +81,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
         .forEach(key -> baseLibrary.getPaarSequences().put(key, newGenes.get(key).getKey()));
 
     // Construct SNPAR
-    baseLibrary.getPaarsnpLibrary().getSnpar().addRecords(
+    baseLibrary.getPaarsnpLibrary().getMechanisms().addRecords(
         Optional.ofNullable(toml.getTables("snpar"))
             .orElse(Collections.emptyList())
             .stream()
@@ -89,7 +89,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
             .collect(Collectors.toMap(ResistanceSet::getName, Function.identity()))
     );
 
-    final Map<String, Collection<String>> sequenceIdToVariants = baseLibrary.getPaarsnpLibrary().getSnpar().getSets()
+    final Map<String, Collection<String>> sequenceIdToVariants = baseLibrary.getPaarsnpLibrary().getMechanisms().getSets()
         .values()
         .stream()
         .map(ResistanceSet::getMembers)
@@ -103,18 +103,18 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
 
     // Add the genes
     // Need to update all the SNPs
-    baseLibrary.getPaarsnpLibrary().getSnpar().addResistanceGenes(
-        baseLibrary.getPaarsnpLibrary().getSnpar().getSets().values()
+    baseLibrary.getPaarsnpLibrary().getMechanisms().addResistanceGenes(
+        baseLibrary.getPaarsnpLibrary().getMechanisms().getSets().values()
             .stream()
             .map(ResistanceSet::getMembers)
             .flatMap(Collection::stream)
             .map(SetMember::getGene)
-            .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : baseLibrary.getPaarsnpLibrary().getSnpar().getGenes().get(gene))
+            .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : baseLibrary.getPaarsnpLibrary().getMechanisms().getGenes().get(gene))
             .peek(snparReferenceSequence -> snparReferenceSequence.addVariants(sequenceIdToVariants.get(snparReferenceSequence.getName())))
             .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
 
     // Store the sequences for the FASTA
-    baseLibrary.getPaarsnpLibrary().getSnpar().getGenes().keySet()
+    baseLibrary.getPaarsnpLibrary().getMechanisms().getGenes().keySet()
         .stream()
         .filter(geneId -> !baseLibrary.getSnparSequences().containsKey(geneId))
         .forEach(key -> baseLibrary.getSnparSequences().put(key, newGenes.get(key).getKey()));
@@ -223,26 +223,20 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
   }
 
   public static class PaarsnpLibraryAndSequences {
-    private final Map<String, String> paarSequences;
-    private final Map<String, String> snparSequences;
+    private final Map<String, String> sequences;
     private final PaarsnpLibrary paarsnpLibrary;
 
     public PaarsnpLibraryAndSequences(final String label) {
-      this(new HashMap<>(), new HashMap<>(), new PaarsnpLibrary(label));
+      this(new HashMap<>(), new PaarsnpLibrary(label));
     }
 
-    public PaarsnpLibraryAndSequences(final Map<String, String> paarSequences, final Map<String, String> snparSequences, final PaarsnpLibrary paarsnpLibrary) {
-      this.paarSequences = paarSequences;
-      this.snparSequences = snparSequences;
+    public PaarsnpLibraryAndSequences(final Map<String, String> sequences, final PaarsnpLibrary paarsnpLibrary) {
+      this.sequences = sequences;
       this.paarsnpLibrary = paarsnpLibrary;
     }
 
-    public Map<String, String> getPaarSequences() {
-      return this.paarSequences;
-    }
-
-    public Map<String, String> getSnparSequences() {
-      return this.snparSequences;
+    public Map<String, String> getSequences() {
+      return this.sequences;
     }
 
     public PaarsnpLibrary getPaarsnpLibrary() {
@@ -253,14 +247,11 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
 
       this.addAntibiotics(that.paarsnpLibrary.getAntimicrobials());
 
-      this.paarSequences.putAll(that.getPaarSequences());
-      this.snparSequences.putAll(that.getSnparSequences());
+      this.sequences.putAll(that.sequences);
 
-      this.paarsnpLibrary.getPaar().addResistanceGenes(that.paarsnpLibrary.getPaar().getGenes());
-      this.paarsnpLibrary.getSnpar().addResistanceGenes(that.paarsnpLibrary.getSnpar().getGenes());
+      this.paarsnpLibrary.getMechanisms().addResistanceGenes(that.paarsnpLibrary.getMechanisms().getGenes());
 
-      this.paarsnpLibrary.getPaar().addRecords(that.paarsnpLibrary.getPaar().getSets());
-      this.paarsnpLibrary.getSnpar().addRecords(that.paarsnpLibrary.getSnpar().getSets());
+      this.paarsnpLibrary.getMechanisms().addRecords(that.paarsnpLibrary.getMechanisms().getSets());
 
       return this;
     }

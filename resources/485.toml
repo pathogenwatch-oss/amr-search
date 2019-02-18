@@ -36,7 +36,7 @@ paar = [
 {phenotypes = [{effect = "RESISTANT", profile = ["POA"]}], members = ["porA"]}
 ]
 
-snpar = [
+mechanisms = [
 {phenotypes = [{effect = "INTERMEDIATE", profile = ["AZM","CFM","CRO","PEN","TCY"]}], members = [{gene="mtrR_promoter", variants=["a24-"]}]},
 {phenotypes = [{effect = "INTERMEDIATE", profile = ["AZM","CFM","CRO","PEN","TCY"]}], members = [{gene="mtrR", variants=["G45D"]}]},
 {phenotypes = [{effect = "INTERMEDIATE", profile = ["PEN"]}], members = [{gene="porB1b", variants=["G120K"]}]},

@@ -9,18 +9,18 @@ import java.util.Collections;
 /**
  * SNPAR result for a given SNPAR gene match.
  */
-public class SnparMatchData extends AbstractJsonnable {
+public class ProcessedMatch extends AbstractJsonnable {
 
   private final BlastSearchStatistics searchStatistics;
   private final Collection<ResistanceMutationMatch> snpResistanceElements;
 
   @SuppressWarnings("unused")
-  private SnparMatchData() {
+  private ProcessedMatch() {
 
     this(null, Collections.emptyList());
   }
 
-  public SnparMatchData(final BlastSearchStatistics searchStatistics, final Collection<ResistanceMutationMatch> snpResistanceElements) {
+  public ProcessedMatch(final BlastSearchStatistics searchStatistics, final Collection<ResistanceMutationMatch> snpResistanceElements) {
 
     this.searchStatistics = searchStatistics;
     this.snpResistanceElements = snpResistanceElements;

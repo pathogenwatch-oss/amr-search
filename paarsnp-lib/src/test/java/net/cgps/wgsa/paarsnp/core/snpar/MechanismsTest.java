@@ -1,9 +1,9 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
+import net.cgps.wgsa.paarsnp.core.models.Mechanisms;
 import net.cgps.wgsa.paarsnp.core.models.Phenotype;
 import net.cgps.wgsa.paarsnp.core.models.PhenotypeEffect;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceSet;
-import net.cgps.wgsa.paarsnp.core.models.Snpar;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,11 +11,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-public class SnparTest {
+public class MechanismsTest {
 
   @Test
   public void addRecords() {
-    final Snpar snpar = new Snpar(Collections.emptyList(), Arrays.asList(
+    final Mechanisms mechanisms = new Mechanisms(Collections.emptyList(), Arrays.asList(
         new ResistanceSet("set1",
             Arrays.asList(new Phenotype(
                 PhenotypeEffect.RESISTANT,
@@ -39,9 +39,9 @@ public class SnparTest {
             )),
         Collections.emptyList()
     );
-    snpar.addRecords(Collections.singletonMap("set1", update));
+    mechanisms.addRecords(Collections.singletonMap("set1", update));
 
-    Collection<Phenotype> phenotypes = snpar.getSets().get("set1").getPhenotypes();
+    Collection<Phenotype> phenotypes = mechanisms.getSets().get("set1").getPhenotypes();
     Collection<Phenotype> phenotypes2 = update.getPhenotypes();
     Assert.assertEquals(phenotypes, phenotypes2);
   }

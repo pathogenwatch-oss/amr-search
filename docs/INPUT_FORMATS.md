@@ -22,7 +22,7 @@ The TOML files consist of 5 main fields. All fields except `label` are optional 
 1. `antimicrobials` - The list of antimicrobials.
 1. `genes` - The AMR-associated genes.
 1. `paar` - Resistance based on presence/absence of the genes.
-1. `snpar` - Resistance based on gene variants.
+1. `mechanisms` - Resistance based on gene variants.
 
 ## A simple example
 
@@ -56,7 +56,7 @@ paar = [
 {phenotypes = [{effect = "RESISTANT", profile = ["TOB","GEN","KAN"]}], members = ["aacA-aphD"]},
 ]
 
-snpar = [
+mechanisms = [
 {phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["S80F"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["S80Y"]}]},
 ]
@@ -129,7 +129,7 @@ genes = [
 ]
 ```
 
-## Basic paar/snpar
+## Basic paar/mechanisms
 
 The gene presence-absence and variance descriptions are almost identical, and so are descibed together here.
 
@@ -221,7 +221,7 @@ members = [{
   }]
 ```
 
-## Full paar/snpar Description
+## Full paar/mechanisms Description
 
 It's best to understand the examples above before reading this bit.
 
@@ -235,7 +235,7 @@ The members field is straightforward for gene presence-absence, and is simply a 
 members = ["geneA", "geneB", ...]
 ```
 
-For snpar, the members field consists of a list of variant records. Each record consists of two fields:
+For mechanisms, the members field consists of a list of variant records. Each record consists of two fields:
 
 1. `name` - the name of the gene containing the variants.
 1. `variants` - a list of variant sites that must be present.
@@ -335,7 +335,7 @@ extends = ["1224"]
 1. `genes`
     * Records are identified by `name`.
     * Duplicates are overwritten with the new attributes (e.g. different `pid`).
-1. `paar/snpar`
+1. `paar/mechanisms`
     * Records are identified by `name` (optional field, automatically defined using the members field).
     * If a new phenotype record contains an antimicrobial `key` in its `profile` field also present in a previous phenotype, the previous phenotype is removed.
     * `members` should never change.

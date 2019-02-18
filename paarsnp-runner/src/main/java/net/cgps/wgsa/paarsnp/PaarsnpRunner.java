@@ -2,14 +2,12 @@ package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
+import net.cgps.wgsa.paarsnp.core.models.Mechanisms;
 import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
-import net.cgps.wgsa.paarsnp.core.paar.PaarCalculation;
-import net.cgps.wgsa.paarsnp.core.models.PaarResult;
+import net.cgps.wgsa.paarsnp.core.models.results.SearchResult;
 import net.cgps.wgsa.paarsnp.core.models.Paar;
-import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
-import net.cgps.wgsa.paarsnp.core.snpar.ResultCombiner;
-import net.cgps.wgsa.paarsnp.core.models.Snpar;
-import net.cgps.wgsa.paarsnp.core.models.results.SnparResult;
+import net.cgps.wgsa.paarsnp.core.snpar.ProcessMatches;
+import net.cgps.wgsa.paarsnp.core.snpar.CombineResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,15 +24,15 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
   private final String speciesId;
   private final Paar paarLibrary;
-  private final Snpar snparLibrary;
+  private final Mechanisms mechanismsLibrary;
   private final Collection<AntimicrobialAgent> antimicrobialAgents;
   private final String resourceDirectory;
 
-  PaarsnpRunner(final String speciesId, final Paar paarLibrary, final Snpar snparLibrary, final Collection<AntimicrobialAgent> antimicrobialAgents, String resourceDirectory) {
+  PaarsnpRunner(final String speciesId, final Paar paarLibrary, final Mechanisms mechanismsLibrary, final Collection<AntimicrobialAgent> antimicrobialAgents, String resourceDirectory) {
 
     this.speciesId = speciesId;
     this.paarLibrary = paarLibrary;
-    this.snparLibrary = snparLibrary;
+    this.mechanismsLibrary = mechanismsLibrary;
     this.antimicrobialAgents = antimicrobialAgents;
     this.resourceDirectory = resourceDirectory;
   }
@@ -47,36 +45,36 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
     this.logger.debug("Beginning {}", assemblyId);
 
-    final PaarResult paarResult;
-    if (!this.paarLibrary.getSets().isEmpty()) {
-      paarResult = new ResistanceSearch<>(
+//    final PaarResult paarResult;
+//    if (!this.paarLibrary.getSets().isEmpty()) {
+//      paarResult = new ResistanceSearch<>(
+//          new ResistanceSearch.InputOptions(
+//              this.buildBlastOptions(this.paarLibrary.getMinimumPid(), "1e-5", Constants.PAAR_APPEND)),
+//          new PaarCalculation(this.paarLibrary),
+//          FilterByIndividualThresholds.build(this.paarLibrary)).apply(assemblyFile.toAbsolutePath().toString()
+//      );
+//    } else {
+//      paarResult = PaarResult.buildEmpty();
+//    }
+
+    final SearchResult searchResult;
+    if (!this.mechanismsLibrary.getSets().isEmpty()) {
+      searchResult = new ResistanceSearch<>(
           new ResistanceSearch.InputOptions(
-              this.buildBlastOptions(this.paarLibrary.getMinimumPid(), "1e-5", Constants.PAAR_APPEND)),
-          new PaarCalculation(this.paarLibrary),
-          FilterByIndividualThresholds.build(this.paarLibrary)).apply(assemblyFile.toAbsolutePath().toString()
-      );
+              this.buildBlastOptions(this.mechanismsLibrary.getMinimumPid(), "1e-20", Constants.SNPAR_APPEND)),
+          new CombineResults(this.mechanismsLibrary, new ProcessMatches(this.mechanismsLibrary)),
+          FilterByIndividualThresholds.build(this.mechanismsLibrary)).apply(assemblyFile.toAbsolutePath().toString());
     } else {
-      paarResult = PaarResult.buildEmpty();
+      searchResult = SearchResult.buildEmpty();
     }
 
-    final SnparResult snparResult;
-    if (!this.snparLibrary.getSets().isEmpty()) {
-      snparResult = new ResistanceSearch<>(
-          new ResistanceSearch.InputOptions(
-              this.buildBlastOptions(this.snparLibrary.getMinimumPid(), "1e-20", Constants.SNPAR_APPEND)),
-          new ResultCombiner(this.snparLibrary, new ProcessVariants(this.snparLibrary)),
-          FilterByIndividualThresholds.build(this.snparLibrary)).apply(assemblyFile.toAbsolutePath().toString());
-    } else {
-      snparResult = SnparResult.buildEmpty();
-    }
-
-    final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(assemblyId, snparResult, paarResult, this.antimicrobialAgents.stream().map(AntimicrobialAgent::getKey).collect(Collectors.toList()));
+    final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(assemblyId, searchResult, this.antimicrobialAgents.stream().map(AntimicrobialAgent::getKey).collect(Collectors.toList()));
 
     final Map<String, AntimicrobialAgent> agentMap = this.antimicrobialAgents.stream().collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
 
     return new BuildPaarsnpResult(agentMap, Stream.concat(
         this.paarLibrary.getSets().entrySet().stream(),
-        this.snparLibrary.getSets().entrySet().stream())
+        this.mechanismsLibrary.getSets().entrySet().stream())
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)))
         .apply(paarsnpResultData);
   }

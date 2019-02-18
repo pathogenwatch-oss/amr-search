@@ -35,40 +35,21 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
 
     final Map<String, Collection<String>> resistanceSets = this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> new ArrayList<>()));
 
-    // Start with resolving PAAR
-    paarsnpResultData.paarResult.getSetResults()
-        .stream()
-        .filter(setResult -> !setResult.getFoundMembers().isEmpty())
-        .forEach(setResult -> {
-
-          final Completeness completeness = setResult.getFoundMembers().size() == setResult.getSet().getMembers().size() ? Completeness.COMPLETE : Completeness.PARTIAL;
-
-          setResult.getSet().getPhenotypes()
-              .forEach(phenotype -> this.determineResistanceState(
-                  phenotype,
-                  phenotype.getModifiers().stream().filter(modifier -> setResult.getFoundModifiers().contains(modifier.getName())).collect(Collectors.toList()),
-                  completeness)
-                  .filter(state -> state.getValue() != ResistanceState.NOT_FOUND)
-                  .forEach(agentState -> {
-                    this.logger.debug("{} {}", agentState.getKey(), agentState.getValue().name());
-                    resistanceSets.get(agentState.getKey()).add(setResult.getSet().getName());
-                    profileAggregator.addPhenotype(agentState.getKey(), agentState.getValue());
-                  }));
-        });
-
     // Then add the SNPAR result
-    paarsnpResultData.snparResult.getSetResults()
+    paarsnpResultData.searchResult.getSetResults()
         .stream()
         .filter(setResult -> !setResult.getFoundMembers().isEmpty())
         .forEach(setResult -> {
 
-          final Completeness completeness = setResult.getFoundMembers().size() == setResult.getSet().getMembers().stream().map(SetMember::getVariants).mapToLong(Collection::size).sum() ? Completeness.COMPLETE : Completeness.PARTIAL;
+          final boolean complete = setResult.getFoundMembers().size() == setResult
+              .getSet()
+              .size();
 
           setResult.getSet().getPhenotypes()
               .forEach(phenotype -> this.determineResistanceState(
                   phenotype,
                   phenotype.getModifiers().stream().filter(modifier -> setResult.getFoundModifiers().contains(modifier.getName())).collect(Collectors.toList()),
-                  completeness)
+                  complete)
                   .filter(state -> state.getValue() != ResistanceState.NOT_FOUND)
                   .forEach(agentState -> {
                     this.logger.debug("{} {}", agentState.getKey(), agentState.getValue().name());
@@ -91,10 +72,10 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
         .collect(Collectors.toList());
 
     // Sorts the profile and adds the antibiotics with no matches.
-    return new PaarsnpResult(paarsnpResultData.assemblyId, paarsnpResultData.snparResult, paarsnpResultData.paarResult, antibioticProfiles);
+    return new PaarsnpResult(paarsnpResultData.assemblyId, paarsnpResultData.searchResult, antibioticProfiles);
   }
 
-  private Stream<Map.Entry<String, ResistanceState>> determineResistanceState(final Phenotype phenotype, final List<Modifier> phenotypeModifiers, final BuildPaarsnpResult.Completeness completeness) {
+  private Stream<Map.Entry<String, ResistanceState>> determineResistanceState(final Phenotype phenotype, final List<Modifier> phenotypeModifiers, final boolean isComplete) {
 
     // NB At the moment only the first modifier is dealt with (assumes only one allowed modifier at a time)
     final ElementEffect modifierEffect = phenotypeModifiers.isEmpty() ? ElementEffect.RESISTANCE : phenotypeModifiers.get(0).getEffect();
@@ -105,14 +86,14 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
           final ResistanceState resistanceState;
           switch (modifierEffect) {
             case RESISTANCE:
-              if (phenotype.getEffect() == PhenotypeEffect.RESISTANT && Completeness.COMPLETE == completeness) {
+              if (phenotype.getEffect() == PhenotypeEffect.RESISTANT && isComplete) {
                 resistanceState = ResistanceState.RESISTANT;
-              } else if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE_ADDITIVE && Completeness.COMPLETE == completeness) {
+              } else if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE_ADDITIVE && isComplete) {
                 resistanceState = ResistanceState.RESISTANT;
-              } else if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE && Completeness.COMPLETE == completeness) {
+              } else if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE && isComplete) {
                 resistanceState = ResistanceState.INTERMEDIATE;
               } else {
-                if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE_ADDITIVE && Completeness.PARTIAL == completeness) {
+                if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE_ADDITIVE && !isComplete) {
                   resistanceState = ResistanceState.INTERMEDIATE;
                 } else {
                   resistanceState = ResistanceState.NOT_FOUND;
@@ -123,9 +104,9 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
               resistanceState = ResistanceState.NOT_FOUND;
               break;
             case INDUCED:
-              if (phenotype.getEffect() == PhenotypeEffect.RESISTANT && Completeness.COMPLETE == completeness) {
+              if (phenotype.getEffect() == PhenotypeEffect.RESISTANT && isComplete) {
                 resistanceState = ResistanceState.INDUCIBLE;
-              } else if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE_ADDITIVE && Completeness.COMPLETE == completeness) {
+              } else if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE_ADDITIVE && isComplete) {
                 resistanceState = ResistanceState.INDUCIBLE;
               } else {
                 resistanceState = ResistanceState.NOT_FOUND;
@@ -138,25 +119,17 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
         });
   }
 
-  public enum Completeness {
-    COMPLETE, PARTIAL
-  }
-
   public static class PaarsnpResultData {
 
     public final String assemblyId;
-    public final SnparResult snparResult;
-    public final PaarResult paarResult;
+    public final SearchResult searchResult;
     public final Collection<String> referenceProfile;
 
-    public PaarsnpResultData(final String assemblyId, final SnparResult snparResult, final PaarResult paarResult, final Collection<String> referenceProfile) {
+    public PaarsnpResultData(final String assemblyId, final SearchResult searchResult, final Collection<String> referenceProfile) {
 
       this.assemblyId = assemblyId;
-      this.snparResult = snparResult;
-      this.paarResult = paarResult;
+      this.searchResult = searchResult;
       this.referenceProfile = referenceProfile;
     }
   }
-
-
 }

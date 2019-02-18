@@ -3,9 +3,9 @@ package net.cgps.wgsa.paarsnp;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
 import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
-import net.cgps.wgsa.paarsnp.core.models.results.SnparResult;
-import net.cgps.wgsa.paarsnp.core.snpar.ProcessVariants;
-import net.cgps.wgsa.paarsnp.core.snpar.ResultCombiner;
+import net.cgps.wgsa.paarsnp.core.models.results.SearchResult;
+import net.cgps.wgsa.paarsnp.core.snpar.ProcessMatches;
+import net.cgps.wgsa.paarsnp.core.snpar.CombineResults;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -33,20 +33,20 @@ public class ResistanceSearchTest {
     final ResistanceSearch.InputOptions inputOptions = new ResistanceSearch.InputOptions(
         Arrays.asList(
             "-db", paarsnpLibraryFile.getPath().replace(".jsn", "_snpar"),
-            "-perc_identity", String.valueOf(paarsnpLibrary.getSnpar().getMinimumPid()),
+            "-perc_identity", String.valueOf(paarsnpLibrary.getMechanisms().getMinimumPid()),
             "-evalue", "1e-5"
         )
     );
     final Path inputFasta = Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa");
 
-    final ResistanceSearch<SnparResult> resistanceSearch = new ResistanceSearch<>(
+    final ResistanceSearch<SearchResult> resistanceSearch = new ResistanceSearch<>(
         inputOptions,
-        new ResultCombiner(
-            paarsnpLibrary.getSnpar(),
-            new ProcessVariants(paarsnpLibrary.getSnpar())),
-        FilterByIndividualThresholds.build(paarsnpLibrary.getSnpar()));
+        new CombineResults(
+            paarsnpLibrary.getMechanisms(),
+            new ProcessMatches(paarsnpLibrary.getMechanisms())),
+        FilterByIndividualThresholds.build(paarsnpLibrary.getMechanisms()));
 
-    final SnparResult result = resistanceSearch.apply(inputFasta.toAbsolutePath().toString());
+    final SearchResult result = resistanceSearch.apply(inputFasta.toAbsolutePath().toString());
 
     Assert.assertNotNull("Result produced", result);
     Assert.assertTrue("Result not empty", !result.toJson().isEmpty());

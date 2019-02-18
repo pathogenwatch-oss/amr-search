@@ -113,7 +113,7 @@ paar = [
 {phenotypes = [{effect = "RESISTANT", profile = ["VAN","TEC"]}], members = ["vanZ"]}
 ]
 
-snpar = [
+mechanisms = [
 {phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["S80F"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["S80Y"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["E84K"]}]},

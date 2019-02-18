@@ -162,7 +162,7 @@ A complete example of the JSON format can be found in [here](/examples/output.js
 
 The key field of interest to most will be the `resistanceProfile` field. For each antibiotic, the resistance state (e.g. `RESISTANT`) and resistance groups that have been found are listed.
 
-The individual results and detailed BLAST data can be found in the `paarResult` & `snparResult` fields.
+The individual results and detailed BLAST data can be found in the `paarResult` & `searchResult` fields.
 
 ```
 {

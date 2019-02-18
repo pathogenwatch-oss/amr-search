@@ -2,41 +2,33 @@ package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.models.results.AntibioticProfile;
-import net.cgps.wgsa.paarsnp.core.models.PaarResult;
-import net.cgps.wgsa.paarsnp.core.models.results.SnparResult;
+import net.cgps.wgsa.paarsnp.core.models.results.SearchResult;
 
 import java.util.Collection;
 import java.util.Collections;
 
 public class PaarsnpResult extends AbstractJsonnable implements Result {
 
-  private final SnparResult snparResult;
-  private final PaarResult paarResult;
+  private final SearchResult searchResult;
   private final Collection<AntibioticProfile> resistanceProfile;
   private final String assemblyId;
 
   @SuppressWarnings("unused")
   private PaarsnpResult() {
 
-    this("", null, null, Collections.emptyList());
+    this("", null, Collections.emptyList());
   }
 
-  public PaarsnpResult(final String assemblyId, final SnparResult snparResult, final PaarResult paarResult, final Collection<AntibioticProfile> resistanceProfile) {
+  public PaarsnpResult(final String assemblyId, final SearchResult searchResult, final Collection<AntibioticProfile> resistanceProfile) {
 
     this.assemblyId = assemblyId;
-    this.snparResult = snparResult;
-    this.paarResult = paarResult;
+    this.searchResult = searchResult;
     this.resistanceProfile = resistanceProfile;
   }
 
-  public SnparResult getSnparResult() {
+  public SearchResult getSearchResult() {
 
-    return this.snparResult;
-  }
-
-  public PaarResult getPaarResult() {
-
-    return this.paarResult;
+    return this.searchResult;
   }
 
   public Collection<AntibioticProfile> getResistanceProfile() {

@@ -5,24 +5,24 @@ import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import java.util.Collection;
 import java.util.Collections;
 
-public class SnparResult extends AbstractJsonnable {
+public class SearchResult extends AbstractJsonnable {
 
   private final Collection<SetResult> setResults;
   private final Collection<MatchJson> blastMatches;
 
   @SuppressWarnings("unused")
-  private SnparResult() {
+  private SearchResult() {
 
     this(Collections.emptyList(), Collections.emptyList());
   }
 
-  public SnparResult(final Collection<SetResult> setResults, final Collection<MatchJson> blastMatches) {
+  public SearchResult(final Collection<SetResult> setResults, final Collection<MatchJson> blastMatches) {
     this.setResults = setResults;
     this.blastMatches = blastMatches;
   }
 
-  public static SnparResult buildEmpty() {
-    return new SnparResult();
+  public static SearchResult buildEmpty() {
+    return new SearchResult();
   }
 
   public Collection<MatchJson> getBlastMatches() {

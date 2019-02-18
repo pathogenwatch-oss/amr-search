@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import org.apache.commons.lang3.StringUtils;
 
@@ -11,6 +12,8 @@ public class ResistanceSet extends AbstractJsonnable {
   private final Collection<Phenotype> phenotypes;
   private final String name;
   private final List<SetMember> members;
+  @JsonIgnore
+  private int size = 0;
 
   @SuppressWarnings("unused")
   private ResistanceSet() {
@@ -94,5 +97,21 @@ public class ResistanceSet extends AbstractJsonnable {
   public void updatePhenotypes(final Collection<Phenotype> newPhenotypes) {
     newPhenotypes
         .forEach(this::addPhenotype);
+  }
+
+  public int size() {
+    if (this.size == 0) {
+      this.size = this.members
+          .stream()
+          .mapToInt(setMember -> {
+            if (setMember.getVariants().isEmpty()) {
+              return 1;
+            } else {
+              return setMember.getVariants().size();
+            }
+          })
+          .sum();
+    }
+    return this.size;
   }
 }

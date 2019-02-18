@@ -1,8 +1,8 @@
 package net.cgps.wgsa.paarsnp.core.lib;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
+import net.cgps.wgsa.paarsnp.core.models.Mechanisms;
 import net.cgps.wgsa.paarsnp.core.models.Paar;
-import net.cgps.wgsa.paarsnp.core.models.Snpar;
 import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
 
 import java.util.Map;
@@ -32,13 +32,13 @@ public class FilterByIndividualThresholds implements Predicate<BlastMatch> {
             .collect(Collectors.toMap(ReferenceSequence::getName, ReferenceSequence::getCoverage)));
   }
 
-  public static FilterByIndividualThresholds build(final Snpar snparLibrary) {
+  public static FilterByIndividualThresholds build(final Mechanisms mechanismsLibrary) {
     return new FilterByIndividualThresholds(
-        snparLibrary.getGenes()
+        mechanismsLibrary.getGenes()
             .values()
             .stream()
             .collect(Collectors.toMap(ReferenceSequence::getName, ReferenceSequence::getPid)),
-        snparLibrary.getGenes()
+        mechanismsLibrary.getGenes()
             .values()
             .stream()
             .collect(Collectors.toMap(ReferenceSequence::getName, ReferenceSequence::getCoverage))

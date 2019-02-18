@@ -6,17 +6,17 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Snpar {
+public class Mechanisms {
 
   private final Map<String, ReferenceSequence> genes;
   private final Map<String, ResistanceSet> sets;
   private double minimumPid;
 
-  public Snpar() {
+  public Mechanisms() {
     this(new ArrayList<>(100), new ArrayList<>(500));
   }
 
-  public Snpar(final Collection<ReferenceSequence> genes, final Collection<ResistanceSet> sets) {
+  public Mechanisms(final Collection<ReferenceSequence> genes, final Collection<ResistanceSet> sets) {
 
     this.genes = genes.stream().collect(Collectors.toMap(ReferenceSequence::getName, Function.identity()));
     this.sets = sets.stream().collect(Collectors.toMap(ResistanceSet::getName, set -> set));

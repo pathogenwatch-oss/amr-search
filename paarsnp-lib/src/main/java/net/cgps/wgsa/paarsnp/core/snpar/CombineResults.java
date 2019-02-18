@@ -2,11 +2,11 @@ package net.cgps.wgsa.paarsnp.core.snpar;
 
 import net.cgps.wgsa.paarsnp.core.models.results.MatchJson;
 import net.cgps.wgsa.paarsnp.core.models.*;
+import net.cgps.wgsa.paarsnp.core.models.results.SearchResult;
 import net.cgps.wgsa.paarsnp.core.models.results.SetResult;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.models.results.Modifier;
 import net.cgps.wgsa.paarsnp.core.models.Phenotype;
-import net.cgps.wgsa.paarsnp.core.models.results.SnparResult;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,32 +19,32 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class ResultCombiner implements Collector<BlastMatch, List<SnparMatchData>, SnparResult> {
+public class CombineResults implements Collector<BlastMatch, List<ProcessedMatch>, SearchResult> {
 
-  private final Logger logger = LoggerFactory.getLogger(ResultCombiner.class);
-  private final Snpar snparLibrary;
-  private final ProcessVariants processVariants;
+  private final Logger logger = LoggerFactory.getLogger(CombineResults.class);
+  private final Mechanisms mechanismsLibrary;
+  private final ProcessMatches processMatches;
 
-  public ResultCombiner(final Snpar snparLibrary, ProcessVariants processVariants) {
+  public CombineResults(final Mechanisms mechanismsLibrary, ProcessMatches processMatches) {
 
-    this.snparLibrary = snparLibrary;
-    this.processVariants = processVariants;
+    this.mechanismsLibrary = mechanismsLibrary;
+    this.processMatches = processMatches;
   }
 
   @Override
-  public Supplier<List<SnparMatchData>> supplier() {
+  public Supplier<List<ProcessedMatch>> supplier() {
     return ArrayList::new;
   }
 
   @Override
-  public BiConsumer<List<SnparMatchData>, BlastMatch> accumulator() {
+  public BiConsumer<List<ProcessedMatch>, BlastMatch> accumulator() {
 
     // First process all the BLAST matches and assign the resistance mutations
-    return (list, match) -> list.add(this.processVariants.apply(match));
+    return (list, match) -> list.add(this.processMatches.apply(match));
   }
 
   @Override
-  public BinaryOperator<List<SnparMatchData>> combiner() {
+  public BinaryOperator<List<ProcessedMatch>> combiner() {
     return (a, b) -> {
       a.addAll(b);
       return a;
@@ -52,24 +52,29 @@ public class ResultCombiner implements Collector<BlastMatch, List<SnparMatchData
   }
 
   @Override
-  public Function<List<SnparMatchData>, SnparResult> finisher() {
+  public Function<List<ProcessedMatch>, SearchResult> finisher() {
 
     return (selectedMatches) -> {
 
       this.logger.debug("Found {} SNPAR resistance matches.", selectedMatches.size());
 
       // Need to now account for multi-gene snpar sets
-      final Map<String, List<SnparMatchData>> matches = selectedMatches
+      final Map<String, List<ProcessedMatch>> matches = selectedMatches
           .stream()
           .collect(Collectors.groupingBy(match -> match.getSearchStatistics().getLibrarySequenceId()));
 
-      final Collection<SetResult> setResults = this.snparLibrary.getSets().values()
+      final Collection<SetResult> setResults = this.mechanismsLibrary.getSets().values()
           .stream()
           .map(set -> new SetResult(
               set.getMembers()
                   .stream()
                   .filter(member -> matches.keySet().contains(member.getGene()))
                   .map(member -> {
+                    // Just return the gene name if it's presence-absence
+                    // Otherwise the list of variants
+                    if (member.getVariants().isEmpty()) {
+                      return Collections.singletonList(member.getGene());
+                    }
                     // NB We should only consider SNPS from a single copy of a gene, so here we are going to select the
                     // copy with the most coverage of the set
                     return matches.get(member.getGene())
@@ -85,7 +90,7 @@ public class ResultCombiner implements Collector<BlastMatch, List<SnparMatchData
                         .orElse(Collections.emptyList());
                   })
                   .flatMap(Collection::stream)
-                  .collect(Collectors.toSet()),
+                  .collect(Collectors.toList()),
               set.getPhenotypes()
                   .stream()
                   .map(Phenotype::getModifiers)
@@ -98,7 +103,7 @@ public class ResultCombiner implements Collector<BlastMatch, List<SnparMatchData
           .collect(Collectors.toList());
 
       // Finally generate the result document.
-      return new SnparResult(
+      return new SearchResult(
           setResults,
           selectedMatches
               .stream()

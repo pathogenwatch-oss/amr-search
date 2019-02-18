@@ -46,7 +46,7 @@ public class PaarsnpRunnerTest {
 
     final PaarsnpLibrary paarsnpLibrary = AbstractJsonnable.fromJsonFile(Paths.get(resourceDirectory, speciesId + Constants.JSON_APPEND).toFile(), PaarsnpLibrary.class);
 
-    final PaarsnpRunner runner = new PaarsnpRunner(speciesId, paarsnpLibrary.getPaar(), paarsnpLibrary.getSnpar(), paarsnpLibrary.getAntimicrobials(), resourceDirectory);
+    final PaarsnpRunner runner = new PaarsnpRunner(speciesId, paarsnpLibrary.getPaar(), paarsnpLibrary.getMechanisms(), paarsnpLibrary.getAntimicrobials(), resourceDirectory);
     final ConvertResultFormat convertFormat = new ConvertResultFormat();
 
     final OldStyleSnparResult snparResult = convertFormat.apply(runner.apply(testFasta)).getSnparResult();

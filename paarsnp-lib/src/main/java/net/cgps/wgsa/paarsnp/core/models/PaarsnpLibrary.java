@@ -10,8 +10,7 @@ public class PaarsnpLibrary extends AbstractJsonnable {
 
   private final String label;
   private final List<AntimicrobialAgent> antimicrobials;
-  private final Paar paar;
-  private final Snpar snpar;
+  private final Mechanisms mechanisms;
 
   @SuppressWarnings("unused")
   private PaarsnpLibrary() {
@@ -19,22 +18,17 @@ public class PaarsnpLibrary extends AbstractJsonnable {
   }
 
   public PaarsnpLibrary(final String label) {
-    this(label, new ArrayList<>(50), new Paar(), new Snpar());
+    this(label, new ArrayList<>(50), new Mechanisms());
   }
 
-  public PaarsnpLibrary(final String label, final List<AntimicrobialAgent> antimicrobials, final Paar paar, final Snpar snpar) {
+  public PaarsnpLibrary(final String label, final List<AntimicrobialAgent> antimicrobials, final Mechanisms mechanisms) {
     this.label = label;
     this.antimicrobials = antimicrobials;
-    this.paar = paar;
-    this.snpar = snpar;
+    this.mechanisms = mechanisms;
   }
 
-  public Paar getPaar() {
-    return this.paar;
-  }
-
-  public Snpar getSnpar() {
-    return this.snpar;
+  public Mechanisms getMechanisms() {
+    return this.mechanisms;
   }
 
   public String getLabel() {

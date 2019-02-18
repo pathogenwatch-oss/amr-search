@@ -67,7 +67,7 @@ paar = [
 {phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}], members = ["tetM_8_X04388"]}
 ]
 
-snpar = [
+mechanisms = [
 {phenotypes = [{effect = "RESISTANT", profile = ["TMP"]}], members = [{gene="folA_AE007317", variants=["I100L"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["SSS"]}], members = [{gene="folP_AE007317", variants=["-57R","-58P"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["SSS"]}], members = [{gene="folP_AE007317", variants=["-60R"]}]},

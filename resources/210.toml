@@ -11,7 +11,7 @@ genes = [
 
 paar = []
 
-snpar = [
+mechanisms = [
 {members = [{gene="23S_rRNA", variants=["a2142c"]}], phenotypes = [{effect = "RESISTANT", profile = ["CLR"]}]},
 {members = [{gene="23S_rRNA", variants=["a2142g"]}], phenotypes = [{effect = "RESISTANT", profile = ["CLR"]}]},
 {members = [{gene="23S_rRNA", variants=["a2143g"]}], phenotypes = [{effect = "RESISTANT", profile = ["CLR"]}]},

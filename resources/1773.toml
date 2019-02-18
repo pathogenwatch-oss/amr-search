@@ -25,7 +25,7 @@ genes = [
 {name = "eis_promoter", pid = 80.0, coverage = 90.0, sequence = "TGGCCGCGGCATATGCCACAGTCGGATTCTGTGACTGTGACCCTGTGTAGCCCGACCGAGGACGACTGGCCGGGGATGTT"}
 ]
 
-snpar = [
+mechanisms = [
 {phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}], members = [{gene="katG", variants=["S315I"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}], members = [{gene="katG", variants=["S315N"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["ISH"]}], members = [{gene="katG", variants=["S315T"]}]},
@@ -233,7 +233,7 @@ snpar = [
 #phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}]},#members = [{gene="pncA", variants=["t-7c"]}]},
 
 ## This one is minimal confidence
-#[[snpar.sets]]
+#[[mechanisms.sets]]
 #name = "eis_g-37t"
 #phenotypes = [{effect = "RESISTANT", profile = ["KAN"]}]
 #members = [{gene="eis", variants=["g-37t"]}]
@@ -242,7 +242,7 @@ snpar = [
 #phenotypes = [{effect = "RESISTANT", profile = ["KAN"]}]
 #members = [{gene="tlyA", variants=["all except D149H"]}]
 
-#[[snpar.genes]]
+#[[mechanisms.genes]]
 
 #name = "tlyA"
 #pid = 100.0

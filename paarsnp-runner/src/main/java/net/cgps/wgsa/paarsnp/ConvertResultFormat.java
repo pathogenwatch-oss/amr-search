@@ -23,7 +23,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, OldStylePaar
 
     final Function<ResistanceSet, Stream<OldStyleSetDescription>> convertSetFormat = new ConvertSetDescription();
 
-    final List<OldStyleSetDescription> snparModifiedSets = paarsnpResult.getSnparResult().getSetResults()
+    final List<OldStyleSetDescription> snparModifiedSets = paarsnpResult.getSearchResult().getSetResults()
         .stream()
         .filter(setResult -> !setResult.getFoundMembers().isEmpty())
         .filter(setResult -> !setResult.getFoundModifiers().isEmpty())
@@ -33,7 +33,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, OldStylePaar
 
     final Set<String> seenSnparSets = snparModifiedSets.stream().map(OldStyleSetDescription::getResistanceSetName).collect(Collectors.toSet());
 
-    final List<OldStyleSetDescription> snparCompleteSets = paarsnpResult.getSnparResult().getSetResults().stream()
+    final List<OldStyleSetDescription> snparCompleteSets = paarsnpResult.getSearchResult().getSetResults().stream()
         .filter(setResult -> setResult.getFoundMembers().size() == this.countSnparSetSize(setResult.getSet()))
         .filter(setResult -> !seenSnparSets.contains(setResult.getSet().getName()))
         .peek(setResult -> seenSnparSets.add(setResult.getSet().getName()))
@@ -41,7 +41,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, OldStylePaar
         .flatMap(convertSetFormat)
         .collect(Collectors.toList());
 
-    final List<OldStyleSetDescription> snparPartialSets = paarsnpResult.getSnparResult().getSetResults().stream()
+    final List<OldStyleSetDescription> snparPartialSets = paarsnpResult.getSearchResult().getSetResults().stream()
         .filter(setResult -> !seenSnparSets.contains(setResult.getSet().getName()))
         .filter(setResult -> 0 < setResult.getFoundMembers().size())
         .filter(setResult -> setResult.getFoundMembers().size() < this.countSnparSetSize(setResult.getSet()))
@@ -82,7 +82,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, OldStylePaar
         paarsnpResult.getAssemblyId(),
 
         new OldStyleSnparResult(
-            paarsnpResult.getSnparResult().getSetResults()
+            paarsnpResult.getSearchResult().getSetResults()
                 .stream()
                 .map(SetResult::getFoundMembers)
                 .flatMap(Collection::stream)
@@ -90,7 +90,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, OldStylePaar
             snparCompleteSets,
             snparPartialSets,
             snparModifiedSets,
-            paarsnpResult.getSnparResult().getBlastMatches()
+            paarsnpResult.getSearchResult().getBlastMatches()
         ),
 
         new OldStylePaarResult(
