@@ -15,7 +15,6 @@ public class PaarsnpResult extends AbstractJsonnable implements Result {
 
   @SuppressWarnings("unused")
   private PaarsnpResult() {
-
     this("", null, Collections.emptyList());
   }
 
@@ -26,18 +25,16 @@ public class PaarsnpResult extends AbstractJsonnable implements Result {
     this.resistanceProfile = resistanceProfile;
   }
 
-  public SearchResult getSearchResult() {
-
-    return this.searchResult;
-  }
-
   public Collection<AntibioticProfile> getResistanceProfile() {
-
     return this.resistanceProfile;
   }
 
   public String getAssemblyId() {
-
     return this.assemblyId;
+  }
+
+
+  public SearchResult getSearchResult() {
+    return this.searchResult;
   }
 }

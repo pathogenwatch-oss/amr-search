@@ -35,7 +35,6 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
 
     final Map<String, Collection<String>> resistanceSets = this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> new ArrayList<>()));
 
-    // Then add the SNPAR result
     paarsnpResultData.searchResult.getSetResults()
         .stream()
         .filter(setResult -> !setResult.getFoundMembers().isEmpty())
@@ -58,8 +57,13 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
                   }));
         });
 
+    // Mangle the result into seperate PAAR & SNPAR results.
+    // Check each member of each set. If PAAR
+    // Add BLAST result to PAAR
+
     // Work out the profile in the specified order
-    final Collection<AntibioticProfile> antibioticProfiles = paarsnpResultData.referenceProfile
+    final Collection<AntibioticProfile> antibioticProfiles = paarsnpResultData
+        .referenceProfile
         .stream()
         .map(agent -> new AntibioticProfile(
             this.agents.get(agent),

@@ -1,0 +1,208 @@
+package net.cgps.wgsa.paarsnp;
+
+import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.models.results.OldStyleAntibioticProfile;
+
+import java.util.Collection;
+import java.util.Collections;
+
+public class PathogenWatchFormat extends AbstractJsonnable implements Result {
+
+  private final String assemblyId;
+  private final Collection<String> paarElementIds;
+  private final Collection<String> snparElementIds;
+  private final Collection<OldStyleAntibioticProfile> resistanceProfile;
+  private final Collection<CdsJson> matches;
+  private final Collection<VariantJson> variantMatches;
+
+  @SuppressWarnings("unused")
+  private PathogenWatchFormat() {
+
+    this("", Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
+  }
+
+  public PathogenWatchFormat(final String assemblyId, final Collection<String> snparResult, final Collection<String> paarResult, final Collection<OldStyleAntibioticProfile> resistanceProfile, final Collection<CdsJson> matches, final Collection<VariantJson> variantMatches) {
+
+    this.assemblyId = assemblyId;
+    this.snparElementIds = snparResult;
+    this.paarElementIds = paarResult;
+    this.resistanceProfile = resistanceProfile;
+    this.matches = matches;
+    this.variantMatches = variantMatches;
+  }
+
+  public Collection<OldStyleAntibioticProfile> getResistanceProfile() {
+
+    return this.resistanceProfile;
+  }
+
+  public String getAssemblyId() {
+
+    return this.assemblyId;
+  }
+
+  public Collection<String> getPaarElementIds() {
+    return this.paarElementIds;
+  }
+
+  public Collection<String> getSnparElementIds() {
+    return this.snparElementIds;
+  }
+
+  public Collection<CdsJson> getMatches() {
+    return this.matches;
+  }
+
+  public Collection<VariantJson> getVariantMatches() {
+    return this.variantMatches;
+  }
+
+  public static class CdsJson extends AbstractJsonnable {
+    private final String id;
+    private final String source;
+    private final String type = "CDS";
+    private final boolean reversed;
+    private final double evalue;
+    private final double percentIdentity;
+    private final CdsLocation library;
+    private final CdsLocation query;
+
+    private CdsJson() {
+      this("", "", false, 0.0, 0.0, null, null);
+    }
+
+    public CdsJson(final String id, final String source, final boolean reversed, final double evalue, final double percentIdentity, final CdsLocation library, final CdsLocation query) {
+      super();
+      this.id = id;
+      this.source = source;
+      this.reversed = reversed;
+      this.evalue = evalue;
+      this.percentIdentity = percentIdentity;
+      this.library = library;
+      this.query = query;
+    }
+
+    public String getSource() {
+      return this.source;
+    }
+
+    public String getType() {
+      return this.type;
+    }
+
+    public boolean isReversed() {
+      return this.reversed;
+    }
+
+    public double getEvalue() {
+      return this.evalue;
+    }
+
+    public String getId() {
+      return id;
+    }
+
+    public CdsLocation getQuery() {
+      return query;
+    }
+
+    public CdsLocation getLibrary() {
+      return library;
+    }
+
+    public double getPercentIdentity() {
+      return percentIdentity;
+    }
+  }
+
+  public static class CdsLocation {
+    private final int start;
+    private final int stop;
+    private final int length;
+    private final String id;
+
+    private CdsLocation() {
+      this(0, 0, 0, "");
+    }
+
+    public CdsLocation(final int start, final int stop, final int length, final String id) {
+      this.start = start;
+      this.stop = stop;
+      this.length = length;
+      this.id = id;
+    }
+
+    public int getStart() {
+      return this.start;
+    }
+
+    public int getStop() {
+      return this.stop;
+    }
+
+    public int getLength() {
+      return this.length;
+    }
+
+    public String getId() {
+      return this.id;
+    }
+  }
+
+  public static class VariantJson {
+    private final Collection<String> agents;
+    private final String id;
+    private final String source = "WGSA_SNPAR";
+    private final boolean reversed;
+    private final int queryLocation;
+    private final int referenceLocation;
+    private final String name;
+    private final int libraryStart;
+
+    private VariantJson() {
+      this(Collections.emptyList(), "", false, 0, 0, "", 0);
+    }
+
+    public VariantJson(final Collection<String> agents, final String id, final boolean reversed, final int queryLocation, final int referenceLocation, final String name, final int libraryStart) {
+      this.agents = agents;
+      this.id = id;
+      this.reversed = reversed;
+      this.queryLocation = queryLocation;
+      this.referenceLocation = referenceLocation;
+      this.name = name;
+      this.libraryStart = libraryStart;
+    }
+
+    public Collection<String> getAgents() {
+      return this.agents;
+    }
+
+    public String getId() {
+      return this.id;
+    }
+
+    public String getSource() {
+      return this.source;
+    }
+
+    public boolean isReversed() {
+      return this.reversed;
+    }
+
+    public int getQueryLocation() {
+      return this.queryLocation;
+    }
+
+    public int getReferenceLocation() {
+      return this.referenceLocation;
+    }
+
+    public String getName() {
+      return this.name;
+    }
+
+    public int getLibraryStart() {
+      return this.libraryStart;
+    }
+  }
+}

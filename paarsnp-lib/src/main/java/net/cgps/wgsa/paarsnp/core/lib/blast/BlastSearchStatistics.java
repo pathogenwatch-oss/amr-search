@@ -120,4 +120,8 @@ public class BlastSearchStatistics extends AbstractJsonnable {
   public boolean isReversed() {
     return reversed;
   }
+
+  public int getQuerySequenceLength() {
+    return 0;
+  }
 }

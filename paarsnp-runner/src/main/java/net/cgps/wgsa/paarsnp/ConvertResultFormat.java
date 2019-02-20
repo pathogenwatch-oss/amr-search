@@ -1,106 +1,89 @@
 package net.cgps.wgsa.paarsnp;
 
-import net.cgps.wgsa.paarsnp.core.models.results.SetResult;
-import net.cgps.wgsa.paarsnp.core.models.results.OldStyleAntibioticProfile;
-import net.cgps.wgsa.paarsnp.core.models.results.OldStyleSetDescription;
-import net.cgps.wgsa.paarsnp.core.models.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.lib.ConvertSetDescription;
-import net.cgps.wgsa.paarsnp.core.models.results.OldStylePaarResult;
-import net.cgps.wgsa.paarsnp.core.models.results.OldStyleSnparResult;
+import net.cgps.wgsa.paarsnp.core.models.Phenotype;
+import net.cgps.wgsa.paarsnp.core.models.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.models.SetMember;
+import net.cgps.wgsa.paarsnp.core.models.results.*;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ConvertResultFormat implements Function<PaarsnpResult, OldStylePaarsnpResult> {
+public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatchFormat> {
 
   @Override
-  public OldStylePaarsnpResult apply(final PaarsnpResult paarsnpResult) {
+  public PathogenWatchFormat apply(final PaarsnpResult paarsnpResult) {
+
+    final Collection<String> paarElementIds = new ArrayList<>(50);
+    final Collection<String> snparElementIds = new ArrayList<>(100);
+
+    paarsnpResult.getSearchResult()
+        .getSetResults()
+        .stream()
+        .flatMap(set -> Stream.of(set.getFoundMembers(), set.getFoundModifiers()))
+        .flatMap(Collection::stream)
+        .forEach(foundElement -> {
+          if (foundElement.getVariants().isEmpty()) {
+            paarElementIds.add(foundElement.getGene());
+          } else {
+            snparElementIds.addAll(foundElement
+                .getVariants()
+                .stream()
+                .map(variant -> foundElement + "_" + variant)
+                .collect(Collectors.toList())
+            );
+          }
+        });
+
+    final Collection<PathogenWatchFormat.CdsJson> matches = new ArrayList<>(50);
+    final Collection<PathogenWatchFormat.VariantJson> variants = new ArrayList<>(100);
+
+    final Map<String, List<ResistanceSet>> elementIdToSetNames = paarsnpResult
+        .getSearchResult()
+        .getSetResults()
+        .stream()
+        .flatMap(setResult -> Stream.of(setResult.getFoundMembers(), setResult.getFoundModifiers())
+            .flatMap(Collection::stream)
+            .map(setMember -> new AbstractMap.SimpleImmutableEntry<>(setMember.getGene(), setResult.getSet())))
+        .collect(Collectors.groupingBy(AbstractMap.SimpleImmutableEntry::getKey, Collectors.mapping(Map.Entry::getValue, Collectors.toList())));
+
+    paarsnpResult
+        .getSearchResult()
+        .getBlastMatches()
+        .forEach(match -> elementIdToSetNames
+            .get(match.getSearchStatistics().getLibrarySequenceId())
+            .forEach(set -> {
+              if (match.getSnpResistanceElements().isEmpty() && paarElementIds.contains(match.getSearchStatistics().getLibrarySequenceId())) {
+                matches.add(this.buildMatchFormat(set.getName(), match, "PAAR"));
+              } else if (!match.getSnpResistanceElements().isEmpty()) {
+                matches.add(this.buildMatchFormat(set.getName(), match, "SNPAR"));
+                variants.addAll(match
+                    .getSnpResistanceElements()
+                    .stream()
+                    .flatMap(variant -> variant
+                        .getCausalMutations()
+                        .stream()
+                        .map(causalVariant -> new PathogenWatchFormat.VariantJson(
+                            set.getPhenotypes().stream().map(Phenotype::getProfile).flatMap(Collection::stream).collect(Collectors.toList()),
+                            match.getSearchStatistics().getQuerySequenceId(),
+                            match.getSearchStatistics().isReversed(),
+                            causalVariant.getQueryLocation(),
+                            causalVariant.getReferenceLocation(),
+                            variant.getResistanceMutation().getName(),
+                            match.getSearchStatistics().getLibrarySequenceStart()
+                        )))
+                    .collect(Collectors.toList())
+                );
+              }
+            }));
 
     final Function<ResistanceSet, Stream<OldStyleSetDescription>> convertSetFormat = new ConvertSetDescription();
 
-    final List<OldStyleSetDescription> snparModifiedSets = paarsnpResult.getSearchResult().getSetResults()
-        .stream()
-        .filter(setResult -> !setResult.getFoundMembers().isEmpty())
-        .filter(setResult -> !setResult.getFoundModifiers().isEmpty())
-        .map(SetResult::getSet)
-        .flatMap(convertSetFormat)
-        .collect(Collectors.toList());
-
-    final Set<String> seenSnparSets = snparModifiedSets.stream().map(OldStyleSetDescription::getResistanceSetName).collect(Collectors.toSet());
-
-    final List<OldStyleSetDescription> snparCompleteSets = paarsnpResult.getSearchResult().getSetResults().stream()
-        .filter(setResult -> setResult.getFoundMembers().size() == this.countSnparSetSize(setResult.getSet()))
-        .filter(setResult -> !seenSnparSets.contains(setResult.getSet().getName()))
-        .peek(setResult -> seenSnparSets.add(setResult.getSet().getName()))
-        .map(SetResult::getSet)
-        .flatMap(convertSetFormat)
-        .collect(Collectors.toList());
-
-    final List<OldStyleSetDescription> snparPartialSets = paarsnpResult.getSearchResult().getSetResults().stream()
-        .filter(setResult -> !seenSnparSets.contains(setResult.getSet().getName()))
-        .filter(setResult -> 0 < setResult.getFoundMembers().size())
-        .filter(setResult -> setResult.getFoundMembers().size() < this.countSnparSetSize(setResult.getSet()))
-        .peek(setResult -> seenSnparSets.add(setResult.getSet().getName()))
-        .map(SetResult::getSet)
-        .flatMap(convertSetFormat)
-        .collect(Collectors.toList());
-
-
-    final List<OldStyleSetDescription> paarModifiedSets = paarsnpResult.getPaarResult().getSetResults().stream()
-        .filter(setResult -> !setResult.getFoundModifiers().isEmpty())
-        .filter(setResult -> !setResult.getFoundMembers().isEmpty())
-        .map(SetResult::getSet)
-        .flatMap(convertSetFormat)
-        .collect(Collectors.toList());
-
-    final Set<String> seenPaarSets = paarModifiedSets.stream().map(OldStyleSetDescription::getResistanceSetName).collect(Collectors.toSet());
-
-    final List<OldStyleSetDescription> paarCompleteSets = paarsnpResult.getPaarResult().getSetResults().stream()
-        .filter(setResult -> !seenPaarSets.contains(setResult.getSet().getName()))
-        .filter(setResult -> setResult.getFoundMembers().size() == setResult.getSet().getMembers().size())
-        .peek(setResult -> seenPaarSets.add(setResult.getSet().getName()))
-        .map(SetResult::getSet)
-        .flatMap(convertSetFormat)
-        .collect(Collectors.toList());
-
-    final List<OldStyleSetDescription> paarPartialSets = paarsnpResult.getPaarResult().getSetResults().stream()
-        .filter(setResult -> !seenPaarSets.contains(setResult.getSet().getName()))
-        .filter(setResult -> 0 < setResult.getFoundMembers().size())
-        .filter(setResult -> setResult.getFoundMembers().size() < setResult.getSet().getMembers().size())
-        .peek(setResult -> seenPaarSets.add(setResult.getSet().getName()))
-        .map(SetResult::getSet)
-        .flatMap(convertSetFormat)
-        .collect(Collectors.toList());
-    
-    return new OldStylePaarsnpResult(
-
-        paarsnpResult.getAssemblyId(),
-
-        new OldStyleSnparResult(
-            paarsnpResult.getSearchResult().getSetResults()
-                .stream()
-                .map(SetResult::getFoundMembers)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList()),
-            snparCompleteSets,
-            snparPartialSets,
-            snparModifiedSets,
-            paarsnpResult.getSearchResult().getBlastMatches()
-        ),
-
-        new OldStylePaarResult(
-            paarCompleteSets,
-            paarPartialSets,
-            paarModifiedSets,
-            paarsnpResult.getPaarResult().getBlastMatches(),
-            paarsnpResult.getPaarResult().getPaarElementIds()
-        ),
-
+    return new PathogenWatchFormat(paarsnpResult.getAssemblyId(),
+        snparElementIds,
+        paarElementIds,
         paarsnpResult.getResistanceProfile()
             .stream()
             .map(profile -> new OldStyleAntibioticProfile(
@@ -112,7 +95,30 @@ public class ConvertResultFormat implements Function<PaarsnpResult, OldStylePaar
                         .collect(Collectors.toList())
                 )
             )
-            .collect(Collectors.toList())
+            .collect(Collectors.toList()),
+        matches,
+        variants);
+  }
+
+  public PathogenWatchFormat.CdsJson buildMatchFormat(final String setName, final MatchJson match, final String sourceString) {
+    return new PathogenWatchFormat.CdsJson(
+        setName,
+        sourceString,
+        match.getSearchStatistics().isReversed(),
+        match.getSearchStatistics().getEvalue(),
+        match.getSearchStatistics().getPercentIdentity(),
+        new PathogenWatchFormat.CdsLocation(
+            match.getSearchStatistics().getLibrarySequenceStart(),
+            match.getSearchStatistics().getLibrarySequenceStop(),
+            match.getSearchStatistics().getLibrarySequenceLength(),
+            match.getSearchStatistics().getLibrarySequenceId()
+        ),
+        new PathogenWatchFormat.CdsLocation(
+            match.getSearchStatistics().getQuerySequenceStart(),
+            match.getSearchStatistics().getQuerySequenceStop(),
+            match.getSearchStatistics().getQuerySequenceLength(),
+            match.getSearchStatistics().getQuerySequenceId()
+        )
     );
   }
 
