@@ -4,8 +4,8 @@ import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
 import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.models.results.SearchResult;
-import net.cgps.wgsa.paarsnp.core.snpar.ProcessMatches;
 import net.cgps.wgsa.paarsnp.core.snpar.CombineResults;
+import net.cgps.wgsa.paarsnp.core.snpar.ProcessMatches;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -15,6 +15,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 
 public class ResistanceSearchTest {
 
@@ -30,21 +31,20 @@ public class ResistanceSearchTest {
 
     final PaarsnpLibrary paarsnpLibrary = AbstractJsonnable.fromJsonFile(paarsnpLibraryFile, PaarsnpLibrary.class);
 
-    final ResistanceSearch.InputOptions inputOptions = new ResistanceSearch.InputOptions(
-        Arrays.asList(
-            "-db", paarsnpLibraryFile.getPath().replace(".jsn", "_snpar"),
-            "-perc_identity", String.valueOf(paarsnpLibrary.getMechanisms().getMinimumPid()),
-            "-evalue", "1e-5"
-        )
+    final List<String> inputOptions = Arrays.asList(
+        "-db", paarsnpLibraryFile.getPath().replace(".jsn", "_snpar"),
+        "-perc_identity", String.valueOf(paarsnpLibrary.getMinimumPid()),
+        "-evalue", "1e-5"
     );
+
     final Path inputFasta = Paths.get("src/test/resources/8616_4#40.contigs_velvet.fa");
 
     final ResistanceSearch<SearchResult> resistanceSearch = new ResistanceSearch<>(
         inputOptions,
         new CombineResults(
-            paarsnpLibrary.getMechanisms(),
-            new ProcessMatches(paarsnpLibrary.getMechanisms())),
-        FilterByIndividualThresholds.build(paarsnpLibrary.getMechanisms()));
+            paarsnpLibrary.getSets().values(),
+            new ProcessMatches(paarsnpLibrary)),
+        FilterByIndividualThresholds.build(paarsnpLibrary));
 
     final SearchResult result = resistanceSearch.apply(inputFasta.toAbsolutePath().toString());
 

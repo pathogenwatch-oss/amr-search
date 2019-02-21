@@ -21,13 +21,12 @@ public class ResistanceSearch<T> implements Function<String, T> {
   private final BlastReader blastReader;
   private final Collector<BlastMatch, ?, T> interpreter;
   private final OverlapRemover<BlastMatch> matchOverlapRemover;
-  private final InputOptions searchOptions;
+  private final Collection<String> searchOptions;
   private final Predicate<BlastMatch> blastMatchFilter;
 
-  ResistanceSearch(final InputOptions searchOptions, final Collector<BlastMatch, ?, T> collector, final Predicate<BlastMatch> blastMatchFilter) {
+  ResistanceSearch(final Collection<String> searchOptions, final Collector<BlastMatch, ?, T> collector, final Predicate<BlastMatch> blastMatchFilter) {
     this.searchOptions = searchOptions;
     this.blastMatchFilter = blastMatchFilter;
-
     this.blastRunner = new BlastRunner();
     this.blastReader = new BlastReader();
     this.interpreter = collector;
@@ -37,9 +36,9 @@ public class ResistanceSearch<T> implements Function<String, T> {
   @Override
   public T apply(final String assemblyId) {
 
-    this.logger.debug("Preparing search request for {} with options:\n{}", assemblyId, this.searchOptions.getBlastOptions());
+    this.logger.debug("Preparing search request for {} with options:\n{}", assemblyId, this.searchOptions);
 
-    final List<String> options = new ArrayList<>(this.searchOptions.getBlastOptions());
+    final List<String> options = new ArrayList<>(this.searchOptions);
     options.add("-query");
     options.add(assemblyId);
 
@@ -51,19 +50,5 @@ public class ResistanceSearch<T> implements Function<String, T> {
         .stream()
         .peek(match -> this.logger.debug("After overlap removal: {}", match.getBlastSearchStatistics().toString()))
         .collect(this.interpreter);
-  }
-
-  static class InputOptions {
-
-    private final Collection<String> blastOptions;
-
-    InputOptions(final Collection<String> blastOptions) {
-      this.blastOptions = blastOptions;
-    }
-
-    Collection<String> getBlastOptions() {
-      return this.blastOptions;
-    }
-
   }
 }

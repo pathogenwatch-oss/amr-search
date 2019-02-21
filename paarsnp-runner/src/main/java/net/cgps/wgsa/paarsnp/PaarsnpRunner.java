@@ -2,38 +2,32 @@ package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
-import net.cgps.wgsa.paarsnp.core.models.Mechanisms;
+import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.models.results.SearchResult;
-import net.cgps.wgsa.paarsnp.core.models.Paar;
-import net.cgps.wgsa.paarsnp.core.snpar.ProcessMatches;
 import net.cgps.wgsa.paarsnp.core.snpar.CombineResults;
+import net.cgps.wgsa.paarsnp.core.snpar.ProcessMatches;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
   private final Logger logger = LoggerFactory.getLogger(PaarsnpRunner.class);
 
-  private final String speciesId;
-  private final Paar paarLibrary;
-  private final Mechanisms mechanismsLibrary;
-  private final Collection<AntimicrobialAgent> antimicrobialAgents;
+  private final PaarsnpLibrary paarsnpLibrary;
   private final String resourceDirectory;
 
-  PaarsnpRunner(final String speciesId, final Paar paarLibrary, final Mechanisms mechanismsLibrary, final Collection<AntimicrobialAgent> antimicrobialAgents, String resourceDirectory) {
-
-    this.speciesId = speciesId;
-    this.paarLibrary = paarLibrary;
-    this.mechanismsLibrary = mechanismsLibrary;
-    this.antimicrobialAgents = antimicrobialAgents;
+  PaarsnpRunner(final PaarsnpLibrary paarsnpLibrary, final String resourceDirectory) {
+    this.paarsnpLibrary = paarsnpLibrary;
     this.resourceDirectory = resourceDirectory;
   }
 
@@ -45,45 +39,28 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
     this.logger.debug("Beginning {}", assemblyId);
 
-//    final PaarResult paarResult;
-//    if (!this.paarLibrary.getSets().isEmpty()) {
-//      paarResult = new ResistanceSearch<>(
-//          new ResistanceSearch.InputOptions(
-//              this.buildBlastOptions(this.paarLibrary.getMinimumPid(), "1e-5", Constants.PAAR_APPEND)),
-//          new PaarCalculation(this.paarLibrary),
-//          FilterByIndividualThresholds.build(this.paarLibrary)).apply(assemblyFile.toAbsolutePath().toString()
-//      );
-//    } else {
-//      paarResult = PaarResult.buildEmpty();
-//    }
-
     final SearchResult searchResult;
-    if (!this.mechanismsLibrary.getSets().isEmpty()) {
+    if (!this.paarsnpLibrary.getSets().isEmpty()) {
       searchResult = new ResistanceSearch<>(
-          new ResistanceSearch.InputOptions(
-              this.buildBlastOptions(this.mechanismsLibrary.getMinimumPid(), "1e-20", Constants.SNPAR_APPEND)),
-          new CombineResults(this.mechanismsLibrary, new ProcessMatches(this.mechanismsLibrary)),
-          FilterByIndividualThresholds.build(this.mechanismsLibrary)).apply(assemblyFile.toAbsolutePath().toString());
+          this.buildBlastOptions(this.paarsnpLibrary.getMinimumPid()),
+          new CombineResults(this.paarsnpLibrary.getSets().values(), new ProcessMatches(this.paarsnpLibrary)),
+          FilterByIndividualThresholds.build(this.paarsnpLibrary)).apply(assemblyFile.toAbsolutePath().toString());
     } else {
       searchResult = SearchResult.buildEmpty();
     }
 
-    final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(assemblyId, searchResult, this.antimicrobialAgents.stream().map(AntimicrobialAgent::getKey).collect(Collectors.toList()));
+    final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(assemblyId, searchResult, this.paarsnpLibrary.getAntimicrobials().stream().map(AntimicrobialAgent::getKey).collect(Collectors.toList()));
 
-    final Map<String, AntimicrobialAgent> agentMap = this.antimicrobialAgents.stream().collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
+    final Map<String, AntimicrobialAgent> agentMap = this.paarsnpLibrary.getAntimicrobials().stream().collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
 
-    return new BuildPaarsnpResult(agentMap, Stream.concat(
-        this.paarLibrary.getSets().entrySet().stream(),
-        this.mechanismsLibrary.getSets().entrySet().stream())
-        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)))
-        .apply(paarsnpResultData);
+    return new BuildPaarsnpResult(agentMap, this.paarsnpLibrary.getSets()).apply(paarsnpResultData);
   }
 
-  private List<String> buildBlastOptions(final double minimumPid, final String evalue, final String libraryExtension) {
+  private List<String> buildBlastOptions(final double minimumPid) {
     return Arrays.asList(
-        "-db", Paths.get(this.resourceDirectory, this.speciesId + libraryExtension).toAbsolutePath().toString(),
+        "-db", Paths.get(this.resourceDirectory, this.paarsnpLibrary.getLabel() + Constants.LIBRARY_APPEND).toAbsolutePath().toString(),
         "-perc_identity", String.valueOf(minimumPid),
-        "-evalue", evalue
+        "-evalue", "1e-5"
     );
   }
 }

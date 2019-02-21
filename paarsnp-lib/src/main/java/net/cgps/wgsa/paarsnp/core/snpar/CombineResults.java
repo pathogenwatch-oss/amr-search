@@ -1,12 +1,10 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
-import net.cgps.wgsa.paarsnp.core.models.results.MatchJson;
+import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.models.*;
+import net.cgps.wgsa.paarsnp.core.models.results.MatchJson;
 import net.cgps.wgsa.paarsnp.core.models.results.SearchResult;
 import net.cgps.wgsa.paarsnp.core.models.results.SetResult;
-import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
-import net.cgps.wgsa.paarsnp.core.models.results.Modifier;
-import net.cgps.wgsa.paarsnp.core.models.Phenotype;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +20,11 @@ import java.util.stream.Collectors;
 public class CombineResults implements Collector<BlastMatch, List<ProcessedMatch>, SearchResult> {
 
   private final Logger logger = LoggerFactory.getLogger(CombineResults.class);
-  private final Mechanisms mechanismsLibrary;
+  private final Collection<ResistanceSet> resistanceSets;
   private final ProcessMatches processMatches;
 
-  public CombineResults(final Mechanisms mechanismsLibrary, ProcessMatches processMatches) {
-
-    this.mechanismsLibrary = mechanismsLibrary;
+  public CombineResults(final Collection<ResistanceSet> resistanceSets, ProcessMatches processMatches) {
+    this.resistanceSets = resistanceSets;
     this.processMatches = processMatches;
   }
 
@@ -56,50 +53,51 @@ public class CombineResults implements Collector<BlastMatch, List<ProcessedMatch
 
     return (selectedMatches) -> {
 
-      this.logger.debug("Found {} SNPAR resistance matches.", selectedMatches.size());
+      this.logger.debug("Found {} PAARSNP resistance matches.", selectedMatches.size());
 
-      // Need to now account for multi-gene snpar sets
+      // Group matches by library sequence ID for easy look up.
       final Map<String, List<ProcessedMatch>> matches = selectedMatches
           .stream()
           .collect(Collectors.groupingBy(match -> match.getSearchStatistics().getLibrarySequenceId()));
 
-      final Collection<SetResult> setResults = this.mechanismsLibrary.getSets().values()
+      final Collection<SetResult> setResults = this.resistanceSets
           .stream()
           .map(set -> new SetResult(
-              set.getMembers()
-                  .stream()
-                  .filter(member -> matches.keySet().contains(member.getGene()))
-                  .map(member -> {
-                    // Just return the gene name if it's presence-absence
-                    // Otherwise the list of variants
-                    if (member.getVariants().isEmpty()) {
-                      return Collections.singletonList(member.getGene());
-                    }
-                    // NB We should only consider SNPS from a single copy of a gene, so here we are going to select the
-                    // copy with the most coverage of the set
-                    return matches.get(member.getGene())
-                        .stream()
-                        .map(match -> match.getSnpResistanceElements()
-                            .stream()
-                            .filter(mutation -> member.getVariants().contains(mutation.getResistanceMutation().getName()))
-                            .map(ResistanceMutationMatch::getResistanceMutation)
-                            .map(Variant::getName)
-                            .map(snp -> member.getGene() + "_" + snp)
-                            .collect(Collectors.toList()))
-                        .max(Comparator.comparingInt(Collection::size))
-                        .orElse(Collections.emptyList());
-                  })
-                  .flatMap(Collection::stream)
-                  .collect(Collectors.toList()),
-              set.getPhenotypes()
-                  .stream()
-                  .map(Phenotype::getModifiers)
-                  .flatMap(Collection::stream)
-                  .filter(modifier -> matches.keySet().contains(modifier.getName()))
-                  .map(Modifier::getName)
-                  .collect(Collectors.toList()),
-              set
-          ))
+                  set.getMembers()
+                      .stream()
+                      .filter(member -> matches.keySet().contains(member.getGene()))
+                      .map(member -> {
+                        // Just return the gene name if it's presence-absence
+                        // Otherwise the list of variants
+                        if (member.getVariants().isEmpty()) {
+                          return member;
+                        }
+                        // NB We should only consider SNPS from a single copy of a gene, so here we are going to select the
+                        // copy with the most coverage of the set
+                        return new SetMember(
+                            member.getGene(),
+                            matches.get(member.getGene())
+                                .stream()
+                                .map(match -> match.getSnpResistanceElements()
+                                    .stream()
+                                    .filter(mutation -> member.getVariants().contains(mutation.getResistanceMutation().getName()))
+                                    .map(ResistanceMutationMatch::getResistanceMutation)
+                                    .map(Variant::getName)
+                                    .collect(Collectors.toList()))
+                                .max(Comparator.comparingInt(Collection::size))
+                                .orElse(Collections.emptyList()));
+                      })
+                      .collect(Collectors.toList()),
+                  set.getPhenotypes()
+                      .stream()
+                      .map(Phenotype::getModifiers)
+                      .flatMap(Collection::stream)
+                      .filter(modifier -> matches.keySet().contains(modifier.getName()))
+                      .map(modifier -> new SetMember(modifier.getName(), Collections.emptyList()))
+                      .collect(Collectors.toList()),
+                  set
+              )
+          )
           .collect(Collectors.toList());
 
       // Finally generate the result document.

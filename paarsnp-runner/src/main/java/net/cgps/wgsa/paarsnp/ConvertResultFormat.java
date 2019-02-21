@@ -55,10 +55,12 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
         .forEach(match -> elementIdToSetNames
             .get(match.getSearchStatistics().getLibrarySequenceId())
             .forEach(set -> {
+              final List<String> setAntimicrobials = set.getPhenotypes().stream().map(Phenotype::getProfile).flatMap(Collection::stream).collect(Collectors.toList());
+
               if (match.getSnpResistanceElements().isEmpty() && paarElementIds.contains(match.getSearchStatistics().getLibrarySequenceId())) {
-                matches.add(this.buildMatchFormat(set.getName(), match, "PAAR"));
+                matches.add(this.buildMatchFormat(set.getName(), setAntimicrobials, match, "PAAR"));
               } else if (!match.getSnpResistanceElements().isEmpty()) {
-                matches.add(this.buildMatchFormat(set.getName(), match, "SNPAR"));
+                matches.add(this.buildMatchFormat(set.getName(), null, match, "SNPAR"));
                 variants.addAll(match
                     .getSnpResistanceElements()
                     .stream()
@@ -66,7 +68,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
                         .getCausalMutations()
                         .stream()
                         .map(causalVariant -> new PathogenWatchFormat.VariantJson(
-                            set.getPhenotypes().stream().map(Phenotype::getProfile).flatMap(Collection::stream).collect(Collectors.toList()),
+                            setAntimicrobials,
                             match.getSearchStatistics().getQuerySequenceId(),
                             match.getSearchStatistics().isReversed(),
                             causalVariant.getQueryLocation(),
@@ -100,7 +102,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
         variants);
   }
 
-  public PathogenWatchFormat.CdsJson buildMatchFormat(final String setName, final MatchJson match, final String sourceString) {
+  public PathogenWatchFormat.CdsJson buildMatchFormat(final String setName, final List<String> setAntimicrobials, final MatchJson match, final String sourceString) {
     return new PathogenWatchFormat.CdsJson(
         setName,
         sourceString,
@@ -118,7 +120,8 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
             match.getSearchStatistics().getQuerySequenceStop(),
             match.getSearchStatistics().getQuerySequenceLength(),
             match.getSearchStatistics().getQuerySequenceId()
-        )
+        ),
+        setAntimicrobials
     );
   }
 

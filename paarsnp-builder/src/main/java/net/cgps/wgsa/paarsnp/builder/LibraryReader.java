@@ -1,12 +1,8 @@
 package net.cgps.wgsa.paarsnp.builder;
 
 import com.moandjiezana.toml.Toml;
-import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
-import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
-import net.cgps.wgsa.paarsnp.core.models.SetMember;
+import net.cgps.wgsa.paarsnp.core.models.*;
 import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
-import net.cgps.wgsa.paarsnp.core.models.Phenotype;
-import net.cgps.wgsa.paarsnp.core.models.ResistanceSet;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -20,26 +16,28 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibraryAndSequences> {
+public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAndSequences> {
 
   @Override
-  public PaarsnpLibraryAndSequences apply(final Path path) {
+  public LibraryDataAndSequences apply(final Path path) {
 
     final Toml toml = new Toml().read(path.toFile());
 
     final String label = toml.getString("label");
 
     // And down the recursive rabbit hole we go ...
-    final PaarsnpLibraryAndSequences baseLibrary = this.readParents(label, toml.getList("extends", new ArrayList<>()), path.getParent());
+    final LibraryDataAndSequences parentInfo = this.readParents(label, toml.getList("extends", new ArrayList<>()), path.getParent());
+
+    final PaarsnpLibrary baseLibrary = parentInfo.getPaarsnpLibrary();
+    final Map<String, String> parentSequences = parentInfo.getSequences();
 
     // Read the antibiotics
-    final List<AntimicrobialAgent> antimicrobials = Optional.ofNullable(toml.getTables("antimicrobials"))
-        .orElse(Collections.emptyList())
-        .stream()
-        .map(LibraryReader.parseAntimicrobialAgent())
-        .collect(Collectors.toList());
-
-    baseLibrary.addAntibiotics(antimicrobials);
+    baseLibrary.addAntimicrobials(
+        Optional.ofNullable(toml.getTables("antimicrobials"))
+            .orElse(Collections.emptyList())
+            .stream()
+            .map(LibraryReader.parseAntimicrobialAgent())
+            .collect(Collectors.toUnmodifiableList()));
 
     // Read in the new set of genes
     final Map<String, Pair<String, ReferenceSequence>> newGenes = Optional.ofNullable(toml.getTables("genes"))
@@ -51,45 +49,47 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
         .map(geneInfo -> new ImmutablePair<>(geneInfo.getRight().getName(), geneInfo))
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-    // Construct the paar library
-    baseLibrary.getPaarsnpLibrary().getPaar().addRecords(
-        Optional.ofNullable(toml.getTables("paar"))
-            .orElse(Collections.emptyList())
-            .stream()
-            .map(LibraryReader.parsePaarSet())
-            .collect(Collectors.toMap(ResistanceSet::getName, Function.identity())));
+//    // Construct the paar library
+//    baseLibrary.getPaarsnpLibrary().getPaar().addRecords(
+//        Optional.ofNullable(toml.getTables("paar"))
+//            .orElse(Collections.emptyList())
+//            .stream()
+//            .map(LibraryReader.parsePaarSet())
+//            .collect(Collectors.toMap(ResistanceSet::getName, Function.identity())));
 
     // Add the new paar genes
-    baseLibrary.getPaarsnpLibrary().getPaar().addResistanceGenes(
-        baseLibrary.getPaarsnpLibrary().getPaar().getSets().values()
-            .stream()
-            .map(ResistanceSet::getMembers)
-            .flatMap(Collection::stream)
-            .map(SetMember::getGene)
-            .map(newGenes::get)
-            .map(Optional::ofNullable)
-            .filter(Optional::isPresent)
-            .map(Optional::get)
-            .filter(nameToSeq -> !baseLibrary.getPaarSequences().containsKey(nameToSeq.getKey()))
-            .map(Map.Entry::getValue)
-            .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
+//    baseLibrary.getPaarsnpLibrary().getPaar().addResistanceGenes(
+//        baseLibrary.getPaarsnpLibrary().getPaar().getSets().values()
+//            .stream()
+//            .map(ResistanceSet::getMembers)
+//            .flatMap(Collection::stream)
+//            .map(SetMember::getGene)
+//            .map(newGenes::get)
+//            .map(Optional::ofNullable)
+//            .filter(Optional::isPresent)
+//            .map(Optional::get)
+//            .filter(nameToSeq -> !baseLibrary.getPaarSequences().containsKey(nameToSeq.getKey()))
+//            .map(Map.Entry::getValue)
+//            .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
 
     // Store the sequences for the FASTA
-    baseLibrary.getPaarsnpLibrary().getPaar().getGenes().keySet()
-        .stream()
-        .filter(geneId -> !baseLibrary.getPaarSequences().containsKey(geneId))
-        .forEach(key -> baseLibrary.getPaarSequences().put(key, newGenes.get(key).getKey()));
+//    baseLibrary.getPaarsnpLibrary().getPaar().getGenes().keySet()
+//        .stream()
+//        .filter(geneId -> !baseLibrary.getPaarSequences().containsKey(geneId))
+//        .forEach(key -> baseLibrary.getPaarSequences().put(key, newGenes.get(key).getKey()));
 
     // Construct SNPAR
-    baseLibrary.getPaarsnpLibrary().getMechanisms().addRecords(
-        Optional.ofNullable(toml.getTables("snpar"))
+    baseLibrary.addRecords(
+        Optional.ofNullable(toml.getTables("mechanisms"))
             .orElse(Collections.emptyList())
             .stream()
-            .map(LibraryReader.parseSnparSet())
+            .map(LibraryReader.parseMechanisms())
             .collect(Collectors.toMap(ResistanceSet::getName, Function.identity()))
     );
 
-    final Map<String, Collection<String>> sequenceIdToVariants = baseLibrary.getPaarsnpLibrary().getMechanisms().getSets()
+    // Map the new variants to their sequence ID.
+    final Map<String, Collection<String>> sequenceIdToVariants = baseLibrary
+        .getSets()
         .values()
         .stream()
         .map(ResistanceSet::getMembers)
@@ -103,44 +103,51 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
 
     // Add the genes
     // Need to update all the SNPs
-    baseLibrary.getPaarsnpLibrary().getMechanisms().addResistanceGenes(
-        baseLibrary.getPaarsnpLibrary().getMechanisms().getSets().values()
+    baseLibrary.addResistanceGenes(
+        baseLibrary.getSets()
+            .values()
             .stream()
             .map(ResistanceSet::getMembers)
             .flatMap(Collection::stream)
             .map(SetMember::getGene)
-            .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : baseLibrary.getPaarsnpLibrary().getMechanisms().getGenes().get(gene))
+            .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : baseLibrary.getGenes().get(gene))
             .peek(snparReferenceSequence -> snparReferenceSequence.addVariants(sequenceIdToVariants.get(snparReferenceSequence.getName())))
             .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
 
     // Store the sequences for the FASTA
-    baseLibrary.getPaarsnpLibrary().getMechanisms().getGenes().keySet()
+    baseLibrary.getGenes().keySet()
         .stream()
-        .filter(geneId -> !baseLibrary.getSnparSequences().containsKey(geneId))
-        .forEach(key -> baseLibrary.getSnparSequences().put(key, newGenes.get(key).getKey()));
+        .filter(geneId -> !parentSequences.containsKey(geneId))
+        .forEach(key -> parentSequences.put(key, newGenes.get(key).getKey()));
 
-    return baseLibrary;
+    parentSequences.putAll(newGenes
+        .keySet()
+        .stream()
+        .filter(geneId -> !parentSequences.containsKey(geneId))
+        .collect(Collectors.toMap(Function.identity(), geneId -> newGenes.get(geneId).getKey())));
+    return new LibraryDataAndSequences(parentSequences, baseLibrary);
   }
 
-  private PaarsnpLibraryAndSequences readParents(final String label, final List<String> parentLibrary, final Path libraryDirectory) {
+  private LibraryDataAndSequences readParents(final String label, final List<String> parentLibrary, final Path libraryDirectory) {
 
-    return parentLibrary.stream()
+    return parentLibrary
+        .stream()
         .map(libName -> Paths.get(libraryDirectory.toString(), libName + ".toml"))
         .map(libPath -> new LibraryReader().apply(libPath))
-        .collect(new Collector<PaarsnpLibraryAndSequences, PaarsnpLibraryAndSequences, PaarsnpLibraryAndSequences>() {
+        .collect(new Collector<LibraryDataAndSequences, LibraryDataAndSequences, LibraryDataAndSequences>() {
 
           @Override
-          public Supplier<PaarsnpLibraryAndSequences> supplier() {
-            return () -> new PaarsnpLibraryAndSequences(label);
+          public Supplier<LibraryDataAndSequences> supplier() {
+            return () -> new LibraryDataAndSequences(new HashMap<>(500), new PaarsnpLibrary(label));
           }
 
           @Override
-          public BiConsumer<PaarsnpLibraryAndSequences, PaarsnpLibraryAndSequences> accumulator() {
-            return PaarsnpLibraryAndSequences::merge;
+          public BiConsumer<LibraryDataAndSequences, LibraryDataAndSequences> accumulator() {
+            return LibraryDataAndSequences::merge;
           }
 
           @Override
-          public BinaryOperator<PaarsnpLibraryAndSequences> combiner() {
+          public BinaryOperator<LibraryDataAndSequences> combiner() {
             // only called on parallel stream, so should try to preserve order.
             return (a, b) -> {
               if (label.equals(a.getPaarsnpLibrary().getLabel()) || (parentLibrary.indexOf(a.getPaarsnpLibrary().getLabel()) < parentLibrary.indexOf(b.getPaarsnpLibrary().getLabel()))) {
@@ -152,7 +159,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
           }
 
           @Override
-          public Function<PaarsnpLibraryAndSequences, PaarsnpLibraryAndSequences> finisher() {
+          public Function<LibraryDataAndSequences, LibraryDataAndSequences> finisher() {
             return Function.identity();
           }
 
@@ -163,7 +170,7 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
         });
   }
 
-  public static Function<Toml, ResistanceSet> parseSnparSet() {
+  public static Function<Toml, ResistanceSet> parseMechanisms() {
     return toml -> {
       final List<Phenotype> phenotypes = toml.getTables("phenotypes")
           .stream()
@@ -175,31 +182,31 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
           phenotypes,
           toml.getTables("members")
               .stream()
-              .map(LibraryReader.parseSnparMember())
+              .map(LibraryReader.parseMember())
               .collect(Collectors.toList()));
     };
   }
 
-  public static Function<Toml, SetMember> parseSnparMember() {
+  public static Function<Toml, SetMember> parseMember() {
     return toml -> toml.to(SetMember.class);
   }
 
-  public static Function<Toml, ResistanceSet> parsePaarSet() {
-    return toml -> {
-      final List<Phenotype> phenotypes = toml.getTables("phenotypes")
-          .stream()
-          .map(LibraryReader.parsePhenotype())
-          .collect(Collectors.toList());
-
-      return ResistanceSet.build(
-          Optional.ofNullable(toml.getString("name")),
-          phenotypes,
-          toml.<String>getList("members")
-              .stream()
-              .map(parsePaarMember())
-              .collect(Collectors.toList()));
-    };
-  }
+//  public static Function<Toml, ResistanceSet> parsePaarSet() {
+//    return toml -> {
+//      final List<Phenotype> phenotypes = toml.getTables("phenotypes")
+//          .stream()
+//          .map(LibraryReader.parsePhenotype())
+//          .collect(Collectors.toList());
+//
+//      return ResistanceSet.build(
+//          Optional.ofNullable(toml.getString("name")),
+//          phenotypes,
+//          toml.<String>getList("members")
+//              .stream()
+//              .map(parsePaarMember())
+//              .collect(Collectors.toList()));
+//    };
+//  }
 
   public static Function<Toml, Phenotype> parsePhenotype() {
     return toml -> toml.to(Phenotype.class);
@@ -209,9 +216,9 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
     return toml -> toml.to(AntimicrobialAgent.class);
   }
 
-  public static Function<String, SetMember> parsePaarMember() {
-    return memberName -> new SetMember(memberName, Collections.emptyList());
-  }
+//  public static Function<String, SetMember> parsePaarMember() {
+//    return memberName -> new SetMember(memberName, Collections.emptyList());
+//  }
 
   public static Function<Toml, ReferenceSequence> parseGene() {
     return toml -> new ReferenceSequence(
@@ -222,47 +229,27 @@ public class LibraryReader implements Function<Path, LibraryReader.PaarsnpLibrar
     );
   }
 
-  public static class PaarsnpLibraryAndSequences {
+  public static class LibraryDataAndSequences {
     private final Map<String, String> sequences;
     private final PaarsnpLibrary paarsnpLibrary;
 
-    public PaarsnpLibraryAndSequences(final String label) {
-      this(new HashMap<>(), new PaarsnpLibrary(label));
-    }
-
-    public PaarsnpLibraryAndSequences(final Map<String, String> sequences, final PaarsnpLibrary paarsnpLibrary) {
+    public LibraryDataAndSequences(final Map<String, String> sequences, final PaarsnpLibrary paarsnpLibrary) {
       this.sequences = sequences;
       this.paarsnpLibrary = paarsnpLibrary;
     }
 
-    public Map<String, String> getSequences() {
-      return this.sequences;
+    public LibraryDataAndSequences merge(final LibraryDataAndSequences that) {
+      this.sequences.putAll(that.sequences);
+      this.paarsnpLibrary.merge(that.paarsnpLibrary);
+      return this;
     }
 
     public PaarsnpLibrary getPaarsnpLibrary() {
       return this.paarsnpLibrary;
     }
 
-    public PaarsnpLibraryAndSequences merge(final PaarsnpLibraryAndSequences that) {
-
-      this.addAntibiotics(that.paarsnpLibrary.getAntimicrobials());
-
-      this.sequences.putAll(that.sequences);
-
-      this.paarsnpLibrary.getMechanisms().addResistanceGenes(that.paarsnpLibrary.getMechanisms().getGenes());
-
-      this.paarsnpLibrary.getMechanisms().addRecords(that.paarsnpLibrary.getMechanisms().getSets());
-
-      return this;
-    }
-
-    public void addAntibiotics(final Collection<AntimicrobialAgent> antimicrobials) {
-      // Only add new antibiotics
-      this.getPaarsnpLibrary().getAntimicrobials().addAll(
-          antimicrobials
-              .stream()
-              .filter(antimicrobialAgent -> !this.getPaarsnpLibrary().getAntimicrobials().contains(antimicrobialAgent))
-              .collect(Collectors.toList()));
+    public Map<String, String> getSequences() {
+      return this.sequences;
     }
   }
 }

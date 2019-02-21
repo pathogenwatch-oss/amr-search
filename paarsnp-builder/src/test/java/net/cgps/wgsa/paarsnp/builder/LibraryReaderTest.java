@@ -62,32 +62,31 @@ public class LibraryReaderTest {
 
   @Test
   public void parsePaarSet() {
-    final Toml toml = new Toml().read("[[paar.sets]]\n" +
+    final Toml toml = new Toml().read("[[mechanisms]]\n" +
         "name = \"tetM_8\"\n" +
         "phenotypes = [{effect = \"RESISTANT\", profile = [\"TCY\"], modifiers = []}]\n" +
         "members = [\"tetM_8_X04388\"]\n")
-        .getTables("paar.sets")
+        .getTables("mechanisms")
         .get(0);
     final ResistanceSet resistanceSet = ResistanceSet.build(Optional.of("tetM_8"), Collections.singletonList(new Phenotype(PhenotypeEffect.RESISTANT, Collections.singletonList("TCY"), Collections.emptyList())), Collections.singletonList(new SetMember("tetM_8_X04388", Collections.emptyList())));
-    Assert.assertEquals(resistanceSet, LibraryReader.parsePaarSet().apply(toml));
+    Assert.assertEquals(resistanceSet, LibraryReader.parseMechanisms().apply(toml));
   }
 
   @Test
   public void parsePaarMember() {
 
     final List<SetMember> members = Collections.singletonList(new SetMember("tetM_8_X04388", Collections.emptyList()));
-    final List<String> membersTest = new Toml()
+    final Toml membersTest = new Toml()
         .read("members = [\"tetM_8_X04388\"]\n")
-        .getList("members");
+        .getTables("members").get(0);
 
-    Assert.assertEquals(members, Collections.singletonList(LibraryReader.parsePaarMember().apply(membersTest.get(0))));
+    Assert.assertEquals(members, Collections.singletonList(LibraryReader.parseMember().apply(membersTest)));
   }
 
   @Test
   public void parseSnparSet() {
 
     Assert.assertEquals(
-
         ResistanceSet.build(
             Optional.of("penA_I312M_G545S_V316T"),
             Arrays.asList(
@@ -96,7 +95,7 @@ public class LibraryReaderTest {
             Collections.singletonList(new SetMember("penA", Arrays.asList("G545S", "I312M", "V316T")))
         ),
 
-        LibraryReader.parseSnparSet().apply(new Toml()
+        LibraryReader.parseMechanisms().apply(new Toml()
             .read("[[snpar.sets]]\n" +
                 "name = \"penA_I312M_G545S_V316T\"\n" +
                 "phenotypes = [{effect = \"INTERMEDIATE\", profile = [\"CRO\",\"PEN\"], modifiers = []},\n" +
@@ -113,7 +112,7 @@ public class LibraryReaderTest {
 
     Assert.assertEquals(
         Collections.singletonList(new SetMember("penA", Arrays.asList("G545S", "I312M", "V316T"))),
-        Collections.singletonList(LibraryReader.parseSnparMember()
+        Collections.singletonList(LibraryReader.parseMember()
             .apply(new Toml()
                 .read("members = [{gene=\"penA\", variants=[\"G545S\",\"I312M\",\"V316T\"]}]\n")
                 .getTables("members")

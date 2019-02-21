@@ -1,10 +1,12 @@
 package net.cgps.wgsa.paarsnp;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.models.results.OldStyleAntibioticProfile;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class PathogenWatchFormat extends AbstractJsonnable implements Result {
 
@@ -57,6 +59,7 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
     return this.variantMatches;
   }
 
+  @JsonInclude(JsonInclude.Include.NON_NULL)
   public static class CdsJson extends AbstractJsonnable {
     private final String id;
     private final String source;
@@ -66,12 +69,13 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
     private final double percentIdentity;
     private final CdsLocation library;
     private final CdsLocation query;
+    private final Collection<String> setAntimicrobials;
 
     private CdsJson() {
-      this("", "", false, 0.0, 0.0, null, null);
+      this("", "", false, 0.0, 0.0, null, null, Collections.emptyList());
     }
 
-    public CdsJson(final String id, final String source, final boolean reversed, final double evalue, final double percentIdentity, final CdsLocation library, final CdsLocation query) {
+    public CdsJson(final String id, final String source, final boolean reversed, final double evalue, final double percentIdentity, final CdsLocation library, final CdsLocation query, final List<String> setAntimicrobials) {
       super();
       this.id = id;
       this.source = source;
@@ -80,6 +84,7 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
       this.percentIdentity = percentIdentity;
       this.library = library;
       this.query = query;
+      this.setAntimicrobials = setAntimicrobials;
     }
 
     public String getSource() {
@@ -99,23 +104,27 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
     }
 
     public String getId() {
-      return id;
+      return this.id;
     }
 
     public CdsLocation getQuery() {
-      return query;
+      return this.query;
     }
 
     public CdsLocation getLibrary() {
-      return library;
+      return this.library;
     }
 
     public double getPercentIdentity() {
-      return percentIdentity;
+      return this.percentIdentity;
+    }
+
+    public Collection<String> getSetAntimicrobials() {
+      return this.setAntimicrobials;
     }
   }
 
-  public static class CdsLocation {
+  public static class CdsLocation extends AbstractJsonnable {
     private final int start;
     private final int stop;
     private final int length;
@@ -149,7 +158,7 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
     }
   }
 
-  public static class VariantJson {
+  public static class VariantJson extends AbstractJsonnable {
     private final Collection<String> agents;
     private final String id;
     private final String source = "WGSA_SNPAR";

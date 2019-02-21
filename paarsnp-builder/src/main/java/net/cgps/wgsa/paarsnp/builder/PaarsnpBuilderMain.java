@@ -95,12 +95,10 @@ public class PaarsnpBuilderMain {
         // First write the paarsnp fasta.
         final MakeBlastDB makeBlastDB = new MakeBlastDB(outputFolderPath);
 
-        final LibraryReader.PaarsnpLibraryAndSequences paarsnpLibraryAndSequences = new LibraryReader().apply(tomlPath);
+        final LibraryReader.LibraryDataAndSequences paarsnpLibraryAndSequences = new LibraryReader().apply(tomlPath);
 
         final Path libraryFile = Paths.get(outputDirectory, speciesId + Constants.JSON_APPEND);
-        final String paarLibraryName = speciesId + Constants.PAAR_APPEND;
-        final String snparLibraryName = speciesId + Constants.SNPAR_APPEND;
-        final Path paarFastaFile = Paths.get(outputDirectory, paarLibraryName + Constants.FASTA_APPEND);
+        final String snparLibraryName = speciesId + Constants.LIBRARY_APPEND;
         final Path snparFastaFile = Paths.get(outputDirectory, snparLibraryName + Constants.FASTA_APPEND);
 
         try (final BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(libraryFile.toFile()))) {
@@ -111,13 +109,8 @@ public class PaarsnpBuilderMain {
 
         try {
 
-          if (!paarsnpLibraryAndSequences.getPaarSequences().isEmpty()) {
-            Files.write(paarFastaFile, String.join("", paarsnpLibraryAndSequences.getPaarSequences().values()).getBytes(), StandardOpenOption.CREATE);
-            makeBlastDB.accept(paarLibraryName, paarFastaFile);
-          }
-
-          if (!paarsnpLibraryAndSequences.getSnparSequences().isEmpty()) {
-            Files.write(snparFastaFile, String.join("", paarsnpLibraryAndSequences.getSnparSequences().values()).getBytes(), StandardOpenOption.CREATE);
+          if (!paarsnpLibraryAndSequences.getSequences().isEmpty()) {
+            Files.write(snparFastaFile, String.join("", paarsnpLibraryAndSequences.getSequences().values()).getBytes(), StandardOpenOption.CREATE);
             makeBlastDB.accept(snparLibraryName, snparFastaFile);
           }
 

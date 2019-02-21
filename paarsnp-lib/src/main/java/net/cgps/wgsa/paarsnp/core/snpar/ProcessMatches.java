@@ -4,10 +4,7 @@ import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.lib.blast.MutationBuilder;
 import net.cgps.wgsa.paarsnp.core.lib.blast.SequenceProcessor;
-import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
-import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
-import net.cgps.wgsa.paarsnp.core.models.Mechanisms;
-import net.cgps.wgsa.paarsnp.core.models.ProcessedMatch;
+import net.cgps.wgsa.paarsnp.core.models.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,9 +18,9 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
 
   private final Logger logger = LoggerFactory.getLogger(ProcessMatches.class);
 
-  private final Mechanisms mechanismsLibrary;
+  private final PaarsnpLibrary mechanismsLibrary;
 
-  public ProcessMatches(final Mechanisms mechanismsLibrary) {
+  public ProcessMatches(final PaarsnpLibrary mechanismsLibrary) {
 
     this.mechanismsLibrary = mechanismsLibrary;
   }

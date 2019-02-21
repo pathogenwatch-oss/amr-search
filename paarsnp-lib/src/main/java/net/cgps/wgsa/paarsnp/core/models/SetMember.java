@@ -1,5 +1,7 @@
 package net.cgps.wgsa.paarsnp.core.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -7,6 +9,7 @@ import java.util.Objects;
 public class SetMember {
 
   private final String gene;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   private final List<String> variants;
 
   @SuppressWarnings("unused")
