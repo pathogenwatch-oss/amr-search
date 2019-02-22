@@ -208,7 +208,7 @@ mechanisms = [
 {phenotypes = [{effect = "INTERMEDIATE", profile = ["PZA"]}], members = [{gene="pncA", variants=["V180I"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}], members = [{gene="pncA", variants=["truncated"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["PZA"]}], members = [{gene="pncA", variants=["frameshift"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["AMI, KAN", "CAP"]}], members = [{gene="rrs", variants=["a1401g"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["AMI", "KAN", "CAP"]}], members = [{gene="rrs", variants=["a1401g"]}]},
 {phenotypes = [{effect = "INTERMEDIATE", profile = ["AMI", "KAN", "CAP"]}], members = [{gene="rrs", variants=["c1402t"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["AMI", "KAN", "CAP"]}], members = [{gene="rrs", variants=["g1484t"]}]},
 {phenotypes = [{effect = "INTERMEDIATE", profile = ["AMI"]}, {effect = "RESISTANT", profile = ["KAN"]}], members = [{gene="eis_promoter", variants=["c-14t"]}]},

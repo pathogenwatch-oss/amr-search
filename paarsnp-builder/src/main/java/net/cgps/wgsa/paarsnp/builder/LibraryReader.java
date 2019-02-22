@@ -5,6 +5,8 @@ import net.cgps.wgsa.paarsnp.core.models.*;
 import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,6 +19,8 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAndSequences> {
+
+  private static final Logger logger = LoggerFactory.getLogger(LibraryReader.class);
 
   @Override
   public LibraryDataAndSequences apply(final Path path) {
@@ -109,6 +113,7 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
             .stream()
             .map(ResistanceSet::getMembers)
             .flatMap(Collection::stream)
+            .filter(setMember -> !setMember.getVariants().isEmpty())
             .map(SetMember::getGene)
             .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : baseLibrary.getGenes().get(gene))
             .peek(snparReferenceSequence -> snparReferenceSequence.addVariants(sequenceIdToVariants.get(snparReferenceSequence.getName())))
@@ -171,19 +176,31 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
   }
 
   public static Function<Toml, ResistanceSet> parseMechanisms() {
-    return toml -> {
-      final List<Phenotype> phenotypes = toml.getTables("phenotypes")
-          .stream()
-          .map(LibraryReader.parsePhenotype())
-          .collect(Collectors.toList());
+    return toml -> ResistanceSet.build(
+        Optional.ofNullable(toml.getString("name")),
+        toml.getTables("phenotypes")
+            .stream()
+            .map(LibraryReader.parsePhenotype())
+            .collect(Collectors.toList()),
+        parseMembers().apply(toml)
+    );
+  }
 
-      return ResistanceSet.build(
-          Optional.ofNullable(toml.getString("name")),
-          phenotypes,
-          toml.getTables("members")
-              .stream()
-              .map(LibraryReader.parseMember())
-              .collect(Collectors.toList()));
+  public static Function<Toml, List<SetMember>> parseMembers() {
+    return (toml) -> {
+      try {
+        final List<String> members = toml.getList("members", new ArrayList<>());
+        return members
+            .stream()
+            .peek(member -> logger.trace("{}", member))
+            .map(member -> new SetMember(member, Collections.emptyList()))
+            .collect(Collectors.toList());
+      } catch (final ClassCastException e) {
+        return toml.getTables("members")
+            .stream()
+            .map(LibraryReader.parseMember())
+            .collect(Collectors.toList());
+      }
     };
   }
 

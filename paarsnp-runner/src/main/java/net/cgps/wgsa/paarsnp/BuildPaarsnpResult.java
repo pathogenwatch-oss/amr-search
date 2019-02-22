@@ -47,7 +47,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
           setResult.getSet().getPhenotypes()
               .forEach(phenotype -> this.determineResistanceState(
                   phenotype,
-                  phenotype.getModifiers().stream().filter(modifier -> setResult.getFoundModifiers().contains(modifier.getName())).collect(Collectors.toList()),
+                  phenotype.getModifiers().stream().filter(modifier -> setResult.modifierIsPresent(modifier.getName())).collect(Collectors.toList()),
                   complete)
                   .filter(state -> state.getValue() != ResistanceState.NOT_FOUND)
                   .forEach(agentState -> {

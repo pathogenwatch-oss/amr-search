@@ -32,6 +32,12 @@ public class SetResult extends AbstractJsonnable {
     return this.foundModifiers;
   }
 
+  public boolean modifierIsPresent(final String name) {
+    return this.foundMembers
+        .stream()
+        .anyMatch(setMember -> setMember.getGene().equals(name));
+  }
+
   public ResistanceSet getSet() {
     return this.set;
   }

@@ -24,15 +24,14 @@ public class ResistanceSearchTest {
   @Test
   public void apply() {
 
-
     final File paarsnpLibraryFile = Paths.get("../build/databases", "90370.jsn").toFile();
 
-    this.logger.info("Using snpar DB {}", paarsnpLibraryFile.getPath());
+    this.logger.info("Using paarsnp DB {}", paarsnpLibraryFile.getPath());
 
     final PaarsnpLibrary paarsnpLibrary = AbstractJsonnable.fromJsonFile(paarsnpLibraryFile, PaarsnpLibrary.class);
 
     final List<String> inputOptions = Arrays.asList(
-        "-db", paarsnpLibraryFile.getPath().replace(".jsn", "_snpar"),
+        "-db", paarsnpLibraryFile.getPath().replace(".jsn", "_paarsnp"),
         "-perc_identity", String.valueOf(paarsnpLibrary.getMinimumPid()),
         "-evalue", "1e-5"
     );

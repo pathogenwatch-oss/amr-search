@@ -75,12 +75,18 @@ public class LibraryReaderTest {
   @Test
   public void parsePaarMember() {
 
-    final List<SetMember> members = Collections.singletonList(new SetMember("tetM_8_X04388", Collections.emptyList()));
-    final Toml membersTest = new Toml()
-        .read("members = [\"tetM_8_X04388\"]\n")
-        .getTables("members").get(0);
+    final Toml toml = new Toml().read("[[mechanisms]]\n" +
+        "name = \"tetM_8\"\n" +
+        "phenotypes = [{effect = \"RESISTANT\", profile = [\"TCY\"], modifiers = []}]\n" +
+        "members = [\"tetM_8_X04388\"]\n")
+        .getTables("mechanisms")
+        .get(0);
 
-    Assert.assertEquals(members, Collections.singletonList(LibraryReader.parseMember().apply(membersTest)));
+    final List<SetMember> members = Collections.singletonList(new SetMember("tetM_8_X04388", Collections.emptyList()));
+
+    final List<SetMember> parsed = LibraryReader.parseMembers().apply(toml);
+
+    Assert.assertEquals(members, parsed);
   }
 
   @Test
