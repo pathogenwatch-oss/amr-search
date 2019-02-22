@@ -3,7 +3,6 @@
 
 PAARSNP provides antimicrobial resistance predictions for a curated set of medically important pathogens from assembled genome sequences (FASTA files). Resistance predictions are based on the presence of both resistance genes (PAAR) and mutations (SNPAR). Paarsnp predictions allow for more than one SNP or gene to be required to confer resistance, as well as suppressors. Resistance can also be classed as "Intermediate" or "Full".
 
-PAARSNP also provides an interface for creating [ResFinder](https://cge.cbs.dtu.dk/services/ResFinder/) assignments. A threshold of 95% sequence identity is used to identify matches. To run PAARSNP in ResFinder mode use the species code "resfinder", i.e. use the species option `-s resfinder`.
 
 _Install & run with Docker:_
 
@@ -39,6 +38,7 @@ _Install & run with Docker:_
 | Klebisiella | 570 |
 | Escherichia | 561 |
 | Mycobacterium tuberculosis | 1773 |
+| Candida auris | 498019 |
 
 ## Getting Started
 
@@ -133,6 +133,10 @@ NB If you used the recommended docker build process, substitute `paarsnp` for `r
 To run paarsnp on all FASTA files in the local directory, with an output file for each one:
 
 `docker run --rm -v $PWD:/data paarsnp -i . -s 90370`
+
+To provide multiple taxonomic levels (e.g. genus & species) use `-s` for each. Paarsnp will choose the most precise level it has a library for:
+
+`docker run --rm -v $PWD:/data paarsnp -i . -s 570 -s 573`
 
 If the FASTA folder is in a different directory you can mount it to docker as below.
 
