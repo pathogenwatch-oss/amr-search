@@ -17,8 +17,8 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
   @Override
   public PathogenWatchFormat apply(final PaarsnpResult paarsnpResult) {
 
-    final Collection<String> paarElementIds = new ArrayList<>(50);
-    final Collection<String> snparElementIds = new ArrayList<>(100);
+    final Collection<String> paarElementIds = new HashSet<>(50);
+    final Collection<String> snparElementIds = new HashSet<>(100);
 
     paarsnpResult.getSearchResult()
         .getSetResults()

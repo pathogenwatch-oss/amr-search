@@ -33,7 +33,7 @@ public class SetResult extends AbstractJsonnable {
   }
 
   public boolean modifierIsPresent(final String name) {
-    return this.foundMembers
+    return this.foundModifiers
         .stream()
         .anyMatch(setMember -> setMember.getGene().equals(name));
   }
