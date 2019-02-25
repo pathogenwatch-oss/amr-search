@@ -75,24 +75,22 @@ public class PaarsnpRunnerTest {
 //    );
 //    this.logger.info("Passed 1773 aa variant causal mutation check.");
 
-    Assert.assertEquals(
-        new PathogenWatchFormat.VariantJson(
-            Collections.singleton("KAN"),
-            "foo",
-            false,
-            0,
-            21,
-            "g-10a",
-            1
-        ),
-        snparResult
-            .getVariantMatches()
-            .stream()
-            .filter(mutation -> "g-10a".equals(mutation.getName()))
-            .filter(mutation -> 21 == mutation.getReferenceLocation())
-            .findFirst()
-            .orElseThrow(() -> new RuntimeException("Failed to find causal mutation"))
-    );
+    final PathogenWatchFormat.VariantJson promoterVariant = snparResult
+        .getVariantMatches()
+        .stream()
+        .filter(mutation -> "g-10a".equals(mutation.getName()))
+        .filter(mutation -> 21 == mutation.getReferenceLocation())
+        .findFirst()
+        .orElseThrow(() -> new RuntimeException("Failed to find causal mutation"));
+    Assert.assertEquals(new PathogenWatchFormat.VariantJson(
+        Collections.singleton("KAN"),
+        "eis_promoter",
+        false,
+        21,
+        21,
+        "g-10a",
+        1
+    ), promoterVariant);
 
     this.logger.info("Passed 1773 promoter variant causal mutation check.");
 

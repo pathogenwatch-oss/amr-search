@@ -3,6 +3,7 @@ package net.cgps.wgsa.paarsnp.builder;
 import com.moandjiezana.toml.Toml;
 import net.cgps.wgsa.paarsnp.core.models.*;
 import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
+import net.cgps.wgsa.paarsnp.core.models.results.Modifier;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
@@ -106,24 +107,40 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
         }));
 
     // Add the genes
-    // Need to update all the SNPs
     baseLibrary.addResistanceGenes(
         baseLibrary.getSets()
             .values()
             .stream()
             .map(ResistanceSet::getMembers)
             .flatMap(Collection::stream)
-            .filter(setMember -> !setMember.getVariants().isEmpty())
             .map(SetMember::getGene)
-            .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : baseLibrary.getGenes().get(gene))
-            .peek(snparReferenceSequence -> snparReferenceSequence.addVariants(sequenceIdToVariants.get(snparReferenceSequence.getName())))
+            .map(gene -> {
+              return newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : baseLibrary.getGenes().get(gene);})
+            .peek(snparReferenceSequence -> {
+              if (sequenceIdToVariants.containsKey(snparReferenceSequence.getName())) {
+                // Need to update all the SNPs
+                snparReferenceSequence.addVariants(sequenceIdToVariants.get(snparReferenceSequence.getName()));
+              }
+            })
             .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
 
+    baseLibrary.addResistanceGenes(
+        baseLibrary.getSets()
+            .values()
+            .stream()
+            .map(ResistanceSet::getPhenotypes)
+            .flatMap(Collection::stream)
+            .map(Phenotype::getModifiers)
+            .flatMap(Collection::stream)
+            .map(Modifier::getName)
+            .map(name -> newGenes.get(name).getRight())
+            .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1))
+    );
     // Store the sequences for the FASTA
-    baseLibrary.getGenes().keySet()
-        .stream()
-        .filter(geneId -> !parentSequences.containsKey(geneId))
-        .forEach(key -> parentSequences.put(key, newGenes.get(key).getKey()));
+//    baseLibrary.getGenes().keySet()
+//        .stream()
+//        .filter(geneId -> !parentSequences.containsKey(geneId))
+//        .forEach(key -> parentSequences.put(key, newGenes.get(key).getKey()));
 
     parentSequences.putAll(newGenes
         .keySet()

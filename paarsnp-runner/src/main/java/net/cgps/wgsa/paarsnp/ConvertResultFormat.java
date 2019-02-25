@@ -3,8 +3,9 @@ package net.cgps.wgsa.paarsnp;
 import net.cgps.wgsa.paarsnp.core.lib.ConvertSetDescription;
 import net.cgps.wgsa.paarsnp.core.models.Phenotype;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceSet;
-import net.cgps.wgsa.paarsnp.core.models.SetMember;
-import net.cgps.wgsa.paarsnp.core.models.results.*;
+import net.cgps.wgsa.paarsnp.core.models.results.MatchJson;
+import net.cgps.wgsa.paarsnp.core.models.results.OldStyleAntibioticProfile;
+import net.cgps.wgsa.paarsnp.core.models.results.OldStyleSetDescription;
 
 import java.util.*;
 import java.util.function.Function;
@@ -31,7 +32,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
             snparElementIds.addAll(foundElement
                 .getVariants()
                 .stream()
-                .map(variant -> foundElement + "_" + variant)
+                .map(variant -> foundElement.getGene() + "_" + variant)
                 .collect(Collectors.toList())
             );
           }
@@ -60,10 +61,12 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
               if (match.getSnpResistanceElements().isEmpty() && paarElementIds.contains(match.getSearchStatistics().getLibrarySequenceId())) {
                 matches.add(this.buildMatchFormat(set.getName(), setAntimicrobials, match, "PAAR"));
               } else if (!match.getSnpResistanceElements().isEmpty()) {
+                // Check if the found variants are also in the set
                 matches.add(this.buildMatchFormat(set.getName(), null, match, "SNPAR"));
                 variants.addAll(match
                     .getSnpResistanceElements()
                     .stream()
+                    .filter(variant -> set.contains(match.getSearchStatistics().getLibrarySequenceId(),variant.getResistanceMutation().getName()))
                     .flatMap(variant -> variant
                         .getCausalMutations()
                         .stream()
@@ -123,9 +126,5 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
         ),
         setAntimicrobials
     );
-  }
-
-  private Integer countSnparSetSize(final ResistanceSet resistanceSet) {
-    return resistanceSet.getMembers().stream().map(SetMember::getVariants).mapToInt(Collection::size).sum();
   }
 }

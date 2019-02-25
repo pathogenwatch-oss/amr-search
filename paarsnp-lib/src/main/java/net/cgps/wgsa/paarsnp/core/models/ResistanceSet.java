@@ -114,4 +114,13 @@ public class ResistanceSet extends AbstractJsonnable {
     }
     return this.size;
   }
+
+  public boolean contains(final String librarySequenceId, final String variantName) {
+    return this.members
+        .stream()
+        .filter(member -> member.getGene().equals(librarySequenceId))
+        .map(SetMember::getVariants)
+        .flatMap(Collection::stream)
+        .anyMatch(variant -> variant.equals(variantName));
+  }
 }

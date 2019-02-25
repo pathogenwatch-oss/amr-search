@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.models.results.OldStyleAntibioticProfile;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class PathogenWatchFormat extends AbstractJsonnable implements Result {
 
@@ -212,6 +210,26 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
 
     public int getLibraryStart() {
       return this.libraryStart;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+      if (this == o) return true;
+      if (o == null || this.getClass() != o.getClass()) return false;
+      final VariantJson that = (VariantJson) o;
+      return this.reversed == that.reversed &&
+          this.queryLocation == that.queryLocation &&
+          this.referenceLocation == that.referenceLocation &&
+          this.libraryStart == that.libraryStart &&
+          new HashSet<>(this.agents).equals(new HashSet<>(that.agents)) &&
+          Objects.equals(this.id, that.id) &&
+          Objects.equals(this.source, that.source) &&
+          Objects.equals(this.name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(this.agents, this.id, this.source, this.reversed, this.queryLocation, this.referenceLocation, this.name, this.libraryStart);
     }
   }
 }
