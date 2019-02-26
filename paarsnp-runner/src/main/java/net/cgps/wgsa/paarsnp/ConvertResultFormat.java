@@ -53,6 +53,8 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
     paarsnpResult
         .getSearchResult()
         .getBlastMatches()
+        .stream()
+        .filter(match -> elementIdToSetNames.containsKey(match.getSearchStatistics().getLibrarySequenceId()))
         .forEach(match -> elementIdToSetNames
             .get(match.getSearchStatistics().getLibrarySequenceId())
             .forEach(set -> {
@@ -66,7 +68,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
                 variants.addAll(match
                     .getSnpResistanceElements()
                     .stream()
-                    .filter(variant -> set.contains(match.getSearchStatistics().getLibrarySequenceId(),variant.getResistanceMutation().getName()))
+                    .filter(variant -> set.contains(match.getSearchStatistics().getLibrarySequenceId(), variant.getResistanceMutation().getName()))
                     .flatMap(variant -> variant
                         .getCausalMutations()
                         .stream()

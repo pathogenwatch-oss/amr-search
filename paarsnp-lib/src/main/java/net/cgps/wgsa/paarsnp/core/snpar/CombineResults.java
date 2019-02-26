@@ -70,23 +70,33 @@ public class CombineResults implements Collector<BlastMatch, List<ProcessedMatch
                         // Just return the gene name if it's presence-absence
                         // Otherwise the list of variants
                         if (member.getVariants().isEmpty()) {
-                          return member;
+                          return Optional.of(member);
                         }
                         // NB We should only consider SNPS from a single copy of a gene, so here we are going to select the
                         // copy with the most coverage of the set
-                        return new SetMember(
-                            member.getGene(),
-                            matches.get(member.getGene())
+                        final List<String> variants = matches.get(member.getGene())
+                            .stream()
+                            .map(match -> match.getSnpResistanceElements()
                                 .stream()
-                                .map(match -> match.getSnpResistanceElements()
-                                    .stream()
-                                    .filter(mutation -> member.getVariants().contains(mutation.getResistanceMutation().getName()))
-                                    .map(ResistanceMutationMatch::getResistanceMutation)
-                                    .map(Variant::getName)
-                                    .collect(Collectors.toList()))
-                                .max(Comparator.comparingInt(Collection::size))
-                                .orElse(Collections.emptyList()));
+                                .filter(mutation -> member.getVariants().contains(mutation.getResistanceMutation().getName()))
+                                .map(ResistanceMutationMatch::getResistanceMutation)
+                                .map(Variant::getName)
+                                .collect(Collectors.toList()))
+                            .max(Comparator.comparingInt(Collection::size))
+                            .orElse(Collections.emptyList());
+
+                        final SetMember variantsMember = new SetMember(member.getGene(), variants);
+                        final Optional<SetMember> resultMember;
+
+                        if (variantsMember.getVariants().isEmpty()) {
+                          resultMember = Optional.empty();
+                        } else {
+                          resultMember = Optional.of(variantsMember);
+                        }
+                        return resultMember;
                       })
+                      .filter(Optional::isPresent)
+                      .map(Optional::get)
                       .collect(Collectors.toList()),
                   set.getPhenotypes()
                       .stream()
