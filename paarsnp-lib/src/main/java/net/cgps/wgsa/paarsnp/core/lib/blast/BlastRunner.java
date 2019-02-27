@@ -25,7 +25,7 @@ public class BlastRunner implements Function<String[], BlastOutput> {
       "blastn",
       "-task", "blastn",
       "-outfmt", "5",
-      "-num_alignments", "500",
+      "-num_alignments", "5000",
   };
 
   @Override
