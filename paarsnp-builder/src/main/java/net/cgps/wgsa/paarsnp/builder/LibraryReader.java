@@ -114,9 +114,10 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
             .map(ResistanceSet::getMembers)
             .flatMap(Collection::stream)
             .map(SetMember::getGene)
-            .map(gene -> {
-              return newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : baseLibrary.getGenes().get(gene);})
+            .peek(logger::debug)
+            .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : baseLibrary.getGenes().get(gene))
             .peek(snparReferenceSequence -> {
+              logger.trace(snparReferenceSequence.getName());
               if (sequenceIdToVariants.containsKey(snparReferenceSequence.getName())) {
                 // Need to update all the SNPs
                 snparReferenceSequence.addVariants(sequenceIdToVariants.get(snparReferenceSequence.getName()));

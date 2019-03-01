@@ -1,4 +1,4 @@
 # Klebsiella genus
 label = "570"
 
-extends = ["cpe", "gram_neg_colistin", "gram_neg_esbl"]
+extends = ["gram_neg_carbapenemases", "gram_neg_colistin", "gram_neg_esbl"]
