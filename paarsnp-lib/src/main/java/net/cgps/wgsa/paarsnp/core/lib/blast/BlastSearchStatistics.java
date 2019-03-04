@@ -118,7 +118,7 @@ public class BlastSearchStatistics extends AbstractJsonnable {
   @Deprecated
   // This method is preserved so that the output JSON still works with the current pathogenwatch wrapper.
   public boolean isReversed() {
-    return reversed;
+    return this.reversed;
   }
 
   public int getQuerySequenceLength() {

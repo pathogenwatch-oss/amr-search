@@ -113,7 +113,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
         sourceString,
         match.getSearchStatistics().isReversed(),
         match.getSearchStatistics().getEvalue(),
-        match.getSearchStatistics().getPercentIdentity(),
+        String.format("%.2f", match.getSearchStatistics().getPercentIdentity()),
         new PathogenWatchFormat.CdsLocation(
             match.getSearchStatistics().getLibrarySequenceStart(),
             match.getSearchStatistics().getLibrarySequenceStop(),
