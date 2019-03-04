@@ -107,7 +107,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
         variants);
   }
 
-  public PathogenWatchFormat.CdsJson buildMatchFormat(final String setName, final List<String> setAntimicrobials, final MatchJson match, final String sourceString) {
+  public PathogenWatchFormat.CdsJson buildMatchFormat(final String setName, final List<String> agents, final MatchJson match, final String sourceString) {
     return new PathogenWatchFormat.CdsJson(
         setName,
         sourceString,
@@ -126,7 +126,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
             0,
             match.getSearchStatistics().getQuerySequenceId()
         ),
-        setAntimicrobials
+        agents
     );
   }
 }

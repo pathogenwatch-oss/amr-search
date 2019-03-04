@@ -67,13 +67,13 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
     private final String percentIdentity;
     private final CdsLocation library;
     private final CdsLocation query;
-    private final Collection<String> setAntimicrobials;
+    private final Collection<String> agents;
 
     private CdsJson() {
       this("", "", false, 0.0, "0.0", null, null, Collections.emptyList());
     }
 
-    public CdsJson(final String id, final String source, final boolean reversed, final double evalue, final String percentIdentity, final CdsLocation library, final CdsLocation query, final List<String> setAntimicrobials) {
+    public CdsJson(final String id, final String source, final boolean reversed, final double evalue, final String percentIdentity, final CdsLocation library, final CdsLocation query, final List<String> agents) {
       super();
       this.id = id;
       this.source = source;
@@ -82,7 +82,7 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
       this.percentIdentity = percentIdentity;
       this.library = library;
       this.query = query;
-      this.setAntimicrobials = setAntimicrobials;
+      this.agents = agents;
     }
 
     public String getSource() {
@@ -117,8 +117,8 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
       return this.percentIdentity;
     }
 
-    public Collection<String> getSetAntimicrobials() {
-      return this.setAntimicrobials;
+    public Collection<String> getAgents() {
+      return this.agents;
     }
   }
 
