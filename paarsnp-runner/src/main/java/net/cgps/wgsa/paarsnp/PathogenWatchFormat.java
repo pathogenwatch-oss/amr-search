@@ -64,16 +64,16 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
     private final String type = "CDS";
     private final boolean reversed;
     private final double evalue;
-    private final String percentIdentity;
+    private final double percentIdentity;
     private final CdsLocation library;
     private final CdsLocation query;
     private final Collection<String> agents;
 
     private CdsJson() {
-      this("", "", false, 0.0, "0.0", null, null, Collections.emptyList());
+      this("", "", false, 0.0, 0.0, null, null, Collections.emptyList());
     }
 
-    public CdsJson(final String id, final String source, final boolean reversed, final double evalue, final String percentIdentity, final CdsLocation library, final CdsLocation query, final List<String> agents) {
+    public CdsJson(final String id, final String source, final boolean reversed, final double evalue, final double percentIdentity, final CdsLocation library, final CdsLocation query, final List<String> agents) {
       super();
       this.id = id;
       this.source = source;
@@ -113,7 +113,7 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
       return this.library;
     }
 
-    public String getPercentIdentity() {
+    public double getPercentIdentity() {
       return this.percentIdentity;
     }
 
@@ -125,14 +125,15 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
   public static class CdsLocation extends AbstractJsonnable {
     private final int start;
     private final int stop;
-    private final int length;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final Integer length;
     private final String id;
 
     private CdsLocation() {
       this(0, 0, 0, "");
     }
 
-    public CdsLocation(final int start, final int stop, final int length, final String id) {
+    public CdsLocation(final int start, final int stop, final Integer length, final String id) {
       this.start = start;
       this.stop = stop;
       this.length = length;
@@ -147,7 +148,7 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
       return this.stop;
     }
 
-    public int getLength() {
+    public Integer getLength() {
       return this.length;
     }
 
@@ -160,6 +161,7 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
     private final Collection<String> agents;
     private final String id;
     private final String source = "WGSA_SNPAR";
+    private final String type = "point_mutation";
     private final boolean reversed;
     private final int queryLocation;
     private final int referenceLocation;
@@ -230,6 +232,10 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
     @Override
     public int hashCode() {
       return Objects.hash(this.agents, this.id, this.source, this.reversed, this.queryLocation, this.referenceLocation, this.name, this.libraryStart);
+    }
+
+    public String getType() {
+      return this.type;
     }
   }
 }
