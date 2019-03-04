@@ -61,10 +61,10 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
               final List<String> setAntimicrobials = set.getPhenotypes().stream().map(Phenotype::getProfile).flatMap(Collection::stream).collect(Collectors.toList());
 
               if (match.getSnpResistanceElements().isEmpty() && paarElementIds.contains(match.getSearchStatistics().getLibrarySequenceId())) {
-                matches.add(this.buildMatchFormat(set.getName(), setAntimicrobials, match, "PAAR"));
+                matches.add(this.buildMatchFormat(set.getName(), setAntimicrobials, match, "WGSA_PAAR"));
               } else if (!match.getSnpResistanceElements().isEmpty()) {
                 // Check if the found variants are also in the set
-                matches.add(this.buildMatchFormat(set.getName(), null, match, "SNPAR"));
+                matches.add(this.buildMatchFormat(set.getName(), null, match, "WGSA_SNPAR"));
                 variants.addAll(match
                     .getSnpResistanceElements()
                     .stream()
@@ -123,7 +123,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
         new PathogenWatchFormat.CdsLocation(
             match.getSearchStatistics().getQuerySequenceStart(),
             match.getSearchStatistics().getQuerySequenceStop(),
-            match.getSearchStatistics().getQuerySequenceLength(),
+            0,
             match.getSearchStatistics().getQuerySequenceId()
         ),
         setAntimicrobials

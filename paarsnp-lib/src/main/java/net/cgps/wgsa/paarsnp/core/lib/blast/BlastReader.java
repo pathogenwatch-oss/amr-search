@@ -59,14 +59,10 @@ public class BlastReader implements Function<BlastOutput, Stream<BlastMatch>> {
                   final BlastSearchStatistics stats = new BlastSearchStatistics(
                       hit.getHitAccession(),
                       hsp.getHspHitFrom().intValue(),
-                      iteration.getIterationQueryDef(),
+                      hsp.getHspHitTo().intValue(), hit.getHitLen().intValue(), iteration.getIterationQueryDef(),
                       hsp.getHspQueryFrom().intValue(),
-                      calculatePid(hsp.getHspIdentity(), hsp.getHspAlignLen()),
-                      hsp.getHspEvalue(),
-                      strand,
-                      hsp.getHspHitTo().intValue(),
-                      hsp.getHspQueryTo().intValue(),
-                      hit.getHitLen().intValue()
+                      hsp.getHspQueryTo().intValue(), hsp.getHspEvalue(), calculatePid(hsp.getHspIdentity(), hsp.getHspAlignLen()),
+                      strand
                   );
                   // Add the match w/ mutations to the collection.
                   return new BlastMatch(stats, hsp.getHspQseq(), hsp.getHspHseq()

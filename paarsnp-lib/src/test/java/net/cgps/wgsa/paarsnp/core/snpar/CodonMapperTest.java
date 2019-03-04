@@ -21,14 +21,10 @@ public class CodonMapperTest {
     final BlastSearchStatistics statistics = new BlastSearchStatistics(
         "libId",
         1,
-        "queryId",
+        21, 24, "queryId",
         1,
-        99.0,
-        0.0001,
-        DnaSequence.Strand.FORWARD,
-        21,
-        24,
-        24
+        24, 0.0001, 99.0,
+        DnaSequence.Strand.FORWARD
     );
 
     final BlastMatch blastMatch = new BlastMatch(statistics, querySequence, referenceSequence);

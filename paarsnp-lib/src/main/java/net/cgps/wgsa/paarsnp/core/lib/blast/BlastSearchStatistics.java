@@ -21,10 +21,10 @@ public class BlastSearchStatistics extends AbstractJsonnable {
   @SuppressWarnings("unused")
   private BlastSearchStatistics() {
 
-    this("", 0, "", 0, 0.0, 0.0, DnaSequence.Strand.FORWARD, 0, 0, 0);
+    this("", 0, 0, 0, "", 0, 0, 0.0, 0.0, DnaSequence.Strand.FORWARD);
   }
 
-  public BlastSearchStatistics(final String librarySequenceId, final int librarySequenceStart, final String querySequenceId, final int querySequenceStart, final double percentIdentity, final double evalue, final DnaSequence.Strand strand, final int librarySequenceStop, final int querySequenceStop, final int librarySequenceLength) {
+  public BlastSearchStatistics(final String librarySequenceId, final int librarySequenceStart, final int librarySequenceStop, final int librarySequenceLength, final String querySequenceId, final int querySequenceStart, final int querySequenceStop, final double evalue, final double percentIdentity, final DnaSequence.Strand strand) {
 
     this.librarySequenceId = librarySequenceId;
     this.querySequenceId = querySequenceId;
@@ -119,9 +119,5 @@ public class BlastSearchStatistics extends AbstractJsonnable {
   // This method is preserved so that the output JSON still works with the current pathogenwatch wrapper.
   public boolean isReversed() {
     return this.reversed;
-  }
-
-  public int getQuerySequenceLength() {
-    return 0;
   }
 }
