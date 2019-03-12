@@ -14,6 +14,7 @@
         <module>paarsnp-builder</module>
         <module>paarsnp-lib</module>
         <module>pw-config-utils</module>
+        <module>pw-genome-config</module>
     </modules>
 
     <properties>

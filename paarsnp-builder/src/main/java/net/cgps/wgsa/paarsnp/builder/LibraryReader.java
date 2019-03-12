@@ -54,35 +54,6 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
         .map(geneInfo -> new ImmutablePair<>(geneInfo.getRight().getName(), geneInfo))
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-//    // Construct the paar library
-//    baseLibrary.getPaarsnpLibrary().getPaar().addRecords(
-//        Optional.ofNullable(toml.getTables("paar"))
-//            .orElse(Collections.emptyList())
-//            .stream()
-//            .map(LibraryReader.parsePaarSet())
-//            .collect(Collectors.toMap(ResistanceSet::getName, Function.identity())));
-
-    // Add the new paar genes
-//    baseLibrary.getPaarsnpLibrary().getPaar().addResistanceGenes(
-//        baseLibrary.getPaarsnpLibrary().getPaar().getSets().values()
-//            .stream()
-//            .map(ResistanceSet::getMembers)
-//            .flatMap(Collection::stream)
-//            .map(SetMember::getGene)
-//            .map(newGenes::get)
-//            .map(Optional::ofNullable)
-//            .filter(Optional::isPresent)
-//            .map(Optional::get)
-//            .filter(nameToSeq -> !baseLibrary.getPaarSequences().containsKey(nameToSeq.getKey()))
-//            .map(Map.Entry::getValue)
-//            .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
-
-    // Store the sequences for the FASTA
-//    baseLibrary.getPaarsnpLibrary().getPaar().getGenes().keySet()
-//        .stream()
-//        .filter(geneId -> !baseLibrary.getPaarSequences().containsKey(geneId))
-//        .forEach(key -> baseLibrary.getPaarSequences().put(key, newGenes.get(key).getKey()));
-
     // Construct SNPAR
     baseLibrary.addRecords(
         Optional.ofNullable(toml.getTables("mechanisms"))
@@ -226,23 +197,6 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
     return toml -> toml.to(SetMember.class);
   }
 
-//  public static Function<Toml, ResistanceSet> parsePaarSet() {
-//    return toml -> {
-//      final List<Phenotype> phenotypes = toml.getTables("phenotypes")
-//          .stream()
-//          .map(LibraryReader.parsePhenotype())
-//          .collect(Collectors.toList());
-//
-//      return ResistanceSet.build(
-//          Optional.ofNullable(toml.getString("name")),
-//          phenotypes,
-//          toml.<String>getList("members")
-//              .stream()
-//              .map(parsePaarMember())
-//              .collect(Collectors.toList()));
-//    };
-//  }
-
   public static Function<Toml, Phenotype> parsePhenotype() {
     return toml -> toml.to(Phenotype.class);
   }
@@ -250,10 +204,6 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
   public static Function<Toml, AntimicrobialAgent> parseAntimicrobialAgent() {
     return toml -> toml.to(AntimicrobialAgent.class);
   }
-
-//  public static Function<String, SetMember> parsePaarMember() {
-//    return memberName -> new SetMember(memberName, Collections.emptyList());
-//  }
 
   public static Function<Toml, ReferenceSequence> parseGene() {
     return toml -> new ReferenceSequence(

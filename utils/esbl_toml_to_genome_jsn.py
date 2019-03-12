@@ -1,18 +1,19 @@
 import sys
 from collections import defaultdict
 
-import toml
 import json
+import toml
 
 with open(sys.argv[1], 'r') as library_file:
     library = toml.loads(library_file.read())
 
 paar_profiles = defaultdict(set)
+snpar_profiles = defaultdict(set)
 
-for amr_set in library['snpar']['sets']:
-    for phenotype in amr_set['phenotypes']:
+for mechanism in library['mechanisms']:
+    for phenotype in mechanism['phenotypes']:
         for am in phenotype['profile']:
-            paar_profiles[am].add(amr_set['name'])
+            paar_profiles[am].update(mechanism['members'])
 
 processed_paar = dict()
 
@@ -23,9 +24,10 @@ for am in paar_profiles:
 
 paarsnp_library = dict()
 
-paarsnp_library['snpar'] = processed_paar
+paarsnp_library['paar'] = processed_paar
+paarsnp_library['snp'] = {}
 
-ams = list()
+paarsnp_library['antibiotics'] = list()
 
 for am in library['antimicrobials']:
     new_am = dict()
@@ -33,10 +35,6 @@ for am in library['antimicrobials']:
     new_am['fullName'] = am['name']
     new_am['displayName'] = am['name']
     new_am['antimicrobialClass'] = am['type']
-    ams.append(new_am)
-
-paarsnp_library['antimicrobial'] = ams
-
-paarsnp_library['paar'] = {}
+    paarsnp_library['antibiotics'].append(new_am)
 
 print(json.dumps(paarsnp_library))
