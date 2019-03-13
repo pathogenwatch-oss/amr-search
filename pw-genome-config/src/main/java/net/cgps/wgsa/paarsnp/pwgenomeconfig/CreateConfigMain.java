@@ -59,7 +59,6 @@ public class CreateConfigMain {
                   setMember.getGene(),
                   setMember.getVariants()
                       .stream()
-                      .map(variant -> setMember.getGene() + "_" + variant)
                       .map(name -> new PwGenomeJson.PwSnpRecord(name, PhenotypeEffect.RESISTANT))
                       .collect(Collectors.toSet())))
               .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
@@ -73,7 +72,12 @@ public class CreateConfigMain {
                   paarRecordMap.get(antibiotic).addAll(paarRecords);
                 }
                 if (!snpRecords.isEmpty()) {
-                  snparRecordMap.get(antibiotic).putAll(snpRecords);
+                  snpRecords.keySet()
+                      .stream()
+                      .filter(key -> !snparRecordMap.get(antibiotic).containsKey(key))
+                      .forEach(key -> snparRecordMap.get(antibiotic).put(key, new HashSet<>()));
+                  snpRecords
+                      .forEach((key, value) -> snparRecordMap.get(antibiotic).get(key).addAll(value));
                 }
               });
         });

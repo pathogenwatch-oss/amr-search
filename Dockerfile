@@ -28,6 +28,8 @@ RUN mkdir paarsnp-runner \
 # https://issues.apache.org/jira/browse/MDEP-516
 COPY ./pom.xml ./pom.xml
 
+COPY ./pw-genome-config/ ./pw-genome-config/
+
 COPY ./pw-config-utils/ ./pw-config-utils/
 
 COPY ./paarsnp-runner/ ./paarsnp-runner/
