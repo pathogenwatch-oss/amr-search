@@ -697,7 +697,7 @@ mechanisms = [
 {phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["D87Y"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["D87A"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["D87G"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}], members = [{gene="gyrA", variants=["D87V"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["D87V"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrB", variants=["S464F"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrB", variants=["S464Y"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrB", variants=["Q465R"]}]},
