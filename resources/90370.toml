@@ -2,19 +2,19 @@
 label = "90370"
 
 antimicrobials = [
-{key = "AMP", type = "Beta-lactams", name = "Ampicillin"},
-{key = "CEP", type = "Beta-lactams", name = "Broad-Spectrum Cephalosporins"},
-{key = "CHL", type = "Phenicols", name = "Chloramphenicol"},
-{key = "CIP", type = "Fluoroquinolones", name = "Ciprofloxacin"},
-{key = "NAL", type = "Fluoroquinolones", name = "Nalidixic acid"},
-{key = "SMX", type = "Sulfonamides", name = "Sulfonamides"},
-{key = "TMP", type = "Diaminopyrimidine", name = "Trimethoprim"},
-{key = "SXT", type = "Combination", name = "Co-Trimoxazole"},
-{key = "TCY", type = "Tetracyclines", name = "Tetracycline"},
-{key = "AZM", type = "Macrolides", name = "Azithromycin"},
-{key = "CST", type = "Colistin", name = "Colistin"},
-{key = "MEM", type = "Carbapenemase", name = "Meropenem"},
-{key = "SIL", type = "Other", name = "Other"}
+ "AMP",
+ "CEP",
+ "CHL",
+ "CIP",
+ "NAL",
+ "SMX",
+ "TMP",
+ "SXT",
+ "TCY",
+ "AZM",
+ "CST",
+ "MEM",
+ "SIL",
 ]
 
 genes = [

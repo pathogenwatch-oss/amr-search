@@ -1,4 +1,6 @@
-# Klebsiella genus
+# Klebsiella pneumoniae
 label = "573"
+
+antimicrobials = ["MEM", "CRO", "CAZ", "FEP", "COL"]
 
 extends = ["570"]

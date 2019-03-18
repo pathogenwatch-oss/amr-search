@@ -1,4 +1,6 @@
 # Salmonella genus
 label = "590"
 
+antimicrobials = ["MEM", "CRO", "CAZ", "FEP", "COL"]
+
 extends = ["gram_neg_carbapenemases", "gram_neg_colistin", "gram_neg_esbl"]

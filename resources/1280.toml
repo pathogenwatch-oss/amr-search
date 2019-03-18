@@ -1,27 +1,7 @@
 # S. aureus
 label = "1280"
 
-antimicrobials = [
-{key = "AMI", type = "Aminoglycosides", name = "Amikacin"},
-{key = "GEN", type = "Aminoglycosides", name = "Gentamicin"},
-{key = "TOB", type = "Aminoglycosides", name = "Tobramycin"},
-{key = "KAN", type = "Aminoglycosides", name = "Kanamycin"},
-{key = "MET", type = "Beta-lactams", name = "Methicillin"},
-{key = "PEN", type = "Beta-lactams", name = "Penicillin"},
-{key = "FUS", type = "Fusidic Acid", name = "Fusidic Acid"},
-{key = "VAN", type = "Glycopeptides", name = "Vancomycin"},
-{key = "CLI", type = "Lincosamides", name = "Clindamycin"},
-{key = "ERY", type = "Macrolides", name = "Erythromycin"},
-{key = "MUP", type = "Mupirocin", name = "Mupirocin"},
-{key = "LNZ", type = "Oxazolidinone", name = "Linezolid"},
-{key = "TCY", type = "Tetracyclines", name = "Tetracycline"},
-{key = "TMP", type = "Diaminopyrimidine", name = "Trimethoprim"},
-{key = "DAP", type = "Lipopeptides", name = "Daptomycin"},
-{key = "RIF", type = "Rifamycin", name = "Rifampicin"},
-{key = "CIP", type = "Fluoroquinolones", name = "Ciprofloxacin"},
-{key = "MFX", type = "Fluoroquinolones", name = "Moxifloxacin"},
-{key = "TEC", type = "Glycopeptides", name = "Teicoplanin"}
-]
+antimicrobials = [ "AMI", "GEN", "TOB", "KAN", "MET", "PEN", "FUS", "VAN", "CLI", "ERY", "MUP", "LNZ", "TCY", "TMP", "DAP", "RIF", "CIP", "MFX", "TEC"]
 
 genes = [
 {name = "blaZ", pid = 80.0, coverage = 75.0, sequence = "TTGAAAAAGTTAATATTTTTAATTGTAATTGCTTTAGTTTTAAGTGCATGTAATTCAAACAGTTCACATGCCAAAGAGTTAAATGATTTAGAAAAAAAATATAATGCTCATATTGGTGTTTATGCTTTAGATACTAAAAGTGGTAAGGAAGTAAAATTTAATTCAGATAAGAGATTTGCCTATGCTTCAACTTCAAAAGCGATAAATAGTGCTATTTTGTTAGAACAAGTACCTTATAATAAGTTAAATAAAAAAGTACATATTAACAAAGATGATATAGTTGCTTATTCTCCTATTTTAGAAAAATATGTAGGAAAAGATATCACTTTAAAAGCACTTATTGAGGCTTCAATGACATATAGTGATAATACAGCAAACAATAAAATTATAAAAGAAATCGGTGGAATCAAAAAAGTTAAACAACGTCTAAAAGAACTAGGAGATAAAGTAACAAATCCAGTTAGATATGAGATAGAATTAAATTACTATTCACCAAAGAGCAAAAAAGATACTTCAACACCTGCTGCCTTCGGTAAGACCCTTAATAAACTTATCGCCAATGGAAAATTAAGCAAAGAAAACAAAAAATTCTTACTTGATTTAATGTTAAATAATAAAAGCGGAGATACTTTAATTAAAGACGGTGTTCCAAAAGACTATAAGGTTGCTGATAAAAGTGGTCAAGCAATAACATATGCTTCTAGAAATGATGTTGCTTTTGTTTATCCTAAGGGCCAATCTGAACCTATTGTTTTAGTCATTTTTACGAATAAAGACAATAAAAGTGATAAGCCAAATGATAAGTTGATAAGTGAAACCGCCAAGAGTGTAATGAAGGAATTTTAA"},

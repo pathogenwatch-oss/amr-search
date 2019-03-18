@@ -1,4 +1,6 @@
-# Escherichia genus
+# Escherichia coli
 label = "562"
+
+antimicrobials = ["MEM", "CRO", "CAZ", "FEP", "COL"]
 
 extends = ["561"]

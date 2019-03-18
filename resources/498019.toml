@@ -1,13 +1,7 @@
 # Candida auris
 label = "498019"
 
-antimicrobials = [
-{key = "5-flucytosine", type = "5-flucytosine", name = "5-flucytosine"},
-{key = "Anidulafungin", type = "Anidulafungin", name = "Anidulafungin"},
-{key = "Caspofungin", type = "Caspofungin", name = "Caspofungin"},
-{key = "Fluconazole", type = "Fluconazole", name = "Fluconazole"},
-{key = "Micafungin", type = "Micafungin", name = "Micafungin"}
-]
+antimicrobials = [ "5FC", "AFG", "CAS", "FLC", "MFG" ]
 
 genes = [
 {name = "FUR1", pid = 80.0, coverage = 60.0, sequence = "ATGTCAACACCCCAGAACGTCAGCAAAAACGTGATCCTTTTGCCCCAAACCAACCAGTTAAGAGGGTTGTACTCTATCATCAGAGACCAGCTGACTAAGCGGGGCGACTTTGTGTTCTACTCGGACAGGATCATCAGACTCTTGGTGGAGGAGGGTCTCAACCAGTTGCCCGTGGAAGAAGCCATCATTGAATGTCATGGCGGACACAAGTACAAGGGAGCCAAGTTCTTGGGCAAAATTTGTGGCGTCTCGATTGTCAGAGCTGGAGAGTCAATGGAAATGGGCTTGAGAGACTGCTGCCGTTCGGTGAGAATTGGTAAGATCTTGATTCAGAGAGATGAGGAGACAGCGTTGCCCAAGTTGTTCTATGAAAAGCTCCCTGAGGACATCAGTGAAAGATACGTGTTTCTTTTGGACCCCATGTTGGCCACGGGTGGTAGCGCCATGATGGCCGTGGAGGTGTTATTGTCAAGAGGCGTGAGAATGGACCGCATTTTCTTCTTGAACTTGTTGGCAGCGCCAGAAGGTATTAACGCATTTCACGAGAAGTACCCAGACGTGAGGATCATCACCGGCGGTATCGACGAGAAGTTGGACGATGACAAGTACATAGTACCGGGCTTGGGTGACTTTGGTGATAGATACTATTGCATCTAG"},
@@ -16,11 +10,11 @@ genes = [
 ]
 
 mechanisms = [
-{phenotypes = [{effect = "RESISTANT", profile = ["5-flucytosine"]}], members = [{gene="FUR1", variants=["F211I"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["Micafungin", "Caspofungin", "Anidulafungin"]}], members = [{gene="FKS1", variants=["S639P"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["Micafungin", "Caspofungin", "Anidulafungin"]}], members = [{gene="FKS1", variants=["S639F"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["Micafungin", "Caspofungin", "Anidulafungin"]}], members = [{gene="FKS1", variants=["S639Y"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["Fluconazole"]}], members = [{gene="ERG11", variants=["Y132F"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["Fluconazole"]}], members = [{gene="ERG11", variants=["K143R"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["Fluconazole"]}], members = [{gene="ERG11", variants=["F126L"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["5FC"]}], members = [{gene="FUR1", variants=["F211I"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["MFG", "CAS", "AFG"]}], members = [{gene="FKS1", variants=["S639P"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["MFG", "CAS", "AFG"]}], members = [{gene="FKS1", variants=["S639F"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["MFG", "CAS", "AFG"]}], members = [{gene="FKS1", variants=["S639Y"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FLC"]}], members = [{gene="ERG11", variants=["Y132F"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FLC"]}], members = [{gene="ERG11", variants=["K143R"]}]},
+{phenotypes = [{effect = "RESISTANT", profile = ["FLC"]}], members = [{gene="ERG11", variants=["F126L"]}]},
 ]
