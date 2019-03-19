@@ -3,4 +3,4 @@ label = "562"
 
 antimicrobials = ["MEM", "CRO", "CAZ", "FEP", "CST"]
 
-extends = ["561"]
+extends = ["gram_neg_carbapenemases", "gram_neg_colistin", "gram_neg_esbl"]
