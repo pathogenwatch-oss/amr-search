@@ -1,14 +1,8 @@
 package net.cgps.wgsa.paarsnp.builder;
 
 import com.moandjiezana.toml.Toml;
-import net.cgps.wgsa.paarsnp.core.models.ElementEffect;
-import net.cgps.wgsa.paarsnp.core.models.PhenotypeEffect;
-import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
+import net.cgps.wgsa.paarsnp.core.models.*;
 import net.cgps.wgsa.paarsnp.core.models.results.Modifier;
-import net.cgps.wgsa.paarsnp.core.models.Phenotype;
-import net.cgps.wgsa.paarsnp.core.models.ResistanceSet;
-import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
-import net.cgps.wgsa.paarsnp.core.models.SetMember;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -19,14 +13,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class LibraryReaderTest {
-
-  @Test
-  public void parseAntimicrobialAgent() {
-    final Toml agentToml = new Toml().read("antimicrobials = [{key = \"KAN\", type = \"Aminoglycosides\", name = \"Kanamycin\"}]")
-        .getTables("antimicrobials").get(0);
-    final AntimicrobialAgent agent = new AntimicrobialAgent("KAN", "Aminoglycosides", "Kanamycin");
-    Assert.assertEquals(agent, LibraryReader.parseAntimicrobialAgent().apply(agentToml));
-  }
 
   @Test
   public void parsePaarGene() {

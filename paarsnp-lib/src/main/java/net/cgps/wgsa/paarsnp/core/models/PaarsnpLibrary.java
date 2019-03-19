@@ -1,7 +1,10 @@
 package net.cgps.wgsa.paarsnp.core.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.function.Function;
@@ -9,24 +12,28 @@ import java.util.stream.Collectors;
 
 public class PaarsnpLibrary extends AbstractJsonnable {
 
+  private final Logger logger = LoggerFactory.getLogger(PaarsnpLibrary.class);
   private final String label;
   private final List<AntimicrobialAgent> antimicrobials;
   private final Map<String, ReferenceSequence> genes;
   private final Map<String, ResistanceSet> sets;
   private double minimumPid;
+  @JsonIgnore
+  private final Set<String> agentKeys;
 
   @SuppressWarnings("unused")
   private PaarsnpLibrary() {
-    this("");
+    this("", Collections.emptyList());
   }
 
-  public PaarsnpLibrary(final String label) {
-    this(label, new ArrayList<>(50), new ArrayList<>(500), new ArrayList<>(500));
+  public PaarsnpLibrary(final String label, final List<AntimicrobialAgent> antimicrobials) {
+    this(label, antimicrobials, new ArrayList<>(500), new ArrayList<>(500));
   }
 
-  public PaarsnpLibrary(final String label, final List<AntimicrobialAgent> antimicrobials, final Collection<ReferenceSequence> genes, final Collection<ResistanceSet> sets) {
+  private PaarsnpLibrary(final String label, final List<AntimicrobialAgent> antimicrobials, final Collection<ReferenceSequence> genes, final Collection<ResistanceSet> sets) {
     this.label = label;
     this.antimicrobials = antimicrobials;
+    this.agentKeys = antimicrobials.stream().map(AntimicrobialAgent::getKey).collect(Collectors.toSet());
     this.genes = genes.stream().collect(Collectors.toMap(ReferenceSequence::getName, Function.identity()));
     this.sets = sets.stream().collect(Collectors.toMap(ResistanceSet::getName, set -> set));
     this.minimumPid = genes.stream().mapToDouble(ReferenceSequence::getPid).min().orElse(100.0);
@@ -67,42 +74,60 @@ public class PaarsnpLibrary extends AbstractJsonnable {
     }
   }
 
+  public void merge(final PaarsnpLibrary that) {
+
+    this.addResistanceGenes(that.getGenes());
+    this.addRecords(that.getSets());
+  }
+
   public void addRecords(final Map<String, ResistanceSet> newSets) {
 
     // First update already existing sets.
     newSets.entrySet()
         .stream()
         .filter(set -> this.sets.containsKey(set.getKey()))
-        .forEach(updatedSet -> {
-          final ResistanceSet originalSet = this.sets.get(updatedSet.getKey());
-          originalSet.updatePhenotypes(updatedSet.getValue().getPhenotypes());
-        });
-
+        .forEach(updateSet -> this.sets
+            .get(updateSet.getKey())
+            .updatePhenotypes(updateSet
+                .getValue()
+                .getPhenotypes()
+                .stream()
+                .map(this::checkPhenotypeIsValid)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList())));
 
     // Finally add new sets
-    this.sets.putAll(newSets.entrySet()
+    this.sets.putAll(newSets.values()
         .stream()
-        .filter(set -> !this.sets.containsKey(set.getKey()))
-        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
-
+        .filter(set -> !this.sets.containsKey(set.getName()))
+        .map(set -> new ResistanceSet(
+            set.getName(),
+            set.getPhenotypes()
+                .stream()
+                .map(this::checkPhenotypeIsValid)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList()),
+            set.getMembers()))
+        .collect(Collectors.toMap(ResistanceSet::getName, Function.identity())));
   }
 
-  public PaarsnpLibrary merge(final PaarsnpLibrary that) {
-
-    this.addAntimicrobials(that.getAntimicrobials());
-    this.addResistanceGenes(that.getGenes());
-    this.addRecords(that.getSets());
-
-    return this;
+  private Optional<Phenotype> checkPhenotypeIsValid(final Phenotype phenotype) {
+    if (this.agentKeys.containsAll(phenotype.getProfile())) {
+      return Optional.of(phenotype);
+    } else if (phenotype.getProfile().stream().anyMatch(this.agentKeys::contains)) {
+      return Optional.of(new Phenotype(
+          phenotype.getEffect(),
+          phenotype.getProfile().stream().filter(this.agentKeys::contains).collect(Collectors.toList()),
+          phenotype.getModifiers()));
+    }
+    return Optional.empty();
   }
 
   public void addAntimicrobials(final List<AntimicrobialAgent> antimicrobials) {
-    // Only add new antibiotics, preserve order
-    this.antimicrobials.addAll(
-        antimicrobials
-            .stream()
-            .filter(antimicrobialAgent -> !this.antimicrobials.contains(antimicrobialAgent))
-            .collect(Collectors.toList()));
 
+    this.antimicrobials.clear();
+    this.antimicrobials.addAll(antimicrobials);
   }
 }

@@ -3,6 +3,7 @@ package net.cgps.wgsa.paarsnp.builder;
 import ch.qos.logback.classic.Level;
 import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class PaarsnpBuilderMain {
 
@@ -83,6 +87,11 @@ public class PaarsnpBuilderMain {
       }
     }
 
+    final Map<String, AntimicrobialAgent> antimicrobialDb = new AntimicrobialDbReader()
+        .apply(inputFolderPath)
+        .stream()
+        .collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
+
     try (final DirectoryStream<Path> dbStream = Files.newDirectoryStream(inputFolderPath, SPECIES_FOLDER_FILTER)) {
 
       dbStream.forEach(tomlPath -> {
@@ -95,7 +104,7 @@ public class PaarsnpBuilderMain {
         // First write the paarsnp fasta.
         final MakeBlastDB makeBlastDB = new MakeBlastDB(outputFolderPath);
 
-        final LibraryReader.LibraryDataAndSequences paarsnpLibraryAndSequences = new LibraryReader().apply(tomlPath);
+        final LibraryReader.LibraryDataAndSequences paarsnpLibraryAndSequences = new LibraryReader(antimicrobialDb).apply(tomlPath);
 
         final Path libraryFile = Paths.get(outputDirectory, speciesId + Constants.JSON_APPEND);
         final String snparLibraryName = speciesId + Constants.LIBRARY_APPEND;

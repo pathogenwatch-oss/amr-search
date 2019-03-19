@@ -1,6 +1,6 @@
 # Escherichia coli
 label = "562"
 
-antimicrobials = ["MEM", "CRO", "CAZ", "FEP", "COL"]
+antimicrobials = ["MEM", "CRO", "CAZ", "FEP", "CST"]
 
 extends = ["561"]

@@ -22,28 +22,42 @@ import java.util.stream.Collectors;
 public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAndSequences> {
 
   private static final Logger logger = LoggerFactory.getLogger(LibraryReader.class);
+  private final Map<String, AntimicrobialAgent> antimicrobialDb;
+  private final List<AntimicrobialAgent> selectedList;
+
+  public LibraryReader(final Map<String, AntimicrobialAgent> antimicrobialDb) {
+    this(antimicrobialDb, new ArrayList<>(50));
+  }
+
+  public LibraryReader(final Map<String, AntimicrobialAgent> antimicrobialDb, final List<AntimicrobialAgent> selectedList) {
+    this.antimicrobialDb = antimicrobialDb;
+    this.selectedList = selectedList;
+  }
 
   @Override
   public LibraryDataAndSequences apply(final Path path) {
 
+    // Initialise the final parts (e.g. not inherited from parent toml)
     final Toml toml = new Toml().read(path.toFile());
-
     final String label = toml.getString("label");
+
+    // Initialise the AMR selection first time to use as filter for subsequent imports
+    if (this.selectedList.isEmpty()) {
+      this.selectedList.addAll(toml
+          .getList("antimicrobials", new ArrayList<String>())
+          .stream()
+          .map(this.antimicrobialDb::get)
+          .collect(Collectors.toList()));
+    }
 
     // And down the recursive rabbit hole we go ...
     final LibraryDataAndSequences parentInfo = this.readParents(label, toml.getList("extends", new ArrayList<>()), path.getParent());
 
     final PaarsnpLibrary baseLibrary = parentInfo.getPaarsnpLibrary();
+    baseLibrary.addAntimicrobials(this.selectedList);
     final Map<String, String> parentSequences = parentInfo.getSequences();
 
-    // Read the antibiotics
-    baseLibrary.addAntimicrobials(
-        Optional.ofNullable(toml.getTables("antimicrobials"))
-            .orElse(Collections.emptyList())
-            .stream()
-            .map(LibraryReader.parseAntimicrobialAgent())
-            .collect(Collectors.toUnmodifiableList()));
-
+//    baseLibrary.addAntimicrobials(antimicrobialAgents);
     // Read in the new set of genes
     final Map<String, Pair<String, ReferenceSequence>> newGenes = Optional.ofNullable(toml.getTables("genes"))
         .orElse(Collections.emptyList())
@@ -96,6 +110,7 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
             })
             .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
 
+    // Add the modifiers to the gene list.
     baseLibrary.addResistanceGenes(
         baseLibrary.getSets()
             .values()
@@ -108,17 +123,13 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
             .map(name -> newGenes.get(name).getRight())
             .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1))
     );
-    // Store the sequences for the FASTA
-//    baseLibrary.getGenes().keySet()
-//        .stream()
-//        .filter(geneId -> !parentSequences.containsKey(geneId))
-//        .forEach(key -> parentSequences.put(key, newGenes.get(key).getKey()));
 
     parentSequences.putAll(newGenes
         .keySet()
         .stream()
         .filter(geneId -> !parentSequences.containsKey(geneId))
         .collect(Collectors.toMap(Function.identity(), geneId -> newGenes.get(geneId).getKey())));
+
     return new LibraryDataAndSequences(parentSequences, baseLibrary);
   }
 
@@ -127,12 +138,12 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
     return parentLibrary
         .stream()
         .map(libName -> Paths.get(libraryDirectory.toString(), libName + ".toml"))
-        .map(libPath -> new LibraryReader().apply(libPath))
+        .map(this)
         .collect(new Collector<LibraryDataAndSequences, LibraryDataAndSequences, LibraryDataAndSequences>() {
 
           @Override
           public Supplier<LibraryDataAndSequences> supplier() {
-            return () -> new LibraryDataAndSequences(new HashMap<>(500), new PaarsnpLibrary(label));
+            return () -> new LibraryDataAndSequences(new HashMap<>(500), new PaarsnpLibrary(label, LibraryReader.this.selectedList));
           }
 
           @Override
@@ -201,9 +212,6 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
     return toml -> toml.to(Phenotype.class);
   }
 
-  public static Function<Toml, AntimicrobialAgent> parseAntimicrobialAgent() {
-    return toml -> toml.to(AntimicrobialAgent.class);
-  }
 
   public static Function<Toml, ReferenceSequence> parseGene() {
     return toml -> new ReferenceSequence(

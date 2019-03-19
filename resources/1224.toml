@@ -1,6 +1,6 @@
  # Proteobacteria
 label = "1224"
 
-antimicrobials = ["MEM", "CRO", "CAZ", "FEP", "COL"]
+antimicrobials = ["MEM", "CRO", "CAZ", "FEP", "CST"]
 
 extends = ["gram_neg_carbapenemases", "gram_neg_esbl", "gram_neg_colistin"]
