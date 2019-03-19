@@ -53,11 +53,10 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
     // And down the recursive rabbit hole we go ...
     final LibraryDataAndSequences parentInfo = this.readParents(label, toml.getList("extends", new ArrayList<>()), path.getParent());
 
-    final PaarsnpLibrary baseLibrary = parentInfo.getPaarsnpLibrary();
-    baseLibrary.addAntimicrobials(this.selectedList);
+    final PaarsnpLibrary inheritedLibrary = parentInfo.getPaarsnpLibrary();
+    final PaarsnpLibrary currentLibrary = new PaarsnpLibrary(label, this.selectedList, inheritedLibrary.getGenes().values(), inheritedLibrary.getSets().values());
     final Map<String, String> parentSequences = parentInfo.getSequences();
 
-//    baseLibrary.addAntimicrobials(antimicrobialAgents);
     // Read in the new set of genes
     final Map<String, Pair<String, ReferenceSequence>> newGenes = Optional.ofNullable(toml.getTables("genes"))
         .orElse(Collections.emptyList())
@@ -69,7 +68,7 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
     // Construct SNPAR
-    baseLibrary.addRecords(
+    currentLibrary.addRecords(
         Optional.ofNullable(toml.getTables("mechanisms"))
             .orElse(Collections.emptyList())
             .stream()
@@ -78,7 +77,7 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
     );
 
     // Map the new variants to their sequence ID.
-    final Map<String, Collection<String>> sequenceIdToVariants = baseLibrary
+    final Map<String, Collection<String>> sequenceIdToVariants = currentLibrary
         .getSets()
         .values()
         .stream()
@@ -92,15 +91,15 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
         }));
 
     // Add the genes
-    baseLibrary.addResistanceGenes(
-        baseLibrary.getSets()
+    currentLibrary.addResistanceGenes(
+        currentLibrary.getSets()
             .values()
             .stream()
             .map(ResistanceSet::getMembers)
             .flatMap(Collection::stream)
             .map(SetMember::getGene)
             .peek(logger::debug)
-            .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : baseLibrary.getGenes().get(gene))
+            .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : currentLibrary.getGenes().get(gene))
             .peek(snparReferenceSequence -> {
               logger.trace(snparReferenceSequence.getName());
               if (sequenceIdToVariants.containsKey(snparReferenceSequence.getName())) {
@@ -111,8 +110,8 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
             .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
 
     // Add the modifiers to the gene list.
-    baseLibrary.addResistanceGenes(
-        baseLibrary.getSets()
+    currentLibrary.addResistanceGenes(
+        currentLibrary.getSets()
             .values()
             .stream()
             .map(ResistanceSet::getPhenotypes)
@@ -130,7 +129,7 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
         .filter(geneId -> !parentSequences.containsKey(geneId))
         .collect(Collectors.toMap(Function.identity(), geneId -> newGenes.get(geneId).getKey())));
 
-    return new LibraryDataAndSequences(parentSequences, baseLibrary);
+    return new LibraryDataAndSequences(parentSequences, currentLibrary);
   }
 
   private LibraryDataAndSequences readParents(final String label, final List<String> parentLibrary, final Path libraryDirectory) {

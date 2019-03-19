@@ -1,9 +1,11 @@
 package net.cgps.wgsa.paarsnp.pwgenomeconfig;
 
+import net.cgps.wgsa.paarsnp.builder.AntimicrobialDbReader;
 import net.cgps.wgsa.paarsnp.builder.LibraryReader;
 import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.models.Phenotype;
 import net.cgps.wgsa.paarsnp.core.models.PhenotypeEffect;
+import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,7 +34,8 @@ public class CreateConfigMain {
   }
 
   private void run(final Path libraryFile, final Path outputFile) {
-    final PaarsnpLibrary paarsnpLibrary = new LibraryReader().apply(libraryFile).getPaarsnpLibrary();
+    final Map<String, AntimicrobialAgent> agents = new AntimicrobialDbReader().apply(libraryFile.getParent()).stream().collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
+    final PaarsnpLibrary paarsnpLibrary = new LibraryReader(agents).apply(libraryFile).getPaarsnpLibrary();
 
     final Collection<PwGenomeJson.PwAgent> antibiotics = paarsnpLibrary.getAntimicrobials()
         .stream()

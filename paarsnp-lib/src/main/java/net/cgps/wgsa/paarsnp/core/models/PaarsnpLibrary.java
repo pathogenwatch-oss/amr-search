@@ -30,7 +30,7 @@ public class PaarsnpLibrary extends AbstractJsonnable {
     this(label, antimicrobials, new ArrayList<>(500), new ArrayList<>(500));
   }
 
-  private PaarsnpLibrary(final String label, final List<AntimicrobialAgent> antimicrobials, final Collection<ReferenceSequence> genes, final Collection<ResistanceSet> sets) {
+  public PaarsnpLibrary(final String label, final List<AntimicrobialAgent> antimicrobials, final Collection<ReferenceSequence> genes, final Collection<ResistanceSet> sets) {
     this.label = label;
     this.antimicrobials = antimicrobials;
     this.agentKeys = antimicrobials.stream().map(AntimicrobialAgent::getKey).collect(Collectors.toSet());
