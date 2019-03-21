@@ -1,13 +1,14 @@
 # PAARSNP Input Format
 
-For the current databases look in the [resources directory](../resources)
+These files correspond to the mechanism and sequence libraries used by PAARSNP to generate the AMR prediction in Pathogenwatch.
 
-## Directory Structure
+## Directory Contents
 
 ```
-/resources/{library-name}.toml
-```  
-`{library-name}` can be any string, but only NCBI taxon IDs can be used for searching assemblies.
+antimicrobials.toml
+{library-name}.toml
+```
+`{library-name}` is typically the NCBI taxonomy code (e.g. species code) for a library. Some sets of genes (e.g. ESBLs) are put into their own library, which can be re-used for species libraries.
 
 e.g. 
 - `1280.toml` provides the library for _Staphylococcus aureus_,
@@ -15,16 +16,29 @@ e.g.
 
 # Format Outline
 
-The TOML files consist of 5 main fields. All fields except `label` are optional in any given file.
+All files are in TOML format, which is a very simple text format. The specific details are given in the sections below.
+
+## antimicrobials.toml
+
+This file contains the full list of antibiotics that are analysed in Pathogenwatch. 
+
+### Antimicrobial Record
+
+1. `name` - The standard name of the antibiotic or resistance mechanism.
+1. `key` - This is the three letter code according to the [standard provided by the ASM](https://aac.asm.org/content/abbreviations-and-conventions).
+1. `type` - Typically this is the class of antibiotic, e.g. "Aminoglycosides".
+
+## Library TOML
+
+The TOML files consist of 5 main fields.
 
 1. `label` - [Required] The library name
+1. `antimicrobials` - [Required] The list of antimicrobials specified by that library.
 1. `extends` - Other libraries to inherit from. For more details see below.
-1. `antimicrobials` - The list of antimicrobials.
-1. `genes` - The AMR-associated genes.
-1. `paar` - Resistance based on presence/absence of the genes.
-1. `mechanisms` - Resistance based on gene variants.
+1. `genes` - The name, sequence, and thresholds used for each resistance-associated gene.
+1. `mechanisms` - The resistance mechanisms, which can include the presence of more than one gene or variant.
 
-## A simple example
+### A simple example
 
 ```
 # Comments are allowed in the file like this.
@@ -35,39 +49,28 @@ label = "1280"
 # For details on how they are merged, see the detailed description of `extends`.
 # extend = ["another_library"]
 
-antimicrobials = [
-{key = "AMI", type = "Aminoglycosides", name = "Amikacin"},
-{key = "GEN", type = "Aminoglycosides", name = "Gentamicin"},
-{key = "TOB", type = "Aminoglycosides", name = "Tobramycin"},
-{key = "KAN", type = "Aminoglycosides", name = "Kanamycin"},
-{key = "CIP", type = "Fluoroquinolones", name = "Ciprofloxacin"},
-]
+antimicrobials = [ "AMI", "GEN", "TOB", "KAN", "CIP" ]
 
 genes = [
-{name = "aphA-3", pid = 80.0, coverage = 75.0, sequence = "ATGAGAA..."},
+{name = "aphA-3", pid = 90.0, coverage = 75.0, sequence = "ATGAGAA..."},
 {name = "aadD", pid = 80.0, coverage = 75.0, sequence = "ATGAGAATA..."},
-{name = "aacA-aphD", pid = 80.0, coverage = 75.0, sequence = "ATGA..."},
+{name = "aacA-aphD", pid = 80.0, coverage = 95.0, sequence = "ATGA..."},
 {name = "grlA", pid = 80.0, coverage = 75.0, sequence = "ATGAGTGAA..."},
 ]
 
-paar = [
-{phenotypes = [{effect = "RESISTANT", profile = ["TOB","AMI","KAN"]}], members = ["aphA-3"]},
-{phenotypes = [{effect = "RESISTANT", profile = ["AMI","TOB","KAN"]}], members = ["aadD"]},
-{phenotypes = [{effect = "RESISTANT", profile = ["TOB","GEN","KAN"]}], members = ["aacA-aphD"]},
-]
-
 mechanisms = [
+{phenotypes = [{effect = "RESISTANT", profile = ["TOB","AMI","KAN"]}], members = ["aphA-3"]},
 {phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["S80F"]}]},
 {phenotypes = [{effect = "RESISTANT", profile = ["CIP"]}], members = [{gene="grlA", variants=["S80Y"]}]},
 ]
 ```
  
-# Detailed Description
+# Detailed Description of the Library Format
 
 ## label
 
 The name of the library. If this is an NCBI numeric ID, it will be used as the representative library for that part of the tree.
-If the taxon rank of the ID is higher than genus, it can be run using any of the children genus IDs as well.
+Note that more specific libraries will superceed more generic ones - e.g. `90370` is used for _Salmonella_ Typhi, while `590` is used for Salmonella in general.
 
 e.g. 
 1. "1280" will only run for _S. aureus_, 
@@ -88,23 +91,12 @@ label = "gram_neg_esbl"
 
 ## antimicrobials
 
-This field contains a list of one or more antimicrobials or broad spectrum resistance mechanisms, such as porin deletion.
-
-Three fields are required for each antimicrobial:
-
-1. `key` - For antimicrobials use the three letter code from <a href="http://www.bsacsurv.org/science/antimicrobials/"> this list</a>.
-1. `type` - Typically this is the class of antibiotic, e.g. "Aminoglycosides".
-1. `name` - The standard name of the antibiotic or resistance mechanism.
+This field contains a list of one or more antimicrobials or broad spectrum resistance mechanisms, such as porin deletion. 
+The antimicrobial IDs correspond to the `key` field in the `antimicrobials.toml` file. 
+Note that only antimicrobials listed in a library will be valid for that species, i.e. if the library is a composite library it will not include all of those in the parent library by default, but only those specified.
 
 ```
-antimicrobials = [
-
-# Standard representation
-{key = "AMI", type = "Aminoglycosides", name = "Amikacin"},
-
-# Porin gene
-{key = "POA", type = "Pores", name = "Pore A"}
-]
+antimicrobials = [ "AMI", "KAN", "TOB" ]
 ```
 
 ## genes 
@@ -131,9 +123,9 @@ genes = [
 
 ## Basic paar/mechanisms
 
-The gene presence-absence and variance descriptions are almost identical, and so are descibed together here.
-
-A simple resistance record consists of a single gene or SNP that confers resistance to one or more antimicrobials. A more complex one might consist of multiple required variants, or provide different levels of resistance to different antimicrobials.
+Both variant- and gene presence/absence-based mechanisms can be described using this format. 
+A simple resistance record consists of a single gene or SNP that confers resistance to one or more antimicrobials. 
+A more complex one might consist of multiple required variants, or provide different levels of resistance to different antimicrobials.
 
 Each record consists of two required fields and one optional field:
 
@@ -201,6 +193,25 @@ members = [{
 },
 ```
 
+### Combining gene presence/absence with variants
+
+Sometimes the function of acquired resistance genes depends on the presence of variants in the housekeeping genes. This is encoded by leaving the variants field empty:
+
+```
+members = [
+  # GeneA confers resitance when acquired
+  {
+    gene = "GeneA",
+    variants = []
+  },
+  # but only when two specific variants are found in GeneB
+  {
+    gene = "GeneB",
+    variants = [ "A246T", "A247T" ]
+  }  
+]
+```
+
 ### Frameshifts
 
 If disruption by frameshifts cause a resistance phenotype, this can also be indicated:
@@ -221,13 +232,13 @@ members = [{
   }]
 ```
 
-## Full paar/mechanisms Description
+## Full mechanisms Description
 
 It's best to understand the examples above before reading this bit.
 
 ### members
 
-When searching a query assembly, the resistance record is only considered as completely found when all members are identified, otherwise it is marked as "partial" or "not present". Most phenotypes "effect" types require all members to be present, with the exception of "Intermediate_Additive" (see below in "phentoypes").
+When searching a query assembly, a mechanism is only considered as completely found when all members are identified, otherwise it is marked as "partial" or "not present". Most phenotypes "effect" types require all members to be present, with the exception of "Intermediate_Additive" (see below in "phentoypes").
 
 The members field is straightforward for gene presence-absence, and is simply a list of gene identifiers.
 
@@ -235,7 +246,7 @@ The members field is straightforward for gene presence-absence, and is simply a 
 members = ["geneA", "geneB", ...]
 ```
 
-For mechanisms, the members field consists of a list of variant records. Each record consists of two fields:
+For variants, the members field consists of a list of variant records. Each record consists of two fields:
 
 1. `name` - the name of the gene containing the variants.
 1. `variants` - a list of variant sites that must be present.
@@ -250,6 +261,7 @@ For mechanisms, the members field consists of a list of variant records. Each re
     1. Truncation by premature stop codon can be specified using `truncated`.
     1. Promoter region variants can be encoded using a negative integer relative to the sequence start.
         * e.g. substitution at "-10": `a-10t`, deletion `a-10del` or `a-10-`
+    1. Leaving this field empty indicates that it is a simple gene presence-absence (e.g. as above). This is used for mechanisms that contain both genes presence/absence and variants.
 
 ```
 # Two variant sites are tested from geneA, and a deletion in geneB
@@ -308,7 +320,7 @@ modifiers = [{
  
 ## extends [Advanced]
 
-The `extends` field allows the import of other libraries into the current one. These are read in the order given prior to importing the current file. If two records have the same name then newer record updates the older one according to the rules in "Merging" below.
+The `extends` field allows the import of other libraries into the current one.  The rules by which they are merged are detailed below.
 
 Examples of use:
 ```
@@ -322,7 +334,6 @@ extends = ["gram_neg_carbapenemases", "gram_neg_esbl", "gram_neg_colistin"]
 # The Klebsiella default library is built from the proteobacteria library.
 label = "570"
 extends = ["1224"]
-
 ```
 
 ### Merging Rules
