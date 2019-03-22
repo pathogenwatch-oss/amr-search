@@ -1,9 +1,6 @@
 package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.models.*;
-import net.cgps.wgsa.paarsnp.core.models.ElementEffect;
-import net.cgps.wgsa.paarsnp.core.models.PhenotypeEffect;
-import net.cgps.wgsa.paarsnp.core.models.results.ResistanceState;
 import net.cgps.wgsa.paarsnp.core.models.results.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +73,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
         .collect(Collectors.toList());
 
     // Sorts the profile and adds the antibiotics with no matches.
-    return new PaarsnpResult(paarsnpResultData.assemblyId, paarsnpResultData.searchResult, antibioticProfiles);
+    return new PaarsnpResult(paarsnpResultData.assemblyId, paarsnpResultData.searchResult, antibioticProfiles, paarsnpResultData.version);
   }
 
   private Stream<Map.Entry<String, ResistanceState>> determineResistanceState(final Phenotype phenotype, final List<Modifier> phenotypeModifiers, final boolean isComplete) {
@@ -125,12 +122,13 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
 
   public static class PaarsnpResultData {
 
+    private final LibraryVersion version;
     public final String assemblyId;
     public final SearchResult searchResult;
     public final Collection<String> referenceProfile;
 
-    public PaarsnpResultData(final String assemblyId, final SearchResult searchResult, final Collection<String> referenceProfile) {
-
+    public PaarsnpResultData(final LibraryVersion version, final String assemblyId, final SearchResult searchResult, final Collection<String> referenceProfile) {
+      this.version = version;
       this.assemblyId = assemblyId;
       this.searchResult = searchResult;
       this.referenceProfile = referenceProfile;

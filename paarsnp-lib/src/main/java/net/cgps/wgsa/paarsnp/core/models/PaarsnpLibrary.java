@@ -14,6 +14,7 @@ public class PaarsnpLibrary extends AbstractJsonnable {
 
   private final Logger logger = LoggerFactory.getLogger(PaarsnpLibrary.class);
   private final String label;
+  private final LibraryVersion version;
   private final List<AntimicrobialAgent> antimicrobials;
   private final Map<String, ReferenceSequence> genes;
   private final Map<String, ResistanceSet> sets;
@@ -23,15 +24,16 @@ public class PaarsnpLibrary extends AbstractJsonnable {
 
   @SuppressWarnings("unused")
   private PaarsnpLibrary() {
-    this("", Collections.emptyList());
+    this("", null, Collections.emptyList());
   }
 
-  public PaarsnpLibrary(final String label, final List<AntimicrobialAgent> antimicrobials) {
-    this(label, antimicrobials, new ArrayList<>(500), new ArrayList<>(500));
+  public PaarsnpLibrary(final String label, final LibraryVersion version, final List<AntimicrobialAgent> antimicrobials) {
+    this(label, version, antimicrobials, new ArrayList<>(500), new ArrayList<>(500));
   }
 
-  public PaarsnpLibrary(final String label, final List<AntimicrobialAgent> antimicrobials, final Collection<ReferenceSequence> genes, final Collection<ResistanceSet> sets) {
+  public PaarsnpLibrary(final String label, final LibraryVersion version, final List<AntimicrobialAgent> antimicrobials, final Collection<ReferenceSequence> genes, final Collection<ResistanceSet> sets) {
     this.label = label;
+    this.version = version;
     this.antimicrobials = antimicrobials;
     this.agentKeys = antimicrobials.stream().map(AntimicrobialAgent::getKey).collect(Collectors.toSet());
     this.genes = genes.stream().collect(Collectors.toMap(ReferenceSequence::getName, Function.identity()));
@@ -57,6 +59,10 @@ public class PaarsnpLibrary extends AbstractJsonnable {
 
   public double getMinimumPid() {
     return this.minimumPid;
+  }
+
+  public LibraryVersion getVersion() {
+    return this.version;
   }
 
   public void addResistanceGenes(final Map<String, ReferenceSequence> genes) {

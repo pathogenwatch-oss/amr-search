@@ -49,7 +49,7 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
       searchResult = SearchResult.buildEmpty();
     }
 
-    final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(assemblyId, searchResult, this.paarsnpLibrary.getAntimicrobials().stream().map(AntimicrobialAgent::getKey).collect(Collectors.toList()));
+    final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(this.paarsnpLibrary.getVersion(), assemblyId, searchResult, this.paarsnpLibrary.getAntimicrobials().stream().map(AntimicrobialAgent::getKey).collect(Collectors.toList()));
 
     final Map<String, AntimicrobialAgent> agentMap = this.paarsnpLibrary.getAntimicrobials().stream().collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
 

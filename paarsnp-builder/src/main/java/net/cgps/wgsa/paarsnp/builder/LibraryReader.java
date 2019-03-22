@@ -24,12 +24,14 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
   private static final Logger logger = LoggerFactory.getLogger(LibraryReader.class);
   private final Map<String, AntimicrobialAgent> antimicrobialDb;
   private final List<AntimicrobialAgent> selectedList;
+  private final LibraryVersion version;
 
-  public LibraryReader(final Map<String, AntimicrobialAgent> antimicrobialDb) {
-    this(antimicrobialDb, new ArrayList<>(50));
+  public LibraryReader(final LibraryVersion version, final Map<String, AntimicrobialAgent> antimicrobialDb) {
+    this(version, antimicrobialDb, new ArrayList<>(50));
   }
 
-  public LibraryReader(final Map<String, AntimicrobialAgent> antimicrobialDb, final List<AntimicrobialAgent> selectedList) {
+  public LibraryReader(final LibraryVersion version, final Map<String, AntimicrobialAgent> antimicrobialDb, final List<AntimicrobialAgent> selectedList) {
+    this.version = version;
     this.antimicrobialDb = antimicrobialDb;
     this.selectedList = selectedList;
   }
@@ -54,7 +56,7 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
     final LibraryDataAndSequences parentInfo = this.readParents(label, toml.getList("extends", new ArrayList<>()), path.getParent());
 
     final PaarsnpLibrary inheritedLibrary = parentInfo.getPaarsnpLibrary();
-    final PaarsnpLibrary currentLibrary = new PaarsnpLibrary(label, this.selectedList, inheritedLibrary.getGenes().values(), inheritedLibrary.getSets().values());
+    final PaarsnpLibrary currentLibrary = new PaarsnpLibrary(label, this.version, this.selectedList, inheritedLibrary.getGenes().values(), inheritedLibrary.getSets().values());
     final Map<String, String> parentSequences = parentInfo.getSequences();
 
     // Read in the new set of genes
@@ -142,7 +144,7 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
 
           @Override
           public Supplier<LibraryDataAndSequences> supplier() {
-            return () -> new LibraryDataAndSequences(new HashMap<>(500), new PaarsnpLibrary(label, LibraryReader.this.selectedList));
+            return () -> new LibraryDataAndSequences(new HashMap<>(500), new PaarsnpLibrary(label, LibraryReader.this.version, LibraryReader.this.selectedList));
           }
 
           @Override

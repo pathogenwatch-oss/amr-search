@@ -1,6 +1,7 @@
 package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.models.LibraryVersion;
 import net.cgps.wgsa.paarsnp.core.models.results.AntibioticProfile;
 import net.cgps.wgsa.paarsnp.core.models.results.SearchResult;
 
@@ -12,17 +13,19 @@ public class PaarsnpResult extends AbstractJsonnable implements Result {
   private final SearchResult searchResult;
   private final Collection<AntibioticProfile> resistanceProfile;
   private final String assemblyId;
+  private final LibraryVersion version;
 
   @SuppressWarnings("unused")
   private PaarsnpResult() {
-    this("", null, Collections.emptyList());
+    this("", null, Collections.emptyList(), null);
   }
 
-  public PaarsnpResult(final String assemblyId, final SearchResult searchResult, final Collection<AntibioticProfile> resistanceProfile) {
+  public PaarsnpResult(final String assemblyId, final SearchResult searchResult, final Collection<AntibioticProfile> resistanceProfile, final LibraryVersion version) {
 
     this.assemblyId = assemblyId;
     this.searchResult = searchResult;
     this.resistanceProfile = resistanceProfile;
+    this.version = version;
   }
 
   public Collection<AntibioticProfile> getResistanceProfile() {
@@ -36,5 +39,9 @@ public class PaarsnpResult extends AbstractJsonnable implements Result {
 
   public SearchResult getSearchResult() {
     return this.searchResult;
+  }
+
+  public LibraryVersion getVersion() {
+    return this.version;
   }
 }

@@ -1,29 +1,23 @@
 package net.cgps.wgsa.paarsnp.builder;
 
 import ch.qos.logback.classic.Level;
-import net.cgps.wgsa.paarsnp.core.Constants;
-import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
-import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
+import net.cgps.wgsa.paarsnp.core.models.LibraryVersion;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.function.Consumer;
 
 public class PaarsnpBuilderMain {
 
-  private static final String DEFAULT_INPUT_PATH = "\"resources/\"";
+  private static final String DEFAULT_CONFIG_PATH = "resources";
+  private static final String DEFAULT_LIBRARYPATH = "libraries";
 
-  // Filter for species sub-directories.
-  private static final DirectoryStream.Filter<Path> SPECIES_FOLDER_FILTER =
-      entry -> Files.isRegularFile(entry) && entry.getFileName().toString().matches("^\\d+.toml$");
 
   private final Logger logger = LoggerFactory.getLogger(PaarsnpBuilderMain.class);
 
@@ -46,7 +40,10 @@ public class PaarsnpBuilderMain {
       final ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
       root.setLevel(Level.valueOf(commandLine.getOptionValue('l', "INFO")));
 
-      new PaarsnpBuilderMain().run(commandLine.getOptionValue('i', DEFAULT_INPUT_PATH), commandLine.getOptionValue('o', "."));
+      new PaarsnpBuilderMain().run(
+          commandLine.getOptionValue('r', DEFAULT_CONFIG_PATH),
+          commandLine.getOptionValue('l', DEFAULT_LIBRARYPATH),
+          commandLine.getOptionValue('o', "."));
 
     } catch (final Exception e) {
       LoggerFactory.getLogger(PaarsnpBuilderMain.class).error("Failed to run due to: ", e);
@@ -56,84 +53,46 @@ public class PaarsnpBuilderMain {
 
   private static Options myOptions() {
 
-    final Option inputDirectoryOption = Option.builder("i").longOpt("input-dir").hasArg().argName("Input directory").desc("Optional: Input database directory. Defaults to " + DEFAULT_INPUT_PATH).build();
-
+    final Option inputDirectoryOption = Option.builder("r").longOpt("resource-dir").hasArg().argName("Config directory").desc("Optional: Input database directory. Defaults to " + DEFAULT_CONFIG_PATH).build();
+    final Option libraryDirectoryOption = Option.builder("l").longOpt("library-dir").hasArg().argName("Library directory").desc("Location of AMR libraries").build();
     final Option outputDirectoryOption = Option.builder("o").longOpt("output-dir").hasArg().argName("Output directory").desc("Optional: Output location for BLAST and paarsnp databases.").required().build();
 
     final Option logLevel = Option.builder("l").longOpt("log-level").hasArg().argName("Logging level").desc("INFO, DEBUG etc").build();
 
-    final Options options = new Options();
-    options.addOption(outputDirectoryOption)
+    return new Options()
+        .addOption(outputDirectoryOption)
         .addOption(inputDirectoryOption)
+        .addOption(libraryDirectoryOption)
         .addOption(logLevel);
-
-    return options;
   }
 
-  private void run(String inputDirectory, final String outputDirectory) {
+  private void run(String config, final String libraryDirectory, final String outputDirectory) {
 
-    final Path inputFolderPath = Paths.get(inputDirectory);
-    final Path outputFolderPath = Paths.get(outputDirectory);
+    final Path resourceDirectoryPath = Paths.get(config);
+    final Path outputDirectoryPath = Paths.get(outputDirectory);
+    final Path libraryDirectoryPath = Paths.get(libraryDirectory);
 
-    if (this.fileMissing(inputFolderPath)) {
-      throw new RuntimeException("Input folder " + inputFolderPath.toAbsolutePath().toString() + " does not exist.");
+    if (!Files.exists(resourceDirectoryPath)) {
+      throw new RuntimeException("Input folder " + resourceDirectoryPath.toAbsolutePath().toString() + " does not exist.");
     }
 
-    if (this.fileMissing(outputFolderPath)) {
+    if (!Files.exists(libraryDirectoryPath)) {
+      throw new RuntimeException("Input folder " + libraryDirectoryPath.toAbsolutePath().toString() + " does not exist.");
+    }
+
+    if (this.fileMissing(outputDirectoryPath)) {
       try {
-        Files.createDirectories(outputFolderPath);
+        Files.createDirectories(outputDirectoryPath);
       } catch (IOException e) {
-        throw new RuntimeException("Unable to create output folder " + outputFolderPath.toAbsolutePath().toString());
+        throw new RuntimeException("Unable to create output folder " + outputDirectoryPath.toAbsolutePath().toString());
       }
     }
 
-    final Map<String, AntimicrobialAgent> antimicrobialDb = new AntimicrobialDbReader()
-        .apply(inputFolderPath)
-        .stream()
-        .collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
+    final Consumer<LibraryVersion> dataCreator = new GeneratePaarsnpData(libraryDirectoryPath, outputDirectoryPath);
 
-    try (final DirectoryStream<Path> dbStream = Files.newDirectoryStream(inputFolderPath, SPECIES_FOLDER_FILTER)) {
-
-      dbStream.forEach(tomlPath -> {
-
-        final String speciesId = tomlPath.getFileName().toString().replace(".toml", "");
-
-        this.logger.info("Preparing {}", speciesId);
-
-        // Create the blast databases.
-        // First write the paarsnp fasta.
-        final MakeBlastDB makeBlastDB = new MakeBlastDB(outputFolderPath);
-
-        final LibraryReader.LibraryDataAndSequences paarsnpLibraryAndSequences = new LibraryReader(antimicrobialDb).apply(tomlPath);
-
-        final Path libraryFile = Paths.get(outputDirectory, speciesId + Constants.JSON_APPEND);
-        final String snparLibraryName = speciesId + Constants.LIBRARY_APPEND;
-        final Path snparFastaFile = Paths.get(outputDirectory, snparLibraryName + Constants.FASTA_APPEND);
-
-        try (final BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(libraryFile.toFile()))) {
-          bw.write(AbstractJsonnable.toJson(paarsnpLibraryAndSequences.getPaarsnpLibrary()).getBytes());
-        } catch (final IOException e) {
-          throw new RuntimeException("Unable to serialise to " + libraryFile, e);
-        }
-
-        try {
-
-          if (!paarsnpLibraryAndSequences.getSequences().isEmpty()) {
-            Files.write(snparFastaFile, String.join("", paarsnpLibraryAndSequences.getSequences().values()).getBytes(), StandardOpenOption.CREATE);
-            makeBlastDB.accept(snparLibraryName, snparFastaFile);
-          }
-
-        } catch (final IOException e) {
-          throw new RuntimeException(e);
-        }
-
-        this.logger.info("{} files written.", speciesId);
-      });
-
-    } catch (final IOException e) {
-      this.logger.info("Failed to read input database in {}", inputDirectory);
-      throw new RuntimeException(e);
-    }
+    new LibraryConfigReader()
+        .apply(resourceDirectoryPath)
+        .forEach(dataCreator);
   }
 
   private boolean fileMissing(final Path... files) {
