@@ -2,6 +2,7 @@ package net.cgps.wgsa.paarsnp;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.models.LibraryVersion;
 import net.cgps.wgsa.paarsnp.core.models.results.OldStyleAntibioticProfile;
 
 import java.util.*;
@@ -14,16 +15,18 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
   private final Collection<OldStyleAntibioticProfile> resistanceProfile;
   private final Collection<CdsJson> matches;
   private final Collection<VariantJson> variantMatches;
+  private final LibraryVersion version;
 
   @SuppressWarnings("unused")
   private PathogenWatchFormat() {
 
-    this("", Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
+    this("", null, Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
   }
 
-  public PathogenWatchFormat(final String assemblyId, final Collection<String> snparResult, final Collection<String> paarResult, final Collection<OldStyleAntibioticProfile> resistanceProfile, final Collection<CdsJson> matches, final Collection<VariantJson> variantMatches) {
+  public PathogenWatchFormat(final String assemblyId, final LibraryVersion version, final Collection<String> snparResult, final Collection<String> paarResult, final Collection<OldStyleAntibioticProfile> resistanceProfile, final Collection<CdsJson> matches, final Collection<VariantJson> variantMatches) {
 
     this.assemblyId = assemblyId;
+    this.version = version;
     this.snparElementIds = snparResult;
     this.paarElementIds = paarResult;
     this.resistanceProfile = resistanceProfile;
@@ -55,6 +58,10 @@ public class PathogenWatchFormat extends AbstractJsonnable implements Result {
 
   public Collection<VariantJson> getVariantMatches() {
     return this.variantMatches;
+  }
+
+  public LibraryVersion getVersion() {
+    return this.version;
   }
 
   @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -89,6 +89,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
     final Function<ResistanceSet, Stream<OldStyleSetDescription>> convertSetFormat = new ConvertSetDescription();
 
     return new PathogenWatchFormat(paarsnpResult.getAssemblyId(),
+        paarsnpResult.getVersion(),
         snparElementIds,
         paarElementIds,
         paarsnpResult.getResistanceProfile()
