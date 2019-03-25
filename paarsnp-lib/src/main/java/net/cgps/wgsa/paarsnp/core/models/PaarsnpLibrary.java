@@ -3,8 +3,6 @@ package net.cgps.wgsa.paarsnp.core.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.function.Function;
@@ -12,9 +10,7 @@ import java.util.stream.Collectors;
 
 public class PaarsnpLibrary extends AbstractJsonnable {
 
-  private final Logger logger = LoggerFactory.getLogger(PaarsnpLibrary.class);
-  private final String label;
-  private final LibraryVersion version;
+  private final LibraryMetadata version;
   private final List<AntimicrobialAgent> antimicrobials;
   private final Map<String, ReferenceSequence> genes;
   private final Map<String, ResistanceSet> sets;
@@ -24,25 +20,20 @@ public class PaarsnpLibrary extends AbstractJsonnable {
 
   @SuppressWarnings("unused")
   private PaarsnpLibrary() {
-    this("", null, Collections.emptyList());
+    this(null, Collections.emptyList());
   }
 
-  public PaarsnpLibrary(final String label, final LibraryVersion version, final List<AntimicrobialAgent> antimicrobials) {
-    this(label, version, antimicrobials, new ArrayList<>(500), new ArrayList<>(500));
+  public PaarsnpLibrary(final LibraryMetadata version, final List<AntimicrobialAgent> antimicrobials) {
+    this(version, antimicrobials, new ArrayList<>(500), new ArrayList<>(500));
   }
 
-  public PaarsnpLibrary(final String label, final LibraryVersion version, final List<AntimicrobialAgent> antimicrobials, final Collection<ReferenceSequence> genes, final Collection<ResistanceSet> sets) {
-    this.label = label;
+  public PaarsnpLibrary(final LibraryMetadata version, final List<AntimicrobialAgent> antimicrobials, final Collection<ReferenceSequence> genes, final Collection<ResistanceSet> sets) {
     this.version = version;
     this.antimicrobials = antimicrobials;
     this.agentKeys = antimicrobials.stream().map(AntimicrobialAgent::getKey).collect(Collectors.toSet());
     this.genes = genes.stream().collect(Collectors.toMap(ReferenceSequence::getName, Function.identity()));
     this.sets = sets.stream().collect(Collectors.toMap(ResistanceSet::getName, set -> set));
     this.minimumPid = genes.stream().mapToDouble(ReferenceSequence::getPid).min().orElse(100.0);
-  }
-
-  public String getLabel() {
-    return this.label;
   }
 
   public List<AntimicrobialAgent> getAntimicrobials() {
@@ -61,7 +52,7 @@ public class PaarsnpLibrary extends AbstractJsonnable {
     return this.minimumPid;
   }
 
-  public LibraryVersion getVersion() {
+  public LibraryMetadata getVersion() {
     return this.version;
   }
 

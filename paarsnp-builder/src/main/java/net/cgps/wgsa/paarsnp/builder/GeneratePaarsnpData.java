@@ -2,7 +2,7 @@ package net.cgps.wgsa.paarsnp.builder;
 
 import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
-import net.cgps.wgsa.paarsnp.core.models.LibraryVersion;
+import net.cgps.wgsa.paarsnp.core.models.LibraryMetadata;
 import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class GeneratePaarsnpData implements Consumer<LibraryVersion> {
+public class GeneratePaarsnpData implements Consumer<LibraryMetadata> {
 
   // Filter for species sub-directories.
   private static final DirectoryStream.Filter<Path> SPECIES_FOLDER_FILTER =
@@ -33,9 +33,9 @@ public class GeneratePaarsnpData implements Consumer<LibraryVersion> {
   }
 
   @Override
-  public void accept(final LibraryVersion libraryVersion) {
+  public void accept(final LibraryMetadata libraryMetadata) {
 
-    final Path libaryPath = Paths.get(this.archivesDirectory.toString(), libraryVersion.getSource().toString().toLowerCase());
+    final Path libaryPath = Paths.get(this.archivesDirectory.toString(), libraryMetadata.getSource().toString().toLowerCase());
 
     if (!Files.exists(libaryPath)) {
       throw new RuntimeException(libaryPath.toString() + " does not exist.");
@@ -58,7 +58,7 @@ public class GeneratePaarsnpData implements Consumer<LibraryVersion> {
         // First write the paarsnp fasta.
         final MakeBlastDB makeBlastDB = new MakeBlastDB(this.outputDirectory);
 
-        final LibraryReader.LibraryDataAndSequences paarsnpLibraryAndSequences = new LibraryReader(libraryVersion, antimicrobialDb).apply(tomlPath);
+        final LibraryReader.LibraryDataAndSequences paarsnpLibraryAndSequences = new LibraryReader(libraryMetadata, antimicrobialDb).apply(tomlPath);
 
         final Path libraryFile = Paths.get(this.outputDirectory.toString(), speciesId + Constants.JSON_APPEND);
         final String snparLibraryName = speciesId + Constants.LIBRARY_APPEND;

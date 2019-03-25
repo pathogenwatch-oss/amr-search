@@ -2,17 +2,19 @@ package net.cgps.wgsa.paarsnp.core.models;
 
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 
-public class LibraryVersion extends AbstractJsonnable {
-  private final LibraryVersion.Source source;
+public class LibraryMetadata extends AbstractJsonnable {
+  private final LibraryMetadata.Source source;
   private final String version;
+  private final String label;
 
-  private LibraryVersion() {
-    this(Source.PUBLIC, "");
+  private LibraryMetadata() {
+    this(Source.PUBLIC, "", "");
   }
 
-  public LibraryVersion(final Source source, final String version) {
+  public LibraryMetadata(final Source source, final String version, final String label) {
     this.source = source;
     this.version = version;
+    this.label = label;
   }
 
   public Source getSource() {
@@ -21,6 +23,10 @@ public class LibraryVersion extends AbstractJsonnable {
 
   public String getVersion() {
     return this.version;
+  }
+
+  public String getLabel() {
+    return this.label;
   }
 
   public enum Source {

@@ -58,7 +58,7 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
   private List<String> buildBlastOptions(final double minimumPid) {
     return Arrays.asList(
-        "-db", Paths.get(this.resourceDirectory, this.paarsnpLibrary.getLabel() + Constants.LIBRARY_APPEND).toAbsolutePath().toString(),
+        "-db", Paths.get(this.resourceDirectory, this.paarsnpLibrary.getVersion().getLabel() + Constants.LIBRARY_APPEND).toAbsolutePath().toString(),
         "-perc_identity", String.valueOf(minimumPid),
         "-evalue", "1e-5"
     );

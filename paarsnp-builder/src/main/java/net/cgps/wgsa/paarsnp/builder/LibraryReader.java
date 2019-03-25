@@ -24,13 +24,13 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
   private static final Logger logger = LoggerFactory.getLogger(LibraryReader.class);
   private final Map<String, AntimicrobialAgent> antimicrobialDb;
   private final List<AntimicrobialAgent> selectedList;
-  private final LibraryVersion version;
+  private final LibraryMetadata version;
 
-  public LibraryReader(final LibraryVersion version, final Map<String, AntimicrobialAgent> antimicrobialDb) {
+  public LibraryReader(final LibraryMetadata version, final Map<String, AntimicrobialAgent> antimicrobialDb) {
     this(version, antimicrobialDb, new ArrayList<>(50));
   }
 
-  public LibraryReader(final LibraryVersion version, final Map<String, AntimicrobialAgent> antimicrobialDb, final List<AntimicrobialAgent> selectedList) {
+  public LibraryReader(final LibraryMetadata version, final Map<String, AntimicrobialAgent> antimicrobialDb, final List<AntimicrobialAgent> selectedList) {
     this.version = version;
     this.antimicrobialDb = antimicrobialDb;
     this.selectedList = selectedList;
@@ -56,7 +56,11 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
     final LibraryDataAndSequences parentInfo = this.readParents(label, toml.getList("extends", new ArrayList<>()), path.getParent());
 
     final PaarsnpLibrary inheritedLibrary = parentInfo.getPaarsnpLibrary();
-    final PaarsnpLibrary currentLibrary = new PaarsnpLibrary(label, this.version, this.selectedList, inheritedLibrary.getGenes().values(), inheritedLibrary.getSets().values());
+    final PaarsnpLibrary currentLibrary = new PaarsnpLibrary(
+        new LibraryMetadata(this.version.getSource(), this.version.getVersion(), label),
+        this.selectedList,
+        inheritedLibrary.getGenes().values(),
+        inheritedLibrary.getSets().values());
     final Map<String, String> parentSequences = parentInfo.getSequences();
 
     // Read in the new set of genes
@@ -144,7 +148,16 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
 
           @Override
           public Supplier<LibraryDataAndSequences> supplier() {
-            return () -> new LibraryDataAndSequences(new HashMap<>(500), new PaarsnpLibrary(label, LibraryReader.this.version, LibraryReader.this.selectedList));
+            return () -> new LibraryDataAndSequences(
+                new HashMap<>(500),
+                new PaarsnpLibrary(
+                    new LibraryMetadata(
+                        LibraryReader.this.version.getSource(),
+                        LibraryReader.this.version.getVersion(),
+                        label
+                    ),
+                    LibraryReader.this.selectedList
+                ));
           }
 
           @Override
@@ -154,9 +167,9 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
 
           @Override
           public BinaryOperator<LibraryDataAndSequences> combiner() {
-            // only called on parallel stream, so should try to preserve order.
+            // only called on serial stream, so should try to preserve order.
             return (a, b) -> {
-              if (label.equals(a.getPaarsnpLibrary().getLabel()) || (parentLibrary.indexOf(a.getPaarsnpLibrary().getLabel()) < parentLibrary.indexOf(b.getPaarsnpLibrary().getLabel()))) {
+              if (label.equals(a.getPaarsnpLibrary().getVersion().getLabel()) || (parentLibrary.indexOf(a.getPaarsnpLibrary().getVersion().getLabel()) < parentLibrary.indexOf(b.getPaarsnpLibrary().getVersion().getLabel()))) {
                 return a.merge(b);
               } else {
                 return b.merge(a);

@@ -1,7 +1,7 @@
 package net.cgps.wgsa.paarsnp.builder;
 
 import ch.qos.logback.classic.Level;
-import net.cgps.wgsa.paarsnp.core.models.LibraryVersion;
+import net.cgps.wgsa.paarsnp.core.models.LibraryMetadata;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,7 +88,7 @@ public class PaarsnpBuilderMain {
       }
     }
 
-    final Consumer<LibraryVersion> dataCreator = new GeneratePaarsnpData(libraryDirectoryPath, outputDirectoryPath);
+    final Consumer<LibraryMetadata> dataCreator = new GeneratePaarsnpData(libraryDirectoryPath, outputDirectoryPath);
 
     new LibraryConfigReader()
         .apply(resourceDirectoryPath)
