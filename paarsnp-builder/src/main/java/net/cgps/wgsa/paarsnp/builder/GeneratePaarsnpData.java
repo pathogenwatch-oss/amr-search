@@ -35,7 +35,7 @@ public class GeneratePaarsnpData implements Consumer<LibraryMetadata> {
   @Override
   public void accept(final LibraryMetadata libraryMetadata) {
 
-    final Path libaryPath = Paths.get(this.archivesDirectory.toString(), libraryMetadata.getSource().toString().toLowerCase());
+    final Path libaryPath = LibraryMetadata.Source.PUBLIC == libraryMetadata.getSource() ? Paths.get(this.archivesDirectory.toString(), "amr-libraries") : Paths.get(this.archivesDirectory.toString(), "amr-test-libraries");
 
     if (!Files.exists(libaryPath)) {
       throw new RuntimeException(libaryPath.toString() + " does not exist.");
