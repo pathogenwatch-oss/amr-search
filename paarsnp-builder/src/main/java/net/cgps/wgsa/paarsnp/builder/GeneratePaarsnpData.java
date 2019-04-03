@@ -35,18 +35,18 @@ public class GeneratePaarsnpData implements Consumer<LibraryMetadata> {
   @Override
   public void accept(final LibraryMetadata libraryMetadata) {
 
-    final Path libaryPath = LibraryMetadata.Source.PUBLIC == libraryMetadata.getSource() ? Paths.get(this.archivesDirectory.toString(), "amr-libraries") : Paths.get(this.archivesDirectory.toString(), "amr-test-libraries");
+    final Path libraryPath = LibraryMetadata.Source.PUBLIC == libraryMetadata.getSource() ? Paths.get(this.archivesDirectory.toString(), "amr-libraries") : Paths.get(this.archivesDirectory.toString(), "amr-test-libraries");
 
-    if (!Files.exists(libaryPath)) {
-      throw new RuntimeException(libaryPath.toString() + " does not exist.");
+    if (!Files.exists(libraryPath)) {
+      throw new RuntimeException(libraryPath.toString() + " does not exist.");
     }
 
     final Map<String, AntimicrobialAgent> antimicrobialDb = new AntimicrobialDbReader()
-        .apply(libaryPath)
+        .apply(libraryPath)
         .stream()
         .collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
 
-    try (final DirectoryStream<Path> dbStream = Files.newDirectoryStream(libaryPath, SPECIES_FOLDER_FILTER)) {
+    try (final DirectoryStream<Path> dbStream = Files.newDirectoryStream(libraryPath, SPECIES_FOLDER_FILTER)) {
 
       dbStream.forEach(tomlPath -> {
 
@@ -85,7 +85,7 @@ public class GeneratePaarsnpData implements Consumer<LibraryMetadata> {
       });
 
     } catch (final IOException e) {
-      this.logger.info("Failed to read input database in {}", libaryPath.toString());
+      this.logger.info("Failed to read input database in {}", libraryPath.toString());
       throw new RuntimeException(e);
     }
 
