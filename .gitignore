@@ -9,5 +9,7 @@ paarsnp-builder/dependency-reduced-pom.xml
 paarsnp-builder/target/
 paarsnp-lib/target/
 paarsnp-runner/target/
+pw-config-utils/target/
+pw-genome-config/target/
 
 venv/
