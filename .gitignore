@@ -13,3 +13,4 @@ pw-config-utils/target/
 pw-genome-config/target/
 
 venv/
+pw-genome-config.iml
