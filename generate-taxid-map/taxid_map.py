@@ -1,25 +1,32 @@
+import re
 import subprocess
 import sys
-import re
 from pathlib import Path
 
 matcher = re.compile('^(\d+).toml$')
 
-1
+
 def extract_genus_id(record):
     return record.lstrip().rstrip().split(' ')[0]
 
 
-library_directory = Path(sys.argv[1])
+def extract_ids(library_directory: Path):
+    for file in library_directory.glob('*.toml'):
+        match = matcher.search(str(file.name))
+        if match is not None:
+            library_taxids.add(match.group(1))
 
-taxonkit_path = sys.argv[2] if 2 < len(sys.argv) else 'taxonkit'
+
+library_directories = sys.argv[1:]
 
 library_taxids = set()
 
-for file in library_directory.glob('*.toml'):
-    match = matcher.search(str(file.name))
-    if match is not None:
-        library_taxids.add(match.group(1))
+for directory in library_directories:
+    extract_ids(Path(directory))
+
+taxonkit_path = 'bin/taxonkit'
+
+
 
 # Genus example (one line from grep)
 # mirko-air:bin coriny$ ./taxonkit list --ids 570 --show-rank --show-name | grep "\[genus\]"

@@ -113,6 +113,8 @@
                         <argument>${paarsnp.root}/libraries</argument>
                         <argument>-o</argument>
                         <argument>${paarsnp.root}/build/databases</argument>
+                        <argument>-t</argument>
+                        <argument>public</argument>
                     </arguments>
                 </configuration>
             </plugin>

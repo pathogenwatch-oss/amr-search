@@ -54,7 +54,7 @@ public class BlastRunner implements Function<String[], BlastOutput> {
         return xmlReader.apply(outputReader);
       }
     } catch (final IOException e) {
-      this.logger.error("BLAST Failure", e);
+      this.logger.error("BLAST Failure: " + String.join(" ", options), e);
       throw new RuntimeException(e);
     } finally {
       if (null != p) {
