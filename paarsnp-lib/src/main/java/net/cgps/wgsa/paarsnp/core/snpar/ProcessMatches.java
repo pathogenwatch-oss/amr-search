@@ -4,7 +4,10 @@ import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.lib.blast.MutationBuilder;
 import net.cgps.wgsa.paarsnp.core.lib.blast.SequenceProcessor;
-import net.cgps.wgsa.paarsnp.core.models.*;
+import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
+import net.cgps.wgsa.paarsnp.core.models.ProcessedMatch;
+import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
+import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +46,7 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
     final Collection<ResistanceMutationMatch> resistanceMutations = referenceSequence
         .getVariants()
         .stream()
-        .peek(mutation -> this.logger.debug("Testing resistance mutation {}", mutation.getName()))
+        .peek(mutation -> this.logger.trace("Testing resistance mutation {}", mutation.getName()))
         .filter(mutation -> mutation.isWithinBoundaries(
             match.getBlastSearchStatistics().getLibrarySequenceStart(),
             match.getBlastSearchStatistics().getLibrarySequenceStop()))
