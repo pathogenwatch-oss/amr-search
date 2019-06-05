@@ -37,11 +37,11 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
         .filter(setResult -> !setResult.getFoundMembers().isEmpty())
         .forEach(setResult -> {
 
-          final boolean complete = setResult.getFoundMembers().size() == setResult
-              .getSet()
-              .size();
+          final boolean complete = new HashSet<>(setResult.getFoundMembers()).equals(new HashSet<>(setResult.getSet().getMembers()));
 
-          setResult.getSet().getPhenotypes()
+          setResult
+              .getSet()
+              .getPhenotypes()
               .forEach(phenotype -> this.determineResistanceState(
                   phenotype,
                   phenotype.getModifiers().stream().filter(modifier -> setResult.modifierIsPresent(modifier.getName())).collect(Collectors.toList()),

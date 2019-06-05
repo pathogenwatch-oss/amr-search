@@ -207,7 +207,7 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
         return members
             .stream()
             .peek(member -> logger.trace("{}", member))
-            .map(member -> new SetMember(member, Collections.emptyList()))
+            .map(member -> new SetMember(member, Collections.emptySet()))
             .collect(Collectors.toList());
       } catch (final ClassCastException e) {
         return toml.getTables("members")

@@ -41,4 +41,9 @@ public class SetResult extends AbstractJsonnable {
   public ResistanceSet getSet() {
     return this.set;
   }
+
+  @Override
+  public String toString() {
+    return this.toJson();
+  }
 }

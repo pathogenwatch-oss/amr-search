@@ -74,16 +74,16 @@ public class CombineResults implements Collector<BlastMatch, List<ProcessedMatch
                         }
                         // NB We should only consider SNPS from a single copy of a gene, so here we are going to select the
                         // copy with the most coverage of the set
-                        final List<String> variants = matches.get(member.getGene())
+                        final Set<String> variants = matches.get(member.getGene())
                             .stream()
                             .map(match -> match.getSnpResistanceElements()
                                 .stream()
                                 .filter(mutation -> member.getVariants().contains(mutation.getResistanceMutation().getName()))
                                 .map(ResistanceMutationMatch::getResistanceMutation)
                                 .map(Variant::getName)
-                                .collect(Collectors.toList()))
+                                .collect(Collectors.toSet()))
                             .max(Comparator.comparingInt(Collection::size))
-                            .orElse(Collections.emptyList());
+                            .orElse(Collections.emptySet());
 
                         final SetMember variantsMember = new SetMember(member.getGene(), variants);
                         final Optional<SetMember> resultMember;
@@ -103,7 +103,7 @@ public class CombineResults implements Collector<BlastMatch, List<ProcessedMatch
                       .map(Phenotype::getModifiers)
                       .flatMap(Collection::stream)
                       .filter(modifier -> matches.keySet().contains(modifier.getName()))
-                      .map(modifier -> new SetMember(modifier.getName(), Collections.emptyList()))
+                      .map(modifier -> new SetMember(modifier.getName(), Collections.emptySet()))
                       .collect(Collectors.toList()),
                   set
               )

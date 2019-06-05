@@ -6,10 +6,7 @@ import net.cgps.wgsa.paarsnp.core.models.results.Modifier;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LibraryReaderTest {
@@ -54,7 +51,7 @@ public class LibraryReaderTest {
         "members = [\"tetM_8_X04388\"]\n")
         .getTables("mechanisms")
         .get(0);
-    final ResistanceSet resistanceSet = ResistanceSet.build(Optional.of("tetM_8"), Collections.singletonList(new Phenotype(PhenotypeEffect.RESISTANT, Collections.singletonList("TCY"), Collections.emptyList())), Collections.singletonList(new SetMember("tetM_8_X04388", Collections.emptyList())));
+    final ResistanceSet resistanceSet = ResistanceSet.build(Optional.of("tetM_8"), Collections.singletonList(new Phenotype(PhenotypeEffect.RESISTANT, Collections.singletonList("TCY"), Collections.emptyList())), Collections.singletonList(new SetMember("tetM_8_X04388", Collections.emptySet())));
     Assert.assertEquals(resistanceSet, LibraryReader.parseMechanisms().apply(toml));
   }
 
@@ -68,7 +65,7 @@ public class LibraryReaderTest {
         .getTables("mechanisms")
         .get(0);
 
-    final List<SetMember> members = Collections.singletonList(new SetMember("tetM_8_X04388", Collections.emptyList()));
+    final List<SetMember> members = Collections.singletonList(new SetMember("tetM_8_X04388", Collections.emptySet()));
 
     final List<SetMember> parsed = LibraryReader.parseMembers().apply(toml);
 
@@ -84,7 +81,7 @@ public class LibraryReaderTest {
             Arrays.asList(
                 new Phenotype(PhenotypeEffect.INTERMEDIATE, Arrays.asList("CRO", "PEN"), Collections.emptyList()),
                 new Phenotype(PhenotypeEffect.INTERMEDIATE_ADDITIVE, Collections.singletonList("CFM"), Collections.emptyList())),
-            Collections.singletonList(new SetMember("penA", Arrays.asList("G545S", "I312M", "V316T")))
+            Collections.singletonList(new SetMember("penA", Set.of("G545S", "I312M", "V316T")))
         ),
 
         LibraryReader.parseMechanisms().apply(new Toml()
@@ -103,7 +100,7 @@ public class LibraryReaderTest {
   public void parseSnparMember() {
 
     Assert.assertEquals(
-        Collections.singletonList(new SetMember("penA", Arrays.asList("G545S", "I312M", "V316T"))),
+        Collections.singletonList(new SetMember("penA", Set.of("G545S", "I312M", "V316T"))),
         Collections.singletonList(LibraryReader.parseMember()
             .apply(new Toml()
                 .read("members = [{gene=\"penA\", variants=[\"G545S\",\"I312M\",\"V316T\"]}]\n")

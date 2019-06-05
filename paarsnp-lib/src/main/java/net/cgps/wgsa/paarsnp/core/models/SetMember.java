@@ -2,28 +2,26 @@ package net.cgps.wgsa.paarsnp.core.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class SetMember {
 
   private final String gene;
   @JsonInclude(JsonInclude.Include.NON_EMPTY)
-  private final List<String> variants;
+  private final Set<String> variants;
 
   @SuppressWarnings("unused")
   private SetMember() {
-    this("", Collections.emptyList());
+    this("", Collections.emptySet());
   }
 
-  public SetMember(final String gene, final List<String> variants) {
+  public SetMember(final String gene, final Collection<String> variants) {
     this.gene = gene;
-    this.variants = variants;
+    this.variants = new HashSet<>(variants);
   }
 
-  public List<String> getVariants() {
-    return Collections.unmodifiableList(this.variants);
+  public Set<String> getVariants() {
+    return Collections.unmodifiableSet(this.variants);
   }
 
   public String getGene() {
