@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp.pwgenomeconfig;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.cgps.wgsa.paarsnp.builder.AntimicrobialDbReader;
 import net.cgps.wgsa.paarsnp.builder.LibraryReader;
 import net.cgps.wgsa.paarsnp.core.models.LibraryMetadata;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -36,6 +38,14 @@ public class CreateConfigMain {
 
   private void run(final Path libraryFile, final Path outputFile) {
     final Map<String, AntimicrobialAgent> agents = new AntimicrobialDbReader().apply(libraryFile.getParent()).stream().collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
+
+    try {
+      final String agentJson = new ObjectMapper().writeValueAsString(agents.values());
+      Files.write(Paths.get(outputFile.getParent().toString(), "antimicrobials.jsn"), agentJson.getBytes(), StandardOpenOption.CREATE);
+    } catch (final IOException e) {
+      throw new RuntimeException(e);
+    }
+
     final PaarsnpLibrary paarsnpLibrary = new LibraryReader(new LibraryMetadata(LibraryMetadata.Source.PUBLIC, "", ""), agents).apply(libraryFile).getPaarsnpLibrary();
 
     final Collection<PwGenomeJson.PwAgent> antibiotics = paarsnpLibrary.getAntimicrobials()
