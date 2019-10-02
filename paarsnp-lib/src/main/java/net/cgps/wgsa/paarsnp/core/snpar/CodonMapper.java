@@ -5,15 +5,46 @@ import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CodonMapper implements Function<BlastMatch, CodonMap> {
+
+  private final Pattern indelPattern = Pattern.compile("-+");
 
   @Override
   public CodonMap apply(final BlastMatch match) {
 
+    final int firstCodonIndex = (int) Math.ceil((double) match.getBlastSearchStatistics().getLibrarySequenceStart() / 3.0);
+    final int mod = (match.getBlastSearchStatistics().getLibrarySequenceStart() - 1) % 3;
+    final int offset = mod == 0 ? 0 : 3 - mod;
+
+    final var referenceAlignment = match.getReferenceMatchSequence().substring(offset);
+    final var insertionFinder = indelPattern.matcher(referenceAlignment);
+
+    var currentInsertOffset = 0;
+    var inFrameshiftRegion = false;
+    var frameshiftRegions = new HashMap<>(100);
+
+    while (insertionFinder.find()) {
+      final var insertionLength = insertionFinder.end() - insertionFinder.start();
+      if (insertionLength % 3 != 0) {
+        currentInsertOffset += insertionLength;
+      }
+      if (currentInsertOffset % 3 != 0) {
+        inFrameshiftRegion = true;
+      }
+
+    }
+
+    final var queryAlignment = match.getForwardQuerySequence().substring(offset);
+    final Matcher deletionFinder = indelPattern.matcher(queryAlignment);
+
+
+    // Old
     final Map<Integer, String> codonMap = new HashMap<>(10000);
     final Map<Integer, String> insertMap = new HashMap<>(100);
-
+    var inFrameshift = false;
     final int firstCodonIndex = (int) Math.ceil((double) match.getBlastSearchStatistics().getLibrarySequenceStart() / 3.0);
 
     // Deal with out of frame matches
@@ -47,6 +78,10 @@ public class CodonMapper implements Function<BlastMatch, CodonMap> {
         currentInsert.append(queryChar);
       }
     }
+
+    // Now replace frameshifted regions in the codon map
+
+
     return new CodonMap(codonMap, insertMap);
   }
 }

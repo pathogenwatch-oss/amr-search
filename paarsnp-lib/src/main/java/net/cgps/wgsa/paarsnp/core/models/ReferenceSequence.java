@@ -81,7 +81,7 @@ public class ReferenceSequence {
       } else if ("frameshift".equals(newVariant.toLowerCase())) {
         mappedVariants.add(new Frameshift());
       } else {
-        final Map.Entry<Integer, Map.Entry<Character, Character>> mutation = variantParser.apply(newVariant);
+        final Map.Entry<Integer, Map.Entry<String, String>> mutation = variantParser.apply(newVariant);
         mappedVariants.add(ResistanceMutation.build(newVariant, mutation, this.length));
       }
     }

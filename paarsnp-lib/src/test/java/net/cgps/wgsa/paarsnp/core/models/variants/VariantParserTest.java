@@ -49,6 +49,21 @@ public class VariantParserTest {
   }
 
   @Test
+  public void applyMultiAAInsert() {
+    final String test1 = "ins67IE";
+
+    this.logger.info("Testing {}", test1);
+
+    Assert.assertTrue(this.compare(this.generator("--", "IE", 67), new VariantParser().apply(test1)));
+  }
+
+  private boolean compare(final Map.Entry<Integer, Map.Entry<String, String>> reference, final Map.Entry<Integer, Map.Entry<String, String>> test) {
+    return reference.getKey().equals(test.getKey())
+        && reference.getValue().getKey().equals(test.getValue().getKey())
+        && reference.getValue().getValue().equals(test.getValue().getValue());
+  }
+
+  @Test
   public void applyAADeletion() {
     final String test1 = "E67del";
 
@@ -66,15 +81,32 @@ public class VariantParserTest {
     Assert.assertTrue(this.compare(this.generator('E', '-', 67), new VariantParser().apply(test1)));
   }
 
+  private Map.Entry<Integer, Map.Entry<String, String>> generator(final String a, final String b, final Integer position) {
+    return new ImmutablePair<>(position, new ImmutablePair<>(a, b));
+  }
+
+  @Test
+  public void applyMultiAAInsertAlternativeForm() {
+    final String test1 = "-67IE";
+
+    this.logger.info("Testing {}", test1);
+
+    Assert.assertTrue(this.compare(this.generator("--", "IE", 67), new VariantParser().apply(test1)));
+  }
+
   @Test
   public void applyPromoterSnp() {
     final String test1 = "t-15a";
 
     this.logger.info("Testing {}", test1);
 
-    final Map.Entry<Integer, Map.Entry<Character, Character>> parsed = new VariantParser().apply(test1);
+    final Map.Entry<Integer, Map.Entry<String, String>> parsed = new VariantParser().apply(test1);
 
     Assert.assertTrue(this.compare(this.generator('t', 'a', -15), parsed));
+  }
+
+  private Map.Entry<Integer, Map.Entry<String, String>> generator(final char a, final char b, final Integer position) {
+    return this.generator(Character.toString(a), Character.toString(b), position);
   }
 
   @Test
@@ -83,9 +115,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    final Map.Entry<Integer, Map.Entry<Character, Character>> parsed = new VariantParser().apply(test1);
-
-    Assert.assertTrue(this.compare(this.generator('-', 'a', -15), parsed));
+    Assert.assertTrue(this.compare(this.generator('-', 'a', -15), new VariantParser().apply(test1)));
   }
 
   @Test
@@ -94,18 +124,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    final Map.Entry<Integer, Map.Entry<Character, Character>> parsed = new VariantParser().apply(test1);
-
-    Assert.assertTrue(this.compare(this.generator('-', 'a', -15), parsed));
+    Assert.assertTrue(this.compare(this.generator('-', 'a', -15), new VariantParser().apply(test1)));
   }
 
-  private boolean compare(final Map.Entry<Integer, Map.Entry<Character, Character>> reference, final Map.Entry<Integer, Map.Entry<Character, Character>> test) {
-    return reference.getKey().equals(test.getKey())
-        && reference.getValue().getKey().equals(test.getValue().getKey())
-        && reference.getValue().getValue().equals(test.getValue().getValue());
-  }
-
-  private Map.Entry<Integer, Map.Entry<Character, Character>> generator(final Character a, final Character b, final Integer position) {
-    return new ImmutablePair<>(position, new ImmutablePair<>(a, b));
-  }
 }

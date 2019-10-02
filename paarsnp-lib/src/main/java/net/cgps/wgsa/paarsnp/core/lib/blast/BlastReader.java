@@ -7,11 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
 import java.io.BufferedReader;
@@ -87,7 +88,7 @@ public class BlastReader implements Function<BlastOutput, Stream<BlastMatch>> {
 
       try {
         unmarshaller = JAXBContext.newInstance(BlastOutput.class.getPackage().getName()).createUnmarshaller();
-        xmlreader = XMLReaderFactory.createXMLReader();
+        xmlreader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
         xmlreader.setFeature("http://xml.org/sax/features/namespaces", true);
         xmlreader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
         xmlreader.setEntityResolver((publicId, systemId) -> {
@@ -106,7 +107,7 @@ public class BlastReader implements Function<BlastOutput, Stream<BlastMatch>> {
             }
         );
 
-      } catch (final JAXBException | SAXException e) {
+      } catch (final JAXBException | SAXException | ParserConfigurationException e) {
         this.logger.error("Error constructing BLAST parser");
         throw new RuntimeException(e);
       }

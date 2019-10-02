@@ -31,29 +31,25 @@ public class Frameshift extends AbstractJsonnable implements Variant {
   @Override
   public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
 
-    final Map<Integer, Mutation> inserts = this.keepFrameshiftingMutations(Mutation.select(I, mutations));
-    final Map<Integer, Mutation> deletions = this.keepFrameshiftingMutations(Mutation.select(D, mutations));
+    var deletionFrameshifts = this.selectFrameshiftingDeletions(Mutation.select(D, mutations));
 
-    return !inserts.isEmpty() || !deletions.isEmpty();
+    var insertionFrameshifts = mutations.values().stream()
+        .flatMap(Collection::stream)
+        .filter(mutation -> mutation.getMutationType() == I)
+        .filter(mutation -> mutation.getMutationSequence().length() % 3 != 0)
+        .collect(Collectors.toList());
+
+    // Sum the lengths of the inserts and deletions
+    return !deletionFrameshifts.isEmpty() || !insertionFrameshifts.isEmpty();
   }
 
-  @Override
-  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final CodonMap resourceB) {
-    final Map<Integer, Mutation> inserts = this.keepFrameshiftingMutations(Mutation.select(I, mutations));
-    final Map<Integer, Mutation> deletions = this.keepFrameshiftingMutations(Mutation.select(D, mutations));
-    final Collection<Mutation> causalMutations = new ArrayList<>(50);
-    causalMutations.addAll(inserts.values());
-    causalMutations.addAll(deletions.values());
-    return new ResistanceMutationMatch(this, causalMutations);
-  }
+  private Map<Integer, Mutation> selectFrameshiftingDeletions(final Map<Integer, Mutation> deletions) {
 
-  private Map<Integer, Mutation> keepFrameshiftingMutations(final Map<Integer, Mutation> indels) {
-
-    if (indels.isEmpty()) {
+    if (deletions.isEmpty()) {
       return Collections.emptyMap();
     }
 
-    final List<Integer> positions = indels.keySet()
+    final List<Integer> positions = deletions.keySet()
         .stream()
         .sorted(Comparator.comparingInt(key -> key))
         .collect(Collectors.toList());
@@ -84,11 +80,27 @@ public class Frameshift extends AbstractJsonnable implements Variant {
       }
     }
 
-    final Map<Integer, Mutation> filteredMap = new HashMap<>(indels);
+    final Map<Integer, Mutation> filteredMap = new HashMap<>(deletions);
 
     filter.forEach(filteredMap::remove);
 
     return filteredMap;
+  }
+
+  @Override
+  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final CodonMap resourceB) {
+    final Collection<Mutation> inserts = Mutation.select(I, mutations).values()
+        .stream()
+        .filter(mutation -> mutation.getMutationSequence().length() % 3 != 0)
+        .collect(Collectors.toList());
+
+    final Collection<Mutation> deletions = this.selectFrameshiftingDeletions(Mutation.select(D, mutations)).values();
+
+    final Collection<Mutation> causalMutations = new ArrayList<>(50);
+    causalMutations.addAll(inserts);
+    causalMutations.addAll(deletions);
+
+    return new ResistanceMutationMatch(this, causalMutations);
   }
 
   @Override
@@ -99,8 +111,7 @@ public class Frameshift extends AbstractJsonnable implements Variant {
   @Override
   public boolean equals(final Object o) {
     if (this == o) return true;
-    if (o == null || this.getClass() != o.getClass()) return false;
-    return true;
+    return o != null && this.getClass() == o.getClass();
   }
 
   @Override

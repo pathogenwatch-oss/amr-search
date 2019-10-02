@@ -3,6 +3,7 @@ package net.cgps.wgsa.paarsnp.core.lib.blast;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,7 +14,7 @@ import java.util.Map;
  */
 public class SequenceProcessor {
 
-  private static final char DELETION_CHAR = '-';
+  private static final char GAP_CHAR = '-';
   private final CharSequence refAlignSeq;
   private final int refStart;
   private final DnaSequence.Strand strand;
@@ -54,18 +55,32 @@ public class SequenceProcessor {
         refSeqLocation++;
 
       } else {
-        if (DELETION_CHAR == queryChar) {
-
+        if (GAP_CHAR == queryChar) {
           // Deletion
           refSeqLocation++;
           mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.D, querySeqLocation, refSeqLocation, this.strand));
-        } else if (DELETION_CHAR == refChar) {
 
+        } else if (GAP_CHAR == refChar) {
           // Insert
+          var in_insert = true;
+          var insertSequence = new StringBuilder(5);
+          insertSequence.append(queryChar);
           querySeqLocation++;
-          mutations.put(refSeqLocation, this.mutationBuilder.build(queryChar, refChar, Mutation.MutationType.I, querySeqLocation, refSeqLocation, this.strand));
-        } else {
 
+          while (in_insert) {
+            // Inserts can never happen at the end of the alignment so we don't have to worry about going out of bounds.
+            if (GAP_CHAR == this.refAlignSeq.charAt(alignmentLocation + 1)) {
+              // Insert continues
+              alignmentLocation++;
+              querySeqLocation++;
+              insertSequence.append(queryAlignSeq.charAt(alignmentLocation));
+            } else {
+              in_insert = false;
+            }
+          }
+          mutations.put(refSeqLocation, this.mutationBuilder.build(insertSequence.toString(), StringUtils.repeat(GAP_CHAR, insertSequence.length()), Mutation.MutationType.I, querySeqLocation, refSeqLocation, this.strand));
+
+        } else {
           // Substitution
           querySeqLocation++;
           refSeqLocation++;

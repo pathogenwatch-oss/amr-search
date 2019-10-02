@@ -1,8 +1,11 @@
 package net.cgps.wgsa.paarsnp.core.lib.utils;
 
+import com.google.common.base.Splitter;
+import com.google.common.collect.Streams;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
+import java.util.stream.Collector;
 
 
 /**
@@ -22,6 +25,18 @@ public class DnaSequence {
   public static String complement(final String dnaSequence) {
 
     return StringUtils.replaceChars(dnaSequence, "GTCAgtca", "CAGTcagt");
+  }
+
+  public static String translateMultiple(final String codons) {
+    return Streams.stream(Splitter.fixedLength(3)
+        .split(codons))
+        .map(DnaSequence::translateCodon)
+        .map(translationOpt -> translationOpt.orElse('-'))
+        .collect(Collector.of(
+            StringBuilder::new,
+            StringBuilder::append,
+            StringBuilder::append,
+            StringBuilder::toString));
   }
 
   public enum Strand {

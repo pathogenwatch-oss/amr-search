@@ -1,8 +1,8 @@
 package net.cgps.wgsa.paarsnp.core.lib;
 
+import net.cgps.wgsa.paarsnp.core.models.ResistanceSet;
 import net.cgps.wgsa.paarsnp.core.models.results.Modifier;
 import net.cgps.wgsa.paarsnp.core.models.results.OldStyleSetDescription;
-import net.cgps.wgsa.paarsnp.core.models.ResistanceSet;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -22,7 +22,7 @@ public class ConvertSetDescription implements Function<ResistanceSet, Stream<Old
         .stream()
         .map(phenotype -> {
 
-          final String name = 1 == resistanceSet.getPhenotypes().size() ? resistanceSet.getName() : resistanceSet.getName() + "_" + String.valueOf(nameCounter.getAndAdd(1));
+          final String name = 1 == resistanceSet.getPhenotypes().size() ? resistanceSet.getName() : resistanceSet.getName() + "_" + nameCounter.getAndAdd(1);
 
           final List<String> members = resistanceSet.getMembers().stream().flatMap(member -> {
             if (member.getVariants().isEmpty()) {
@@ -34,7 +34,5 @@ public class ConvertSetDescription implements Function<ResistanceSet, Stream<Old
 
           return new OldStyleSetDescription(phenotype.getEffect(), name, phenotype.getProfile(), members, phenotype.getModifiers().stream().collect(Collectors.toMap(Modifier::getName, Modifier::getEffect)));
         });
-
   }
-
 }

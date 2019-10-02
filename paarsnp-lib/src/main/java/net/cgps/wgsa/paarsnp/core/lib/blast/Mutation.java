@@ -11,19 +11,19 @@ import java.util.stream.Collectors;
 
 public class Mutation extends AbstractJsonnable {
 
-  private final char originalSequence;
+  private final String originalSequence;
   private final int referenceLocation;
-  private final char mutationSequence;
+  private final String mutationSequence;
   private final MutationType mutationType;
   private final int queryLocation;
 
   @SuppressWarnings("unused")
   private Mutation() {
 
-    this(MutationType.S, 0, 'a', 'a', 0);
+    this(MutationType.S, 0, "", "", 0);
   }
 
-  public Mutation(final MutationType mutationType, final int queryLocation, final char mutationSequence, final char originalSequence, final int referenceLocation) {
+  public Mutation(final MutationType mutationType, final int queryLocation, final String mutationSequence, final String originalSequence, final int referenceLocation) {
 
     this.mutationType = mutationType;
     this.queryLocation = queryLocation;
@@ -32,7 +32,7 @@ public class Mutation extends AbstractJsonnable {
     this.referenceLocation = referenceLocation;
   }
 
-  public char getOriginalSequence() {
+  public String getOriginalSequence() {
 
     return this.originalSequence;
   }
@@ -42,7 +42,7 @@ public class Mutation extends AbstractJsonnable {
     return this.referenceLocation;
   }
 
-  public char getMutationSequence() {
+  public String getMutationSequence() {
 
     return this.mutationSequence;
   }
@@ -76,9 +76,9 @@ public class Mutation extends AbstractJsonnable {
     if (this == o) return true;
     if (o == null || this.getClass() != o.getClass()) return false;
     final Mutation mutation = (Mutation) o;
-    return this.originalSequence == mutation.originalSequence &&
+    return this.originalSequence.equals(mutation.originalSequence) &&
         this.referenceLocation == mutation.referenceLocation &&
-        this.mutationSequence == mutation.mutationSequence &&
+        this.mutationSequence.equals(mutation.mutationSequence) &&
         this.queryLocation == mutation.queryLocation &&
         this.mutationType == mutation.mutationType;
   }

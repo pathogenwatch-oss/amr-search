@@ -23,14 +23,15 @@ public class CodonMap {
   }
 
   public Stream<Map.Entry<Integer, Character>> getTranslation() {
-    return this.codonMap.keySet()
+    return this.codonMap
+        .keySet()
         .stream()
         .sorted(Integer::compareTo)
         .map(position -> new ImmutablePair<>(position, DnaSequence.translateCodon(this.codonMap.get(position)).orElse('-')));
   }
 
-  public Character getInsertTranslation(final int insertLocation) {
-    return DnaSequence.translateCodon(this.codonMap.get(insertLocation)).orElse('-');
+  public String getInsertTranslation(final int insertLocation) {
+    return DnaSequence.translateMultiple(this.codonMap.get(insertLocation));
   }
 
   public boolean containsInsert(final Integer position) {

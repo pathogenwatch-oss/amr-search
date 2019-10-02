@@ -13,12 +13,20 @@ public class MutationBuilder {
    */
   public Mutation build(final char querySequence, final char referenceSequence, final Mutation.MutationType mutationType, final int queryLocation, final int referenceLocation, final DnaSequence.Strand strand) {
 
-    return new Mutation(mutationType, queryLocation, this.determineSequence(querySequence), this.determineSequence(referenceSequence), this.determineActualLocation(referenceLocation, mutationType, strand));
+    return new Mutation(mutationType, queryLocation, this.formatChar(querySequence), this.formatChar(referenceSequence), this.determineActualLocation(referenceLocation, mutationType, strand));
   }
 
-  private char determineSequence(final char sequence) {
+  private String formatChar(final char sequence) {
+    return this.formatSequence(Character.toString(sequence));
+  }
 
-    return Character.toUpperCase(sequence);
+  private String formatSequence(final String sequence) {
+    return sequence.toUpperCase();
+  }
+
+  public Mutation build(final String querySequence, final String referenceSequence, final Mutation.MutationType mutationType, final int queryLocation, final int referenceLocation, final DnaSequence.Strand strand) {
+
+    return new Mutation(mutationType, queryLocation, this.formatSequence(querySequence), this.formatSequence(referenceSequence), this.determineActualLocation(referenceLocation, mutationType, strand));
   }
 
   private int determineActualLocation(final int referenceLocation, final Mutation.MutationType mutationType, final DnaSequence.Strand strand) {

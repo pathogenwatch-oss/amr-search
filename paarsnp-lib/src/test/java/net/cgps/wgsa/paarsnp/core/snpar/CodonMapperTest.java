@@ -13,7 +13,7 @@ import java.util.Map;
 public class CodonMapperTest {
 
   @Test
-  public void apply() {
+  public void simpleInsert() {
 
     final String referenceSequence = "ATGATA---TATATATATATATAG";
     final String querySequence     = "ATGATAGCGTATATATATAGATAG";
@@ -41,6 +41,39 @@ public class CodonMapperTest {
     codons.put(7, "TAG");
 
     final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "GCG"));
+
+    Assert.assertEquals(testMap, expectedCodonMap);
+  }
+
+  @Test
+  public void frameshiftInsert() {
+
+    final String referenceSequence = "ATGATA----TATATATATATATAG";
+    final String querySequence = "ATGATAGCGCTATATATATAGATAG";
+
+    final BlastSearchStatistics statistics = new BlastSearchStatistics(
+        "libId",
+        1,
+        21, 21, "queryId",
+        1,
+        25, 0.0001, 99.0,
+        DnaSequence.Strand.FORWARD
+    );
+
+    final BlastMatch blastMatch = new BlastMatch(statistics, querySequence, referenceSequence);
+
+    final CodonMap testMap = new CodonMapper().apply(blastMatch);
+
+    final Map<Integer, String> codons = new HashMap<>(1);
+    codons.put(1, "ATG");
+    codons.put(2, "ATA");
+    codons.put(3, "!!!");
+    codons.put(4, "!!!");
+    codons.put(5, "!!!");
+    codons.put(6, "!!!");
+    codons.put(7, "!!!");
+
+    final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "GCGC"));
 
     Assert.assertEquals(testMap, expectedCodonMap);
   }
