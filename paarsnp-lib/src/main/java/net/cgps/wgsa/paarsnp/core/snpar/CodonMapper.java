@@ -1,7 +1,10 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
+import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -23,23 +26,20 @@ public class CodonMapper implements Function<BlastMatch, CodonMap> {
     final var insertionFinder = indelPattern.matcher(referenceAlignment);
 
     var currentInsertOffset = 0;
-    var inFrameshiftRegion = false;
-    var frameshiftRegions = new HashMap<>(100);
+    var inFrameshiftRegion = 0;
+    // List of frameshifting indels
+    var frameshiftRegions = new ArrayList<Map.Entry<Integer, Integer>>(100);
 
     while (insertionFinder.find()) {
       final var insertionLength = insertionFinder.end() - insertionFinder.start();
       if (insertionLength % 3 != 0) {
-        currentInsertOffset += insertionLength;
+        frameshiftRegions.add(new ImmutablePair<>(insertionFinder.start(), insertionLength));
       }
-      if (currentInsertOffset % 3 != 0) {
-        inFrameshiftRegion = true;
-      }
-
     }
 
     final var queryAlignment = match.getForwardQuerySequence().substring(offset);
     final Matcher deletionFinder = indelPattern.matcher(queryAlignment);
-
+    var
 
     // Old
     final Map<Integer, String> codonMap = new HashMap<>(10000);
