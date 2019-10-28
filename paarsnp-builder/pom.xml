@@ -71,8 +71,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${paarsnp.maven-compiler.version}</version>
                 <configuration>
-                    <source>${paarsnp.java.version}</source>
-                    <target>${paarsnp.java.version}</target>
+                    <source>12</source>
+                    <target>12</target>
                 </configuration>
             </plugin>
             <plugin>

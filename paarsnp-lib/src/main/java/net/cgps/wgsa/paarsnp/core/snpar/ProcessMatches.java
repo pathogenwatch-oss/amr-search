@@ -8,6 +8,7 @@ import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.models.ProcessedMatch;
 import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
+import net.cgps.wgsa.paarsnp.core.snpar.codonmapping.CodonMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

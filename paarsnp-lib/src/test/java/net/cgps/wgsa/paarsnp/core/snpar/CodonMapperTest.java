@@ -3,6 +3,7 @@ package net.cgps.wgsa.paarsnp.core.snpar;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
+import net.cgps.wgsa.paarsnp.core.snpar.codonmapping.CodonMapper;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -48,8 +49,8 @@ public class CodonMapperTest {
   @Test
   public void frameshiftInsert() {
 
-    final String referenceSequence = "ATGATA----TATATATATATATAG";
-    final String querySequence = "ATGATAGCGCTATATATATAGATAG";
+    final String referenceSequence = "ATGATAT----ATATATATATATAG";
+    final String querySequence = "ATGATATGCGCATATATATAGATAG";
 
     final BlastSearchStatistics statistics = new BlastSearchStatistics(
         "libId",
@@ -73,7 +74,7 @@ public class CodonMapperTest {
     codons.put(6, "!!!");
     codons.put(7, "!!!");
 
-    final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "GCGC"));
+    final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(3, "GCGC"));
 
     Assert.assertEquals(testMap, expectedCodonMap);
   }
