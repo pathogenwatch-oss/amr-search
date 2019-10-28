@@ -42,13 +42,21 @@ public class CodonMap {
   public boolean equals(final Object o) {
     if (this == o) return true;
     if (o == null || this.getClass() != o.getClass()) return false;
-    final CodonMap codonMap1 = (CodonMap) o;
-    return Objects.equals(this.codonMap, codonMap1.codonMap) &&
-        Objects.equals(this.insertMap, codonMap1.insertMap);
+    final CodonMap otherMap = (CodonMap) o;
+    return this.codonMap.equals(otherMap.codonMap) &&
+        this.insertMap.equals(otherMap.insertMap);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(this.codonMap, this.insertMap);
+  }
+
+  @Override
+  public String toString() {
+    return "CodonMap{" +
+        "codonMap=" + codonMap +
+        ", insertMap=" + insertMap +
+        '}';
   }
 }

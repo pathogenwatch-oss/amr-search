@@ -1,4 +1,4 @@
-FROM maven:3.5-jdk-11 AS builder
+FROM maven:3.6.2-jdk-11 AS builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		curl \

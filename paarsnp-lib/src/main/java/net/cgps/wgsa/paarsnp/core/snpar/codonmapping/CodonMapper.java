@@ -26,22 +26,22 @@ public class CodonMapper implements Function<BlastMatch, CodonMap> {
     final int startPosition = offset == 0 ? 0 : 3 - offset;
 
     int refCodonLocation = firstCodonIndex + (0 == offset ? 0 : 1);
-    final StringBuilder currentCodon = new StringBuilder(3);
-    final StringBuilder currentInsert = new StringBuilder(20);
+    final var currentCodon = new StringBuilder(3);
+    final var currentInsert = new StringBuilder(20);
 
     for (int alignmentIndex = startPosition; alignmentIndex < match.getReferenceMatchSequence().length(); alignmentIndex++) {
-      final char refChar = match.getReferenceMatchSequence().charAt(alignmentIndex);
-      final char queryChar = match.getForwardQuerySequence().charAt(alignmentIndex);
+      final var refChar = match.getReferenceMatchSequence().charAt(alignmentIndex);
+      final var queryChar = match.getForwardQuerySequence().charAt(alignmentIndex);
 
       if (frameshiftFilter.get(alignmentIndex)) {
         inFrameshiftRegion = true;
       }
 
       if ('-' != refChar) {
-
         if (0 != currentInsert.length()) {
           insertMap.put(refCodonLocation - 1, currentInsert.toString());
           currentInsert.setLength(0);
+          inFrameshiftRegion = false;
         }
 
         currentCodon.append(queryChar);
