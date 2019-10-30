@@ -3,11 +3,12 @@ package net.cgps.wgsa.paarsnp.builder;
 import com.moandjiezana.toml.Toml;
 import net.cgps.wgsa.paarsnp.core.models.*;
 import net.cgps.wgsa.paarsnp.core.models.results.Modifier;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LibraryReaderTest {
 
@@ -22,7 +23,7 @@ public class LibraryReaderTest {
 
     final ReferenceSequence resistanceGene = new ReferenceSequence("aph_3prime_III_1_M26832", 795, 80.0f, 80.0f);
 
-    Assert.assertEquals(resistanceGene, LibraryReader.parseGene().apply(geneToml));
+    assertEquals(resistanceGene, LibraryReader.parseGene().apply(geneToml));
   }
 
   @Test
@@ -33,7 +34,7 @@ public class LibraryReaderTest {
         new Phenotype(PhenotypeEffect.RESISTANT, Collections.singletonList("CLI"), Collections.singletonList(new Modifier("ermC_LP", ElementEffect.INDUCED)))
     );
 
-    Assert.assertEquals(
+    assertEquals(
         phenotypes,
         new Toml().read("phenotypes = [{effect = \"RESISTANT\", profile = [\"ERY\"], modifiers = []},\n" +
             "              {effect = \"RESISTANT\", profile = [\"CLI\"], modifiers = [{name = \"ermC_LP\", effect = \"INDUCED\"}]}]\n")
@@ -52,7 +53,7 @@ public class LibraryReaderTest {
         .getTables("mechanisms")
         .get(0);
     final ResistanceSet resistanceSet = ResistanceSet.build(Optional.of("tetM_8"), Collections.singletonList(new Phenotype(PhenotypeEffect.RESISTANT, Collections.singletonList("TCY"), Collections.emptyList())), Collections.singletonList(new SetMember("tetM_8_X04388", Collections.emptySet())));
-    Assert.assertEquals(resistanceSet, LibraryReader.parseMechanisms().apply(toml));
+    assertEquals(resistanceSet, LibraryReader.parseMechanisms().apply(toml));
   }
 
   @Test
@@ -69,13 +70,13 @@ public class LibraryReaderTest {
 
     final List<SetMember> parsed = LibraryReader.parseMembers().apply(toml);
 
-    Assert.assertEquals(members, parsed);
+    assertEquals(members, parsed);
   }
 
   @Test
   public void parseSnparSet() {
 
-    Assert.assertEquals(
+    assertEquals(
         ResistanceSet.build(
             Optional.of("penA_I312M_G545S_V316T"),
             Arrays.asList(
@@ -99,7 +100,7 @@ public class LibraryReaderTest {
   @Test
   public void parseSnparMember() {
 
-    Assert.assertEquals(
+    assertEquals(
         Collections.singletonList(new SetMember("penA", Set.of("G545S", "I312M", "V316T"))),
         Collections.singletonList(LibraryReader.parseMember()
             .apply(new Toml()
@@ -121,7 +122,7 @@ public class LibraryReaderTest {
 
 //    referenceSequence.addVariants(Arrays.asList("A501P", "I312M", "V316P", "P551S", "A501V", "G545S", "G542S", "A311V", "V316T", "T483S"));
 
-    Assert.assertEquals(
+    assertEquals(
         referenceSequence,
         LibraryReader.parseGene().apply(new Toml().read("[[snpar.genes]]\n" +
             "name = \"penA\"\n" +

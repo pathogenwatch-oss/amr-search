@@ -3,8 +3,7 @@ package net.cgps.wgsa.paarsnp;
 import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +13,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PaarsnpRunnerTest {
 
@@ -47,19 +48,19 @@ public class PaarsnpRunnerTest {
 
     final PathogenWatchFormat snparResult = convertFormat.apply(runner.apply(testFasta));
 
-    Assert.assertEquals(
+    assertEquals(
         expectedVariants,
         new TreeSet<>(snparResult.getSnparElementIds())
     );
     this.logger.info("Passed 1773 standard check.");
 
-    Assert.assertEquals(
+    assertEquals(
         expectedVariants,
         new TreeSet<>(convertFormat.apply(runner.apply(reverseTestFasta)).getSnparElementIds())
     );
     this.logger.info("Passed 1773 reverse check.");
 
-//    Assert.assertEquals(
+//    assertEquals(
 //        AbstractJsonnable.fromJson("{\"originalSequence\" : \"T\", \"referenceLocation\" : 214, \"mutationSequence\" : \"C\", \"mutationType\" : \"S\", \"queryLocation\" : 214}", Mutation.class),
 //        snparResult
 //            .getMatches()
@@ -82,7 +83,7 @@ public class PaarsnpRunnerTest {
         .filter(mutation -> 21 == mutation.getReferenceLocation())
         .findFirst()
         .orElseThrow(() -> new RuntimeException("Failed to find causal mutation"));
-    Assert.assertEquals(new PathogenWatchFormat.VariantJson(
+    assertEquals(new PathogenWatchFormat.VariantJson(
         Collections.singleton("KAN"),
         "eis_promoter",
         false,
@@ -94,7 +95,7 @@ public class PaarsnpRunnerTest {
 
     this.logger.info("Passed 1773 promoter variant causal mutation check.");
 
-    Assert.assertEquals(
+    assertEquals(
         3,
         snparResult
             .getVariantMatches()

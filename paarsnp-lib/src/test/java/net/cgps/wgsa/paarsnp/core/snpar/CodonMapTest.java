@@ -24,16 +24,16 @@ public class CodonMapTest {
 
   private Map<Integer, String> createSimpleInsertMap() {
 
-    final Map<Integer, String> map = new HashMap<>();
-    map.put(1, "ATG");
-    map.put(2, "ATA");
-    map.put(3, "ATA");
+    final var map = new HashMap<Integer, String>();
+    map.put(1, "M");
+    map.put(2, "I");
+    map.put(3, "I");
     return map;
   }
 
-  private Map<Integer, String> createSimpleMap() {
-    final Map<Integer, String> map = new HashMap<>();
-    map.put(2, "TTG");
+  private Map<Integer, Character> createSimpleMap() {
+    final var map = new HashMap<Integer, Character>();
+    map.put(2, 'L');
     return map;
   }
 }

@@ -1,37 +1,34 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
-import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
 
 public class CodonMap {
 
-  private final Map<Integer, String> codonMap;
+  private final Map<Integer, Character> codonMap;
   private final Map<Integer, String> insertMap;
 
-  public CodonMap(final Map<Integer, String> codonMap, final Map<Integer, String> insertMap) {
+  public CodonMap(final Map<Integer, Character> codonMap, final Map<Integer, String> insertMap) {
 
     this.codonMap = codonMap;
     this.insertMap = insertMap;
   }
 
   public Character get(final int aaLocation) {
-    return DnaSequence.translateCodon(this.codonMap.get(aaLocation)).orElse('-');
+    return this.codonMap.get(aaLocation);
   }
 
   public Stream<Map.Entry<Integer, Character>> getTranslation() {
     return this.codonMap
-        .keySet()
+        .entrySet()
         .stream()
-        .sorted(Integer::compareTo)
-        .map(position -> new ImmutablePair<>(position, DnaSequence.translateCodon(this.codonMap.get(position)).orElse('-')));
+        .sorted(Comparator.comparingInt(Map.Entry::getKey));
   }
 
   public String getInsertTranslation(final int insertLocation) {
-    return DnaSequence.translateMultiple(this.codonMap.get(insertLocation), 'X');
+    return this.insertMap.get(insertLocation);
   }
 
   public boolean containsInsert(final Integer position) {

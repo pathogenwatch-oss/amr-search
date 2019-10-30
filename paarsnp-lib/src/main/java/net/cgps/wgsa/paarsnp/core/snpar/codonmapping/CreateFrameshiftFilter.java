@@ -56,7 +56,7 @@ public class CreateFrameshiftFilter implements BiFunction<String, String, BitSet
     }
 
     if (shiftStartCodon != 0) {
-      frameshiftFilter.set(DnaSequence.codonIndexAt(referenceIndex.get(shiftStartCodon) + 1), codonCount + 1);
+      frameshiftFilter.set(shiftStartCodon, codonCount + 1);
     }
 
     return frameshiftFilter;

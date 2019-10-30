@@ -36,11 +36,11 @@ public class CreateAaAlignment implements BiFunction<String, String, Map.Entry<S
       throw new RuntimeException(e);
     }
 
-    this.logger.info("Aligning:\n{}\n{}\n", transCleanRef.getSequenceAsString(), transCleanQuery.getSequenceAsString());
-    final var nwAligner = Alignments.getPairwiseAligner(transCleanQuery, transCleanRef, Alignments.PairwiseSequenceAlignerType.GLOBAL, new SimpleGapPenalty(), matrix);
+    this.logger.info("Aligning:\n{}\n{}", transCleanRef.getSequenceAsString(), transCleanQuery.getSequenceAsString());
 
-    final var pair = nwAligner.getPair();
+    final var pair = Alignments.getPairwiseAligner(transCleanQuery, transCleanRef, Alignments.PairwiseSequenceAlignerType.GLOBAL, new SimpleGapPenalty(), matrix).getPair();
 
+    this.logger.info("{}", pair.toString(60));
     return new ImmutablePair<>(pair.getTarget().getSequenceAsString(), pair.getQuery().getSequenceAsString());
   }
 

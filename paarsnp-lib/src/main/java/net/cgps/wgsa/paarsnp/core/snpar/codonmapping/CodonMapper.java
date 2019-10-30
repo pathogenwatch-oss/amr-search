@@ -20,7 +20,7 @@ public class CodonMapper implements Function<BlastMatch, CodonMap> {
     final var frameshiftFilter = new CreateFrameshiftFilter().apply(referenceAlignment, queryAlignment);
     final var aaAlignment = new CreateAaAlignment().apply(referenceAlignment, queryAlignment);
 
-    final var codonMap = new HashMap<Integer, String>(3000);
+    final var codonMap = new HashMap<Integer, Character>(3000);
     final var insertMap = new HashMap<Integer, String>(100);
 
     var refCodonLocation = firstCodonIndex + (FRAME.ONE == frame ? 0 : 1);
@@ -33,50 +33,13 @@ public class CodonMapper implements Function<BlastMatch, CodonMap> {
           insertMap.put(refCodonLocation - 1, currentInsert.toString());
           currentInsert.setLength(0);
         }
-        codonMap.put(refCodonLocation, frameshiftFilter.get(i) ? "!" : String.valueOf(aaAlignment.getValue().charAt(i)));
+        codonMap.put(refCodonLocation, frameshiftFilter.get(refCodonLocation) ? '!' : aaAlignment.getValue().charAt(i));
         // Update the codon location if not an insert
         refCodonLocation++;
-      } else if (!frameshiftFilter.get(i)) {
+      } else if (!frameshiftFilter.get(refCodonLocation - 1)) {
         currentInsert.append(aaAlignment.getValue().charAt(i));
       }
     }
-//    var inFrameshiftRegion = false;
-//    final var codonMap = new HashMap<Integer, String>(10000);
-//    final var insertMap = new HashMap<Integer, String>(100);
-//    final int startPosition = offset == 0 ? 0 : 3 - offset;
-//
-//    int refCodonLocation = firstCodonIndex + (0 == offset ? 0 : 1);
-//    final var currentCodon = new StringBuilder(3);
-//    final var currentInsert = new StringBuilder(20);
-//
-//    for (int alignmentIndex = startPosition; alignmentIndex < match.getReferenceMatchSequence().length(); alignmentIndex++) {
-//      final var refChar = match.getReferenceMatchSequence().charAt(alignmentIndex);
-//      final var queryChar = match.getForwardQuerySequence().charAt(alignmentIndex);
-//
-//      if (frameshiftFilter.get(alignmentIndex)) {
-//        inFrameshiftRegion = true;
-//      }
-//
-//      if ('-' != refChar) {
-//        if (0 != currentInsert.length()) {
-//          insertMap.put(refCodonLocation - 1, currentInsert.toString());
-//          currentInsert.setLength(0);
-//          inFrameshiftRegion = false;
-//        }
-//
-//        currentCodon.append(queryChar);
-//
-//        if (3 == currentCodon.length()) {
-//          // Codon is complete
-//          codonMap.put(refCodonLocation, inFrameshiftRegion ? "!!!" : currentCodon.toString());
-//          currentCodon.setLength(0);
-//          refCodonLocation++;
-//          inFrameshiftRegion = false;
-//        }
-//      } else {
-//        currentInsert.append(queryChar);
-//      }
-//    }
     return new CodonMap(codonMap, insertMap);
   }
 

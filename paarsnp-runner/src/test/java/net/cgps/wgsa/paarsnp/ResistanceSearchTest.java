@@ -6,8 +6,7 @@ import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.models.results.SearchResult;
 import net.cgps.wgsa.paarsnp.core.snpar.CombineResults;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessMatches;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +15,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ResistanceSearchTest {
 
@@ -47,10 +49,9 @@ public class ResistanceSearchTest {
 
     final SearchResult result = resistanceSearch.apply(inputFasta.toAbsolutePath().toString());
 
-    Assert.assertNotNull("Result produced", result);
-    Assert.assertTrue("Result not empty", !result.toJson().isEmpty());
+    assertNotNull(result, "Result produced");
+    assertFalse(result.toJson().isEmpty(), "Result not empty");
 
     this.logger.info("{}", result.toJson());
   }
-
 }

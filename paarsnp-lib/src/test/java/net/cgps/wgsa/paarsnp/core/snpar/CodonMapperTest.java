@@ -17,171 +17,153 @@ public class CodonMapperTest {
   @Test
   public void simpleInsert() {
 
-    final String referenceSequence = "ATGATA---TATATATATATATAG";
-    final String querySequence = "ATGATAGCGTATATATATAGATAG";
     // MIYIYI
     // MIAYIYR
 
-    final BlastSearchStatistics statistics = new BlastSearchStatistics(
-        "libId",
-        1,
-        21, 24, "queryId",
-        1,
-        24, 0.0001, 99.0,
-        DnaSequence.Strand.FORWARD
-    );
+    final Map<Integer, Character> codons = new HashMap<>();
+    codons.put(1, 'M');
+    codons.put(2, 'I');
+    codons.put(3, 'Y');
+    codons.put(4, 'I');
+    codons.put(5, 'Y');
+    codons.put(6, 'R');
 
-    final BlastMatch blastMatch = new BlastMatch(statistics, querySequence, referenceSequence);
-
-    final CodonMap testMap = new CodonMapper().apply(blastMatch);
-
-    final Map<Integer, String> codons = new HashMap<>();
-    codons.put(1, "M");
-    codons.put(2, "I");
-    codons.put(3, "Y");
-    codons.put(4, "I");
-    codons.put(5, "Y");
-    codons.put(6, "R");
-
-    final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "A"));
-
-    assertEquals(expectedCodonMap, testMap);
+    assertEquals(
+        new CodonMap(codons, Collections.singletonMap(2, "A")),
+        new CodonMapper().apply(new BlastMatch(new BlastSearchStatistics(
+            "libId",
+            1,
+            21, 24, "queryId",
+            1,
+            24, 0.0001, 99.0,
+            DnaSequence.Strand.FORWARD
+        ), "ATGATAGCGTATATATATAGATAG", "ATGATA---TATATATATATATAG")));
   }
 
   @Test
   public void offsetFrameshiftInsert() {
 
-    final BlastMatch blastMatch = new BlastMatch(new BlastSearchStatistics(
-        "libId",
-        1,
-        21, 21, "queryId",
-        1,
-        25, 0.0001, 99.0,
-        DnaSequence.Strand.FORWARD
-    ),
-        "ATGATATGCGCATATATATACATAG",
-        "ATGATAT----ATATATATATATAG");
+    final Map<Integer, Character> codons = new HashMap<>(7);
+    codons.put(1, 'M');
+    codons.put(2, 'I');
+    codons.put(3, '!');
+    codons.put(4, '!');
+    codons.put(5, '!');
+    codons.put(6, '!');
 
-    final CodonMap testMap = new CodonMapper().apply(blastMatch);
-
-    final Map<Integer, String> codons = new HashMap<>(7);
-    codons.put(1, "M");
-    codons.put(2, "I");
-    codons.put(3, "!");
-    codons.put(4, "!");
-    codons.put(5, "!");
-    codons.put(6, "!");
-    codons.put(7, "!");
-
-    final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "CA"));
-
-    assertEquals(expectedCodonMap, testMap);
+    assertEquals(
+        new CodonMap(codons, Collections.singletonMap(2, "CA")),
+        new CodonMapper().apply(new BlastMatch(new BlastSearchStatistics(
+            "libId",
+            1,
+            21, 21, "queryId",
+            1,
+            25, 0.0001, 99.0,
+            DnaSequence.Strand.FORWARD
+        ),
+            "ATGATATGCGCATATATATACATAG",
+            "ATGATAT----ATATATATATATAG")));
   }
 
   @Test
   public void frameshiftInsert() {
 
-    final String referenceSequence = "ATGATA-TATATATATATATAG";
-    final String querySequence = "ATGATAGTATATATATAGATAG";
+    final Map<Integer, Character> codons = new HashMap<>(7);
+    codons.put(1, 'M');
+    codons.put(2, 'I');
+    codons.put(3, '!');
+    codons.put(4, '!');
+    codons.put(5, '!');
+    codons.put(6, '!');
 
-    final BlastSearchStatistics statistics = new BlastSearchStatistics(
-        "libId",
-        1,
-        21, 21, "queryId",
-        1,
-        22, 0.0001, 99.0,
-        DnaSequence.Strand.FORWARD
+    assertEquals(
+        new CodonMap(codons, Collections.singletonMap(2, "V")),
+        new CodonMapper().apply(new BlastMatch(new BlastSearchStatistics(
+            "libId",
+            1,
+            21, 21, "queryId",
+            1,
+            22, 0.0001, 99.0,
+            DnaSequence.Strand.FORWARD
+        ),
+            "ATGATAGTATATATATAGATAG",
+            "ATGATA-TATATATATATATAG"))
     );
-
-    final BlastMatch blastMatch = new BlastMatch(statistics, querySequence, referenceSequence);
-
-    final CodonMap testMap = new CodonMapper().apply(blastMatch);
-
-    final Map<Integer, String> codons = new HashMap<>(7);
-    codons.put(1, "ATG");
-    codons.put(2, "ATA");
-    codons.put(3, "!!!");
-    codons.put(4, "!!!");
-    codons.put(5, "!!!");
-    codons.put(6, "!!!");
-    codons.put(7, "!!!");
-
-    final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "G"));
-
-    assertEquals(testMap, expectedCodonMap);
   }
 
   @Test
   public void doubleFrameshift() {
 
-    final var referenceSequence = "ATGATG-ATGATGATGATG--ATG";
-    final var querySequence = "ATGATGCATGATGATGATGCCATG";
+    final var codons = new HashMap<Integer, Character>(7);
+    codons.put(1, 'M');
+    codons.put(2, 'D');
+    codons.put(3, '!');
+    codons.put(4, '!');
+    codons.put(5, '!');
+    codons.put(6, '!');
+    codons.put(7, '!');
+    codons.put(8, 'D');
 
-    final var statistics = new BlastSearchStatistics(
-        "libId",
-        1,
-        21, 21, "queryId",
-        1,
-        24, 0.0001, 99.0,
-        DnaSequence.Strand.FORWARD
-    );
-
-    final var blastMatch = new BlastMatch(statistics, querySequence, referenceSequence);
-
-    final var testMap = new CodonMapper().apply(blastMatch);
-
-    final var codons = new HashMap<Integer, String>(7);
-    codons.put(1, "ATG");
-    codons.put(2, "ATG");
-    codons.put(3, "!!!");
-    codons.put(4, "!!!");
-    codons.put(5, "!!!");
-    codons.put(6, "!!!");
-    codons.put(7, "ATG");
-
-    final var inserts = new HashMap<Integer, String>(2);
-    inserts.put(2, "C");
-    inserts.put(6, "CC");
-
-    final var expectedCodonMap = new CodonMap(codons, inserts);
-
-    assertEquals(testMap, expectedCodonMap);
+    assertEquals(
+        new CodonMap(codons, Collections.emptyMap()),
+        new CodonMapper().apply(new BlastMatch(new BlastSearchStatistics(
+            "libId",
+            1,
+            24, 21, "queryId",
+            1,
+            27, 0.0001, 99.0,
+            DnaSequence.Strand.FORWARD
+        ), "ATGGATCATGATGATGATGCCATGGAT", "ATGGAT-ATGATGATGATG--ATGGAT")));
   }
 
   @Test
   public void doubleFrameshiftTwo() {
 
-    final var referenceSequence = "ATGATG-ATGATGATGATGATG";
-    final var querySequence = "ATGATGCATGATGATGAT-ATG";
+    final var codons = new HashMap<Integer, Character>(7);
+    codons.put(1, 'M');
+    codons.put(2, 'M');
+    codons.put(3, '!');
+    codons.put(4, '!');
+    codons.put(5, '!');
+    codons.put(6, '!');
+    codons.put(7, 'M');
 
-    final var statistics = new BlastSearchStatistics(
+    assertEquals(
+        new CodonMap(codons, Collections.emptyMap()),
+        new CodonMapper().apply(new BlastMatch(new BlastSearchStatistics(
+            "libId",
+            1,
+            21, 21, "queryId",
+            1,
+            21, 0.0001, 99.0,
+            DnaSequence.Strand.FORWARD
+        ),
+            "ATGATGCATGATGATGAT-ATG",
+            "ATGATG-ATGATGATGATGATG")));
+  }
+
+  @Test
+  public void prematureStopCodon() {
+
+    final var codons = new HashMap<Integer, Character>();
+    codons.put(1, 'M');
+    codons.put(2, 'M');
+    codons.put(3, 'M');
+    codons.put(4, 'M');
+    codons.put(5, '*');
+    codons.put(6, 'Y');
+
+    final var expectedCodonMap = new CodonMap(codons, Collections.emptyMap());
+
+    assertEquals(expectedCodonMap, new CodonMapper().apply(new BlastMatch(new BlastSearchStatistics(
         "libId",
         1,
         21, 21, "queryId",
         1,
         21, 0.0001, 99.0,
         DnaSequence.Strand.FORWARD
-    );
-
-    final var blastMatch = new BlastMatch(statistics, querySequence, referenceSequence);
-
-    final var testMap = new CodonMapper().apply(blastMatch);
-
-    final var codons = new HashMap<Integer, String>(7);
-    codons.put(1, "ATG");
-    codons.put(2, "ATG");
-    codons.put(3, "!!!");
-    codons.put(4, "!!!");
-    codons.put(5, "!!!");
-    codons.put(6, "!!!");
-    codons.put(7, "ATG");
-
-    final var inserts = new HashMap<Integer, String>(2);
-    inserts.put(2, "C");
-
-    final var expectedCodonMap = new CodonMap(codons, inserts);
-
-    assertEquals(testMap, expectedCodonMap);
+    ),
+        "ATGATGATGATGTAGTATTAG",
+        "ATGATGATGATGTATTATTAG")));
   }
-
 }
