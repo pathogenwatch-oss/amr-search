@@ -1,11 +1,9 @@
 package net.cgps.wgsa.paarsnp.core.snpar.codonmapping;
 
+import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
-import java.util.BitSet;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -25,27 +23,40 @@ public class CreateFrameshiftFilter implements BiFunction<String, String, BitSet
         .collect(Collectors.toList());
 
     // Identify frameshift regions
-    final var frameshiftFilter = new BitSet(querySequence.length());
-    var shiftStart = 0;
-    var currentFrame = 0;
+    final var referenceIndex = new HashMap<Integer, Integer>();
+    var currentIndex = 0;
+    for (int i = 0; i < referenceSequence.length(); i++) {
+      if (referenceSequence.charAt(i) != '-') {
+        currentIndex++;
+      }
+      referenceIndex.put(i, currentIndex);
+    }
+
+    final var codonCount = DnaSequence.countCodons(currentIndex);
+    final var frameshiftFilter = new BitSet(codonCount);
+
+    var shiftStartCodon = 0; // track the start of the current shift
+    var currentFrame = 0; // track the frame of the shift (0,1,2)
 
     for (final var shift : frameShiftLocations) {
-      if (shiftStart == 0) {
-        shiftStart = shift.getKey();
+      if (shiftStartCodon == 0) {
+        shiftStartCodon = DnaSequence.codonIndexAt(referenceIndex.get(shift.getKey()) + 1);
         currentFrame = shift.getValue();
       } else {
         currentFrame = (currentFrame + shift.getValue()) % 3;
         if (currentFrame == 0) {
           // End of region
-          frameshiftFilter.set(shiftStart, shift.getKey() + Math.abs(shift.getValue()));
-          shiftStart = 0;
+          frameshiftFilter.set(
+              shiftStartCodon,
+              DnaSequence.codonIndexAt(referenceIndex.get(shift.getKey() + (0 < shift.getValue() ? shift.getValue() : 0))) + 1);
+          shiftStartCodon = 0;
         }
         // else still frameshifted, carry on.
       }
     }
 
-    if (shiftStart != 0) {
-      frameshiftFilter.set(shiftStart, querySequence.length());
+    if (shiftStartCodon != 0) {
+      frameshiftFilter.set(DnaSequence.codonIndexAt(referenceIndex.get(shiftStartCodon) + 1), codonCount + 1);
     }
 
     return frameshiftFilter;

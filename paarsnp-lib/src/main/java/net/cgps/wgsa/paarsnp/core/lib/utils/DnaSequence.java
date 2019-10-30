@@ -50,6 +50,10 @@ public class DnaSequence {
     return (int) Math.ceil((double) nucleotideIndex / 3);
   }
 
+  public static int countCodons(final int dnaLength) {
+    return (int) Math.ceil((double) dnaLength / 3);
+  }
+
   public static Optional<Character> translateCodon(final String codon) {
 
     return DEFAULT_CODON_TABLE.translateCodon(codon);

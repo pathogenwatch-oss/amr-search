@@ -14,8 +14,8 @@ public class CreateFrameshiftFilterTest {
     final String referenceSequence = "ATCATC-ATCGGGATCGATCATC";
     final String querySequence = "ATCATCGATC---ATC-ATCATC";
 
-    final BitSet expected = new BitSet(23);
-    expected.set(6, 17);
+    final BitSet expected = new BitSet(9);
+    expected.set(3, 7);
 
     assertEquals(expected, new CreateFrameshiftFilter().apply(referenceSequence, querySequence));
   }
@@ -25,30 +25,30 @@ public class CreateFrameshiftFilterTest {
     final String referenceSequence = "ATCATC-ATCGGGATCATCATC";
     final String querySequence = "ATCATCGATC---ATCATCATC";
 
-    final BitSet expected = new BitSet(22);
-    expected.set(6, 22);
+    final BitSet expected = new BitSet(8);
+    expected.set(2, 8); // 2 - 7
 
     assertEquals(expected, new CreateFrameshiftFilter().apply(referenceSequence, querySequence));
   }
 
   @Test
   public void multiframeShifts() {
-    final String referenceSequence = "ATCATC-ATCGGATCAT--CATCGAT";
-    final String querySequence = "ATCATCGATC--ATCATGGCATC-AT";
+    final String referenceSequence = "ATCATC-ATCGGATCAT--CATCGATC";
+    final String querySequence = "ATCATCGATC--ATCATGGCATC-ATC";
 
-    final BitSet expected = new BitSet(26);
-    expected.set(6, 24);
+    final BitSet expected = new BitSet(9);
+    expected.set(3, 8); // codons 3-7
 
     assertEquals(expected, new CreateFrameshiftFilter().apply(referenceSequence, querySequence));
   }
 
   @Test
   public void longShifts() {
-    final String referenceSequence = "ATCATC-----ATCGGGGATCAT---CATCGAT";
-    final String querySequence = "ATCATCGGGGGATC----ATCATGGGCATC-AT";
+    final String referenceSequence = "ATCATC-----ATCGGGGATCAT---CATGCACAT";
+    final String querySequence = "ATCATCGGGGGATC----ATCATGGGCAT-CACAT";
 
-    final BitSet expected = new BitSet(33);
-    expected.set(6, 31);
+    final BitSet expected = new BitSet(10);
+    expected.set(3, 9);
 
     assertEquals(expected, new CreateFrameshiftFilter().apply(referenceSequence, querySequence));
   }
