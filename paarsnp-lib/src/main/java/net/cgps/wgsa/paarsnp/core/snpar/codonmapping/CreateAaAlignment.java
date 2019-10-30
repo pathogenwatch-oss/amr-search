@@ -1,17 +1,24 @@
 package net.cgps.wgsa.paarsnp.core.snpar.codonmapping;
 
-import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
-import net.cgps.wgsa.paarsnp.core.lib.utils.StreamGobbler;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.biojava.nbio.alignment.Alignments;
+import org.biojava.nbio.alignment.SimpleGapPenalty;
+import org.biojava.nbio.core.alignment.matrices.SubstitutionMatrixHelper;
+import org.biojava.nbio.core.alignment.template.SubstitutionMatrix;
 import org.biojava.nbio.core.exceptions.CompoundNotFoundException;
+import org.biojava.nbio.core.sequence.DNASequence;
 import org.biojava.nbio.core.sequence.ProteinSequence;
+import org.biojava.nbio.core.sequence.compound.AminoAcidCompound;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
-import java.util.stream.Collectors;
 
 public class CreateAaAlignment implements BiFunction<String, String, Map.Entry<String, String>> {
+
+  private static final SubstitutionMatrix<AminoAcidCompound> matrix = SubstitutionMatrixHelper.getBlosum80();
+  private final Logger logger = LoggerFactory.getLogger(CreateAaAlignment.class);
 
   @Override
   public Map.Entry<String, String> apply(final String referenceAlignment, final String queryAlignment) {
@@ -23,58 +30,18 @@ public class CreateAaAlignment implements BiFunction<String, String, Map.Entry<S
     final ProteinSequence transCleanQuery;
 
     try {
-      transCleanRef = new ProteinSequence(DnaSequence.translateMultiple(cleanSequence(referenceAlignment), 'X'));
-      transCleanQuery = new ProteinSequence(DnaSequence.translateMultiple(cleanSequence(queryAlignment), 'X'));
-    } catch (CompoundNotFoundException e) {
-      e.printStackTrace();
-    }
-
-    try {
-      final var translateProcess = translateProcessBuilder.start();
-      final List<String> translation;
-      try (
-          final InputStream error = translateProcess.getErrorStream();
-          final var translateWriter = new BufferedWriter(new OutputStreamWriter(translateProcess.getOutputStream()));
-          final var translaterReader = new BufferedReader(new InputStreamReader(translateProcess.getInputStream()))) {
-
-        new StreamGobbler(error, "ERROR").start();
-        translateWriter.write(">ref");
-        translateWriter.newLine();
-        translateWriter.write(cleanSequence(referenceAlignment));
-        translateWriter.newLine();
-        translateWriter.write(">query");
-        translateWriter.newLine();
-        translateWriter.write(cleanSequence(queryAlignment));
-        translateWriter.newLine();
-        translateWriter.flush();
-        translateWriter.close();
-
-        translation = translaterReader.lines().collect(Collectors.toList());
-      }
-
-      final var alignProcessBuilder = new ProcessBuilder("goalign", "sw");
-      final var alignmentProcess = alignProcessBuilder.start();
-
-      try (final InputStream error = alignmentProcess.getErrorStream();
-           final var alignWriter = new BufferedWriter(new OutputStreamWriter(alignmentProcess.getOutputStream()));
-           final var alignReader = new BufferedReader(new InputStreamReader(alignmentProcess.getInputStream()))) {
-
-        new StreamGobbler(error, "ERROR").start();
-
-        for (final var line : translation) {
-          alignWriter.write(line);
-          alignWriter.newLine();
-        }
-
-        alignWriter.flush();
-        alignWriter.close();
-
-        final Map.Entry<String, String> alignmentResult = new ExtractAlignment().apply(alignReader.lines().collect(Collectors.joining("\n")));
-        return alignmentResult;
-      }
-    } catch (IOException e) {
+      transCleanRef = new DNASequence(cleanSequence(referenceAlignment)).getRNASequence().getProteinSequence();
+      transCleanQuery = new DNASequence(cleanSequence(queryAlignment)).getRNASequence().getProteinSequence();
+    } catch (final CompoundNotFoundException e) {
       throw new RuntimeException(e);
     }
+
+    this.logger.info("Aligning:\n{}\n{}\n", transCleanRef.getSequenceAsString(), transCleanQuery.getSequenceAsString());
+    final var nwAligner = Alignments.getPairwiseAligner(transCleanQuery, transCleanRef, Alignments.PairwiseSequenceAlignerType.GLOBAL, new SimpleGapPenalty(), matrix);
+
+    final var pair = nwAligner.getPair();
+
+    return new ImmutablePair<>(pair.getTarget().getSequenceAsString(), pair.getQuery().getSequenceAsString());
   }
 
   /**

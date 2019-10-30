@@ -18,6 +18,8 @@ public class CodonMapperTest {
 
     final String referenceSequence = "ATGATA---TATATATATATATAG";
     final String querySequence = "ATGATAGCGTATATATATAGATAG";
+    // MIYIYI
+    // MIAYIYR
 
     final BlastSearchStatistics statistics = new BlastSearchStatistics(
         "libId",
@@ -33,15 +35,14 @@ public class CodonMapperTest {
     final CodonMap testMap = new CodonMapper().apply(blastMatch);
 
     final Map<Integer, String> codons = new HashMap<>();
-    codons.put(1, "ATG");
-    codons.put(2, "ATA");
-    codons.put(3, "TAT");
-    codons.put(4, "ATA");
-    codons.put(5, "TAT");
-    codons.put(6, "AGA");
-    codons.put(7, "TAG");
+    codons.put(1, "M");
+    codons.put(2, "I");
+    codons.put(3, "Y");
+    codons.put(4, "I");
+    codons.put(5, "Y");
+    codons.put(6, "R");
 
-    final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "GCG"));
+    final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "A"));
 
     Assert.assertEquals(expectedCodonMap, testMap);
   }
@@ -49,34 +50,31 @@ public class CodonMapperTest {
   @Test
   public void offsetFrameshiftInsert() {
 
-    final String referenceSequence = "ATGATAT----ATATATATATATAG";
-    final String querySequence = "ATGATATGCGCATATATATAGATAG";
-
-    final BlastSearchStatistics statistics = new BlastSearchStatistics(
+    final BlastMatch blastMatch = new BlastMatch(new BlastSearchStatistics(
         "libId",
         1,
         21, 21, "queryId",
         1,
         25, 0.0001, 99.0,
         DnaSequence.Strand.FORWARD
-    );
-
-    final BlastMatch blastMatch = new BlastMatch(statistics, querySequence, referenceSequence);
+    ),
+        "ATGATATGCGCATATATATACATAG",
+        "ATGATAT----ATATATATATATAG");
 
     final CodonMap testMap = new CodonMapper().apply(blastMatch);
 
     final Map<Integer, String> codons = new HashMap<>(7);
-    codons.put(1, "ATG");
-    codons.put(2, "ATA");
-    codons.put(3, "!!!");
-    codons.put(4, "!!!");
-    codons.put(5, "!!!");
-    codons.put(6, "!!!");
-    codons.put(7, "!!!");
+    codons.put(1, "M");
+    codons.put(2, "I");
+    codons.put(3, "!");
+    codons.put(4, "!");
+    codons.put(5, "!");
+    codons.put(6, "!");
+    codons.put(7, "!");
 
-    final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "GCGC"));
+    final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "CA"));
 
-    Assert.assertEquals(testMap, expectedCodonMap);
+    Assert.assertEquals(expectedCodonMap, testMap);
   }
 
   @Test

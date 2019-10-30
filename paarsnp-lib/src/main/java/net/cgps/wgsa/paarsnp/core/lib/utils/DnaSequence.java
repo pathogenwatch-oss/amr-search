@@ -43,6 +43,13 @@ public class DnaSequence {
     FORWARD, REVERSE
   }
 
+  public static int codonIndexAt(final int nucleotideIndex) {
+    if (1 > nucleotideIndex) {
+      throw new IndexOutOfBoundsException();
+    }
+    return (int) Math.ceil((double) nucleotideIndex / 3);
+  }
+
   public static Optional<Character> translateCodon(final String codon) {
 
     return DEFAULT_CODON_TABLE.translateCodon(codon);

@@ -31,7 +31,7 @@ public class CodonMap {
   }
 
   public String getInsertTranslation(final int insertLocation) {
-    return DnaSequence.translateMultiple(this.codonMap.get(insertLocation));
+    return DnaSequence.translateMultiple(this.codonMap.get(insertLocation), 'X');
   }
 
   public boolean containsInsert(final Integer position) {

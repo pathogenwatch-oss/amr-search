@@ -20,7 +20,6 @@ public class CodonMapper implements Function<BlastMatch, CodonMap> {
     final var frameshiftFilter = new CreateFrameshiftFilter().apply(referenceAlignment, queryAlignment);
     final var aaAlignment = new CreateAaAlignment().apply(referenceAlignment, queryAlignment);
 
-    // TODO: Check this for new logic
     final var codonMap = new HashMap<Integer, String>(3000);
     final var insertMap = new HashMap<Integer, String>(100);
 
