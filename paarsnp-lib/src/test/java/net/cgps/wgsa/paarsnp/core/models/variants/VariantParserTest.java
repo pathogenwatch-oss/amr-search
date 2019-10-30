@@ -1,12 +1,13 @@
 package net.cgps.wgsa.paarsnp.core.models.variants;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class VariantParserTest {
 
@@ -18,7 +19,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    Assert.assertTrue(this.compare(this.generator('t', 'a', 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('t', 'a', 67), new VariantParser().apply(test1)));
   }
 
   @Test
@@ -27,7 +28,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    Assert.assertTrue(this.compare(this.generator('E', 'I', 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('E', 'I', 67), new VariantParser().apply(test1)));
   }
 
   @Test
@@ -36,7 +37,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    Assert.assertTrue(this.compare(this.generator('-', 'I', 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('-', 'I', 67), new VariantParser().apply(test1)));
   }
 
   @Test
@@ -45,7 +46,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    Assert.assertTrue(this.compare(this.generator('-', 'I', 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('-', 'I', 67), new VariantParser().apply(test1)));
   }
 
   @Test
@@ -54,7 +55,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    Assert.assertTrue(this.compare(this.generator("--", "IE", 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator("--", "IE", 67), new VariantParser().apply(test1)));
   }
 
   private boolean compare(final Map.Entry<Integer, Map.Entry<String, String>> reference, final Map.Entry<Integer, Map.Entry<String, String>> test) {
@@ -69,7 +70,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    Assert.assertTrue(this.compare(this.generator('E', '-', 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('E', '-', 67), new VariantParser().apply(test1)));
   }
 
   @Test
@@ -78,7 +79,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    Assert.assertTrue(this.compare(this.generator('E', '-', 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('E', '-', 67), new VariantParser().apply(test1)));
   }
 
   private Map.Entry<Integer, Map.Entry<String, String>> generator(final String a, final String b, final Integer position) {
@@ -91,7 +92,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    Assert.assertTrue(this.compare(this.generator("--", "IE", 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator("--", "IE", 67), new VariantParser().apply(test1)));
   }
 
   @Test
@@ -102,7 +103,7 @@ public class VariantParserTest {
 
     final Map.Entry<Integer, Map.Entry<String, String>> parsed = new VariantParser().apply(test1);
 
-    Assert.assertTrue(this.compare(this.generator('t', 'a', -15), parsed));
+    assertTrue(this.compare(this.generator('t', 'a', -15), parsed));
   }
 
   private Map.Entry<Integer, Map.Entry<String, String>> generator(final char a, final char b, final Integer position) {
@@ -115,7 +116,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    Assert.assertTrue(this.compare(this.generator('-', 'a', -15), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('-', 'a', -15), new VariantParser().apply(test1)));
   }
 
   @Test
@@ -124,7 +125,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    Assert.assertTrue(this.compare(this.generator('-', 'a', -15), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('-', 'a', -15), new VariantParser().apply(test1)));
   }
 
 }

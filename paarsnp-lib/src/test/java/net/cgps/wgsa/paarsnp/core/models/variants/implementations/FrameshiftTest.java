@@ -1,11 +1,13 @@
 package net.cgps.wgsa.paarsnp.core.models.variants.implementations;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FrameshiftTest {
 
@@ -18,7 +20,7 @@ public class FrameshiftTest {
     mutations.put(mutation1.getReferenceLocation(), Collections.singletonList(mutation1));
     mutations.put(mutation2.getReferenceLocation(), Collections.singletonList(mutation2));
 
-    Assert.assertTrue(new Frameshift().isPresent(mutations, null));
+    assertTrue(new Frameshift().isPresent(mutations, null));
   }
 
   @Test
@@ -32,7 +34,7 @@ public class FrameshiftTest {
     final Map<Integer, Collection<Mutation>> mutations = mutationList.stream()
         .collect(Collectors.toMap(Mutation::getReferenceLocation, Collections::singletonList));
 
-    Assert.assertFalse(new Frameshift().isPresent(mutations, null));
+    assertFalse(new Frameshift().isPresent(mutations, null));
   }
 
 }

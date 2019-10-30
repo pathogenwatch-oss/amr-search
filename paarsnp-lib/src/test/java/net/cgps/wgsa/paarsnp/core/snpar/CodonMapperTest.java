@@ -4,12 +4,13 @@ import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.snpar.codonmapping.CodonMapper;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CodonMapperTest {
 
@@ -44,7 +45,7 @@ public class CodonMapperTest {
 
     final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "A"));
 
-    Assert.assertEquals(expectedCodonMap, testMap);
+    assertEquals(expectedCodonMap, testMap);
   }
 
   @Test
@@ -74,7 +75,7 @@ public class CodonMapperTest {
 
     final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "CA"));
 
-    Assert.assertEquals(expectedCodonMap, testMap);
+    assertEquals(expectedCodonMap, testMap);
   }
 
   @Test
@@ -107,7 +108,7 @@ public class CodonMapperTest {
 
     final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "G"));
 
-    Assert.assertEquals(testMap, expectedCodonMap);
+    assertEquals(testMap, expectedCodonMap);
   }
 
   @Test
@@ -144,7 +145,7 @@ public class CodonMapperTest {
 
     final var expectedCodonMap = new CodonMap(codons, inserts);
 
-    Assert.assertEquals(testMap, expectedCodonMap);
+    assertEquals(testMap, expectedCodonMap);
   }
 
   @Test
@@ -180,7 +181,7 @@ public class CodonMapperTest {
 
     final var expectedCodonMap = new CodonMap(codons, inserts);
 
-    Assert.assertEquals(testMap, expectedCodonMap);
+    assertEquals(testMap, expectedCodonMap);
   }
 
 }

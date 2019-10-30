@@ -1,11 +1,13 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class CodonMapTest {
 
@@ -16,8 +18,8 @@ public class CodonMapTest {
     final CodonMap map2 = new CodonMap(this.createSimpleMap(), this.createSimpleInsertMap());
     final CodonMap map3 = new CodonMap(this.createSimpleMap(), Collections.emptyMap());
 
-    Assert.assertEquals(map1, map2);
-    Assert.assertNotEquals(map1, map3);
+    assertEquals(map1, map2);
+    assertNotEquals(map1, map3);
   }
 
   private Map<Integer, String> createSimpleInsertMap() {

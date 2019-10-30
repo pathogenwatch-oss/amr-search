@@ -37,5 +37,11 @@
             <artifactId>paarsnp-builder</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${paarsnp.junit.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
