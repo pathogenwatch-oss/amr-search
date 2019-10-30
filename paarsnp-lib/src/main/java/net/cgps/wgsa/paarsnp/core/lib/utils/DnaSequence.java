@@ -27,11 +27,11 @@ public class DnaSequence {
     return StringUtils.replaceChars(dnaSequence, "GTCAgtca", "CAGTcagt");
   }
 
-  public static String translateMultiple(final String codons) {
+  public static String translateMultiple(final String codons, final char failureChar) {
     return Streams.stream(Splitter.fixedLength(3)
         .split(codons))
         .map(DnaSequence::translateCodon)
-        .map(translationOpt -> translationOpt.orElse('-'))
+        .map(translationOpt -> translationOpt.orElse(failureChar))
         .collect(Collector.of(
             StringBuilder::new,
             StringBuilder::append,

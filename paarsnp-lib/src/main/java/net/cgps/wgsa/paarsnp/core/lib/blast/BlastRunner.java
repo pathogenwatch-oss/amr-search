@@ -47,8 +47,7 @@ public class BlastRunner implements Function<String[], BlastOutput> {
       try (final InputStream error = p.getErrorStream(); final BufferedReader outputReader = new BufferedReader(new InputStreamReader(p.getInputStream(), Charset.defaultCharset()))) {
 
         // create listener for the stderr on separate thread (reports stderr to log).
-        final Thread errorGobbler = new StreamGobbler(error, "ERROR");
-        errorGobbler.start();
+        new StreamGobbler(error, "ERROR").start();
 
         // Return finished result. The gobblers should clean themselves up.
         return xmlReader.apply(outputReader);

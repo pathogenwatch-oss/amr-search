@@ -43,7 +43,7 @@ public class CodonMapperTest {
 
     final CodonMap expectedCodonMap = new CodonMap(codons, Collections.singletonMap(2, "GCG"));
 
-    Assert.assertEquals(testMap, expectedCodonMap);
+    Assert.assertEquals(expectedCodonMap, testMap);
   }
 
   @Test
