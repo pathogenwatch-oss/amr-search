@@ -36,6 +36,7 @@ public class CreateAaAlignment implements BiFunction<String, String, Map.Entry<S
 
     if (!referenceAlignment.contains("-") && !queryAlignment.contains("-")) {
       return new ImmutablePair<>(transCleanRef.getSequenceAsString(), transCleanQuery.getSequenceAsString());
+
     } else {
       this.logger.debug("Aligning:\n{}\n{}", transCleanRef.getSequenceAsString(), transCleanQuery.getSequenceAsString());
 
