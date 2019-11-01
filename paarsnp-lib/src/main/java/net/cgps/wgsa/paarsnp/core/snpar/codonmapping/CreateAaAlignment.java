@@ -24,8 +24,6 @@ public class CreateAaAlignment implements BiFunction<String, String, Map.Entry<S
   public Map.Entry<String, String> apply(final String referenceAlignment, final String queryAlignment) {
 
     // Remove indels, remove incomplete codons from the end, translate and pairwise align
-//    final var translateProcessBuilder = new ProcessBuilder("goalign", "translate", "--unaligned");
-
     final ProteinSequence transCleanRef;
     final ProteinSequence transCleanQuery;
 
@@ -36,12 +34,16 @@ public class CreateAaAlignment implements BiFunction<String, String, Map.Entry<S
       throw new RuntimeException(e);
     }
 
-    this.logger.info("Aligning:\n{}\n{}", transCleanRef.getSequenceAsString(), transCleanQuery.getSequenceAsString());
+    if (!referenceAlignment.contains("-") && !queryAlignment.contains("-")) {
+      return new ImmutablePair<>(transCleanRef.getSequenceAsString(), transCleanQuery.getSequenceAsString());
+    } else {
+      this.logger.debug("Aligning:\n{}\n{}", transCleanRef.getSequenceAsString(), transCleanQuery.getSequenceAsString());
 
-    final var pair = Alignments.getPairwiseAligner(transCleanQuery, transCleanRef, Alignments.PairwiseSequenceAlignerType.GLOBAL, new SimpleGapPenalty(), matrix).getPair();
+      final var pair = Alignments.getPairwiseAligner(transCleanQuery, transCleanRef, Alignments.PairwiseSequenceAlignerType.GLOBAL, new SimpleGapPenalty(), matrix).getPair();
 
-    this.logger.info("{}", pair.toString(60));
-    return new ImmutablePair<>(pair.getTarget().getSequenceAsString(), pair.getQuery().getSequenceAsString());
+      this.logger.debug("{}", pair.toString(60));
+      return new ImmutablePair<>(pair.getTarget().getSequenceAsString(), pair.getQuery().getSequenceAsString());
+    }
   }
 
   /**
