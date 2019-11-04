@@ -12,7 +12,7 @@ public class CodonMapper implements Function<BlastMatch, CodonMap> {
   public CodonMap apply(final BlastMatch match) {
 
     final int firstCodonIndex = (int) Math.ceil((double) match.getBlastSearchStatistics().getLibrarySequenceStart() / 3.0);
-    final var frame = FRAME.toFrame(match.getBlastSearchStatistics().getLibrarySequenceStart() % 3);
+    final var frame = FRAME.toFrame(match.getBlastSearchStatistics().getLibrarySequenceStart());
 
     final var referenceAlignment = getInframeSequence(frame, match.getReferenceMatchSequence());
     final var queryAlignment = getInframeSequence(frame, match.getForwardQuerySequence());
