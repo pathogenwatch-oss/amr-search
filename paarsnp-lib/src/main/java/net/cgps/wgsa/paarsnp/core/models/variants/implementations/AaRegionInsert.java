@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.models.variants.implementations;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
@@ -12,6 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@JsonDeserialize(as = AaRegionInsert.class)
 public class AaRegionInsert extends AbstractJsonnable implements Variant {
 
   private final String name;
@@ -29,9 +31,19 @@ public class AaRegionInsert extends AbstractJsonnable implements Variant {
     return this.name;
   }
 
+  @SuppressWarnings("unused")
+  public int getRangeStart() {
+    return this.rangeStart;
+  }
+
+  @SuppressWarnings("unused")
+  public int getRangeStop() {
+    return this.rangeStop;
+  }
+
   @Override
   public boolean isWithinBoundaries(final int start, final int stop) {
-    return DnaSequence.codonIndexAt(start) <= rangeStart && rangeStop <= DnaSequence.codonIndexAt(stop);
+    return DnaSequence.codonIndexAt(start) <= this.rangeStart && this.rangeStop <= DnaSequence.codonIndexAt(stop);
   }
 
   @Override
@@ -47,7 +59,7 @@ public class AaRegionInsert extends AbstractJsonnable implements Variant {
 
   private Boolean isInRange(final Integer location) {
     final var codon = DnaSequence.codonIndexAt(location);
-    return rangeStart <= codon && codon <= rangeStop;
+    return this.rangeStart <= codon && codon <= this.rangeStop;
   }
 
   @Override

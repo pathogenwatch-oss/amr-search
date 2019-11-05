@@ -1,7 +1,7 @@
 package net.cgps.wgsa.paarsnp.builder;
 
 import net.cgps.wgsa.paarsnp.core.models.variants.implementations.AaRegionInsert;
-import net.cgps.wgsa.paarsnp.core.models.variants.implementations.ResistanceMutation;
+import net.cgps.wgsa.paarsnp.core.models.variants.implementations.AaResistanceMutation;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ class ParseVariantTest {
     this.logger.info("Testing {}", test1);
 
     assertEquals(
-        new ResistanceMutation(test1, "E", 199, "I", ResistanceMutation.TYPE.AA, 67),
+        new AaResistanceMutation(test1, "E", 199, "I", AaResistanceMutation.TYPE.AA, 67),
         new ParseVariant(300).apply(test1));
   }
 
@@ -32,7 +32,7 @@ class ParseVariantTest {
     this.logger.info("Testing {}", test1);
 
     assertEquals(
-        new ResistanceMutation(test1, "-", 201, "I", ResistanceMutation.TYPE.AA, 67),
+        new AaResistanceMutation(test1, "-", 201, "I", AaResistanceMutation.TYPE.AA, 67),
         new ParseVariant(300).apply(test1));
   }
 
@@ -44,7 +44,7 @@ class ParseVariantTest {
 
     final Map.Entry<Integer, Map.Entry<String, String>> parsed = new ParseMutation().apply(test1);
 
-    assertEquals(new ResistanceMutation(test1, "T", 35, "A", ResistanceMutation.TYPE.DNA, -15),
+    assertEquals(new AaResistanceMutation(test1, "T", 35, "A", AaResistanceMutation.TYPE.DNA, -15),
         new ParseVariant(99).apply(test1));
   }
 
@@ -55,7 +55,7 @@ class ParseVariantTest {
     this.logger.info("Testing {}", test1);
 
     assertEquals(
-        new ResistanceMutation(test1, "-", 35, "A", ResistanceMutation.TYPE.DNA, -15),
+        new AaResistanceMutation(test1, "-", 35, "A", AaResistanceMutation.TYPE.DNA, -15),
         new ParseVariant(99).apply(test1));
   }
 
@@ -65,7 +65,7 @@ class ParseVariantTest {
     this.logger.info("Testing {}", "ins-15a");
 
     assertEquals(
-        new ResistanceMutation("ins-15a", "-", 35, "A", ResistanceMutation.TYPE.DNA, -15),
+        new AaResistanceMutation("ins-15a", "-", 35, "A", AaResistanceMutation.TYPE.DNA, -15),
         new ParseVariant(99).apply("ins-15a"));
   }
 

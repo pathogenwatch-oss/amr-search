@@ -17,7 +17,7 @@ public class VariantJsonDeserializer extends JsonDeserializer {
     final ObjectNode root = mapper.readTree(p);
 
     if (root.has("type")) {
-      return mapper.readValue(root.toString(), ResistanceMutation.class);
+      return mapper.readValue(root.toString(), AaResistanceMutation.class);
     } else if ("truncated".equals(root.get("name").asText())) {
       return mapper.readValue(root.toString(), PrematureStop.class);
     } else if (root.get("name").asText().startsWith("aa_insert")) {

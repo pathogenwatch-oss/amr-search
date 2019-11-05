@@ -1,5 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.models.variants.implementations;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
@@ -11,6 +12,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@JsonDeserialize(as = NtRegionInsert.class)
 public class NtRegionInsert extends AbstractJsonnable implements Variant {
 
   private final String name;
@@ -23,10 +25,12 @@ public class NtRegionInsert extends AbstractJsonnable implements Variant {
     this.rangeStop = rangeStop;
   }
 
+  @SuppressWarnings("unused")
   private int getRangeStart() {
     return this.rangeStart;
   }
 
+  @SuppressWarnings("unused")
   private int getRangeStop() {
     return this.rangeStop;
   }
