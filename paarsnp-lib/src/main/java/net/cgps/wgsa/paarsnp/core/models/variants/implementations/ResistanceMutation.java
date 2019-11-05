@@ -33,7 +33,7 @@ public class ResistanceMutation extends AbstractJsonnable implements HasReferenc
     this("", "", 0, "", TYPE.DNA, 0);
   }
 
-  ResistanceMutation(final String name, final String originalSequence, final int referenceLocation, final String mutationSequence, final TYPE type, final int aaLocation) {
+  public ResistanceMutation(final String name, final String originalSequence, final int referenceLocation, final String mutationSequence, final TYPE type, final int aaLocation) {
     // NB for the SNP archive the query location is the same as the representative location.
     this.name = name;
     this.originalSequence = originalSequence;

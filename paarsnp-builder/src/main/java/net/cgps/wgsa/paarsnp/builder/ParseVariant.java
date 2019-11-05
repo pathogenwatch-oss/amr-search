@@ -20,10 +20,10 @@ public class ParseVariant implements Function<String, Variant> {
     } else if ("frameshift".equals(encoding.toLowerCase())) {
       return new Frameshift();
     } else if (encoding.toLowerCase().startsWith("aa_insert")) {
-      final var coords = encoding.split("_")[1].split("-");
+      final var coords = encoding.split("_")[2].split("-");
       return new AaRegionInsert(encoding, Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));
     } else if (encoding.toLowerCase().startsWith("nt_insert")) {
-      final var coords = encoding.split("_")[1].split("-");
+      final var coords = encoding.split("_")[2].split("-");
       return new NtRegionInsert(encoding, Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));
     } else {
       return ResistanceMutation.build(encoding, new ParseMutation().apply(encoding), this.referenceLength);

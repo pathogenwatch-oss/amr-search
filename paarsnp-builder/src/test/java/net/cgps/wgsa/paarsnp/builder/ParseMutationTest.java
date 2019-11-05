@@ -112,7 +112,7 @@ public class ParseMutationTest {
 
   @Test
   public void applyPromoterInsert() {
-    final String test1 = "--15a";
+    final String test1 = "ins-15a";
 
     this.logger.info("Testing {}", test1);
 
@@ -125,7 +125,8 @@ public class ParseMutationTest {
 
     this.logger.info("Testing {}", test1);
 
-    assertTrue(this.compare(this.generator('-', 'a', -15), new ParseMutation().apply(test1)));
+    final var compare = new ParseMutation().apply(test1);
+    assertTrue(this.compare(this.generator('-', 'a', -15), compare));
   }
 
 }
