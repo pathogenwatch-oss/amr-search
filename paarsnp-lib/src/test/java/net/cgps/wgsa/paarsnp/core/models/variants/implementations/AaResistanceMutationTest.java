@@ -7,7 +7,7 @@ class AaResistanceMutationTest {
 
   @Test
   public void testAAInBoundaries() {
-    final var reference = new AaResistanceMutation("test", "D", 4, "E", AaResistanceMutation.TYPE.AA, 2);
+    final var reference = new AaResistanceMutation("test", "D", 4, "E", 2);
     Assertions.assertFalse(reference.isWithinBoundaries(8, 100));
   }
 }

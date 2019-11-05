@@ -1,12 +1,9 @@
 package net.cgps.wgsa.paarsnp.builder;
 
-import net.cgps.wgsa.paarsnp.core.models.variants.implementations.AaRegionInsert;
-import net.cgps.wgsa.paarsnp.core.models.variants.implementations.AaResistanceMutation;
+import net.cgps.wgsa.paarsnp.core.models.variants.implementations.*;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,7 +18,7 @@ class ParseVariantTest {
     this.logger.info("Testing {}", test1);
 
     assertEquals(
-        new AaResistanceMutation(test1, "E", 199, "I", AaResistanceMutation.TYPE.AA, 67),
+        new AaResistanceMutation(test1, "E", 199, "I", 67),
         new ParseVariant(300).apply(test1));
   }
 
@@ -32,7 +29,7 @@ class ParseVariantTest {
     this.logger.info("Testing {}", test1);
 
     assertEquals(
-        new AaResistanceMutation(test1, "-", 201, "I", AaResistanceMutation.TYPE.AA, 67),
+        new AaResistanceMutation(test1, "-", 201, "I", 67),
         new ParseVariant(300).apply(test1));
   }
 
@@ -42,9 +39,7 @@ class ParseVariantTest {
 
     this.logger.info("Testing {}", test1);
 
-    final Map.Entry<Integer, Map.Entry<String, String>> parsed = new ParseMutation().apply(test1);
-
-    assertEquals(new AaResistanceMutation(test1, "T", 35, "A", AaResistanceMutation.TYPE.DNA, -15),
+    assertEquals(new NtResistanceMutation(test1, "T", 35, "A"),
         new ParseVariant(99).apply(test1));
   }
 
@@ -55,7 +50,7 @@ class ParseVariantTest {
     this.logger.info("Testing {}", test1);
 
     assertEquals(
-        new AaResistanceMutation(test1, "-", 35, "A", AaResistanceMutation.TYPE.DNA, -15),
+        new NtResistanceMutation(test1, "-", 35, "A"),
         new ParseVariant(99).apply(test1));
   }
 
@@ -65,7 +60,7 @@ class ParseVariantTest {
     this.logger.info("Testing {}", "ins-15a");
 
     assertEquals(
-        new AaResistanceMutation("ins-15a", "-", 35, "A", AaResistanceMutation.TYPE.DNA, -15),
+        new NtResistanceMutation("ins-15a", "-", 35, "A"),
         new ParseVariant(99).apply("ins-15a"));
   }
 
@@ -74,5 +69,17 @@ class ParseVariantTest {
 
     final var encoding = "aa_insert_15-30";
     assertEquals(new AaRegionInsert(encoding, 15, 30), new ParseVariant(99).apply(encoding));
+  }
+
+  @Test
+  public void frameshift() {
+    final var encoding = "frameshift";
+    assertEquals(new Frameshift(), new ParseVariant(99).apply(encoding));
+  }
+
+  @Test
+  public void prematureStop() {
+    final var encoding = "truncated";
+    assertEquals(new PrematureStop(100), new ParseVariant(390).apply(encoding));
   }
 }
