@@ -3,6 +3,7 @@ package net.cgps.wgsa.paarsnp.core.snpar;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class CodonMap {
@@ -18,6 +19,10 @@ public class CodonMap {
 
   public Character get(final int aaLocation) {
     return this.codonMap.get(aaLocation);
+  }
+
+  public Set<Integer> getInsertLocations() {
+    return this.insertMap.keySet();
   }
 
   public Stream<Map.Entry<Integer, Character>> getTranslation() {

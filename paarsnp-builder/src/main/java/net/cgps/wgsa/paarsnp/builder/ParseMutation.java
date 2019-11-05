@@ -1,4 +1,4 @@
-package net.cgps.wgsa.paarsnp.core.models.variants;
+package net.cgps.wgsa.paarsnp.builder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -8,7 +8,7 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class VariantParser implements Function<String, Map.Entry<Integer, Map.Entry<String, String>>> {
+public class ParseMutation implements Function<String, Map.Entry<Integer, Map.Entry<String, String>>> {
 
   private final static Pattern snpIdPattern = Pattern.compile("^(-+|ins|[A-Za-z]+)(-?[0-9]+)(-+|del|[A-Za-z]+)$");
 

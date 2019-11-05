@@ -1,4 +1,4 @@
-package net.cgps.wgsa.paarsnp.core.models.variants;
+package net.cgps.wgsa.paarsnp.builder;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.Test;
@@ -9,9 +9,9 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class VariantParserTest {
+public class ParseMutationTest {
 
-  private final Logger logger = LoggerFactory.getLogger(VariantParserTest.class);
+  private final Logger logger = LoggerFactory.getLogger(ParseMutationTest.class);
 
   @Test
   public void applyDnaSnp() {
@@ -19,7 +19,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    assertTrue(this.compare(this.generator('t', 'a', 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('t', 'a', 67), new ParseMutation().apply(test1)));
   }
 
   @Test
@@ -28,7 +28,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    assertTrue(this.compare(this.generator('E', 'I', 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('E', 'I', 67), new ParseMutation().apply(test1)));
   }
 
   @Test
@@ -37,7 +37,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    assertTrue(this.compare(this.generator('-', 'I', 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('-', 'I', 67), new ParseMutation().apply(test1)));
   }
 
   @Test
@@ -46,7 +46,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    assertTrue(this.compare(this.generator('-', 'I', 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('-', 'I', 67), new ParseMutation().apply(test1)));
   }
 
   @Test
@@ -55,7 +55,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    assertTrue(this.compare(this.generator("--", "IE", 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator("--", "IE", 67), new ParseMutation().apply(test1)));
   }
 
   private boolean compare(final Map.Entry<Integer, Map.Entry<String, String>> reference, final Map.Entry<Integer, Map.Entry<String, String>> test) {
@@ -70,7 +70,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    assertTrue(this.compare(this.generator('E', '-', 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('E', '-', 67), new ParseMutation().apply(test1)));
   }
 
   @Test
@@ -79,7 +79,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    assertTrue(this.compare(this.generator('E', '-', 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('E', '-', 67), new ParseMutation().apply(test1)));
   }
 
   private Map.Entry<Integer, Map.Entry<String, String>> generator(final String a, final String b, final Integer position) {
@@ -92,7 +92,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    assertTrue(this.compare(this.generator("--", "IE", 67), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator("--", "IE", 67), new ParseMutation().apply(test1)));
   }
 
   @Test
@@ -101,7 +101,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    final Map.Entry<Integer, Map.Entry<String, String>> parsed = new VariantParser().apply(test1);
+    final Map.Entry<Integer, Map.Entry<String, String>> parsed = new ParseMutation().apply(test1);
 
     assertTrue(this.compare(this.generator('t', 'a', -15), parsed));
   }
@@ -116,7 +116,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    assertTrue(this.compare(this.generator('-', 'a', -15), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('-', 'a', -15), new ParseMutation().apply(test1)));
   }
 
   @Test
@@ -125,7 +125,7 @@ public class VariantParserTest {
 
     this.logger.info("Testing {}", test1);
 
-    assertTrue(this.compare(this.generator('-', 'a', -15), new VariantParser().apply(test1)));
+    assertTrue(this.compare(this.generator('-', 'a', -15), new ParseMutation().apply(test1)));
   }
 
 }

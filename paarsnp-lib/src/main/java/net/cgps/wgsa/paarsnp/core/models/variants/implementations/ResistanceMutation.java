@@ -33,7 +33,7 @@ public class ResistanceMutation extends AbstractJsonnable implements HasReferenc
     this("", "", 0, "", TYPE.DNA, 0);
   }
 
-  private ResistanceMutation(final String name, final String originalSequence, final int referenceLocation, final String mutationSequence, final TYPE type, final int aaLocation) {
+  ResistanceMutation(final String name, final String originalSequence, final int referenceLocation, final String mutationSequence, final TYPE type, final int aaLocation) {
     // NB for the SNP archive the query location is the same as the representative location.
     this.name = name;
     this.originalSequence = originalSequence;
@@ -90,8 +90,8 @@ public class ResistanceMutation extends AbstractJsonnable implements HasReferenc
 
   @Override
   public boolean isWithinBoundaries(final int start, final int stop) {
-    return (start <= this.referenceLocation && this.referenceLocation < stop) &&
-        (this.getType() == TYPE.DNA
+    return (start <= this.referenceLocation && this.referenceLocation < stop &&
+        (this.getType() == TYPE.DNA)
             ||
             (start <= this.referenceLocation + 2 && this.referenceLocation + 2 < stop));
   }

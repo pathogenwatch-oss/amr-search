@@ -109,8 +109,14 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
             .peek(snparReferenceSequence -> {
               logger.trace(snparReferenceSequence.getName());
               if (sequenceIdToVariants.containsKey(snparReferenceSequence.getName())) {
-                // Need to update all the SNPs
-                snparReferenceSequence.addVariants(sequenceIdToVariants.get(snparReferenceSequence.getName()));
+                // Need to update all the variants
+                final var builder = new ParseVariant(snparReferenceSequence.getLength());
+                snparReferenceSequence.addVariants(
+                    sequenceIdToVariants
+                        .get(snparReferenceSequence.getName())
+                        .stream()
+                        .map(builder)
+                        .collect(Collectors.toList()));
               }
             })
             .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));

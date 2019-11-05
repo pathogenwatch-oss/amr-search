@@ -1,12 +1,10 @@
 package net.cgps.wgsa.paarsnp.core.models;
 
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
-import net.cgps.wgsa.paarsnp.core.models.variants.VariantParser;
-import net.cgps.wgsa.paarsnp.core.models.variants.implementations.Frameshift;
-import net.cgps.wgsa.paarsnp.core.models.variants.implementations.PrematureStop;
-import net.cgps.wgsa.paarsnp.core.models.variants.implementations.ResistanceMutation;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Objects;
 
 public class ReferenceSequence {
 
@@ -69,23 +67,7 @@ public class ReferenceSequence {
     return Objects.hash(this.name, this.pid, this.coverage, this.variants);
   }
 
-  public void addVariants(final Collection<String> newVariants) {
-
-    final VariantParser variantParser = new VariantParser();
-
-    final List<Variant> mappedVariants = new ArrayList<>(500);
-
-    for (final String newVariant : newVariants) {
-      if ("truncated".equals(newVariant.toLowerCase())) {
-        mappedVariants.add(new PrematureStop(this.length));
-      } else if ("frameshift".equals(newVariant.toLowerCase())) {
-        mappedVariants.add(new Frameshift());
-      } else {
-        final Map.Entry<Integer, Map.Entry<String, String>> mutation = variantParser.apply(newVariant);
-        mappedVariants.add(ResistanceMutation.build(newVariant, mutation, this.length));
-      }
-    }
-
-    this.variants.addAll(mappedVariants);
+  public void addVariants(final Collection<Variant> newVariants) {
+    this.variants.addAll(newVariants);
   }
 }
