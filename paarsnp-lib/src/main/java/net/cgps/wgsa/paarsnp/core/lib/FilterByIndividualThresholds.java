@@ -3,12 +3,16 @@ package net.cgps.wgsa.paarsnp.core.lib;
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class FilterByIndividualThresholds implements Predicate<BlastMatch> {
+
+  private final Logger logger = LoggerFactory.getLogger(FilterByIndividualThresholds.class);
   private final Map<String, Float> pidThresholds;
   private final Map<String, Float> coverageThresholds;
 
@@ -32,7 +36,9 @@ public class FilterByIndividualThresholds implements Predicate<BlastMatch> {
 
   @Override
   public boolean test(final BlastMatch match) {
-
+    this.logger.debug("Filtering {}", match.getBlastSearchStatistics().getLibrarySequenceId());
+    this.logger.debug("{} {} coverage", match.getBlastSearchStatistics().getLibrarySequenceId(), this.coverageThresholds.get(match.getBlastSearchStatistics().getLibrarySequenceId()));
+    this.logger.debug("{} {} pid", match.getBlastSearchStatistics().getLibrarySequenceId(), this.pidThresholds.get(match.getBlastSearchStatistics().getLibrarySequenceId()));
     return this.coverageThresholds.get(match.getBlastSearchStatistics().getLibrarySequenceId()) <= match.calculateCoverage()
         &&
         this.pidThresholds.get(match.getBlastSearchStatistics().getLibrarySequenceId()) <= match.getBlastSearchStatistics().getPercentIdentity();

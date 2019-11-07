@@ -1,10 +1,12 @@
 package net.cgps.wgsa.paarsnp.core.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.models.results.HasVariants;
 
 import java.util.*;
 
-public class SetMember {
+public class SetMember extends AbstractJsonnable implements HasVariants {
 
   private final String gene;
   @JsonInclude(JsonInclude.Include.NON_EMPTY)

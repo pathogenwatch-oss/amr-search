@@ -43,7 +43,7 @@ public class BlastReader implements Function<BlastOutput, Stream<BlastMatch>> {
     // a single sequence fasta will only have one iteration.
     return blastOutput.getBlastOutputIterations()
         .getIteration()
-        .parallelStream()
+        .stream()
         .flatMap(iteration -> iteration
             .getIterationHits()
             .getHit()

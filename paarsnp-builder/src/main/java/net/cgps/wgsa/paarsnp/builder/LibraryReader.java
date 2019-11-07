@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAndSequences> {
 
-  private static final Logger logger = LoggerFactory.getLogger(LibraryReader.class);
+  private final Logger logger = LoggerFactory.getLogger(LibraryReader.class);
   private final Map<String, AntimicrobialAgent> antimicrobialDb;
   private final List<AntimicrobialAgent> selectedList;
   private final LibraryMetadata version;
@@ -36,112 +36,22 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
     this.selectedList = selectedList;
   }
 
-  @Override
-  public LibraryDataAndSequences apply(final Path path) {
-
-    // Initialise the final parts (e.g. not inherited from parent toml)
-    final Toml toml = new Toml().read(path.toFile());
-    final String label = toml.getString("label");
-
-    // Initialise the AMR selection first time to use as filter for subsequent imports
-    if (this.selectedList.isEmpty()) {
-      this.selectedList.addAll(toml
-          .getList("antimicrobials", new ArrayList<String>())
-          .stream()
-          .map(this.antimicrobialDb::get)
-          .collect(Collectors.toList()));
-    }
-
-    // And down the recursive rabbit hole we go ...
-    final LibraryDataAndSequences parentInfo = this.readParents(label, toml.getList("extends", new ArrayList<>()), path.getParent());
-
-    final PaarsnpLibrary inheritedLibrary = parentInfo.getPaarsnpLibrary();
-    final PaarsnpLibrary currentLibrary = new PaarsnpLibrary(
-        new LibraryMetadata(this.version.getSource(), this.version.getVersion(), label),
-        this.selectedList,
-        inheritedLibrary.getGenes().values(),
-        inheritedLibrary.getSets().values());
-    final Map<String, String> parentSequences = parentInfo.getSequences();
-
-    // Read in the new set of genes
-    final Map<String, Pair<String, ReferenceSequence>> newGenes = Optional.ofNullable(toml.getTables("genes"))
-        .orElse(Collections.emptyList())
-        .stream()
-        .map(geneToml -> new ImmutablePair<>(
-            ">" + geneToml.getString("name") + "\n" + geneToml.getString("sequence") + "\n",
-            LibraryReader.parseGene().apply(geneToml)))
-        .map(geneInfo -> new ImmutablePair<>(geneInfo.getRight().getName(), geneInfo))
-        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
-    // Construct SNPAR
-    currentLibrary.addRecords(
-        Optional.ofNullable(toml.getTables("mechanisms"))
-            .orElse(Collections.emptyList())
+  public static Function<Toml, List<SetMember>> parseMembers() {
+    return (toml) -> {
+      try {
+        final List<String> members = toml.getList("members", new ArrayList<>());
+        return members
             .stream()
-            .map(LibraryReader.parseMechanisms())
-            .collect(Collectors.toMap(ResistanceSet::getName, Function.identity()))
-    );
-
-    // Map the new variants to their sequence ID.
-    final Map<String, Collection<String>> sequenceIdToVariants = currentLibrary
-        .getSets()
-        .values()
-        .stream()
-        .map(ResistanceSet::getMembers)
-        .flatMap(Collection::stream)
-        .map(member -> new ImmutablePair<String, Collection<String>>(member.getGene(), new ArrayList<>(member.getVariants()))
-        )
-        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> {
-          a.addAll(b);
-          return a;
-        }));
-
-    // Add the genes
-    currentLibrary.addResistanceGenes(
-        currentLibrary.getSets()
-            .values()
+            .peek(member -> LoggerFactory.getLogger(LibraryReader.class).trace("{}", member))
+            .map(member -> new SetMember(member, Collections.emptySet()))
+            .collect(Collectors.toList());
+      } catch (final ClassCastException e) {
+        return toml.getTables("members")
             .stream()
-            .map(ResistanceSet::getMembers)
-            .flatMap(Collection::stream)
-            .map(SetMember::getGene)
-            .peek(logger::debug)
-            .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : currentLibrary.getGenes().get(gene))
-            .peek(snparReferenceSequence -> {
-              logger.trace(snparReferenceSequence.getName());
-              if (sequenceIdToVariants.containsKey(snparReferenceSequence.getName())) {
-                // Need to update all the variants
-                final var builder = new ParseVariant(snparReferenceSequence.getLength());
-                snparReferenceSequence.addVariants(
-                    sequenceIdToVariants
-                        .get(snparReferenceSequence.getName())
-                        .stream()
-                        .map(builder)
-                        .collect(Collectors.toList()));
-              }
-            })
-            .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
-
-    // Add the modifiers to the gene list.
-    currentLibrary.addResistanceGenes(
-        currentLibrary.getSets()
-            .values()
-            .stream()
-            .map(ResistanceSet::getPhenotypes)
-            .flatMap(Collection::stream)
-            .map(Phenotype::getModifiers)
-            .flatMap(Collection::stream)
-            .map(Modifier::getName)
-            .map(name -> newGenes.get(name).getRight())
-            .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1))
-    );
-
-    parentSequences.putAll(newGenes
-        .keySet()
-        .stream()
-        .filter(geneId -> !parentSequences.containsKey(geneId))
-        .collect(Collectors.toMap(Function.identity(), geneId -> newGenes.get(geneId).getKey())));
-
-    return new LibraryDataAndSequences(parentSequences, currentLibrary);
+            .map(LibraryReader.parseMember())
+            .collect(Collectors.toList());
+      }
+    };
   }
 
   private LibraryDataAndSequences readParents(final String label, final List<String> parentLibrary, final Path libraryDirectory) {
@@ -206,22 +116,138 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
     );
   }
 
-  public static Function<Toml, List<SetMember>> parseMembers() {
-    return (toml) -> {
-      try {
-        final List<String> members = toml.getList("members", new ArrayList<>());
-        return members
+  @Override
+  public LibraryDataAndSequences apply(final Path path) {
+
+    // Initialise the final parts (e.g. not inherited from parent toml)
+    final Toml toml = new Toml().read(path.toFile());
+    final String label = toml.getString("label");
+
+    // Initialise the AMR selection first time to use as filter for subsequent imports
+    if (this.selectedList.isEmpty()) {
+      this.selectedList.addAll(toml
+          .getList("antimicrobials", new ArrayList<String>())
+          .stream()
+          .map(this.antimicrobialDb::get)
+          .collect(Collectors.toList()));
+    }
+
+    // And down the recursive rabbit hole we go ...
+    final LibraryDataAndSequences parentInfo = this.readParents(label, toml.getList("extends", new ArrayList<>()), path.getParent());
+
+    final PaarsnpLibrary inheritedLibrary = parentInfo.getPaarsnpLibrary();
+    final PaarsnpLibrary currentLibrary = new PaarsnpLibrary(
+        new LibraryMetadata(this.version.getSource(), this.version.getVersion(), label),
+        this.selectedList,
+        inheritedLibrary.getGenes().values(),
+        inheritedLibrary.getSets().values());
+    final Map<String, String> parentSequences = parentInfo.getSequences();
+
+    // Read in the new set of genes
+    final Map<String, Pair<String, ReferenceSequence>> newGenes = Optional.ofNullable(toml.getTables("genes"))
+        .orElse(Collections.emptyList())
+        .stream()
+        .map(geneToml -> new ImmutablePair<>(
+            ">" + geneToml.getString("name") + "\n" + geneToml.getString("sequence") + "\n",
+            LibraryReader.parseGene().apply(geneToml)))
+        .map(geneInfo -> new ImmutablePair<>(geneInfo.getRight().getName(), geneInfo))
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+    // Construct SNPAR
+    currentLibrary.addRecords(
+        Optional.ofNullable(toml.getTables("mechanisms"))
+            .orElse(Collections.emptyList())
             .stream()
-            .peek(member -> logger.trace("{}", member))
-            .map(member -> new SetMember(member, Collections.emptySet()))
-            .collect(Collectors.toList());
-      } catch (final ClassCastException e) {
-        return toml.getTables("members")
+            .map(LibraryReader.parseMechanisms())
+            .collect(Collectors.toMap(ResistanceSet::getName, Function.identity()))
+    );
+
+    // Map the new variants to their sequence ID.
+    final var sequenceIdToVariants = currentLibrary
+        .getSets()
+        .values()
+        .stream()
+        .map(ResistanceSet::getMembers)
+        .flatMap(Collection::stream)
+        .map(member -> new ImmutablePair<String, Collection<String>>(member.getGene(), new ArrayList<>(member.getVariants()))
+        )
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> {
+          a.addAll(b);
+          return a;
+        }));
+
+    final var modifierIdToVariants = currentLibrary
+        .getSets()
+        .values()
+        .stream()
+        .map(ResistanceSet::getPhenotypes)
+        .flatMap(Collection::stream)
+        .map(Phenotype::getModifiers)
+        .flatMap(Collection::stream)
+        .map(modifier -> new ImmutablePair<String, Collection<String>>(modifier.getGene(), new ArrayList<>(modifier.getVariants())))
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> {
+          a.addAll(b);
+          return a;
+        }));
+
+    // Add the genes
+    currentLibrary.addResistanceGenes(
+        currentLibrary.getSets()
+            .values()
             .stream()
-            .map(LibraryReader.parseMember())
-            .collect(Collectors.toList());
-      }
-    };
+            .map(ResistanceSet::getMembers)
+            .flatMap(Collection::stream)
+            .map(SetMember::getGene)
+            .peek(logger::debug)
+            .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : currentLibrary.getGenes().get(gene))
+            .peek(referenceSequence -> {
+              logger.trace(referenceSequence.getName());
+              if (sequenceIdToVariants.containsKey(referenceSequence.getName())) {
+                // Need to update all the variants
+                final var variantBuilder = new ParseVariant(referenceSequence.getLength());
+                referenceSequence.addVariants(
+                    sequenceIdToVariants
+                        .get(referenceSequence.getName())
+                        .stream()
+                        .map(variantBuilder)
+                        .collect(Collectors.toList()));
+              }
+            })
+            .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1)));
+
+    // Add the modifiers to the gene list.
+    currentLibrary.addResistanceGenes(
+        currentLibrary.getSets()
+            .values()
+            .stream()
+            .map(ResistanceSet::getPhenotypes)
+            .flatMap(Collection::stream)
+            .map(Phenotype::getModifiers)
+            .flatMap(Collection::stream)
+            .map(Modifier::getGene)
+            .peek(gene -> this.logger.debug("modifier gene = {}", gene))
+            .map(name -> newGenes.get(name).getRight())
+            .peek(modifierReference -> {
+              if (modifierIdToVariants.containsKey(modifierReference.getName())) {
+                final var variantBuilder = new ParseVariant(modifierReference.getLength());
+                modifierReference.addVariants(
+                    modifierIdToVariants
+                        .get(modifierReference.getName())
+                        .stream()
+                        .map(variantBuilder)
+                        .collect(Collectors.toList()));
+              }
+            })
+            .collect(Collectors.toMap(ReferenceSequence::getName, Function.identity(), (p1, p2) -> p1))
+    );
+
+    parentSequences.putAll(newGenes
+        .keySet()
+        .stream()
+        .filter(geneId -> !parentSequences.containsKey(geneId))
+        .collect(Collectors.toMap(Function.identity(), geneId -> newGenes.get(geneId).getKey())));
+
+    return new LibraryDataAndSequences(parentSequences, currentLibrary);
   }
 
   public static Function<Toml, SetMember> parseMember() {
@@ -231,7 +257,6 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
   public static Function<Toml, Phenotype> parsePhenotype() {
     return toml -> toml.to(Phenotype.class);
   }
-
 
   public static Function<Toml, ReferenceSequence> parseGene() {
     return toml -> new ReferenceSequence(

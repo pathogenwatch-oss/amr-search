@@ -1,11 +1,14 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
-import net.cgps.wgsa.paarsnp.core.models.*;
+import net.cgps.wgsa.paarsnp.core.models.Phenotype;
+import net.cgps.wgsa.paarsnp.core.models.ProcessedMatch;
+import net.cgps.wgsa.paarsnp.core.models.ResistanceSet;
+import net.cgps.wgsa.paarsnp.core.models.SetMember;
 import net.cgps.wgsa.paarsnp.core.models.results.MatchJson;
+import net.cgps.wgsa.paarsnp.core.models.results.Modifier;
 import net.cgps.wgsa.paarsnp.core.models.results.SearchResult;
 import net.cgps.wgsa.paarsnp.core.models.results.SetResult;
-import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,23 +68,21 @@ public class CombineResults implements Collector<BlastMatch, List<ProcessedMatch
           .map(set -> new SetResult(
                   set.getMembers()
                       .stream()
-                      .filter(member -> matches.keySet().contains(member.getGene()))
+                      .filter(member -> matches.containsKey(member.getGene()))
                       .map(member -> {
                         // Just return the gene name if it's presence-absence
                         // Otherwise the list of variants
                         if (member.getVariants().isEmpty()) {
                           return Optional.of(member);
                         }
-                        // NB We should only consider SNPS from a single copy of a gene, so here we are going to select the
+
+                        final var extractResistanceVariants = new ExtractResistanceVariants(member.getVariants());
+
+                        // NB We should only consider SNPs from a single copy of a gene, so here we are going to select the
                         // copy with the most coverage of the set
                         final Set<String> variants = matches.get(member.getGene())
                             .stream()
-                            .map(match -> match.getSnpResistanceElements()
-                                .stream()
-                                .filter(mutation -> member.getVariants().contains(mutation.getResistanceMutation().getName()))
-                                .map(ResistanceMutationMatch::getResistanceMutation)
-                                .map(Variant::getName)
-                                .collect(Collectors.toSet()))
+                            .map(extractResistanceVariants)
                             .max(Comparator.comparingInt(Collection::size))
                             .orElse(Collections.emptySet());
 
@@ -102,8 +103,33 @@ public class CombineResults implements Collector<BlastMatch, List<ProcessedMatch
                       .stream()
                       .map(Phenotype::getModifiers)
                       .flatMap(Collection::stream)
-                      .filter(modifier -> matches.keySet().contains(modifier.getName()))
-                      .map(modifier -> new SetMember(modifier.getName(), Collections.emptySet()))
+                      .filter(modifier -> matches.containsKey(modifier.getGene()))
+                      .map(modifier -> {
+                        // Just return the gene name if it's presence-absence
+                        // Otherwise the list of variants
+                        final Optional<Modifier> modifierPresent;
+                        if (modifier.getVariants().isEmpty()) {
+                          modifierPresent = Optional.of(modifier);
+                        } else {
+
+                          final var variantExtractor = new ExtractResistanceVariants(modifier.getVariants());
+
+                          final Set<String> variants = matches.get(modifier.getGene())
+                              .stream()
+                              .map(variantExtractor)
+                              .max(Comparator.comparingInt(Collection::size))
+                              .orElse(Collections.emptySet());
+
+                          if (variants.size() == modifier.getVariants().size()) {
+                            modifierPresent = Optional.of(modifier);
+                          } else {
+                            modifierPresent = Optional.empty();
+                          }
+                        }
+                        return modifierPresent;
+                      })
+                      .filter(Optional::isPresent)
+                      .map(Optional::get)
                       .collect(Collectors.toList()),
                   set
               )

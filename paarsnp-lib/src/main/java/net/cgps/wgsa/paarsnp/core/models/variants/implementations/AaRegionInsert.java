@@ -20,6 +20,11 @@ public class AaRegionInsert extends AbstractJsonnable implements Variant {
   private final int rangeStart;
   private final int rangeStop;
 
+  @SuppressWarnings("unused")
+  private AaRegionInsert() {
+    this("", 0, 0);
+  }
+
   public AaRegionInsert(final String name, final int rangeStart, final int rangeStop) {
     this.name = name;
     this.rangeStart = rangeStart;

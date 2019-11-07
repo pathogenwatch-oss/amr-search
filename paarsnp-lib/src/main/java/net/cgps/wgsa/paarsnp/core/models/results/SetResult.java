@@ -6,11 +6,12 @@ import net.cgps.wgsa.paarsnp.core.models.SetMember;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 
 public class SetResult extends AbstractJsonnable {
 
   private final Collection<SetMember> foundMembers;
-  private final Collection<SetMember> foundModifiers;
+  private final Collection<Modifier> foundModifiers;
   private final ResistanceSet set;
 
   @SuppressWarnings("unused")
@@ -18,9 +19,9 @@ public class SetResult extends AbstractJsonnable {
     this(Collections.emptyList(), Collections.emptyList(), null);
   }
 
-  public SetResult(final Collection<SetMember> foundMembers, final Collection<SetMember> foundModifiers, final ResistanceSet set) {
-    this.foundMembers = foundMembers;
-    this.foundModifiers = foundModifiers;
+  public SetResult(final Collection<SetMember> foundMembers, final Collection<Modifier> foundModifiers, final ResistanceSet set) {
+    this.foundMembers = new HashSet<>(foundMembers);
+    this.foundModifiers = new HashSet<>(foundModifiers);
     this.set = set;
   }
 
@@ -28,14 +29,8 @@ public class SetResult extends AbstractJsonnable {
     return this.foundMembers;
   }
 
-  public Collection<SetMember> getFoundModifiers() {
+  public Collection<Modifier> getFoundModifiers() {
     return this.foundModifiers;
-  }
-
-  public boolean modifierIsPresent(final String name) {
-    return this.foundModifiers
-        .stream()
-        .anyMatch(setMember -> setMember.getGene().equals(name));
   }
 
   public ResistanceSet getSet() {
@@ -45,5 +40,9 @@ public class SetResult extends AbstractJsonnable {
   @Override
   public String toString() {
     return this.toJson();
+  }
+
+  public boolean containsModifier(final Modifier modifier) {
+    return this.foundModifiers.contains(modifier);
   }
 }

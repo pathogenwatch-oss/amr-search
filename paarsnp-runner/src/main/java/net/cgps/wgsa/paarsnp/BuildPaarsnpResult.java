@@ -44,7 +44,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
               .getPhenotypes()
               .forEach(phenotype -> this.determineResistanceState(
                   phenotype,
-                  phenotype.getModifiers().stream().filter(modifier -> setResult.modifierIsPresent(modifier.getName())).collect(Collectors.toList()),
+                  phenotype.getModifiers().stream().filter(setResult::containsModifier).collect(Collectors.toList()),
                   complete)
                   .filter(state -> state.getValue() != ResistanceState.NOT_FOUND)
                   .forEach(agentState -> {
@@ -79,14 +79,14 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
   private Stream<Map.Entry<String, ResistanceState>> determineResistanceState(final Phenotype phenotype, final List<Modifier> phenotypeModifiers, final boolean isComplete) {
 
     // NB At the moment only the first modifier is dealt with (assumes only one allowed modifier at a time)
-    final ElementEffect modifierEffect = phenotypeModifiers.isEmpty() ? ElementEffect.RESISTANCE : phenotypeModifiers.get(0).getEffect();
+    final ElementEffect modifierEffect = phenotypeModifiers.stream().map(Modifier::getEffect).distinct().sorted().findFirst().orElse(ElementEffect.NONE);
 
     return phenotype.getProfile()
         .stream()
         .map(agent -> {
           final ResistanceState resistanceState;
           switch (modifierEffect) {
-            case RESISTANCE:
+            case NONE:
               if (phenotype.getEffect() == PhenotypeEffect.RESISTANT && isComplete) {
                 resistanceState = ResistanceState.RESISTANT;
               } else if (phenotype.getEffect() == PhenotypeEffect.INTERMEDIATE_ADDITIVE && isComplete) {
@@ -101,9 +101,6 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
                 }
               }
               break;
-            case SUPPRESSES:
-              resistanceState = ResistanceState.NOT_FOUND;
-              break;
             case INDUCED:
               if (phenotype.getEffect() == PhenotypeEffect.RESISTANT && isComplete) {
                 resistanceState = ResistanceState.INDUCIBLE;
@@ -114,6 +111,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
               }
               break;
             default:
+              // Suppressed
               resistanceState = ResistanceState.NOT_FOUND;
           }
           return new AbstractMap.SimpleImmutableEntry<>(agent, resistanceState);

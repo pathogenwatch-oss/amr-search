@@ -32,7 +32,7 @@ public class ConvertSetDescription implements Function<ResistanceSet, Stream<Old
             }
           }).collect(Collectors.toList());
 
-          return new OldStyleSetDescription(phenotype.getEffect(), name, phenotype.getProfile(), members, phenotype.getModifiers().stream().collect(Collectors.toMap(Modifier::getName, Modifier::getEffect)));
+          return new OldStyleSetDescription(phenotype.getEffect(), name, phenotype.getProfile(), members, phenotype.getModifiers().stream().collect(Collectors.toMap(Modifier::toName, Modifier::getEffect)));
         });
   }
 }

@@ -31,7 +31,7 @@ public class LibraryReaderTest {
 
     final List<Phenotype> phenotypes = Arrays.asList(
         new Phenotype(PhenotypeEffect.RESISTANT, Collections.singletonList("ERY"), Collections.emptyList()),
-        new Phenotype(PhenotypeEffect.RESISTANT, Collections.singletonList("CLI"), Collections.singletonList(new Modifier("ermC_LP", ElementEffect.INDUCED)))
+        new Phenotype(PhenotypeEffect.RESISTANT, Collections.singletonList("CLI"), Collections.singletonList(new Modifier("ermC_LP", Collections.emptyList(), ElementEffect.INDUCED)))
     );
 
     assertEquals(
