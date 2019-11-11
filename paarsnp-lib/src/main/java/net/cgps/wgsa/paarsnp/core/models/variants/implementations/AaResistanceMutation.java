@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
-import net.cgps.wgsa.paarsnp.core.models.variants.HasReferenceLocation;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
 
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @JsonDeserialize(as = AaResistanceMutation.class)
-public class AaResistanceMutation extends AbstractJsonnable implements HasReferenceLocation, Variant {
+public class AaResistanceMutation extends AbstractJsonnable implements Variant {
 
   private final String name;
   private final String originalSequence;
@@ -63,7 +62,6 @@ public class AaResistanceMutation extends AbstractJsonnable implements HasRefere
     return start <= this.referenceLocation && this.referenceLocation + 2 < stop;
   }
 
-  @Override
   public int getReferenceLocation() {
     return this.referenceLocation;
   }
