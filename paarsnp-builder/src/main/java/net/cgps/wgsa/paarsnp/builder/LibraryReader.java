@@ -209,6 +209,7 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
                     sequenceIdToVariants
                         .get(referenceSequence.getName())
                         .stream()
+                        .map(String::strip)
                         .map(variantBuilder)
                         .collect(Collectors.toList()));
               }

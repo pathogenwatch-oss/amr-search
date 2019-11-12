@@ -8,6 +8,7 @@ import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -87,7 +88,7 @@ public class AaResistanceMutation extends AbstractJsonnable implements Variant {
     if ('-' == this.originalSequence.charAt(0)) { // Insert
       return new ResistanceMutationMatch(
           this,
-          mutations.get(this.referenceLocation)
+          mutations.getOrDefault(this.referenceLocation, Collections.emptyList())
               .stream()
               .filter(mutation -> this.originalSequence.equals(mutation.getOriginalSequence()))
               .collect(Collectors.toList())
