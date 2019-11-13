@@ -2,15 +2,20 @@ package net.cgps.wgsa.paarsnp.core.snpar.codonmapping;
 
 import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.function.Function;
 
 public class CodonMapper implements Function<BlastMatch, CodonMap> {
 
+  private final Logger logger = LoggerFactory.getLogger(CodonMapper.class);
+
   @Override
   public CodonMap apply(final BlastMatch match) {
 
+    this.logger.debug("Creating codon map for {}", match.getBlastSearchStatistics().getLibrarySequenceId());
     final int firstCodonIndex = (int) Math.ceil((double) match.getBlastSearchStatistics().getLibrarySequenceStart() / 3.0);
     final var frame = FRAME.toFrame(match.getBlastSearchStatistics().getLibrarySequenceStart());
 

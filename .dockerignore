@@ -4,7 +4,10 @@ build/
 docs/
 examples/
 generate-taxid-map/
-goalign_test_cases
+goalign_test_cases/
+gono_test/
+gono_update/
+spn_test/
 
 ### Java template
 # Compiled class file
@@ -69,9 +72,7 @@ var/
 wheels/
 pip-wheel-metadata/
 share/python-wheels/
-*.egg-info/
 .installed.cfg
-*.egg
 MANIFEST
 
 # PyInstaller
@@ -101,8 +102,6 @@ coverage.xml
 *.mo
 *.pot
 
-# Django stuff:
-*.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
@@ -116,9 +115,6 @@ instance/
 
 # Sphinx documentation
 docs/_build/
-
-# PyBuilder
-target/
 
 # Jupyter Notebook
 .ipynb_checkpoints

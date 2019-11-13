@@ -49,6 +49,7 @@ public class PrematureStop extends AbstractJsonnable implements Variant {
     final Collection<Integer> prematureStops = codonMap
         .getTranslation()
         .filter(position -> '*' == position.getValue())
+        .peek(position -> this.logger.debug("Premature stop found at {} aa in {} nt", position.getKey(), this.expectedStop))
         // NB the position is aa, while the stop is nt.
         .filter(position -> position.getKey() * 3 < this.expectedStop)
         .map(Map.Entry::getKey)
