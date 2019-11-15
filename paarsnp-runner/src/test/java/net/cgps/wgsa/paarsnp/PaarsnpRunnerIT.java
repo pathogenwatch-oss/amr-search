@@ -16,16 +16,16 @@ import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PaarsnpRunnerTest {
+public class PaarsnpRunnerIT {
 
-  private final Logger logger = LoggerFactory.getLogger(PaarsnpRunnerTest.class);
+  private final Logger logger = LoggerFactory.getLogger(PaarsnpRunnerIT.class);
 
   @Test
   public void apply() {
     final Set<String> expectedVariants = new TreeSet<>(Arrays.asList(
         "rpoB_-433F",
         "rpoB_N437-",
-        "mabA_g609a", "katG_truncated",
+        "mabA_g609a",
         "katG_S315I",
         "eis_promoter_g-10a",
         "rrs_c1402t",

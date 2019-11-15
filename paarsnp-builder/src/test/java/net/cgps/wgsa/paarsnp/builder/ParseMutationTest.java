@@ -88,7 +88,7 @@ public class ParseMutationTest {
 
   @Test
   public void applyMultiAAInsertAlternativeForm() {
-    final String test1 = "-67IE";
+    final String test1 = "--67IE";
 
     this.logger.info("Testing {}", test1);
 

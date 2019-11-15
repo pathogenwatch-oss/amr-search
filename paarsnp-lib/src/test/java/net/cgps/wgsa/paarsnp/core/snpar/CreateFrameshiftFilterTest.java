@@ -26,7 +26,7 @@ public class CreateFrameshiftFilterTest {
     final String querySequence = "ATCATCGATC---ATCATCATC";
 
     final BitSet expected = new BitSet(8);
-    expected.set(2, 8); // 2 - 7
+    expected.set(3, 8); // 2 - 7
 
     assertEquals(expected, new CreateFrameshiftFilter().apply(referenceSequence, querySequence));
   }

@@ -198,7 +198,7 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
             .map(ResistanceSet::getMembers)
             .flatMap(Collection::stream)
             .map(SetMember::getGene)
-            .peek(logger::debug)
+            .peek(logger::trace)
             .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : currentLibrary.getGenes().get(gene))
             .peek(referenceSequence -> {
               logger.trace(referenceSequence.getName());

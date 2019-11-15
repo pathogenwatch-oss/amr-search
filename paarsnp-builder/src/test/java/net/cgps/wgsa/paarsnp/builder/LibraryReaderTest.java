@@ -37,7 +37,7 @@ public class LibraryReaderTest {
     assertEquals(
         phenotypes,
         new Toml().read("phenotypes = [{effect = \"RESISTANT\", profile = [\"ERY\"], modifiers = []},\n" +
-            "              {effect = \"RESISTANT\", profile = [\"CLI\"], modifiers = [{name = \"ermC_LP\", effect = \"INDUCED\"}]}]\n")
+            "              {effect = \"RESISTANT\", profile = [\"CLI\"], modifiers = [{gene = \"ermC_LP\", variants = [], effect = \"INDUCED\"}]}]\n")
             .getTables("phenotypes")
             .stream()
             .map(LibraryReader.parsePhenotype())
