@@ -4,9 +4,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
+import net.cgps.wgsa.paarsnp.core.models.Location;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
-import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
+import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 
 import java.util.Collection;
 import java.util.Map;
@@ -52,9 +53,9 @@ public class AaRegionInsert extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
-    return mutations
-        .keySet()
+  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+    return aaAlignment
+        .getInsertLocations()
         .stream()
         .filter(this::isInRange)
         .map(mutations::get)
@@ -63,21 +64,18 @@ public class AaRegionInsert extends AbstractJsonnable implements Variant {
   }
 
   private Boolean isInRange(final Integer location) {
-    final var codon = DnaSequence.codonIndexAt(location);
-    return this.rangeStart <= codon && codon <= this.rangeStop;
+    return this.rangeStart <= location && location <= this.rangeStop;
   }
 
   @Override
-  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
     return new ResistanceMutationMatch(
         this,
-        mutations
-            .keySet()
+        aaAlignment
+            .getInsertLocations()
             .stream()
             .filter(this::isInRange)
-            .map(mutations::get)
-            .flatMap(Collection::stream)
-            .filter(mutation -> mutation.getMutationType() == Mutation.MutationType.I)
+            .map(codonLocation -> new Location(DnaSequence.ntIndexFromCodon(this.rangeStart), (codonLocation * 3) - 2))
             .collect(Collectors.toList()));
   }
 

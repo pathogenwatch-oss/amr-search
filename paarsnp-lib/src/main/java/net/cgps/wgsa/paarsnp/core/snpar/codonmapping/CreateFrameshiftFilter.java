@@ -1,71 +1,100 @@
 package net.cgps.wgsa.paarsnp.core.snpar.codonmapping;
 
-import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
+import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.*;
-import java.util.function.BiFunction;
-import java.util.regex.Pattern;
+import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class CreateFrameshiftFilter implements BiFunction<String, String, BitSet> {
+public class CreateFrameshiftFilter implements Function<Collection<Mutation>, FrameshiftFilter> {
 
-  private final Pattern indelPattern = Pattern.compile("-+");
+  private final int sequenceLength;
 
-  @Override
-  public BitSet apply(final String referenceSequence, final String querySequence) {
-    // List of frameshifting indels with frameshift as second value
-    final var frameShiftLocations = Stream.concat(
-        this.extractFrameshifts(referenceSequence, 1),
-        this.extractFrameshifts(querySequence, -1))
-        .sorted(Comparator.comparingInt(Map.Entry::getKey))
-        .collect(Collectors.toList());
-
-    // Identify frameshift regions
-    final var referenceIndex = new HashMap<Integer, Integer>();
-    var currentIndex = 0;
-    for (int i = 0; i < referenceSequence.length(); i++) {
-      if (referenceSequence.charAt(i) != '-') {
-        currentIndex++;
-      }
-      referenceIndex.put(i, currentIndex);
-    }
-
-    final var codonCount = DnaSequence.countCodons(currentIndex);
-    final var frameshiftFilter = new BitSet(codonCount);
-
-    var shiftStartCodon = 0; // track the start of the current shift
-    var currentFrame = 0; // track the frame of the shift (0,1,2)
-
-    for (final var shift : frameShiftLocations) {
-      if (shiftStartCodon == 0) {
-        shiftStartCodon = DnaSequence.codonIndexAt(referenceIndex.get(shift.getKey()) + 1);
-        currentFrame = shift.getValue();
-      } else {
-        currentFrame = (currentFrame + shift.getValue()) % 3;
-        if (currentFrame == 0) {
-          // End of region
-          frameshiftFilter.set(
-              shiftStartCodon,
-              DnaSequence.codonIndexAt(referenceIndex.get(shift.getKey() + (0 < shift.getValue() ? shift.getValue() : 0))) + 1);
-          shiftStartCodon = 0;
-        }
-        // else still frameshifted, carry on.
-      }
-    }
-
-    if (shiftStartCodon != 0) {
-      frameshiftFilter.set(shiftStartCodon, codonCount + 1);
-    }
-
-    return frameshiftFilter;
+  public CreateFrameshiftFilter(final int sequenceLength) {
+    this.sequenceLength = sequenceLength;
   }
 
-  private Stream<Map.Entry<Integer, Integer>> extractFrameshifts(final String alignedSequence, final int direction) {
+  @Override
+  public FrameshiftFilter apply(final Collection<Mutation> mutations) {
 
-    return new Scanner(alignedSequence).findAll(indelPattern)
-        .filter(indel -> (indel.end() - indel.start()) % 3 != 0)
-        .map(indel -> new ImmutablePair<>(indel.start(), (indel.end() - indel.start()) * direction));
+    if (mutations.isEmpty()) {
+      return new FrameshiftFilter(new BitSet(this.sequenceLength));
+    }
+
+    final var partCleanedFrameshifts = mutations
+        .stream()
+        .filter(Mutation::isIndel)
+        .filter(mutation -> mutation.getMutationSequence().length() != 3)
+        .collect(Collectors.toList());
+
+    final var frameshifts = this.cleanDeletions(partCleanedFrameshifts);
+
+    var frameshiftFilter = new BitSet(this.sequenceLength);
+    var offset = 0;
+    var currentStart = 0;
+
+    for (final var shift : frameshifts) {
+
+      offset = (offset + shift.getValue()) % 3;
+
+      if (0 == currentStart && 0 != offset) {
+        // Start of frameshift
+        currentStart = shift.getKey();
+      } else if (0 < currentStart && 0 == offset) {
+        // End of frameshift
+        frameshiftFilter.set(
+            currentStart,
+            shift.getKey() + (
+                0 < shift.getValue() ?
+                shift.getValue() :
+                0
+            ));
+        currentStart = 0;
+      }
+    }
+
+    if (0 < currentStart) {
+      frameshiftFilter.set(currentStart, this.sequenceLength + 1);
+    }
+
+    return new FrameshiftFilter(frameshiftFilter);
+  }
+
+  private List<Map.Entry<Integer, Integer>> cleanDeletions(final List<Mutation> partCleanedFrameshifts) {
+    final var possibles = new ArrayList<Integer>(10);
+    final var frameshifts = new ArrayList<Map.Entry<Integer, Integer>>(20);
+
+    for (final var mutation : partCleanedFrameshifts) {
+      if (Mutation.MutationType.I == mutation.getMutationType()) {
+        frameshifts.add(new ImmutablePair<>(mutation.getReferenceLocation() + 1, mutation.getMutationSequence().length() * -1));
+        if (!possibles.isEmpty() && possibles.size() % 3 != 0) {
+          frameshifts.add(new ImmutablePair<>(possibles.get(0), possibles.size()));
+        }
+        possibles.clear();
+      } else {
+        final var possible = mutation.getReferenceLocation();
+        if (possibles.isEmpty()) {
+          possibles.add(possible);
+        } else {
+          if (possible != possibles.get(possibles.size() - 1) + 1) {
+            if (possibles.size() % 3 != 0) {
+              frameshifts.add(new ImmutablePair<>(possibles.get(0), possibles.size()));
+            }
+            possibles.clear();
+            possibles.add(possible);
+          } else {
+            possibles.add(possible);
+          }
+        }
+      }
+    }
+
+    if (!possibles.isEmpty() && possibles.size() % 3 != 0) {
+      frameshifts.add(new ImmutablePair<>(possibles.get(0), possibles.size()));
+    }
+
+    frameshifts.sort(Comparator.comparingInt(Map.Entry::getKey));
+    return frameshifts;
   }
 }

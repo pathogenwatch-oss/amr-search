@@ -3,9 +3,10 @@ package net.cgps.wgsa.paarsnp.core.models.variants.implementations;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
+import net.cgps.wgsa.paarsnp.core.models.Location;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
-import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
+import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 
 import java.util.Collection;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class NtResistanceMutation extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
 
     return mutations.containsKey(this.referenceLocation) &&
         mutations.get(this.referenceLocation)
@@ -70,13 +71,14 @@ public class NtResistanceMutation extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
     return new ResistanceMutationMatch(
         this,
         mutations.get(this.referenceLocation)
             .stream()
             .filter(mutation -> this.originalSequence.equals(mutation.getOriginalSequence())) // Ensures inserts are compared to inserts and not substitutions.
             .filter(queryMutation -> queryMutation.getMutationSequence().equals(this.mutationSequence))
+            .map(mutation -> new Location(mutation.getQueryLocation(), mutation.getReferenceLocation()))
             .collect(Collectors.toList()));
   }
 

@@ -39,6 +39,10 @@ public class DnaSequence {
             StringBuilder::toString));
   }
 
+  public static int ntIndexFromCodon(final int codonIndex) {
+    return (codonIndex * 3) - 2;
+  }
+
   public enum Strand {
     FORWARD, REVERSE
   }

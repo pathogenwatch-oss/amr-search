@@ -3,16 +3,15 @@ package net.cgps.wgsa.paarsnp.core.models.variants.implementations;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
+import net.cgps.wgsa.paarsnp.core.models.Location;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
-import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
+import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @JsonDeserialize(as = AaResistanceMutation.class)
 public class AaResistanceMutation extends AbstractJsonnable implements Variant {
@@ -48,13 +47,13 @@ public class AaResistanceMutation extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
 
     // Only inserts can be multiple characters
     if ('-' == this.originalSequence.charAt(0)) {
-      return codonMap.containsInsert(this.aaLocation) && this.getMutationSequence().equals(codonMap.getInsertTranslation(this.aaLocation));
+      return aaAlignment.containsInsert(this.aaLocation) && this.getMutationSequence().equals(aaAlignment.getInsertTranslation(this.aaLocation));
     } else {
-      return this.getMutationSequence().charAt(0) == codonMap.get(this.aaLocation);
+      return this.getMutationSequence().charAt(0) == aaAlignment.get(this.aaLocation);
     }
   }
 
@@ -83,28 +82,12 @@ public class AaResistanceMutation extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
 
-    if ('-' == this.originalSequence.charAt(0)) { // Insert
-      return new ResistanceMutationMatch(
-          this,
-          mutations.getOrDefault(this.referenceLocation, Collections.emptyList())
-              .stream()
-              .filter(mutation -> this.originalSequence.equals(mutation.getOriginalSequence()))
-              .collect(Collectors.toList())
-      );
-    } else {
-      return new ResistanceMutationMatch(
-          this,
-          Stream.of(this.referenceLocation, this.referenceLocation + 1, this.referenceLocation + 2)
-              .filter(mutations::containsKey)
-              .map(mutations::get)
-              .flatMap(Collection::stream)
-              .filter(mutation -> '-' != mutation.getOriginalSequence().charAt(0))
-              .filter(mutation -> '-' != mutation.getMutationSequence().charAt(0) ||
-                  ('-' == this.mutationSequence.charAt(0) && this.mutationSequence.equals(mutation.getMutationSequence())))
-              .collect(Collectors.toList()));
-    }
+    return new ResistanceMutationMatch(
+        this,
+        Collections.singleton(new Location(aaAlignment.getQueryNtLocation(this.aaLocation), this.referenceLocation))
+    );
   }
 
   @SuppressWarnings("unused")

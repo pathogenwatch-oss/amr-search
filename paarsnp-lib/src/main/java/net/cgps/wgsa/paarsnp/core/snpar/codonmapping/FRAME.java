@@ -1,19 +1,25 @@
 package net.cgps.wgsa.paarsnp.core.snpar.codonmapping;
 
 public enum FRAME {
-  ONE(0), TWO(2), THREE(1);
+  ONE(0, 0), TWO(1, 2), THREE(2, 1);
 
-  final int offset;
+  private final int index;
+  private final int codonOffset;
 
-  FRAME(int offset) {
-    this.offset = offset;
+  FRAME(final int index, final int codonOffset) {
+    this.index = index;
+    this.codonOffset = codonOffset;
   }
 
   public static FRAME toFrame(final int referencePosition) {
     return FRAME.values()[((referencePosition - 1) % 3)];
   }
 
-  public int getOffset() {
-    return this.offset;
+  public int getCodonOffset() {
+    return this.codonOffset;
+  }
+
+  public int getIndex() {
+    return this.index;
   }
 }

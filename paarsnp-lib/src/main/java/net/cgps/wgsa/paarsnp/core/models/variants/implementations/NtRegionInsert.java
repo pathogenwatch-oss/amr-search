@@ -3,9 +3,10 @@ package net.cgps.wgsa.paarsnp.core.models.variants.implementations;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
+import net.cgps.wgsa.paarsnp.core.models.Location;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
-import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
+import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 
 import java.util.Collection;
 import java.util.Map;
@@ -51,7 +52,7 @@ public class NtRegionInsert extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
     return mutations
         .keySet()
         .stream()
@@ -66,7 +67,7 @@ public class NtRegionInsert extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
     return new ResistanceMutationMatch(
         this,
         mutations
@@ -76,6 +77,7 @@ public class NtRegionInsert extends AbstractJsonnable implements Variant {
             .map(mutations::get)
             .flatMap(Collection::stream)
             .filter(mutation -> mutation.getMutationType() == Mutation.MutationType.I)
+            .map(mutation -> new Location(mutation.getQueryLocation(), mutation.getReferenceLocation()))
             .collect(Collectors.toList()));
   }
 

@@ -9,6 +9,7 @@ import net.cgps.wgsa.paarsnp.core.models.ProcessedMatch;
 import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.snpar.codonmapping.CodonMapper;
+import net.cgps.wgsa.paarsnp.core.snpar.codonmapping.CreateFrameshiftFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +43,9 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
     // Extract mutations from sequence
     final Map<Integer, Collection<Mutation>> mutations = new SequenceProcessor(match.getReferenceMatchSequence(), match.getBlastSearchStatistics().getLibrarySequenceStart(), match.getBlastSearchStatistics().getStrand(), match.getForwardQuerySequence(), match.getBlastSearchStatistics().getQuerySequenceStart(), new MutationBuilder()).call();
 
-    final CodonMap codonMap = new CodonMapper().apply(match);
+    final var frameshiftFilter = new CreateFrameshiftFilter(referenceSequence.getLength()).apply(mutations.values().stream().flatMap(Collection::stream).filter(Mutation::isIndel).collect(Collectors.toList()));
+
+    final var aaAlignment = new CodonMapper(frameshiftFilter).apply(match);
 
     final Collection<ResistanceMutationMatch> resistanceMutations = referenceSequence
         .getVariants()
@@ -51,8 +54,8 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
         .filter(mutation -> mutation.isWithinBoundaries(
             match.getBlastSearchStatistics().getLibrarySequenceStart(),
             match.getBlastSearchStatistics().getLibrarySequenceStop()))
-        .filter(resistanceMutation -> resistanceMutation.isPresent(mutations, codonMap))
-        .map(resistanceMutation -> resistanceMutation.buildMatch(mutations, codonMap))
+        .filter(resistanceMutation -> resistanceMutation.isPresent(mutations, aaAlignment))
+        .map(resistanceMutation -> resistanceMutation.buildMatch(mutations, aaAlignment))
         .collect(Collectors.toList());
 
     return new ProcessedMatch(match.getBlastSearchStatistics(), resistanceMutations);

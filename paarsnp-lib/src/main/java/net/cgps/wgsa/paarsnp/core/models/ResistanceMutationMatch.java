@@ -1,6 +1,5 @@
 package net.cgps.wgsa.paarsnp.core.models;
 
-import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 
 import java.util.Collection;
@@ -9,14 +8,14 @@ import java.util.Objects;
 public class ResistanceMutationMatch {
 
   private final Variant resistanceMutation;
-  private final Collection<Mutation> causalMutations;
+  private final Collection<Location> causalMutations;
 
   @SuppressWarnings("unused")
   private ResistanceMutationMatch() {
     this(null, null);
   }
 
-  public ResistanceMutationMatch(final Variant resistanceMutation, final Collection<Mutation> causalMutations) {
+  public ResistanceMutationMatch(final Variant resistanceMutation, final Collection<Location> causalMutations) {
 
     this.resistanceMutation = resistanceMutation;
     this.causalMutations = causalMutations;
@@ -26,7 +25,7 @@ public class ResistanceMutationMatch {
     return this.resistanceMutation;
   }
 
-  public Collection<Mutation> getCausalMutations() {
+  public Collection<Location> getLocations() {
     return this.causalMutations;
   }
 

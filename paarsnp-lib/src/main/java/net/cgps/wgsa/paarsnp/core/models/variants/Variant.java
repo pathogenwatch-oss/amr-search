@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.Jsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
-import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
+import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 
 import java.util.Collection;
 import java.util.Map;
@@ -16,7 +16,7 @@ public interface Variant extends Jsonnable {
 
   boolean isWithinBoundaries(int start, int stop);
 
-  boolean isPresent(Map<Integer, Collection<Mutation>> mutation, CodonMap codonMap);
+  boolean isPresent(Map<Integer, Collection<Mutation>> mutation, AaAlignment aaAlignment);
 
-  ResistanceMutationMatch buildMatch(Map<Integer, Collection<Mutation>> mutation, CodonMap codonMap);
+  ResistanceMutationMatch buildMatch(Map<Integer, Collection<Mutation>> mutation, AaAlignment aaAlignment);
 }

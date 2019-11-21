@@ -3,12 +3,14 @@ package net.cgps.wgsa.paarsnp.core.models.variants.implementations;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
+import net.cgps.wgsa.paarsnp.core.models.Location;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
-import net.cgps.wgsa.paarsnp.core.snpar.CodonMap;
+import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static net.cgps.wgsa.paarsnp.core.lib.blast.Mutation.MutationType.D;
 import static net.cgps.wgsa.paarsnp.core.lib.blast.Mutation.MutationType.I;
@@ -29,7 +31,7 @@ public class Frameshift extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final CodonMap codonMap) {
+  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
 
     var deletionFrameshifts = this.selectFrameshiftingDeletions(Mutation.select(D, mutations));
 
@@ -88,19 +90,20 @@ public class Frameshift extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final CodonMap resourceB) {
-    final Collection<Mutation> inserts = Mutation.select(I, mutations).values()
-        .stream()
-        .filter(mutation -> mutation.getMutationSequence().length() % 3 != 0)
-        .collect(Collectors.toList());
+  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment resourceB) {
 
-    final Collection<Mutation> deletions = this.selectFrameshiftingDeletions(Mutation.select(D, mutations)).values();
-
-    final Collection<Mutation> causalMutations = new ArrayList<>(50);
-    causalMutations.addAll(inserts);
-    causalMutations.addAll(deletions);
-
-    return new ResistanceMutationMatch(this, causalMutations);
+    return new ResistanceMutationMatch(
+        this,
+        Stream.concat(
+            Mutation.select(I, mutations)
+                .values()
+                .stream()
+                .filter(mutation -> mutation.getMutationSequence().length() % 3 != 0),
+            this.selectFrameshiftingDeletions(Mutation.select(D, mutations))
+                .values()
+                .stream())
+            .map(mutation -> new Location(mutation.getQueryLocation(), mutation.getReferenceLocation()))
+            .collect(Collectors.toList()));
   }
 
   @Override

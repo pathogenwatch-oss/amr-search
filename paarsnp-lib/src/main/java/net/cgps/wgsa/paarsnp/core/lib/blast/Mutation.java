@@ -66,6 +66,10 @@ public class Mutation extends AbstractJsonnable {
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
+  public static boolean isIndel(final Mutation mutation) {
+    return MutationType.I == mutation.getMutationType() || MutationType.D == mutation.getMutationType();
+  }
+
   public enum MutationType {
 
     S, I, D
