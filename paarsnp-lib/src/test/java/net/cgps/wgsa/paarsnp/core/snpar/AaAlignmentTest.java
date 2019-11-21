@@ -9,14 +9,14 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class CodonMapTest {
+public class AaAlignmentTest {
 
   @Test
   public void equals() {
 
-    final CodonMap map1 = new CodonMap(this.createSimpleMap(), this.createSimpleInsertMap());
-    final CodonMap map2 = new CodonMap(this.createSimpleMap(), this.createSimpleInsertMap());
-    final CodonMap map3 = new CodonMap(this.createSimpleMap(), Collections.emptyMap());
+    final AaAlignment map1 = new AaAlignment(this.createSimpleMap(), 1, this.createSimpleLocationMap(), this.createSimpleInsertMap());
+    final AaAlignment map2 = new AaAlignment(this.createSimpleMap(), 1, this.createSimpleLocationMap(), this.createSimpleInsertMap());
+    final AaAlignment map3 = new AaAlignment(this.createSimpleMap(), 1, Collections.emptyMap(), Collections.emptyMap());
 
     assertEquals(map1, map2);
     assertNotEquals(map1, map3);
@@ -28,6 +28,14 @@ public class CodonMapTest {
     map.put(1, "M");
     map.put(2, "I");
     map.put(3, "I");
+    return map;
+  }
+
+  private Map<Integer, Integer> createSimpleLocationMap() {
+    final var map = new HashMap<Integer, Integer>();
+    map.put(1, 1);
+    map.put(2, 2);
+    map.put(3, 3);
     return map;
   }
 

@@ -48,12 +48,12 @@ public class CodonMapper implements Function<BlastMatch, AaAlignment> {
         final var isFrameshifted = frameshiftFilter.checkCodon(refCodonLocation);
         codonMap.put(refCodonLocation, isFrameshifted ? '!' : aaAlignment.getValue().charAt(i));
         queryLocationMap.put(refCodonLocation, isFrameshifted ? -1 : queryCodonLocation);
-        // Update the codon location if not an insert
         refCodonLocation++;
+        // Update the codon location if not a deletion
         if (aaAlignment.getValue().charAt(i) != '-') {
           queryCodonLocation++;
         }
-      } else if (!frameshiftFilter.checkCodon(refCodonLocation - 1)) {
+      } else {
         currentInsert.append(aaAlignment.getValue().charAt(i));
       }
     }

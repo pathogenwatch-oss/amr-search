@@ -70,7 +70,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
                     .stream()
                     .filter(variant -> set.contains(match.getSearchStatistics().getLibrarySequenceId(), variant.getResistanceMutation().getName()))
                     .flatMap(variant -> variant
-                        .getCausalMutations()
+                        .getLocations()
                         .stream()
                         .map(causalVariant -> new PathogenWatchFormat.VariantJson(
                             setAntimicrobials,

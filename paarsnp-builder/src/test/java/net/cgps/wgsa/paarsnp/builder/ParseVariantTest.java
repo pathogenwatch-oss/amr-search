@@ -80,6 +80,6 @@ class ParseVariantTest {
   @Test
   public void prematureStop() {
     final var encoding = "truncated";
-    assertEquals(new PrematureStop(100), new ParseVariant(390).apply(encoding));
+    assertEquals(new PrematureStop(100), new ParseVariant(300).apply(encoding));
   }
 }

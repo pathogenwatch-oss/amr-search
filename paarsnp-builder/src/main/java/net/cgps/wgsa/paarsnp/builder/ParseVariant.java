@@ -21,7 +21,7 @@ public class ParseVariant implements Function<String, Variant> {
   @Override
   public Variant apply(final String encoding) {
     if ("truncated".equals(encoding.toLowerCase())) {
-      return new PrematureStop(this.referenceLength);
+      return new PrematureStop(this.referenceLength / 3);
     } else if ("frameshift".equals(encoding.toLowerCase())) {
       return new Frameshift();
     } else if (encoding.toLowerCase().startsWith("aa_insert")) {

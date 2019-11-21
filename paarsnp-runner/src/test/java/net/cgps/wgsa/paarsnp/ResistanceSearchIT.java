@@ -19,9 +19,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class ResistanceSearchTest {
+public class ResistanceSearchIT {
 
-  private final Logger logger = LoggerFactory.getLogger(ResistanceSearchTest.class);
+  private final Logger logger = LoggerFactory.getLogger(ResistanceSearchIT.class);
 
   @Test
   public void apply() {
