@@ -57,10 +57,7 @@ public class AaRegionInsert extends AbstractJsonnable implements Variant {
     return aaAlignment
         .getInsertLocations()
         .stream()
-        .filter(this::isInRange)
-        .map(mutations::get)
-        .flatMap(Collection::stream)
-        .anyMatch(mutation -> mutation.getMutationType() == Mutation.MutationType.I);
+        .anyMatch(this::isInRange);
   }
 
   private Boolean isInRange(final Integer location) {

@@ -1,5 +1,16 @@
 FROM maven:3.6.2-jdk-11 AS builder
 
+RUN apt-get install -y --no-install-recommends \
+		curl \
+	&& rm -rf /var/lib/apt/lists/*
+
+# Download & install BLAST
+RUN mkdir /opt/blast \
+      && curl ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.30/ncbi-blast-2.2.30+-x64-linux.tar.gz \
+      | tar -zxC /opt/blast --strip-components=1
+
+ENV PATH /opt/blast/bin:$PATH
+
 RUN mkdir paarsnp-runner \
     && mkdir paarsnp-builder \
     && mkdir pw-config-utils \
@@ -17,18 +28,7 @@ COPY ./pw-config-utils/pom.xml ./pw-config-utils/pom.xml
 
 COPY ./pw-genome-config/pom.xml ./pw-genome-config/pom.xml
 
-RUN ["mvn", "verify", "clean", "--fail-never"]
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		curl \
-	&& rm -rf /var/lib/apt/lists/*
-
-# Download & install BLAST
-RUN mkdir /opt/blast \
-      && curl ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.30/ncbi-blast-2.2.30+-x64-linux.tar.gz \
-      | tar -zxC /opt/blast --strip-components=1
-
-ENV PATH /opt/blast/bin:$PATH
+RUN ["mvn", "package", "--fail-never"]
 
 # Start of improving the caching of maven builds, but it's complicated by the issue discussed in:
 # https://stackoverflow.com/questions/14694139/how-to-resolve-dependencies-between-modules-within-multi-module-project
@@ -50,13 +50,24 @@ COPY ./libraries ./libraries
 
 RUN mkdir -p /build
 
-RUN mvn clean package
+RUN mvn verify
 
 RUN mkdir /paarsnp/ \
     && mv ./build/paarsnp.jar /paarsnp/paarsnp.jar \
     && mv ./build/databases /paarsnp \
     && rm -f /paarsnp/databases/*.fna \
     && mv ./resources/taxid.map /paarsnp/databases/
+
+#FROM openjdk:11-jre-slim as db_builder
+#
+#RUN mkdir -p /opt/blast/bin \
+#    && mkdir -p /build/databases
+#
+#COPY --from=builder /opt/blast/bin/blastn /opt/blast/bin
+#
+#COPY --from=builder /build/paarsnp-builder.jar /build/
+#
+#RUN
 
 FROM openjdk:11-jre-slim
 
