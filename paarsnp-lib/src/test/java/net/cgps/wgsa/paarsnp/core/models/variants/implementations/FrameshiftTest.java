@@ -20,7 +20,7 @@ public class FrameshiftTest {
     mutations.put(mutation1.getReferenceLocation(), Collections.singletonList(mutation1));
     mutations.put(mutation2.getReferenceLocation(), Collections.singletonList(mutation2));
 
-    assertTrue(new Frameshift().isPresent(mutations, null));
+    assertTrue(new Frameshift().isPresent(mutations));
   }
 
   @Test
@@ -34,7 +34,7 @@ public class FrameshiftTest {
     final Map<Integer, Collection<Mutation>> mutations = mutationList.stream()
         .collect(Collectors.toMap(Mutation::getReferenceLocation, Collections::singletonList));
 
-    assertFalse(new Frameshift().isPresent(mutations, null));
+    assertFalse(new Frameshift().isPresent(mutations));
   }
 
 }

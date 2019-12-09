@@ -11,6 +11,7 @@ import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @JsonDeserialize(as = NtResistanceMutation.class)
@@ -43,18 +44,23 @@ public class NtResistanceMutation extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
-
-    return mutations.containsKey(this.referenceLocation) &&
-        mutations.get(this.referenceLocation)
-            .stream()
-            .filter(mutation -> this.originalSequence.equals(mutation.getOriginalSequence())) // Ensures inserts are compared to inserts and not substitutions.
-            .anyMatch(queryMutation -> queryMutation.getMutationSequence().equals(this.mutationSequence));
+  public Optional<ResistanceMutationMatch> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+    return this.isPresent(mutations) ?
+           Optional.of(this.buildMatch(mutations)) :
+           Optional.empty();
   }
 
   @Override
   public boolean isWithinBoundaries(final int start, final int stop) {
     return start <= this.referenceLocation && this.referenceLocation < stop;
+  }
+
+  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations) {
+    return mutations.containsKey(this.referenceLocation) &&
+        mutations.get(this.referenceLocation)
+            .stream()
+            .filter(mutation -> this.originalSequence.equals(mutation.getOriginalSequence())) // Ensures inserts are compared to inserts and not substitutions.
+            .anyMatch(queryMutation -> queryMutation.getMutationSequence().equals(this.mutationSequence));
   }
 
   public int getReferenceLocation() {
@@ -70,8 +76,7 @@ public class NtResistanceMutation extends AbstractJsonnable implements Variant {
     return this.name;
   }
 
-  @Override
-  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations) {
     return new ResistanceMutationMatch(
         this,
         mutations.get(this.referenceLocation)

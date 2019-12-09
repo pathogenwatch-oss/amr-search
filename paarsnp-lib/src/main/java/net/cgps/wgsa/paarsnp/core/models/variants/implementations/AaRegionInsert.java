@@ -12,6 +12,7 @@ import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @JsonDeserialize(as = AaRegionInsert.class)
@@ -53,27 +54,21 @@ public class AaRegionInsert extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
-    return aaAlignment
-        .getInsertLocations()
-        .stream()
-        .anyMatch(this::isInRange);
+  public Optional<ResistanceMutationMatch> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+    return aaAlignment.getInsertLocations().stream().anyMatch(this::isInRange) ?
+           Optional.of(new ResistanceMutationMatch(
+               this,
+               aaAlignment
+                   .getInsertLocations()
+                   .stream()
+                   .filter(this::isInRange)
+                   .map(codonLocation -> new Location(DnaSequence.ntIndexFromCodon(this.rangeStart), (codonLocation * 3) - 2))
+                   .collect(Collectors.toList()))) :
+           Optional.empty();
   }
 
   private Boolean isInRange(final Integer location) {
     return this.rangeStart <= location && location <= this.rangeStop;
-  }
-
-  @Override
-  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
-    return new ResistanceMutationMatch(
-        this,
-        aaAlignment
-            .getInsertLocations()
-            .stream()
-            .filter(this::isInRange)
-            .map(codonLocation -> new Location(DnaSequence.ntIndexFromCodon(this.rangeStart), (codonLocation * 3) - 2))
-            .collect(Collectors.toList()));
   }
 
   @Override

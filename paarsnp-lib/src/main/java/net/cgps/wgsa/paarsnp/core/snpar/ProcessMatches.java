@@ -6,8 +6,6 @@ import net.cgps.wgsa.paarsnp.core.lib.blast.MutationBuilder;
 import net.cgps.wgsa.paarsnp.core.lib.blast.SequenceProcessor;
 import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.models.ProcessedMatch;
-import net.cgps.wgsa.paarsnp.core.models.ReferenceSequence;
-import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.snpar.codonmapping.CodonMapper;
 import net.cgps.wgsa.paarsnp.core.snpar.codonmapping.CreateFrameshiftFilter;
 import org.slf4j.Logger;
@@ -15,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -33,7 +31,7 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
   @Override
   public ProcessedMatch apply(final BlastMatch match) {
 
-    final ReferenceSequence referenceSequence = this.mechanismsLibrary.getGenes().get(match.getBlastSearchStatistics().getLibrarySequenceId());
+    final var referenceSequence = this.mechanismsLibrary.getGenes().get(match.getBlastSearchStatistics().getLibrarySequenceId());
 
     // if the mechanisms don't use SNPs just return match data with empty variants
     if (referenceSequence.getVariants().isEmpty()) {
@@ -41,21 +39,22 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
     }
 
     // Extract mutations from sequence
-    final Map<Integer, Collection<Mutation>> mutations = new SequenceProcessor(match.getReferenceMatchSequence(), match.getBlastSearchStatistics().getLibrarySequenceStart(), match.getBlastSearchStatistics().getStrand(), match.getForwardQuerySequence(), match.getBlastSearchStatistics().getQuerySequenceStart(), new MutationBuilder()).call();
+    final var mutations = new SequenceProcessor(match.getReferenceMatchSequence(), match.getBlastSearchStatistics().getLibrarySequenceStart(), match.getBlastSearchStatistics().getStrand(), match.getForwardQuerySequence(), match.getBlastSearchStatistics().getQuerySequenceStart(), new MutationBuilder()).call();
 
     final var frameshiftFilter = new CreateFrameshiftFilter(referenceSequence.getLength()).apply(mutations.values().stream().flatMap(Collection::stream).filter(Mutation::isIndel).collect(Collectors.toList()));
 
     final var aaAlignment = new CodonMapper(frameshiftFilter).apply(match);
 
-    final Collection<ResistanceMutationMatch> resistanceMutations = referenceSequence
+    final var resistanceMutations = referenceSequence
         .getVariants()
         .stream()
         .peek(mutation -> this.logger.trace("Testing resistance mutation {}", mutation.getName()))
         .filter(mutation -> mutation.isWithinBoundaries(
             match.getBlastSearchStatistics().getLibrarySequenceStart(),
             match.getBlastSearchStatistics().getLibrarySequenceStop()))
-        .filter(resistanceMutation -> resistanceMutation.isPresent(mutations, aaAlignment))
-        .map(resistanceMutation -> resistanceMutation.buildMatch(mutations, aaAlignment))
+        .map(resistanceMutation -> resistanceMutation.match(mutations, aaAlignment))
+        .filter(Optional::isPresent)
+        .map(Optional::get)
         .collect(Collectors.toList());
 
     return new ProcessedMatch(match.getBlastSearchStatistics(), resistanceMutations);

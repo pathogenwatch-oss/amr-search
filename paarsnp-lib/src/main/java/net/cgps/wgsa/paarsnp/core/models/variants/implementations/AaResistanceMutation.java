@@ -8,10 +8,7 @@ import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @JsonDeserialize(as = AaResistanceMutation.class)
 public class AaResistanceMutation extends AbstractJsonnable implements Variant {
@@ -47,7 +44,21 @@ public class AaResistanceMutation extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+  public Optional<ResistanceMutationMatch> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+    return this.isPresent(aaAlignment) ?
+           Optional.of(new ResistanceMutationMatch(
+               this,
+               Collections.singleton(new Location(aaAlignment.getQueryNtLocation(this.aaLocation), this.referenceLocation))
+           )) :
+           Optional.empty();
+  }
+
+  @Override
+  public boolean isWithinBoundaries(final int start, final int stop) {
+    return start <= this.referenceLocation && this.referenceLocation + 2 < stop;
+  }
+
+  public boolean isPresent(final AaAlignment aaAlignment) {
 
     // Only inserts can be multiple characters
     if ('-' == this.originalSequence.charAt(0)) {
@@ -55,11 +66,6 @@ public class AaResistanceMutation extends AbstractJsonnable implements Variant {
     } else {
       return this.getMutationSequence().charAt(0) == aaAlignment.get(this.aaLocation);
     }
-  }
-
-  @Override
-  public boolean isWithinBoundaries(final int start, final int stop) {
-    return start <= this.referenceLocation && this.referenceLocation + 2 < stop;
   }
 
   public int getReferenceLocation() {
@@ -79,15 +85,6 @@ public class AaResistanceMutation extends AbstractJsonnable implements Variant {
   @SuppressWarnings("unused")
   public int getAaLocation() {
     return this.aaLocation;
-  }
-
-  @Override
-  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
-
-    return new ResistanceMutationMatch(
-        this,
-        Collections.singleton(new Location(aaAlignment.getQueryNtLocation(this.aaLocation), this.referenceLocation))
-    );
   }
 
   @SuppressWarnings("unused")

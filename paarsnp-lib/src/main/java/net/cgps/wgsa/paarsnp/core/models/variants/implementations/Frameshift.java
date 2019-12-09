@@ -19,10 +19,9 @@ import static net.cgps.wgsa.paarsnp.core.lib.blast.Mutation.MutationType.I;
 public class Frameshift extends AbstractJsonnable implements Variant {
 
   @SuppressWarnings("FieldCanBeLocal")
-  private final String name;
+  private final String name = "frameshift";
 
   public Frameshift() {
-    this.name = "frameshift";
   }
 
   @Override
@@ -31,18 +30,10 @@ public class Frameshift extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
-
-    var deletionFrameshifts = this.selectFrameshiftingDeletions(Mutation.select(D, mutations));
-
-    var insertionFrameshifts = mutations.values().stream()
-        .flatMap(Collection::stream)
-        .filter(mutation -> mutation.getMutationType() == I)
-        .filter(mutation -> mutation.getMutationSequence().length() % 3 != 0)
-        .collect(Collectors.toList());
-
-    // Sum the lengths of the inserts and deletions
-    return !deletionFrameshifts.isEmpty() || !insertionFrameshifts.isEmpty();
+  public Optional<ResistanceMutationMatch> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+    return this.isPresent(mutations) ?
+           Optional.of(this.buildMatch(mutations)) :
+           Optional.empty();
   }
 
   private Map<Integer, Mutation> selectFrameshiftingDeletions(final Map<Integer, Mutation> deletions) {
@@ -89,8 +80,26 @@ public class Frameshift extends AbstractJsonnable implements Variant {
     return filteredMap;
   }
 
+  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations) {
+
+    var deletionFrameshifts = this.selectFrameshiftingDeletions(Mutation.select(D, mutations));
+
+    var insertionFrameshifts = mutations.values().stream()
+        .flatMap(Collection::stream)
+        .filter(mutation -> mutation.getMutationType() == I)
+        .filter(mutation -> mutation.getMutationSequence().length() % 3 != 0)
+        .collect(Collectors.toList());
+
+    // Sum the lengths of the inserts and deletions
+    return !deletionFrameshifts.isEmpty() || !insertionFrameshifts.isEmpty();
+  }
+
   @Override
-  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment resourceB) {
+  public boolean isWithinBoundaries(final int start, final int stop) {
+    return true;
+  }
+
+  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations) {
 
     return new ResistanceMutationMatch(
         this,
@@ -104,11 +113,6 @@ public class Frameshift extends AbstractJsonnable implements Variant {
                 .stream())
             .map(mutation -> new Location(mutation.getQueryLocation(), mutation.getReferenceLocation()))
             .collect(Collectors.toList()));
-  }
-
-  @Override
-  public boolean isWithinBoundaries(final int start, final int stop) {
-    return true;
   }
 
   @Override

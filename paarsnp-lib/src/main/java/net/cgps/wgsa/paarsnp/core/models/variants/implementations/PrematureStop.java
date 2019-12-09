@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @JsonDeserialize(as = PrematureStop.class)
@@ -45,7 +46,13 @@ public class PrematureStop extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public boolean isPresent(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+  public Optional<ResistanceMutationMatch> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+    return this.isPresent(aaAlignment) ?
+           Optional.of(this.buildMatch(aaAlignment)) :
+           Optional.empty();
+  }
+
+  public boolean isPresent(final AaAlignment aaAlignment) {
 
     final Collection<Integer> prematureStops = aaAlignment
         .getTranslation()
@@ -60,14 +67,17 @@ public class PrematureStop extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+  public boolean isWithinBoundaries(final int start, final int stop) {
+    return true;
+  }
+
+  public ResistanceMutationMatch buildMatch(final AaAlignment aaAlignment) {
     final Collection<Integer> prematureStops = aaAlignment
         .getTranslation()
         .filter(position -> '*' == position.getValue())
         // NB the position is aa, while the stop is nt.
         .filter(position -> position.getKey() * 3 < this.expectedStop)
         .map(Map.Entry::getKey)
-
         .collect(Collectors.toList());
 
     return new ResistanceMutationMatch(
@@ -84,17 +94,11 @@ public class PrematureStop extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public boolean isWithinBoundaries(final int start, final int stop) {
-    return true;
-  }
-
-  @Override
   public boolean equals(final Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     final PrematureStop that = (PrematureStop) o;
-    return Objects.equals(expectedStop, that.expectedStop) &&
-        Objects.equals(name, that.name);
+    return Objects.equals(expectedStop, that.expectedStop);
   }
 
   @Override

@@ -8,6 +8,7 @@ import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 
 @JsonDeserialize(using = VariantJsonDeserializer.class)
 public interface Variant extends Jsonnable {
@@ -16,7 +17,5 @@ public interface Variant extends Jsonnable {
 
   boolean isWithinBoundaries(int start, int stop);
 
-  boolean isPresent(Map<Integer, Collection<Mutation>> mutation, AaAlignment aaAlignment);
-
-  ResistanceMutationMatch buildMatch(Map<Integer, Collection<Mutation>> mutation, AaAlignment aaAlignment);
+  Optional<ResistanceMutationMatch> match(Map<Integer, Collection<Mutation>> mutations, AaAlignment aaAlignment);
 }
