@@ -47,7 +47,7 @@ public class Modifier extends AbstractJsonnable implements HasVariants {
   }
 
   public String toName() {
-    return this.gene + (this.getVariants().isEmpty() ? "" : "-" + this.getVariants().stream().sorted().collect(Collectors.joining("_")));
+    return this.gene + (this.getVariants().isEmpty() ? "" : "_" + this.getVariants().stream().sorted().collect(Collectors.joining("_")));
   }
 
   public Set<String> getVariants() {
