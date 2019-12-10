@@ -5,7 +5,6 @@ import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.models.Location;
-import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 
@@ -54,16 +53,14 @@ public class AaRegionInsert extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public Optional<ResistanceMutationMatch> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+  public Optional<Collection<Location>> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
     return aaAlignment.getInsertLocations().stream().anyMatch(this::isInRange) ?
-           Optional.of(new ResistanceMutationMatch(
-               this,
-               aaAlignment
-                   .getInsertLocations()
-                   .stream()
-                   .filter(this::isInRange)
-                   .map(codonLocation -> new Location(DnaSequence.ntIndexFromCodon(this.rangeStart), (codonLocation * 3) - 2))
-                   .collect(Collectors.toList()))) :
+           Optional.of(aaAlignment
+               .getInsertLocations()
+               .stream()
+               .filter(this::isInRange)
+               .map(codonLocation -> new Location(DnaSequence.ntIndexFromCodon(this.rangeStart), (codonLocation * 3) - 2))
+               .collect(Collectors.toList())) :
            Optional.empty();
   }
 

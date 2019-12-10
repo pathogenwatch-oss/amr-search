@@ -3,7 +3,7 @@ package net.cgps.wgsa.paarsnp.core.models.variants;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.Jsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
-import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
+import net.cgps.wgsa.paarsnp.core.models.Location;
 import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 
 import java.util.Collection;
@@ -17,5 +17,5 @@ public interface Variant extends Jsonnable {
 
   boolean isWithinBoundaries(int start, int stop);
 
-  Optional<ResistanceMutationMatch> match(Map<Integer, Collection<Mutation>> mutations, AaAlignment aaAlignment);
+  Optional<Collection<Location>> match(Map<Integer, Collection<Mutation>> mutations, AaAlignment aaAlignment);
 }

@@ -22,6 +22,8 @@ public class VariantJsonDeserializer extends JsonDeserializer {
       return mapper.readValue(root.toString(), NtResistanceMutation.class);
     } else if ("truncated".equals(root.get("name").asText())) {
       return mapper.readValue(root.toString(), PrematureStop.class);
+    } else if ("disrupted".equals(root.get("name").asText())) {
+      return mapper.readValue(root.toString(), Disrupted.class);
     } else if (root.get("name").asText().startsWith("aa_insert")) {
       return mapper.readValue(root.toString(), AaRegionInsert.class);
     } else if (root.get("name").asText().startsWith("nt_insert")) {

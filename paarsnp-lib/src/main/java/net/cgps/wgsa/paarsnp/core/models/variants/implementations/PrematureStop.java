@@ -6,16 +6,12 @@ import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 import net.cgps.wgsa.paarsnp.core.models.Location;
-import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @JsonDeserialize(as = PrematureStop.class)
@@ -46,7 +42,7 @@ public class PrematureStop extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public Optional<ResistanceMutationMatch> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+  public Optional<Collection<Location>> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
     return this.isPresent(aaAlignment) ?
            Optional.of(this.buildMatch(aaAlignment)) :
            Optional.empty();
@@ -71,26 +67,16 @@ public class PrematureStop extends AbstractJsonnable implements Variant {
     return true;
   }
 
-  public ResistanceMutationMatch buildMatch(final AaAlignment aaAlignment) {
-    final Collection<Integer> prematureStops = aaAlignment
+  private List<Location> buildMatch(final AaAlignment aaAlignment) {
+
+    return aaAlignment
         .getTranslation()
         .filter(position -> '*' == position.getValue())
         // NB the position is aa, while the stop is nt.
         .filter(position -> position.getKey() * 3 < this.expectedStop)
         .map(Map.Entry::getKey)
+        .map(stopLocation -> new Location(aaAlignment.getQueryNtLocation(stopLocation), DnaSequence.ntIndexFromCodon(stopLocation)))
         .collect(Collectors.toList());
-
-    return new ResistanceMutationMatch(
-        this,
-        aaAlignment
-            .getTranslation()
-            .filter(position -> '*' == position.getValue())
-            // NB the position is aa, while the stop is nt.
-            .filter(position -> position.getKey() * 3 < this.expectedStop)
-            .map(Map.Entry::getKey)
-            .map(stopLocation -> new Location(aaAlignment.getQueryNtLocation(stopLocation), DnaSequence.ntIndexFromCodon(stopLocation)))
-            .collect(Collectors.toList())
-    );
   }
 
   @Override

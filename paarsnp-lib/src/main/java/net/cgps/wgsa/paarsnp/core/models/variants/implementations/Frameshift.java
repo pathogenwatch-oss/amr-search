@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.models.Location;
-import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 
@@ -30,7 +29,7 @@ public class Frameshift extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public Optional<ResistanceMutationMatch> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+  public Optional<Collection<Location>> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
     return this.isPresent(mutations) ?
            Optional.of(this.buildMatch(mutations)) :
            Optional.empty();
@@ -99,20 +98,18 @@ public class Frameshift extends AbstractJsonnable implements Variant {
     return true;
   }
 
-  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations) {
+  public Collection<Location> buildMatch(final Map<Integer, Collection<Mutation>> mutations) {
 
-    return new ResistanceMutationMatch(
-        this,
-        Stream.concat(
-            Mutation.select(I, mutations)
-                .values()
-                .stream()
-                .filter(mutation -> mutation.getMutationSequence().length() % 3 != 0),
-            this.selectFrameshiftingDeletions(Mutation.select(D, mutations))
-                .values()
-                .stream())
-            .map(mutation -> new Location(mutation.getQueryLocation(), mutation.getReferenceLocation()))
-            .collect(Collectors.toList()));
+    return Stream.concat(
+        Mutation.select(I, mutations)
+            .values()
+            .stream()
+            .filter(mutation -> mutation.getMutationSequence().length() % 3 != 0),
+        this.selectFrameshiftingDeletions(Mutation.select(D, mutations))
+            .values()
+            .stream())
+        .map(mutation -> new Location(mutation.getQueryLocation(), mutation.getReferenceLocation()))
+        .collect(Collectors.toList());
   }
 
   @Override

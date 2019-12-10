@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.models.Location;
-import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 
@@ -44,12 +43,11 @@ public class AaResistanceMutation extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public Optional<ResistanceMutationMatch> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+  public Optional<Collection<Location>> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
     return this.isPresent(aaAlignment) ?
-           Optional.of(new ResistanceMutationMatch(
-               this,
-               Collections.singleton(new Location(aaAlignment.getQueryNtLocation(this.aaLocation), this.referenceLocation))
-           )) :
+           Optional.of(Collections.singleton(
+               new Location(aaAlignment.getQueryNtLocation(this.aaLocation), this.referenceLocation))
+           ) :
            Optional.empty();
   }
 

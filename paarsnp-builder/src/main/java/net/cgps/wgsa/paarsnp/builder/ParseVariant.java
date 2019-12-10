@@ -24,6 +24,8 @@ public class ParseVariant implements Function<String, Variant> {
       return new PrematureStop(this.referenceLength / 3);
     } else if ("frameshift".equals(encoding.toLowerCase())) {
       return new Frameshift();
+    } else if ("disrupted".equals(encoding.toLowerCase())) {
+      return new Disrupted(this.referenceLength / 3);
     } else if (encoding.toLowerCase().startsWith("aa_insert")) {
       final var coords = encoding.split("_")[2].split("-");
       return new AaRegionInsert(encoding, Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));

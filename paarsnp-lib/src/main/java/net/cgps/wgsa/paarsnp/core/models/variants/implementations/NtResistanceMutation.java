@@ -4,14 +4,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
 import net.cgps.wgsa.paarsnp.core.models.Location;
-import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
 import net.cgps.wgsa.paarsnp.core.snpar.AaAlignment;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @JsonDeserialize(as = NtResistanceMutation.class)
@@ -44,7 +40,7 @@ public class NtResistanceMutation extends AbstractJsonnable implements Variant {
   }
 
   @Override
-  public Optional<ResistanceMutationMatch> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
+  public Optional<Collection<Location>> match(final Map<Integer, Collection<Mutation>> mutations, final AaAlignment aaAlignment) {
     return this.isPresent(mutations) ?
            Optional.of(this.buildMatch(mutations)) :
            Optional.empty();
@@ -76,15 +72,13 @@ public class NtResistanceMutation extends AbstractJsonnable implements Variant {
     return this.name;
   }
 
-  public ResistanceMutationMatch buildMatch(final Map<Integer, Collection<Mutation>> mutations) {
-    return new ResistanceMutationMatch(
-        this,
-        mutations.get(this.referenceLocation)
+  private List<Location> buildMatch(final Map<Integer, Collection<Mutation>> mutations) {
+    return mutations.get(this.referenceLocation)
             .stream()
             .filter(mutation -> this.originalSequence.equals(mutation.getOriginalSequence())) // Ensures inserts are compared to inserts and not substitutions.
             .filter(queryMutation -> queryMutation.getMutationSequence().equals(this.mutationSequence))
             .map(mutation -> new Location(mutation.getQueryLocation(), mutation.getReferenceLocation()))
-            .collect(Collectors.toList()));
+        .collect(Collectors.toList());
   }
 
   @SuppressWarnings("unused")

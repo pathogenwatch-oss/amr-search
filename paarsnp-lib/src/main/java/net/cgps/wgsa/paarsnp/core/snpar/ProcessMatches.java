@@ -6,6 +6,7 @@ import net.cgps.wgsa.paarsnp.core.lib.blast.MutationBuilder;
 import net.cgps.wgsa.paarsnp.core.lib.blast.SequenceProcessor;
 import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.models.ProcessedMatch;
+import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
 import net.cgps.wgsa.paarsnp.core.snpar.codonmapping.CodonMapper;
 import net.cgps.wgsa.paarsnp.core.snpar.codonmapping.CreateFrameshiftFilter;
 import org.slf4j.Logger;
@@ -52,7 +53,8 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
         .filter(mutation -> mutation.isWithinBoundaries(
             match.getBlastSearchStatistics().getLibrarySequenceStart(),
             match.getBlastSearchStatistics().getLibrarySequenceStop()))
-        .map(resistanceMutation -> resistanceMutation.match(mutations, aaAlignment))
+        .map(resistanceMutation -> resistanceMutation.match(mutations, aaAlignment)
+            .map(locations -> new ResistanceMutationMatch(resistanceMutation, locations)))
         .filter(Optional::isPresent)
         .map(Optional::get)
         .collect(Collectors.toList());
