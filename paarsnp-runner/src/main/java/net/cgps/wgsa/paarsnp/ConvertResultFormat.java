@@ -17,8 +17,8 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
   @Override
   public PathogenWatchFormat apply(final PaarsnpResult paarsnpResult) {
 
-    final Collection<String> paarElementIds = new HashSet<>(50);
-    final Collection<String> snparElementIds = new HashSet<>(100);
+    final var paarElementIds = new HashSet<String>(50);
+    final var snparElementIds = new HashSet<String>(100);
 
     paarsnpResult.getSearchResult()
         .getSetResults()
@@ -114,7 +114,7 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
         sourceString,
         match.getSearchStatistics().isReversed(),
         match.getSearchStatistics().getEvalue(),
-        Double.valueOf(String.format("%.2f", match.getSearchStatistics().getPercentIdentity())),
+        Double.parseDouble(String.format("%.2f", match.getSearchStatistics().getPercentIdentity())),
         new PathogenWatchFormat.CdsLocation(
             match.getSearchStatistics().getLibrarySequenceStart(),
             match.getSearchStatistics().getLibrarySequenceStop(),

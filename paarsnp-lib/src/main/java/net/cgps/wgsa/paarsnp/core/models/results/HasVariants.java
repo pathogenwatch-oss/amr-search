@@ -7,4 +7,5 @@ public interface HasVariants {
   String getGene();
 
   Set<String> getVariants();
+
 }

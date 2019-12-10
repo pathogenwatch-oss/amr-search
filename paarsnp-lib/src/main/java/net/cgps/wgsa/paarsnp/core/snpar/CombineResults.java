@@ -4,19 +4,15 @@ import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
 import net.cgps.wgsa.paarsnp.core.models.Phenotype;
 import net.cgps.wgsa.paarsnp.core.models.ProcessedMatch;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceSet;
-import net.cgps.wgsa.paarsnp.core.models.SetMember;
+import net.cgps.wgsa.paarsnp.core.models.results.HasVariants;
 import net.cgps.wgsa.paarsnp.core.models.results.MatchJson;
-import net.cgps.wgsa.paarsnp.core.models.results.Modifier;
 import net.cgps.wgsa.paarsnp.core.models.results.SearchResult;
 import net.cgps.wgsa.paarsnp.core.models.results.SetResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -68,68 +64,13 @@ public class CombineResults implements Collector<BlastMatch, List<ProcessedMatch
           .map(set -> new SetResult(
                   set.getMembers()
                       .stream()
-                      .filter(member -> matches.containsKey(member.getGene()))
-                      .map(member -> {
-                        // Just return the gene name if it's presence-absence
-                        // Otherwise the list of variants
-                        if (member.getVariants().isEmpty()) {
-                          return Optional.of(member);
-                        }
-
-                        final var extractResistanceVariants = new ExtractResistanceVariants(member.getVariants());
-
-                        // NB We should only consider SNPs from a single copy of a gene, so here we are going to select the
-                        // copy with the most coverage of the set
-                        final Set<String> variants = matches.get(member.getGene())
-                            .stream()
-                            .map(extractResistanceVariants)
-                            .max(Comparator.comparingInt(Collection::size))
-                            .orElse(Collections.emptySet());
-
-                        final SetMember variantsMember = new SetMember(member.getGene(), variants);
-                        final Optional<SetMember> resultMember;
-
-                        if (variantsMember.getVariants().isEmpty()) {
-                          resultMember = Optional.empty();
-                        } else {
-                          resultMember = Optional.of(variantsMember);
-                        }
-                        return resultMember;
-                      })
-                      .filter(Optional::isPresent)
-                      .map(Optional::get)
+                      .filter(member -> this.checkPresence(matches).test(member))
                       .collect(Collectors.toList()),
                   set.getPhenotypes()
                       .stream()
                       .map(Phenotype::getModifiers)
                       .flatMap(Collection::stream)
-                      .filter(modifier -> matches.containsKey(modifier.getGene()))
-                      .map(modifier -> {
-                        // Just return the gene name if it's presence-absence
-                        // Otherwise the list of variants
-                        final Optional<Modifier> modifierPresent;
-                        if (modifier.getVariants().isEmpty()) {
-                          modifierPresent = Optional.of(modifier);
-                        } else {
-
-                          final var variantExtractor = new ExtractResistanceVariants(modifier.getVariants());
-
-                          final Set<String> variants = matches.get(modifier.getGene())
-                              .stream()
-                              .map(variantExtractor)
-                              .max(Comparator.comparingInt(Collection::size))
-                              .orElse(Collections.emptySet());
-
-                          if (variants.size() == modifier.getVariants().size()) {
-                            modifierPresent = Optional.of(modifier);
-                          } else {
-                            modifierPresent = Optional.empty();
-                          }
-                        }
-                        return modifierPresent;
-                      })
-                      .filter(Optional::isPresent)
-                      .map(Optional::get)
+                      .filter(member -> this.checkPresence(matches).test(member))
                       .collect(Collectors.toList()),
                   set
               )
@@ -145,6 +86,42 @@ public class CombineResults implements Collector<BlastMatch, List<ProcessedMatch
               .collect(Collectors.toList())
       );
     };
+  }
+
+  private <V extends HasVariants> Predicate<V> checkPresence(final Map<String, List<ProcessedMatch>> matches) {
+    return (query) -> {
+      if (matches.containsKey(query.getGene())) {
+        return this.testPresence(query, matches.get(query.getGene())).isPresent();
+      } else {
+        return false;
+      }
+    };
+  }
+
+  private <V extends HasVariants> Optional<V> testPresence(final V query, final List<ProcessedMatch> matches) {
+    final Optional<V> queryResult;
+    if (query.getVariants().isEmpty()) {
+      queryResult = Optional.of(query);
+    } else {
+
+      final Set<String> variants = findMembers(query.getVariants(), matches);
+
+      if (variants.size() == query.getVariants().size()) {
+        queryResult = Optional.of(query);
+      } else {
+        queryResult = Optional.empty();
+      }
+    }
+    return queryResult;
+  }
+
+  private Set<String> findMembers(final Set<String> variants, final List<ProcessedMatch> queryMatches) {
+    final var extractResistanceVariants = new ExtractResistanceVariants(variants);
+    return queryMatches
+        .stream()
+        .map(extractResistanceVariants)
+        .max(Comparator.comparingInt(Collection::size))
+        .orElse(Collections.emptySet());
   }
 
   @Override
