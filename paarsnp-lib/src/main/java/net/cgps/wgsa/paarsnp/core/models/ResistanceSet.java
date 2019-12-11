@@ -37,7 +37,24 @@ public class ResistanceSet extends AbstractJsonnable {
         .stream()
         .map(member -> {
           final List<String> variants = new ArrayList<>(member.getVariants());
-          variants.sort(Comparator.comparingInt(variant -> Integer.valueOf(variant.replaceAll("\\D+", ""))));
+
+          variants.sort((o1, o2) -> {
+            final var o1isSnp = o1.matches("\\d+");
+            final var o2isSnp = o2.matches("\\d+");
+
+            if (o1isSnp && o2isSnp) {
+              return Integer.compare(
+                  Integer.parseInt(o1.replaceAll("\\D+", "")),
+                  Integer.parseInt(o2.replaceAll("\\D+", "")));
+            } else if (o1isSnp) {
+              return -1;
+            } else if (o2isSnp) {
+              return 1;
+            } else {
+              return o1.compareTo(o2);
+            }
+          });
+
           return variants.isEmpty() ?
                  member.getGene() :
                  member.getGene() + "_" + StringUtils.join(variants, "_");
