@@ -5,7 +5,6 @@ from pathlib import Path
 
 matcher = re.compile('^(\d+).toml$')
 
-
 def extract_genus_id(record):
     return record.lstrip().rstrip().split(' ')[0]
 
