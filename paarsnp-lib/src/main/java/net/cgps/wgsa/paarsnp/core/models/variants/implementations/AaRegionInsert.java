@@ -59,7 +59,7 @@ public class AaRegionInsert extends AbstractJsonnable implements Variant {
                .getInsertLocations()
                .stream()
                .filter(this::isInRange)
-               .map(codonLocation -> new Location(DnaSequence.ntIndexFromCodon(this.rangeStart), (codonLocation * 3) - 2))
+               .map(codonLocation -> new Location(aaAlignment.getQueryNtLocation(codonLocation), DnaSequence.ntIndexFromCodon(codonLocation)))
                .collect(Collectors.toList())) :
            Optional.empty();
   }
