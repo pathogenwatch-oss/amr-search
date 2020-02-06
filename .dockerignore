@@ -8,11 +8,11 @@ goalign_test_cases/
 gono_test/
 gono_update/
 spn_test/
+test-resources/
+utils/
 
 ### Java template
 # Compiled class file
-*.class
-
 # Log file
 *.log
 
@@ -58,7 +58,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
 develop-eggs/
 dist/
 downloads/
