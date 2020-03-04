@@ -1,7 +1,7 @@
 # Typhi
 label = "90370"
 
-antimicrobials = [ "AMP", "CEP", "CHL", "CIP", "NAL", "SMX", "TMP", "SXT", "TCY", "AZM", "CST", "MEM", "SIL", ]
+antimicrobials = [ "AMP", "CEP", "CHL", "CIP", "SMX", "TMP", "SXT", "TCY", "AZM", "CST", "MEM" ]
 
 extends = ["gram_neg_carbapenemases", "gram_neg_colistin", "gram_neg_esbl"]
 
@@ -65,8 +65,6 @@ mechanisms = [
 {phenotypes = [{effect = "RESISTANT", profile = ["CHL"]}], members = ["catQ"]},
 {phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}], members = ["tetA(A)"]},
 {phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}], members = ["tetA(B)"]},
-{phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}], members = ["tetR(A)"]},
-{phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}], members = ["tetR(B)"]},
 {phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}], members = ["tetA(C)"]},
 {phenotypes = [{effect = "RESISTANT", profile = ["TCY"]}], members = ["tetA(D)"]},
 {phenotypes = [{effect = "RESISTANT", profile = ["CHL"]}], members = ["cmlA"]},
@@ -95,24 +93,18 @@ mechanisms = [
 {phenotypes = [{effect = "RESISTANT", profile = ["SXT"]}], members = ["sul2", "dfrA1"]},
 {phenotypes = [{effect = "RESISTANT", profile = ["SXT"]}], members = ["sul2", "dfrA5"]},
 {phenotypes = [{effect = "RESISTANT", profile = ["SXT"]}], members = ["sul2", "dfrA14"]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["S83F"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["S83Y"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["D87N"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["D87Y"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["D87A"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["D87G"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrA", variants=["D87V"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrB", variants=["S464F"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrB", variants=["S464Y"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrB", variants=["Q465R"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="gyrB", variants=["Q465L"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}], members = [{gene="gyrB", variants=["A574V"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="parC", variants=["S80I"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="parC", variants=["E84G"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="parC", variants=["E84K"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="parE", variants=["L416F"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["NAL","CIP"]}], members = [{gene="parE", variants=["D420N"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}], members = [{gene="parE", variants=["A353V"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}], members = [{gene="parE", variants=["A364V"]}]},
-{phenotypes = [{effect = "RESISTANT", profile = ["SIL"]}], members = [{gene="parE", variants=["E460K"]}]},
+{phenotypes = [{effect = "INTERMEDIATE_ADDITIVE", profile = ["CIP"]}], members = [{gene="gyrA", variants=["S83F", "D87N"]}, {gene="parC", variants=["S80I"]}]},
+{phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}], members = [{gene="gyrA", variants=["S83Y"]}]},
+{phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}], members = [{gene="gyrA", variants=["D87Y"]}]},
+{phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}], members = [{gene="gyrA", variants=["D87A"]}]},
+{phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}], members = [{gene="gyrA", variants=["D87G"]}]},
+{phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}], members = [{gene="gyrA", variants=["D87V"]}]},
+{phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}], members = [{gene="gyrB", variants=["S464F"]}]},
+{phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}], members = [{gene="gyrB", variants=["S464Y"]}]},
+{phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}], members = [{gene="gyrB", variants=["Q465R"]}]},
+{phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}], members = [{gene="gyrB", variants=["Q465L"]}]},
+{phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}], members = [{gene="parC", variants=["E84G"]}]},
+{phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}], members = [{gene="parC", variants=["E84K"]}]},
+{phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}], members = [{gene="parE", variants=["L416F"]}]},
+{phenotypes = [{effect = "INTERMEDIATE", profile = ["CIP"]}], members = [{gene="parE", variants=["D420N"]}]},
 ]
