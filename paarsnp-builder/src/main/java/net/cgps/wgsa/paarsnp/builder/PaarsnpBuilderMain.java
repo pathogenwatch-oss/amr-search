@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class PaarsnpBuilderMain {
 
   private static final String DEFAULT_CONFIG_PATH = "resources";
-  private static final String DEFAULT_LIBRARYPATH = "libraries";
+  private static final String DEFAULT_LIBRARY_PATH = "libraries";
 
   private final Logger logger = LoggerFactory.getLogger(PaarsnpBuilderMain.class);
 
@@ -44,7 +44,7 @@ public class PaarsnpBuilderMain {
 
       new PaarsnpBuilderMain().run(
           commandLine.getOptionValue('r', DEFAULT_CONFIG_PATH),
-          commandLine.getOptionValue('l', DEFAULT_LIBRARYPATH),
+          commandLine.getOptionValue('l', DEFAULT_LIBRARY_PATH),
           commandLine.getOptionValue('o', "."),
           BUILD_TYPE.valueOf(commandLine.getOptionValue('t', "public").toUpperCase()));
 
