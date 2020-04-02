@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.cgps.wgsa.paarsnp.builder.AntimicrobialDbReader;
 import net.cgps.wgsa.paarsnp.builder.LibraryReader;
 import net.cgps.wgsa.paarsnp.core.models.LibraryMetadata;
-import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.models.Phenotype;
 import net.cgps.wgsa.paarsnp.core.models.PhenotypeEffect;
 import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
@@ -37,7 +36,7 @@ public class CreateConfigMain {
   }
 
   private void run(final Path libraryFile, final Path outputFile) {
-    final Map<String, AntimicrobialAgent> agents = new AntimicrobialDbReader().apply(libraryFile.getParent()).stream().collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
+    final var agents = new AntimicrobialDbReader().apply(libraryFile.getParent()).stream().collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
 
     try {
       final String agentJson = new ObjectMapper().writeValueAsString(agents.values());
@@ -46,20 +45,20 @@ public class CreateConfigMain {
       throw new RuntimeException(e);
     }
 
-    final PaarsnpLibrary paarsnpLibrary = new LibraryReader(new LibraryMetadata(LibraryMetadata.Source.PUBLIC, "", ""), agents).apply(libraryFile).getPaarsnpLibrary();
+    final var paarsnpLibrary = new LibraryReader(new LibraryMetadata(LibraryMetadata.Source.PUBLIC, "", ""), agents).apply(libraryFile).getPaarsnpLibrary();
 
-    final Collection<PwGenomeJson.PwAgent> antibiotics = paarsnpLibrary.getAntimicrobials()
+    final var antibiotics = paarsnpLibrary.getAntimicrobials()
         .stream()
         .map(agent -> new PwGenomeJson.PwAgent(agent.getKey(), agent.getKey(), agent.getName(), agent.getType()))
         .collect(Collectors.toList());
 
-    final Map<String, Set<PwGenomeJson.PwPaarRecord>> paarRecordMap = this.initialiseAmrMap(antibiotics, HashSet::new);
+    final Map<String, Set<PwGenomeJson.PwPaarRecord>> paarRecordMap = this.initialiseAmrMap(antibiotics, TreeSet::new);
     final Map<String, Map<String, Set<PwGenomeJson.PwSnpRecord>>> snparRecordMap = this.initialiseAmrMap(antibiotics, HashMap::new);
 
     paarsnpLibrary.getSets()
         .values()
         .forEach(set -> {
-          final Collection<PwGenomeJson.PwPaarRecord> paarRecords = set
+          final Set<PwGenomeJson.PwPaarRecord> paarRecords = set
               .getMembers()
               .stream()
               .filter(setMember -> setMember.getVariants().isEmpty())
@@ -74,6 +73,8 @@ public class CreateConfigMain {
                   setMember.getVariants()
                       .stream()
                       .map(name -> new PwGenomeJson.PwSnpRecord(name, PhenotypeEffect.RESISTANT))
+//                      .distinct()
+//                      .sorted(PwGenomeJson.PwSnpRecord::compareTo)
                       .collect(Collectors.toSet())))
               .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
@@ -89,21 +90,27 @@ public class CreateConfigMain {
                   snpRecords.keySet()
                       .stream()
                       .filter(key -> !snparRecordMap.get(antibiotic).containsKey(key))
-                      .forEach(key -> snparRecordMap.get(antibiotic).put(key, new HashSet<>()));
+                      .forEach(key -> snparRecordMap.get(antibiotic).put(key, new TreeSet<>()));
                   snpRecords
                       .forEach((key, value) -> snparRecordMap.get(antibiotic).get(key).addAll(value));
                 }
               });
         });
 
-    final PwGenomeJson json = new PwGenomeJson(
+    final var snpMap = snparRecordMap
+        .entrySet()
+        .stream()
+        .filter(entry -> !entry.getValue().isEmpty())
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    final var paarMap = paarRecordMap
+        .entrySet()
+        .stream()
+        .filter(entry -> !entry.getValue().isEmpty())
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    final var json = new PwGenomeJson(
         antibiotics,
-        snparRecordMap
-            .entrySet()
-            .stream()
-            .filter(entry -> !entry.getValue().isEmpty())
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)),
-        paarRecordMap.entrySet().stream().filter(entry -> !entry.getValue().isEmpty()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
+        snpMap,
+        paarMap
     );
 
     try {
