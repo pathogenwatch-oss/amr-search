@@ -40,7 +40,7 @@ public class PaarsnpBuilderMain {
 
       final CommandLine commandLine = parser.parse(options, args);
       final ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-      root.setLevel(Level.valueOf(commandLine.getOptionValue('l', "INFO")));
+      root.setLevel(Level.valueOf(commandLine.getOptionValue('d', "INFO")));
 
       new PaarsnpBuilderMain().run(
           commandLine.getOptionValue('r', DEFAULT_CONFIG_PATH),
@@ -60,7 +60,7 @@ public class PaarsnpBuilderMain {
     final Option libraryDirectoryOption = Option.builder("l").longOpt("library-dir").hasArg().argName("Library directory").desc("Location of AMR libraries").build();
     final Option outputDirectoryOption = Option.builder("o").longOpt("output-dir").hasArg().argName("Output directory").desc("Optional: Output location for BLAST and paarsnp databases.").required().build();
     final Option buildType = Option.builder("t").longOpt("type").hasArg().argName("Build Type").desc("'public' (default) or 'test', depending on whether preference is given to test or production libraries.").build();
-    final Option logLevel = Option.builder("l").longOpt("log-level").hasArg().argName("Logging level").desc("INFO, DEBUG etc").build();
+    final Option logLevel = Option.builder("d").longOpt("log-level").hasArg().argName("Logging level").desc("INFO, DEBUG etc").build();
 
     return new Options()
         .addOption(outputDirectoryOption)

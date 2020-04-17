@@ -54,7 +54,7 @@ public class CreateAaAlignment implements BiFunction<String, String, Map.Entry<S
    * @return Codon-complete and indel free String.
    */
   public static String cleanSequence(final String sequence) {
-    final var noIndels = sequence.replace("-", "");
-    return noIndels.substring(0, noIndels.length() - noIndels.length() % 3);
+    final var clean = sequence.replace("-", "").replaceAll("[^ATCGN]", "N");
+    return clean.substring(0, clean.length() - clean.length() % 3);
   }
 }
