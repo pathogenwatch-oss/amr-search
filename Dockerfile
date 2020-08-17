@@ -1,4 +1,4 @@
-FROM openjdk:13-jdk-oracle AS builder
+FROM openjdk:14-jdk-oracle AS builder
 
 ARG MAVEN_VERSION=3.6.3
 ARG USER_HOME_DIR="/root"
@@ -85,7 +85,7 @@ RUN mkdir /paarsnp/ \
 #
 #RUN
 
-FROM openjdk:13-slim
+FROM openjdk:14-slim
 
 RUN mkdir -p /opt/blast/bin \
     && mkdir /data

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<licenseSummary xmlns="http://mojo.codehaus.org/"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://mojo.codehaus.org/ licenses.xsd">
+    <dependencies>
+        <dependency>
+            <groupId>org.biojava.thirdparty</groupId>
+            <artifactId>forester</artifactId>
+            <version>1.038</version>
+            <licenses>
+                <license>
+                    <name>GNU Lesser General Public License</name>
+                    <url>http://www.gnu.org/licenses/lgpl.txt</url>
+                    <distribution>repo</distribution>
+                </license>
+            </licenses>
+        </dependency>
+    </dependencies>
+</licenseSummary>
