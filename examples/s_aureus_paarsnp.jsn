@@ -1,0 +1,516 @@
+{
+  "assemblyId" : "s_aureus",
+  "paarElementIds" : [ "aacA-aphD", "blaZ", "aphA-3", "ermA", "ermA_SDS", "mecA", "dfrG", "tetM" ],
+  "snparElementIds" : [ "grlA_S80F", "gyrA_S84L", "rpoB_H481N" ],
+  "resistanceProfile" : [ {
+    "resistanceState" : "RESISTANT",
+    "resistanceSets" : [ {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "aphA-3",
+      "agents" : [ "TOB", "AMI", "KAN" ],
+      "elementIds" : [ "aphA-3" ],
+      "modifiers" : { }
+    } ],
+    "agent" : {
+      "name" : "AMI",
+      "fullName" : "Amikacin",
+      "type" : "Aminoglycosides"
+    }
+  }, {
+    "resistanceState" : "RESISTANT",
+    "resistanceSets" : [ {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "aacA-aphD",
+      "agents" : [ "TOB", "GEN", "KAN" ],
+      "elementIds" : [ "aacA-aphD" ],
+      "modifiers" : { }
+    } ],
+    "agent" : {
+      "name" : "GEN",
+      "fullName" : "Gentamicin",
+      "type" : "Aminoglycosides"
+    }
+  }, {
+    "resistanceState" : "RESISTANT",
+    "resistanceSets" : [ {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "aphA-3",
+      "agents" : [ "TOB", "AMI", "KAN" ],
+      "elementIds" : [ "aphA-3" ],
+      "modifiers" : { }
+    }, {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "aacA-aphD",
+      "agents" : [ "TOB", "GEN", "KAN" ],
+      "elementIds" : [ "aacA-aphD" ],
+      "modifiers" : { }
+    } ],
+    "agent" : {
+      "name" : "TOB",
+      "fullName" : "Tobramycin",
+      "type" : "Aminoglycosides"
+    }
+  }, {
+    "resistanceState" : "RESISTANT",
+    "resistanceSets" : [ {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "aphA-3",
+      "agents" : [ "TOB", "AMI", "KAN" ],
+      "elementIds" : [ "aphA-3" ],
+      "modifiers" : { }
+    }, {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "aacA-aphD",
+      "agents" : [ "TOB", "GEN", "KAN" ],
+      "elementIds" : [ "aacA-aphD" ],
+      "modifiers" : { }
+    } ],
+    "agent" : {
+      "name" : "KAN",
+      "fullName" : "Kanamycin",
+      "type" : "Aminoglycosides"
+    }
+  }, {
+    "resistanceState" : "RESISTANT",
+    "resistanceSets" : [ {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "mecA",
+      "agents" : [ "MET", "PEN" ],
+      "elementIds" : [ "mecA" ],
+      "modifiers" : { }
+    } ],
+    "agent" : {
+      "name" : "MET",
+      "fullName" : "Methicillin",
+      "type" : "Beta-Lactams"
+    }
+  }, {
+    "resistanceState" : "RESISTANT",
+    "resistanceSets" : [ {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "blaZ",
+      "agents" : [ "PEN" ],
+      "elementIds" : [ "blaZ" ],
+      "modifiers" : { }
+    }, {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "mecA",
+      "agents" : [ "MET", "PEN" ],
+      "elementIds" : [ "mecA" ],
+      "modifiers" : { }
+    } ],
+    "agent" : {
+      "name" : "PEN",
+      "fullName" : "Penicillin",
+      "type" : "Beta-Lactams"
+    }
+  }, {
+    "resistanceState" : "NOT_FOUND",
+    "resistanceSets" : [ ],
+    "agent" : {
+      "name" : "FUS",
+      "fullName" : "Fusidic Acid",
+      "type" : "Fusidic Acid"
+    }
+  }, {
+    "resistanceState" : "NOT_FOUND",
+    "resistanceSets" : [ ],
+    "agent" : {
+      "name" : "VAN",
+      "fullName" : "Vancomycin",
+      "type" : "Glycopeptides"
+    }
+  }, {
+    "resistanceState" : "RESISTANT",
+    "resistanceSets" : [ {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "ermA_CLI",
+      "agents" : [ "CLI" ],
+      "elementIds" : [ "ermA", "ermA_SDS" ],
+      "modifiers" : { }
+    } ],
+    "agent" : {
+      "name" : "CLI",
+      "fullName" : "Clindamycin",
+      "type" : "Lincosamides"
+    }
+  }, {
+    "resistanceState" : "RESISTANT",
+    "resistanceSets" : [ {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "ermA_ERY",
+      "agents" : [ "ERY" ],
+      "elementIds" : [ "ermA" ],
+      "modifiers" : { }
+    } ],
+    "agent" : {
+      "name" : "ERY",
+      "fullName" : "Erythromycin",
+      "type" : "Macrolides"
+    }
+  }, {
+    "resistanceState" : "NOT_FOUND",
+    "resistanceSets" : [ ],
+    "agent" : {
+      "name" : "MUP",
+      "fullName" : "Mupirocin",
+      "type" : "Mupirocin"
+    }
+  }, {
+    "resistanceState" : "NOT_FOUND",
+    "resistanceSets" : [ ],
+    "agent" : {
+      "name" : "LNZ",
+      "fullName" : "Linezolid",
+      "type" : "Oxazolidinone"
+    }
+  }, {
+    "resistanceState" : "RESISTANT",
+    "resistanceSets" : [ {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "tetM",
+      "agents" : [ "TCY" ],
+      "elementIds" : [ "tetM" ],
+      "modifiers" : { }
+    } ],
+    "agent" : {
+      "name" : "TCY",
+      "fullName" : "Tetracycline",
+      "type" : "Tetracyclines"
+    }
+  }, {
+    "resistanceState" : "RESISTANT",
+    "resistanceSets" : [ {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "dfrG",
+      "agents" : [ "TMP" ],
+      "elementIds" : [ "dfrG" ],
+      "modifiers" : { }
+    } ],
+    "agent" : {
+      "name" : "TMP",
+      "fullName" : "Trimethoprim",
+      "type" : "Diaminopyrimidine"
+    }
+  }, {
+    "resistanceState" : "NOT_FOUND",
+    "resistanceSets" : [ ],
+    "agent" : {
+      "name" : "DAP",
+      "fullName" : "Daptomycin",
+      "type" : "Lipopeptides"
+    }
+  }, {
+    "resistanceState" : "RESISTANT",
+    "resistanceSets" : [ {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "rpoB_H481N",
+      "agents" : [ "RIF" ],
+      "elementIds" : [ "rpoB_H481N" ],
+      "modifiers" : { }
+    } ],
+    "agent" : {
+      "name" : "RIF",
+      "fullName" : "Rifampicin",
+      "type" : "Rifamycin"
+    }
+  }, {
+    "resistanceState" : "RESISTANT",
+    "resistanceSets" : [ {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "grlA_S80F",
+      "agents" : [ "CIP" ],
+      "elementIds" : [ "grlA_S80F" ],
+      "modifiers" : { }
+    }, {
+      "effect" : "RESISTANT",
+      "resistanceSetName" : "gyrA_S84L",
+      "agents" : [ "CIP" ],
+      "elementIds" : [ "gyrA_S84L" ],
+      "modifiers" : { }
+    } ],
+    "agent" : {
+      "name" : "CIP",
+      "fullName" : "Ciprofloxacin",
+      "type" : "Fluoroquinolones"
+    }
+  }, {
+    "resistanceState" : "NOT_FOUND",
+    "resistanceSets" : [ ],
+    "agent" : {
+      "name" : "MFX",
+      "fullName" : "Moxifloxacin",
+      "type" : "Fluoroquinolones"
+    }
+  }, {
+    "resistanceState" : "NOT_FOUND",
+    "resistanceSets" : [ ],
+    "agent" : {
+      "name" : "TEC",
+      "fullName" : "Teicoplanin",
+      "type" : "Glycopeptides"
+    }
+  } ],
+  "matches" : [ {
+    "id" : "aphA-3",
+    "source" : "WGSA_PAAR",
+    "type" : "CDS",
+    "reversed" : true,
+    "evalue" : 0.0,
+    "percentIdentity" : 100.0,
+    "library" : {
+      "start" : 1,
+      "stop" : 786,
+      "length" : 786,
+      "id" : "aphA-3"
+    },
+    "query" : {
+      "start" : 1718,
+      "stop" : 2503,
+      "id" : "ERS023906.5985_7_6.25"
+    },
+    "agents" : [ "TOB", "AMI", "KAN" ]
+  }, {
+    "id" : "dfrG",
+    "source" : "WGSA_PAAR",
+    "type" : "CDS",
+    "reversed" : false,
+    "evalue" : 0.0,
+    "percentIdentity" : 100.0,
+    "library" : {
+      "start" : 1,
+      "stop" : 498,
+      "length" : 498,
+      "id" : "dfrG"
+    },
+    "query" : {
+      "start" : 179769,
+      "stop" : 180266,
+      "id" : "ERS023906.5985_7_6.4"
+    },
+    "agents" : [ "TMP" ]
+  }, {
+    "id" : "ermA_CLI",
+    "source" : "WGSA_PAAR",
+    "type" : "CDS",
+    "reversed" : true,
+    "evalue" : 0.0,
+    "percentIdentity" : 100.0,
+    "library" : {
+      "start" : 1,
+      "stop" : 732,
+      "length" : 732,
+      "id" : "ermA"
+    },
+    "query" : {
+      "start" : 1453,
+      "stop" : 2184,
+      "id" : "ERS023906.5985_7_6.31"
+    },
+    "agents" : [ "CLI" ]
+  }, {
+    "id" : "ermA_ERY",
+    "source" : "WGSA_PAAR",
+    "type" : "CDS",
+    "reversed" : true,
+    "evalue" : 0.0,
+    "percentIdentity" : 100.0,
+    "library" : {
+      "start" : 1,
+      "stop" : 732,
+      "length" : 732,
+      "id" : "ermA"
+    },
+    "query" : {
+      "start" : 1453,
+      "stop" : 2184,
+      "id" : "ERS023906.5985_7_6.31"
+    },
+    "agents" : [ "ERY" ]
+  }, {
+    "id" : "tetM",
+    "source" : "WGSA_PAAR",
+    "type" : "CDS",
+    "reversed" : false,
+    "evalue" : 0.0,
+    "percentIdentity" : 100.0,
+    "library" : {
+      "start" : 1,
+      "stop" : 1920,
+      "length" : 1920,
+      "id" : "tetM"
+    },
+    "query" : {
+      "start" : 87809,
+      "stop" : 89728,
+      "id" : "ERS023906.5985_7_6.3"
+    },
+    "agents" : [ "TCY" ]
+  }, {
+    "id" : "aacA-aphD",
+    "source" : "WGSA_PAAR",
+    "type" : "CDS",
+    "reversed" : false,
+    "evalue" : 0.0,
+    "percentIdentity" : 99.93,
+    "library" : {
+      "start" : 1,
+      "stop" : 1440,
+      "length" : 1440,
+      "id" : "aacA-aphD"
+    },
+    "query" : {
+      "start" : 469,
+      "stop" : 1908,
+      "id" : "ERS023906.5985_7_6.39"
+    },
+    "agents" : [ "TOB", "GEN", "KAN" ]
+  }, {
+    "id" : "mecA",
+    "source" : "WGSA_PAAR",
+    "type" : "CDS",
+    "reversed" : false,
+    "evalue" : 0.0,
+    "percentIdentity" : 99.9,
+    "library" : {
+      "start" : 1,
+      "stop" : 2007,
+      "length" : 2007,
+      "id" : "mecA"
+    },
+    "query" : {
+      "start" : 13401,
+      "stop" : 15407,
+      "id" : "ERS023906.5985_7_6.24"
+    },
+    "agents" : [ "MET", "PEN" ]
+  }, {
+    "id" : "grlA_S80F",
+    "source" : "WGSA_SNPAR",
+    "type" : "CDS",
+    "reversed" : false,
+    "evalue" : 0.0,
+    "percentIdentity" : 99.83,
+    "library" : {
+      "start" : 2,
+      "stop" : 2403,
+      "length" : 2403,
+      "id" : "grlA"
+    },
+    "query" : {
+      "start" : 168080,
+      "stop" : 170481,
+      "id" : "ERS023906.5985_7_6.5"
+    }
+  }, {
+    "id" : "rpoB_H481N",
+    "source" : "WGSA_SNPAR",
+    "type" : "CDS",
+    "reversed" : true,
+    "evalue" : 0.0,
+    "percentIdentity" : 99.75,
+    "library" : {
+      "start" : 1,
+      "stop" : 3552,
+      "length" : 3552,
+      "id" : "rpoB"
+    },
+    "query" : {
+      "start" : 24176,
+      "stop" : 27727,
+      "id" : "ERS023906.5985_7_6.15"
+    }
+  }, {
+    "id" : "blaZ",
+    "source" : "WGSA_PAAR",
+    "type" : "CDS",
+    "reversed" : true,
+    "evalue" : 0.0,
+    "percentIdentity" : 99.17,
+    "library" : {
+      "start" : 1,
+      "stop" : 846,
+      "length" : 846,
+      "id" : "blaZ"
+    },
+    "query" : {
+      "start" : 155934,
+      "stop" : 156774,
+      "id" : "ERS023906.5985_7_6.1"
+    },
+    "agents" : [ "PEN" ]
+  }, {
+    "id" : "gyrA_S84L",
+    "source" : "WGSA_SNPAR",
+    "type" : "CDS",
+    "reversed" : false,
+    "evalue" : 0.0,
+    "percentIdentity" : 96.82,
+    "library" : {
+      "start" : 1,
+      "stop" : 2670,
+      "length" : 2670,
+      "id" : "gyrA"
+    },
+    "query" : {
+      "start" : 13040,
+      "stop" : 15700,
+      "id" : "ERS023906.5985_7_6.17"
+    }
+  }, {
+    "id" : "ermA_CLI",
+    "source" : "WGSA_PAAR",
+    "type" : "CDS",
+    "reversed" : true,
+    "evalue" : 1.81348E-17,
+    "percentIdentity" : 90.63,
+    "library" : {
+      "start" : 1,
+      "stop" : 59,
+      "length" : 59,
+      "id" : "ermA_SDS"
+    },
+    "query" : {
+      "start" : 2185,
+      "stop" : 2248,
+      "id" : "ERS023906.5985_7_6.31"
+    },
+    "agents" : [ "CLI" ]
+  } ],
+  "variantMatches" : [ {
+    "agents" : [ "CIP" ],
+    "id" : "ERS023906.5985_7_6.5",
+    "source" : "WGSA_SNPAR",
+    "type" : "point_mutation",
+    "reversed" : false,
+    "queryLocation" : 168319,
+    "referenceLocation" : 238,
+    "name" : "S80F",
+    "libraryStart" : 2
+  }, {
+    "agents" : [ "RIF" ],
+    "id" : "ERS023906.5985_7_6.15",
+    "source" : "WGSA_SNPAR",
+    "type" : "point_mutation",
+    "reversed" : true,
+    "queryLocation" : 25617,
+    "referenceLocation" : 1441,
+    "name" : "H481N",
+    "libraryStart" : 1
+  }, {
+    "agents" : [ "CIP" ],
+    "id" : "ERS023906.5985_7_6.17",
+    "source" : "WGSA_SNPAR",
+    "type" : "point_mutation",
+    "reversed" : false,
+    "queryLocation" : 13290,
+    "referenceLocation" : 250,
+    "name" : "S84L",
+    "libraryStart" : 1
+  } ],
+  "library" : {
+    "source" : "PUBLIC",
+    "version" : "0.0.15",
+    "label" : "1280"
+  }
+}
