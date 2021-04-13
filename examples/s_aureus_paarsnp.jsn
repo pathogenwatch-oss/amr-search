@@ -1,516 +1,638 @@
 {
   "assemblyId" : "s_aureus",
-  "paarElementIds" : [ "aacA-aphD", "blaZ", "aphA-3", "ermA", "ermA_SDS", "mecA", "dfrG", "tetM" ],
-  "snparElementIds" : [ "grlA_S80F", "gyrA_S84L", "rpoB_H481N" ],
-  "resistanceProfile" : [ {
-    "resistanceState" : "RESISTANT",
-    "resistanceSets" : [ {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "aphA-3",
-      "agents" : [ "TOB", "AMI", "KAN" ],
-      "elementIds" : [ "aphA-3" ],
-      "modifiers" : { }
-    } ],
-    "agent" : {
-      "name" : "AMI",
-      "fullName" : "Amikacin",
-      "type" : "Aminoglycosides"
-    }
-  }, {
-    "resistanceState" : "RESISTANT",
-    "resistanceSets" : [ {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "aacA-aphD",
-      "agents" : [ "TOB", "GEN", "KAN" ],
-      "elementIds" : [ "aacA-aphD" ],
-      "modifiers" : { }
-    } ],
-    "agent" : {
-      "name" : "GEN",
-      "fullName" : "Gentamicin",
-      "type" : "Aminoglycosides"
-    }
-  }, {
-    "resistanceState" : "RESISTANT",
-    "resistanceSets" : [ {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "aphA-3",
-      "agents" : [ "TOB", "AMI", "KAN" ],
-      "elementIds" : [ "aphA-3" ],
-      "modifiers" : { }
-    }, {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "aacA-aphD",
-      "agents" : [ "TOB", "GEN", "KAN" ],
-      "elementIds" : [ "aacA-aphD" ],
-      "modifiers" : { }
-    } ],
-    "agent" : {
-      "name" : "TOB",
-      "fullName" : "Tobramycin",
-      "type" : "Aminoglycosides"
-    }
-  }, {
-    "resistanceState" : "RESISTANT",
-    "resistanceSets" : [ {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "aphA-3",
-      "agents" : [ "TOB", "AMI", "KAN" ],
-      "elementIds" : [ "aphA-3" ],
-      "modifiers" : { }
-    }, {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "aacA-aphD",
-      "agents" : [ "TOB", "GEN", "KAN" ],
-      "elementIds" : [ "aacA-aphD" ],
-      "modifiers" : { }
-    } ],
-    "agent" : {
-      "name" : "KAN",
-      "fullName" : "Kanamycin",
-      "type" : "Aminoglycosides"
-    }
-  }, {
-    "resistanceState" : "RESISTANT",
-    "resistanceSets" : [ {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "mecA",
-      "agents" : [ "MET", "PEN" ],
-      "elementIds" : [ "mecA" ],
-      "modifiers" : { }
-    } ],
-    "agent" : {
-      "name" : "MET",
-      "fullName" : "Methicillin",
-      "type" : "Beta-Lactams"
-    }
-  }, {
-    "resistanceState" : "RESISTANT",
-    "resistanceSets" : [ {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "blaZ",
-      "agents" : [ "PEN" ],
-      "elementIds" : [ "blaZ" ],
-      "modifiers" : { }
-    }, {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "mecA",
-      "agents" : [ "MET", "PEN" ],
-      "elementIds" : [ "mecA" ],
-      "modifiers" : { }
-    } ],
-    "agent" : {
-      "name" : "PEN",
-      "fullName" : "Penicillin",
-      "type" : "Beta-Lactams"
-    }
-  }, {
-    "resistanceState" : "NOT_FOUND",
-    "resistanceSets" : [ ],
-    "agent" : {
-      "name" : "FUS",
-      "fullName" : "Fusidic Acid",
-      "type" : "Fusidic Acid"
-    }
-  }, {
-    "resistanceState" : "NOT_FOUND",
-    "resistanceSets" : [ ],
-    "agent" : {
-      "name" : "VAN",
-      "fullName" : "Vancomycin",
-      "type" : "Glycopeptides"
-    }
-  }, {
-    "resistanceState" : "RESISTANT",
-    "resistanceSets" : [ {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "ermA_CLI",
-      "agents" : [ "CLI" ],
-      "elementIds" : [ "ermA", "ermA_SDS" ],
-      "modifiers" : { }
-    } ],
-    "agent" : {
-      "name" : "CLI",
-      "fullName" : "Clindamycin",
-      "type" : "Lincosamides"
-    }
-  }, {
-    "resistanceState" : "RESISTANT",
-    "resistanceSets" : [ {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "ermA_ERY",
-      "agents" : [ "ERY" ],
-      "elementIds" : [ "ermA" ],
-      "modifiers" : { }
-    } ],
-    "agent" : {
-      "name" : "ERY",
-      "fullName" : "Erythromycin",
-      "type" : "Macrolides"
-    }
-  }, {
-    "resistanceState" : "NOT_FOUND",
-    "resistanceSets" : [ ],
-    "agent" : {
-      "name" : "MUP",
-      "fullName" : "Mupirocin",
-      "type" : "Mupirocin"
-    }
-  }, {
-    "resistanceState" : "NOT_FOUND",
-    "resistanceSets" : [ ],
-    "agent" : {
-      "name" : "LNZ",
-      "fullName" : "Linezolid",
-      "type" : "Oxazolidinone"
-    }
-  }, {
-    "resistanceState" : "RESISTANT",
-    "resistanceSets" : [ {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "tetM",
-      "agents" : [ "TCY" ],
-      "elementIds" : [ "tetM" ],
-      "modifiers" : { }
-    } ],
-    "agent" : {
-      "name" : "TCY",
-      "fullName" : "Tetracycline",
-      "type" : "Tetracyclines"
-    }
-  }, {
-    "resistanceState" : "RESISTANT",
-    "resistanceSets" : [ {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "dfrG",
-      "agents" : [ "TMP" ],
-      "elementIds" : [ "dfrG" ],
-      "modifiers" : { }
-    } ],
-    "agent" : {
-      "name" : "TMP",
-      "fullName" : "Trimethoprim",
-      "type" : "Diaminopyrimidine"
-    }
-  }, {
-    "resistanceState" : "NOT_FOUND",
-    "resistanceSets" : [ ],
-    "agent" : {
-      "name" : "DAP",
-      "fullName" : "Daptomycin",
-      "type" : "Lipopeptides"
-    }
-  }, {
-    "resistanceState" : "RESISTANT",
-    "resistanceSets" : [ {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "rpoB_H481N",
-      "agents" : [ "RIF" ],
-      "elementIds" : [ "rpoB_H481N" ],
-      "modifiers" : { }
-    } ],
-    "agent" : {
-      "name" : "RIF",
-      "fullName" : "Rifampicin",
-      "type" : "Rifamycin"
-    }
-  }, {
-    "resistanceState" : "RESISTANT",
-    "resistanceSets" : [ {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "grlA_S80F",
-      "agents" : [ "CIP" ],
-      "elementIds" : [ "grlA_S80F" ],
-      "modifiers" : { }
-    }, {
-      "effect" : "RESISTANT",
-      "resistanceSetName" : "gyrA_S84L",
-      "agents" : [ "CIP" ],
-      "elementIds" : [ "gyrA_S84L" ],
-      "modifiers" : { }
-    } ],
-    "agent" : {
-      "name" : "CIP",
-      "fullName" : "Ciprofloxacin",
-      "type" : "Fluoroquinolones"
-    }
-  }, {
-    "resistanceState" : "NOT_FOUND",
-    "resistanceSets" : [ ],
-    "agent" : {
-      "name" : "MFX",
-      "fullName" : "Moxifloxacin",
-      "type" : "Fluoroquinolones"
-    }
-  }, {
-    "resistanceState" : "NOT_FOUND",
-    "resistanceSets" : [ ],
-    "agent" : {
-      "name" : "TEC",
-      "fullName" : "Teicoplanin",
-      "type" : "Glycopeptides"
-    }
-  } ],
-  "matches" : [ {
-    "id" : "aphA-3",
-    "source" : "WGSA_PAAR",
-    "type" : "CDS",
-    "reversed" : true,
-    "evalue" : 0.0,
-    "percentIdentity" : 100.0,
-    "library" : {
-      "start" : 1,
-      "stop" : 786,
-      "length" : 786,
-      "id" : "aphA-3"
-    },
-    "query" : {
-      "start" : 1718,
-      "stop" : 2503,
-      "id" : "ERS023906.5985_7_6.25"
-    },
-    "agents" : [ "TOB", "AMI", "KAN" ]
-  }, {
-    "id" : "dfrG",
-    "source" : "WGSA_PAAR",
-    "type" : "CDS",
-    "reversed" : false,
-    "evalue" : 0.0,
-    "percentIdentity" : 100.0,
-    "library" : {
-      "start" : 1,
-      "stop" : 498,
-      "length" : 498,
-      "id" : "dfrG"
-    },
-    "query" : {
-      "start" : 179769,
-      "stop" : 180266,
-      "id" : "ERS023906.5985_7_6.4"
-    },
-    "agents" : [ "TMP" ]
-  }, {
-    "id" : "ermA_CLI",
-    "source" : "WGSA_PAAR",
-    "type" : "CDS",
-    "reversed" : true,
-    "evalue" : 0.0,
-    "percentIdentity" : 100.0,
-    "library" : {
-      "start" : 1,
-      "stop" : 732,
-      "length" : 732,
-      "id" : "ermA"
-    },
-    "query" : {
-      "start" : 1453,
-      "stop" : 2184,
-      "id" : "ERS023906.5985_7_6.31"
-    },
-    "agents" : [ "CLI" ]
-  }, {
-    "id" : "ermA_ERY",
-    "source" : "WGSA_PAAR",
-    "type" : "CDS",
-    "reversed" : true,
-    "evalue" : 0.0,
-    "percentIdentity" : 100.0,
-    "library" : {
-      "start" : 1,
-      "stop" : 732,
-      "length" : 732,
-      "id" : "ermA"
-    },
-    "query" : {
-      "start" : 1453,
-      "stop" : 2184,
-      "id" : "ERS023906.5985_7_6.31"
-    },
-    "agents" : [ "ERY" ]
-  }, {
-    "id" : "tetM",
-    "source" : "WGSA_PAAR",
-    "type" : "CDS",
-    "reversed" : false,
-    "evalue" : 0.0,
-    "percentIdentity" : 100.0,
-    "library" : {
-      "start" : 1,
-      "stop" : 1920,
-      "length" : 1920,
-      "id" : "tetM"
-    },
-    "query" : {
-      "start" : 87809,
-      "stop" : 89728,
-      "id" : "ERS023906.5985_7_6.3"
-    },
-    "agents" : [ "TCY" ]
-  }, {
-    "id" : "aacA-aphD",
-    "source" : "WGSA_PAAR",
-    "type" : "CDS",
-    "reversed" : false,
-    "evalue" : 0.0,
-    "percentIdentity" : 99.93,
-    "library" : {
-      "start" : 1,
-      "stop" : 1440,
-      "length" : 1440,
-      "id" : "aacA-aphD"
-    },
-    "query" : {
-      "start" : 469,
-      "stop" : 1908,
-      "id" : "ERS023906.5985_7_6.39"
-    },
-    "agents" : [ "TOB", "GEN", "KAN" ]
-  }, {
-    "id" : "mecA",
-    "source" : "WGSA_PAAR",
-    "type" : "CDS",
-    "reversed" : false,
-    "evalue" : 0.0,
-    "percentIdentity" : 99.9,
-    "library" : {
-      "start" : 1,
-      "stop" : 2007,
-      "length" : 2007,
-      "id" : "mecA"
-    },
-    "query" : {
-      "start" : 13401,
-      "stop" : 15407,
-      "id" : "ERS023906.5985_7_6.24"
-    },
-    "agents" : [ "MET", "PEN" ]
-  }, {
-    "id" : "grlA_S80F",
-    "source" : "WGSA_SNPAR",
-    "type" : "CDS",
-    "reversed" : false,
-    "evalue" : 0.0,
-    "percentIdentity" : 99.83,
-    "library" : {
-      "start" : 2,
-      "stop" : 2403,
-      "length" : 2403,
-      "id" : "grlA"
-    },
-    "query" : {
-      "start" : 168080,
-      "stop" : 170481,
-      "id" : "ERS023906.5985_7_6.5"
-    }
-  }, {
-    "id" : "rpoB_H481N",
-    "source" : "WGSA_SNPAR",
-    "type" : "CDS",
-    "reversed" : true,
-    "evalue" : 0.0,
-    "percentIdentity" : 99.75,
-    "library" : {
-      "start" : 1,
-      "stop" : 3552,
-      "length" : 3552,
-      "id" : "rpoB"
-    },
-    "query" : {
-      "start" : 24176,
-      "stop" : 27727,
-      "id" : "ERS023906.5985_7_6.15"
-    }
-  }, {
-    "id" : "blaZ",
-    "source" : "WGSA_PAAR",
-    "type" : "CDS",
-    "reversed" : true,
-    "evalue" : 0.0,
-    "percentIdentity" : 99.17,
-    "library" : {
-      "start" : 1,
-      "stop" : 846,
-      "length" : 846,
-      "id" : "blaZ"
-    },
-    "query" : {
-      "start" : 155934,
-      "stop" : 156774,
-      "id" : "ERS023906.5985_7_6.1"
-    },
-    "agents" : [ "PEN" ]
-  }, {
-    "id" : "gyrA_S84L",
-    "source" : "WGSA_SNPAR",
-    "type" : "CDS",
-    "reversed" : false,
-    "evalue" : 0.0,
-    "percentIdentity" : 96.82,
-    "library" : {
-      "start" : 1,
-      "stop" : 2670,
-      "length" : 2670,
-      "id" : "gyrA"
-    },
-    "query" : {
-      "start" : 13040,
-      "stop" : 15700,
-      "id" : "ERS023906.5985_7_6.17"
-    }
-  }, {
-    "id" : "ermA_CLI",
-    "source" : "WGSA_PAAR",
-    "type" : "CDS",
-    "reversed" : true,
-    "evalue" : 1.81348E-17,
-    "percentIdentity" : 90.63,
-    "library" : {
-      "start" : 1,
-      "stop" : 59,
-      "length" : 59,
-      "id" : "ermA_SDS"
-    },
-    "query" : {
-      "start" : 2185,
-      "stop" : 2248,
-      "id" : "ERS023906.5985_7_6.31"
-    },
-    "agents" : [ "CLI" ]
-  } ],
-  "variantMatches" : [ {
-    "agents" : [ "CIP" ],
-    "id" : "ERS023906.5985_7_6.5",
-    "source" : "WGSA_SNPAR",
-    "type" : "point_mutation",
-    "reversed" : false,
-    "queryLocation" : 168319,
-    "referenceLocation" : 238,
-    "name" : "S80F",
-    "libraryStart" : 2
-  }, {
-    "agents" : [ "RIF" ],
-    "id" : "ERS023906.5985_7_6.15",
-    "source" : "WGSA_SNPAR",
-    "type" : "point_mutation",
-    "reversed" : true,
-    "queryLocation" : 25617,
-    "referenceLocation" : 1441,
-    "name" : "H481N",
-    "libraryStart" : 1
-  }, {
-    "agents" : [ "CIP" ],
-    "id" : "ERS023906.5985_7_6.17",
-    "source" : "WGSA_SNPAR",
-    "type" : "point_mutation",
-    "reversed" : false,
-    "queryLocation" : 13290,
-    "referenceLocation" : 250,
-    "name" : "S84L",
-    "libraryStart" : 1
-  } ],
   "library" : {
     "source" : "PUBLIC",
     "version" : "0.0.15",
     "label" : "1280"
-  }
+  },
+  "matches" : [ {
+    "searchStatistics" : {
+      "librarySequenceId" : "aphA-3",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.25",
+      "querySequenceStart" : 1718,
+      "percentIdentity" : 100.0,
+      "evalue" : 0.0,
+      "strand" : "REVERSE",
+      "reversed" : true,
+      "librarySequenceStop" : 786,
+      "querySequenceStop" : 2503,
+      "librarySequenceLength" : 786
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "dfrG",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.4",
+      "querySequenceStart" : 179769,
+      "percentIdentity" : 100.0,
+      "evalue" : 0.0,
+      "strand" : "FORWARD",
+      "reversed" : false,
+      "librarySequenceStop" : 498,
+      "querySequenceStop" : 180266,
+      "librarySequenceLength" : 498
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "ermA",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.31",
+      "querySequenceStart" : 1453,
+      "percentIdentity" : 100.0,
+      "evalue" : 0.0,
+      "strand" : "REVERSE",
+      "reversed" : true,
+      "librarySequenceStop" : 732,
+      "querySequenceStop" : 2184,
+      "librarySequenceLength" : 732
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "ileS-1",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.2",
+      "querySequenceStart" : 126840,
+      "percentIdentity" : 100.0,
+      "evalue" : 0.0,
+      "strand" : "REVERSE",
+      "reversed" : true,
+      "librarySequenceStop" : 2754,
+      "querySequenceStop" : 129593,
+      "librarySequenceLength" : 2754
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "rplC",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.7",
+      "querySequenceStart" : 51160,
+      "percentIdentity" : 100.0,
+      "evalue" : 0.0,
+      "strand" : "REVERSE",
+      "reversed" : true,
+      "librarySequenceStop" : 663,
+      "querySequenceStop" : 51822,
+      "librarySequenceLength" : 663
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "rplD",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.7",
+      "querySequenceStart" : 50510,
+      "percentIdentity" : 100.0,
+      "evalue" : 0.0,
+      "strand" : "REVERSE",
+      "reversed" : true,
+      "librarySequenceStop" : 624,
+      "querySequenceStop" : 51133,
+      "librarySequenceLength" : 624
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "tetM",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.3",
+      "querySequenceStart" : 87809,
+      "percentIdentity" : 100.0,
+      "evalue" : 0.0,
+      "strand" : "FORWARD",
+      "reversed" : false,
+      "librarySequenceStop" : 1920,
+      "querySequenceStop" : 89728,
+      "librarySequenceLength" : 1920
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "aacA-aphD",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.39",
+      "querySequenceStart" : 469,
+      "percentIdentity" : 99.93055555555556,
+      "evalue" : 0.0,
+      "strand" : "FORWARD",
+      "reversed" : false,
+      "librarySequenceStop" : 1440,
+      "querySequenceStop" : 1908,
+      "librarySequenceLength" : 1440
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "mprF",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.5",
+      "querySequenceStart" : 175366,
+      "percentIdentity" : 99.92072929052715,
+      "evalue" : 0.0,
+      "strand" : "FORWARD",
+      "reversed" : false,
+      "librarySequenceStop" : 2523,
+      "querySequenceStop" : 177888,
+      "librarySequenceLength" : 2523
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "mecA",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.24",
+      "querySequenceStart" : 13401,
+      "percentIdentity" : 99.90034877927255,
+      "evalue" : 0.0,
+      "strand" : "FORWARD",
+      "reversed" : false,
+      "librarySequenceStop" : 2007,
+      "querySequenceStop" : 15407,
+      "librarySequenceLength" : 2007
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "fusA",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.15",
+      "querySequenceStart" : 16774,
+      "percentIdentity" : 99.85590778097982,
+      "evalue" : 0.0,
+      "strand" : "REVERSE",
+      "reversed" : true,
+      "librarySequenceStop" : 2082,
+      "querySequenceStop" : 18855,
+      "librarySequenceLength" : 2082
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "grlA",
+      "librarySequenceStart" : 2,
+      "querySequenceId" : "ERS023906.5985_7_6.5",
+      "querySequenceStart" : 168080,
+      "percentIdentity" : 99.83347210657784,
+      "evalue" : 0.0,
+      "strand" : "FORWARD",
+      "reversed" : false,
+      "librarySequenceStop" : 2403,
+      "querySequenceStop" : 170481,
+      "librarySequenceLength" : 2403
+    },
+    "snpResistanceElements" : [ {
+      "resistanceMutation" : {
+        "name" : "S80F",
+        "originalSequence" : "S",
+        "referenceLocation" : 238,
+        "mutationSequence" : "F",
+        "aaLocation" : 80
+      },
+      "locations" : [ {
+        "queryLocation" : 168319,
+        "referenceLocation" : 238
+      } ]
+    } ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "grlB",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.5",
+      "querySequenceStart" : 166088,
+      "percentIdentity" : 99.74899598393574,
+      "evalue" : 0.0,
+      "strand" : "FORWARD",
+      "reversed" : false,
+      "librarySequenceStop" : 1992,
+      "querySequenceStop" : 168079,
+      "librarySequenceLength" : 1992
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "rpoB",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.15",
+      "querySequenceStart" : 24176,
+      "percentIdentity" : 99.74662162162163,
+      "evalue" : 0.0,
+      "strand" : "REVERSE",
+      "reversed" : true,
+      "librarySequenceStop" : 3552,
+      "querySequenceStop" : 27727,
+      "librarySequenceLength" : 3552
+    },
+    "snpResistanceElements" : [ {
+      "resistanceMutation" : {
+        "name" : "H481N",
+        "originalSequence" : "H",
+        "referenceLocation" : 1441,
+        "mutationSequence" : "N",
+        "aaLocation" : 481
+      },
+      "locations" : [ {
+        "queryLocation" : 25617,
+        "referenceLocation" : 1441
+      } ]
+    } ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "dfrB",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.13",
+      "querySequenceStart" : 55753,
+      "percentIdentity" : 99.58333333333333,
+      "evalue" : 0.0,
+      "strand" : "FORWARD",
+      "reversed" : false,
+      "librarySequenceStop" : 480,
+      "querySequenceStop" : 56232,
+      "librarySequenceLength" : 480
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "gyrB",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.17",
+      "querySequenceStart" : 11069,
+      "percentIdentity" : 99.43152454780362,
+      "evalue" : 0.0,
+      "strand" : "FORWARD",
+      "reversed" : false,
+      "librarySequenceStop" : 1935,
+      "querySequenceStop" : 13003,
+      "librarySequenceLength" : 1935
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "blaZ",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.1",
+      "querySequenceStart" : 155934,
+      "percentIdentity" : 99.17257683215131,
+      "evalue" : 0.0,
+      "strand" : "REVERSE",
+      "reversed" : true,
+      "librarySequenceStop" : 846,
+      "querySequenceStop" : 156774,
+      "librarySequenceLength" : 846
+    },
+    "snpResistanceElements" : [ ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "gyrA",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.17",
+      "querySequenceStart" : 13040,
+      "percentIdentity" : 96.81647940074907,
+      "evalue" : 0.0,
+      "strand" : "FORWARD",
+      "reversed" : false,
+      "librarySequenceStop" : 2670,
+      "querySequenceStop" : 15700,
+      "librarySequenceLength" : 2670
+    },
+    "snpResistanceElements" : [ {
+      "resistanceMutation" : {
+        "name" : "S84L",
+        "originalSequence" : "S",
+        "referenceLocation" : 250,
+        "mutationSequence" : "L",
+        "aaLocation" : 84
+      },
+      "locations" : [ {
+        "queryLocation" : 13290,
+        "referenceLocation" : 250
+      } ]
+    } ]
+  }, {
+    "searchStatistics" : {
+      "librarySequenceId" : "ermA_SDS",
+      "librarySequenceStart" : 1,
+      "querySequenceId" : "ERS023906.5985_7_6.31",
+      "querySequenceStart" : 2185,
+      "percentIdentity" : 90.625,
+      "evalue" : 1.81348E-17,
+      "strand" : "REVERSE",
+      "reversed" : true,
+      "librarySequenceStop" : 59,
+      "querySequenceStop" : 2248,
+      "librarySequenceLength" : 59
+    },
+    "snpResistanceElements" : [ ]
+  } ],
+  "resistanceProfile" : [ {
+    "agent" : {
+      "key" : "AMI",
+      "type" : "Aminoglycosides",
+      "name" : "Amikacin"
+    },
+    "state" : "RESISTANT",
+    "determinants" : {
+      "acquired" : [ {
+        "name" : "aphA-3",
+        "resistanceEffect" : "RESISTANCE"
+      } ],
+      "variants" : [ ]
+    },
+    "determinantRules" : {
+      "aphA-3" : "RESISTANT"
+    }
+  }, {
+    "agent" : {
+      "key" : "GEN",
+      "type" : "Aminoglycosides",
+      "name" : "Gentamicin"
+    },
+    "state" : "RESISTANT",
+    "determinants" : {
+      "acquired" : [ {
+        "name" : "aacA-aphD",
+        "resistanceEffect" : "RESISTANCE"
+      } ],
+      "variants" : [ ]
+    },
+    "determinantRules" : {
+      "aacA-aphD" : "RESISTANT"
+    }
+  }, {
+    "agent" : {
+      "key" : "TOB",
+      "type" : "Aminoglycosides",
+      "name" : "Tobramycin"
+    },
+    "state" : "RESISTANT",
+    "determinants" : {
+      "acquired" : [ {
+        "name" : "aphA-3",
+        "resistanceEffect" : "RESISTANCE"
+      }, {
+        "name" : "aacA-aphD",
+        "resistanceEffect" : "RESISTANCE"
+      } ],
+      "variants" : [ ]
+    },
+    "determinantRules" : {
+      "aacA-aphD" : "RESISTANT",
+      "aphA-3" : "RESISTANT"
+    }
+  }, {
+    "agent" : {
+      "key" : "KAN",
+      "type" : "Aminoglycosides",
+      "name" : "Kanamycin"
+    },
+    "state" : "RESISTANT",
+    "determinants" : {
+      "acquired" : [ {
+        "name" : "aphA-3",
+        "resistanceEffect" : "RESISTANCE"
+      }, {
+        "name" : "aacA-aphD",
+        "resistanceEffect" : "RESISTANCE"
+      } ],
+      "variants" : [ ]
+    },
+    "determinantRules" : {
+      "aacA-aphD" : "RESISTANT",
+      "aphA-3" : "RESISTANT"
+    }
+  }, {
+    "agent" : {
+      "key" : "MET",
+      "type" : "Beta-Lactams",
+      "name" : "Methicillin"
+    },
+    "state" : "RESISTANT",
+    "determinants" : {
+      "acquired" : [ {
+        "name" : "mecA",
+        "resistanceEffect" : "RESISTANCE"
+      } ],
+      "variants" : [ ]
+    },
+    "determinantRules" : {
+      "mecA" : "RESISTANT"
+    }
+  }, {
+    "agent" : {
+      "key" : "PEN",
+      "type" : "Beta-Lactams",
+      "name" : "Penicillin"
+    },
+    "state" : "RESISTANT",
+    "determinants" : {
+      "acquired" : [ {
+        "name" : "mecA",
+        "resistanceEffect" : "RESISTANCE"
+      }, {
+        "name" : "blaZ",
+        "resistanceEffect" : "RESISTANCE"
+      } ],
+      "variants" : [ ]
+    },
+    "determinantRules" : {
+      "mecA" : "RESISTANT",
+      "blaZ" : "RESISTANT"
+    }
+  }, {
+    "agent" : {
+      "key" : "FUS",
+      "type" : "Fusidic Acid",
+      "name" : "Fusidic Acid"
+    },
+    "state" : "NOT_FOUND",
+    "determinants" : {
+      "acquired" : [ ],
+      "variants" : [ ]
+    },
+    "determinantRules" : { }
+  }, {
+    "agent" : {
+      "key" : "VAN",
+      "type" : "Glycopeptides",
+      "name" : "Vancomycin"
+    },
+    "state" : "NOT_FOUND",
+    "determinants" : {
+      "acquired" : [ ],
+      "variants" : [ ]
+    },
+    "determinantRules" : { }
+  }, {
+    "agent" : {
+      "key" : "CLI",
+      "type" : "Lincosamides",
+      "name" : "Clindamycin"
+    },
+    "state" : "RESISTANT",
+    "determinants" : {
+      "acquired" : [ {
+        "name" : "ermA_SDS",
+        "resistanceEffect" : "CONTRIBUTES"
+      }, {
+        "name" : "ermA",
+        "resistanceEffect" : "CONTRIBUTES"
+      } ],
+      "variants" : [ ]
+    },
+    "determinantRules" : {
+      "ermA_CLI" : "RESISTANT"
+    }
+  }, {
+    "agent" : {
+      "key" : "ERY",
+      "type" : "Macrolides",
+      "name" : "Erythromycin"
+    },
+    "state" : "RESISTANT",
+    "determinants" : {
+      "acquired" : [ {
+        "name" : "ermA",
+        "resistanceEffect" : "RESISTANCE"
+      } ],
+      "variants" : [ ]
+    },
+    "determinantRules" : {
+      "ermA_ERY" : "RESISTANT"
+    }
+  }, {
+    "agent" : {
+      "key" : "MUP",
+      "type" : "Mupirocin",
+      "name" : "Mupirocin"
+    },
+    "state" : "NOT_FOUND",
+    "determinants" : {
+      "acquired" : [ ],
+      "variants" : [ ]
+    },
+    "determinantRules" : { }
+  }, {
+    "agent" : {
+      "key" : "LNZ",
+      "type" : "Oxazolidinone",
+      "name" : "Linezolid"
+    },
+    "state" : "NOT_FOUND",
+    "determinants" : {
+      "acquired" : [ ],
+      "variants" : [ ]
+    },
+    "determinantRules" : { }
+  }, {
+    "agent" : {
+      "key" : "TCY",
+      "type" : "Tetracyclines",
+      "name" : "Tetracycline"
+    },
+    "state" : "RESISTANT",
+    "determinants" : {
+      "acquired" : [ {
+        "name" : "tetM",
+        "resistanceEffect" : "RESISTANCE"
+      } ],
+      "variants" : [ ]
+    },
+    "determinantRules" : {
+      "tetM" : "RESISTANT"
+    }
+  }, {
+    "agent" : {
+      "key" : "TMP",
+      "type" : "Diaminopyrimidine",
+      "name" : "Trimethoprim"
+    },
+    "state" : "RESISTANT",
+    "determinants" : {
+      "acquired" : [ {
+        "name" : "dfrG",
+        "resistanceEffect" : "RESISTANCE"
+      } ],
+      "variants" : [ ]
+    },
+    "determinantRules" : {
+      "dfrG" : "RESISTANT"
+    }
+  }, {
+    "agent" : {
+      "key" : "DAP",
+      "type" : "Lipopeptides",
+      "name" : "Daptomycin"
+    },
+    "state" : "NOT_FOUND",
+    "determinants" : {
+      "acquired" : [ ],
+      "variants" : [ ]
+    },
+    "determinantRules" : { }
+  }, {
+    "agent" : {
+      "key" : "RIF",
+      "type" : "Rifamycin",
+      "name" : "Rifampicin"
+    },
+    "state" : "RESISTANT",
+    "determinants" : {
+      "acquired" : [ ],
+      "variants" : [ {
+        "name" : "rpoB_H481N",
+        "resistanceEffect" : "RESISTANCE"
+      } ]
+    },
+    "determinantRules" : {
+      "rpoB_H481N" : "RESISTANT"
+    }
+  }, {
+    "agent" : {
+      "key" : "CIP",
+      "type" : "Fluoroquinolones",
+      "name" : "Ciprofloxacin"
+    },
+    "state" : "RESISTANT",
+    "determinants" : {
+      "acquired" : [ ],
+      "variants" : [ {
+        "name" : "grlA_S80F",
+        "resistanceEffect" : "RESISTANCE"
+      }, {
+        "name" : "gyrA_S84L",
+        "resistanceEffect" : "RESISTANCE"
+      } ]
+    },
+    "determinantRules" : {
+      "grlA_S80F" : "RESISTANT",
+      "gyrA_S84L" : "RESISTANT"
+    }
+  }, {
+    "agent" : {
+      "key" : "MFX",
+      "type" : "Fluoroquinolones",
+      "name" : "Moxifloxacin"
+    },
+    "state" : "NOT_FOUND",
+    "determinants" : {
+      "acquired" : [ ],
+      "variants" : [ ]
+    },
+    "determinantRules" : { }
+  }, {
+    "agent" : {
+      "key" : "TEC",
+      "type" : "Glycopeptides",
+      "name" : "Teicoplanin"
+    },
+    "state" : "NOT_FOUND",
+    "determinants" : {
+      "acquired" : [ ],
+      "variants" : [ ]
+    },
+    "determinantRules" : { }
+  } ]
 }

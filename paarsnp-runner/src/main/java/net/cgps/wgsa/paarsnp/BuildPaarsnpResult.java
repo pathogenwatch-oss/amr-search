@@ -120,7 +120,7 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
 
   public static class PaarsnpResultData {
 
-    private final LibraryMetadata version;
+    public final LibraryMetadata version;
     public final String assemblyId;
     public final SearchResult searchResult;
     public final Collection<String> referenceProfile;

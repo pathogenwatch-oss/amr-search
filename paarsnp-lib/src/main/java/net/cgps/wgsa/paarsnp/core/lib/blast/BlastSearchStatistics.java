@@ -5,7 +5,6 @@ import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 
 public class BlastSearchStatistics extends AbstractJsonnable {
 
-  // Don't use a char[] here as the internal elements aren't immutable.
   private final String librarySequenceId;
   private final int librarySequenceStart;
   private final String querySequenceId;

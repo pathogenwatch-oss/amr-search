@@ -19,11 +19,11 @@ public class DeterminantsProfile extends AbstractJsonnable {
     this.variants = variants;
   }
 
-  private Collection<Determinant> getAcquired() {
+  public Collection<Determinant> getAcquired() {
     return acquired;
   }
 
-  private Collection<Determinant> getVariants() {
+  public Collection<Determinant> getVariants() {
     return variants;
   }
 }

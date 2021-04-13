@@ -5,6 +5,7 @@ import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.models.results.HasVariants;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 public class SetMember extends AbstractJsonnable implements HasVariants {
 
@@ -28,6 +29,10 @@ public class SetMember extends AbstractJsonnable implements HasVariants {
 
   public String getGene() {
     return this.gene;
+  }
+
+  public Stream<String> toVariantNames() {
+    return this.variants.stream().map(name -> this.gene + "_" + name);
   }
 
   @Override

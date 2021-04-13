@@ -12,8 +12,8 @@ public class ResistanceProfile extends AbstractJsonnable {
 
   private final AntimicrobialAgent agent;
   private final ResistanceState state;
-  private final DeterminantsProfile determinants; // List of sets
-  private final Map<String, ResistanceState> determinantRules;
+  private final DeterminantsProfile determinants;
+  private final Map<String, ResistanceState> determinantRules; // Set name to state
 
   private ResistanceProfile() {
     this(null, null, null, Collections.emptyMap());
@@ -26,19 +26,19 @@ public class ResistanceProfile extends AbstractJsonnable {
     this.determinantRules = determinantRules;
   }
 
-  private AntimicrobialAgent getAgent() {
+  public AntimicrobialAgent getAgent() {
     return agent;
   }
 
-  private ResistanceState getState() {
+  public ResistanceState getState() {
     return state;
   }
 
-  private DeterminantsProfile getDeterminants() {
+  public DeterminantsProfile getDeterminants() {
     return determinants;
   }
 
-  private Map<String, ResistanceState> getDeterminantRules() {
+  public Map<String, ResistanceState> getDeterminantRules() {
     return determinantRules;
   }
 }

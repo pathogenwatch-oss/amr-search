@@ -2,8 +2,10 @@ package net.cgps.wgsa.paarsnp;
 
 import ch.qos.logback.classic.Level;
 import net.cgps.wgsa.paarsnp.core.Constants;
+import net.cgps.wgsa.paarsnp.core.lib.Jsonnable;
 import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.output.ResultJson;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,7 +114,7 @@ public class PaarsnpMain {
     final PaarsnpLibrary paarsnpLibrary = AbstractJsonnable.fromJsonFile(paarsnpLibraryFile.toFile(), PaarsnpLibrary.class);
 
     final PaarsnpRunner paarsnpRunner = new PaarsnpRunner(paarsnpLibrary, resourceDirectory);
-    final Consumer<Result> resultWriter = this.getWriter(isToStdout, workingDirectory);
+    final Consumer<ResultJson> resultWriter = this.getWriter(isToStdout, workingDirectory);
 
     // Run paarsnp on each assembly file.
     assemblyFiles
@@ -120,7 +122,7 @@ public class PaarsnpMain {
         .peek(assemblyFile -> this.logger.info("{}", assemblyFile.toString()))
         .map(paarsnpRunner)
         .peek(paarsnpResult -> this.logger.debug("{}", paarsnpResult.toPrettyJson()))
-        .map(result -> new ConvertResultFormat().apply(result))
+//        .map(result -> new ConvertResultFormat().apply(result))
         .forEach(resultWriter);
   }
 
@@ -146,7 +148,7 @@ public class PaarsnpMain {
     }
   }
 
-  private Consumer<Result> getWriter(final boolean isToStdout, final Path workingDirectory) {
+  private Consumer<ResultJson> getWriter(final boolean isToStdout, final Path workingDirectory) {
 
     if (isToStdout) {
       return paarsnpResult -> {

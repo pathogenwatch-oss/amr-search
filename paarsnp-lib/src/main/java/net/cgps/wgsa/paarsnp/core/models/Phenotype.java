@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Phenotype extends AbstractJsonnable {
 
   private final PhenotypeEffect effect;
-  private final List<String> profile;
+  private final List<String> profile; // agent keys
   private final List<Modifier> modifiers;
 
   private Phenotype() {

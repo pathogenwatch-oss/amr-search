@@ -7,11 +7,12 @@ import net.cgps.wgsa.paarsnp.core.models.SetMember;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Set;
 
 public class SetResult extends AbstractJsonnable {
 
-  private final Collection<SetMember> foundMembers;
-  private final Collection<Modifier> foundModifiers;
+  private final Set<SetMember> foundMembers;
+  private final Set<Modifier> foundModifiers;
   private final ResistanceSet set;
 
   @SuppressWarnings("unused")
@@ -25,11 +26,11 @@ public class SetResult extends AbstractJsonnable {
     this.set = set;
   }
 
-  public Collection<SetMember> getFoundMembers() {
+  public Set<SetMember> getFoundMembers() {
     return this.foundMembers;
   }
 
-  public Collection<Modifier> getFoundModifiers() {
+  public Set<Modifier> getFoundModifiers() {
     return this.foundModifiers;
   }
 
@@ -45,4 +46,9 @@ public class SetResult extends AbstractJsonnable {
   public boolean containsModifier(final Modifier modifier) {
     return this.foundModifiers.contains(modifier);
   }
+
+  public boolean containsAll() {
+    return this.getFoundMembers().equals(new HashSet<>(this.set.getMembers()));
+  }
+
 }

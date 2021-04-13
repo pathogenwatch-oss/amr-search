@@ -2,11 +2,13 @@ package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
+import net.cgps.wgsa.paarsnp.core.lib.Jsonnable;
 import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.models.results.SearchResult;
 import net.cgps.wgsa.paarsnp.core.snpar.CombineResults;
 import net.cgps.wgsa.paarsnp.core.snpar.ProcessMatches;
+import net.cgps.wgsa.paarsnp.output.ResultJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +21,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
+public class PaarsnpRunner implements Function<Path, ResultJson> {
 
   private final Logger logger = LoggerFactory.getLogger(PaarsnpRunner.class);
 
@@ -31,7 +33,7 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
     this.resourceDirectory = resourceDirectory;
   }
 
-  public PaarsnpResult apply(final Path assemblyFile) {
+  public ResultJson apply(final Path assemblyFile) {
 
     final String name = Optional.ofNullable(assemblyFile.getFileName()).orElseThrow(() -> new RuntimeException("Assembly file is null somehow.")).toString();
 
@@ -53,7 +55,7 @@ public class PaarsnpRunner implements Function<Path, PaarsnpResult> {
 
     final Map<String, AntimicrobialAgent> agentMap = this.paarsnpLibrary.getAntimicrobials().stream().collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
 
-    return new BuildPaarsnpResult(agentMap, this.paarsnpLibrary.getSets()).apply(paarsnpResultData);
+    return new BuildNewPaarsnpResult(agentMap).apply(paarsnpResultData);
   }
 
   private List<String> buildBlastOptions(final double minimumPid) {

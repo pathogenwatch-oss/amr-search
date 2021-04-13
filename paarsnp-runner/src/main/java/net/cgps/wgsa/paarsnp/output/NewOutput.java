@@ -2,42 +2,42 @@ package net.cgps.wgsa.paarsnp.output;
 
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.models.LibraryMetadata;
+import net.cgps.wgsa.paarsnp.core.models.results.MatchJson;
 
 import java.util.Collection;
 import java.util.Collections;
 
-public class NewOutput extends AbstractJsonnable {
+public class NewOutput extends AbstractJsonnable implements ResultJson  {
 
   private final String assemblyId;
   private final LibraryMetadata library;
-  private final Collection<Match> matches;
-  private final ResistanceProfile resistanceProfile;
+  private final Collection<MatchJson> matches;
+  private final Collection<ResistanceProfile> resistanceProfile;
 
   private NewOutput() {
     this("", null, Collections.emptyList(), null);
   }
 
-  public NewOutput(final String assemblyId, final ResistanceProfile resistanceProfile, final Collection<Match> matches, final LibraryMetadata library) {
+  public NewOutput(final String assemblyId, final Collection<ResistanceProfile> resistanceProfile, final Collection<MatchJson> matches, final LibraryMetadata library) {
     this.assemblyId = assemblyId;
     this.resistanceProfile = resistanceProfile;
     this.matches = matches;
     this.library = library;
   }
 
-  private String getAssemblyId() {
+  public String getAssemblyId() {
     return assemblyId;
   }
 
-  private LibraryMetadata getLibrary() {
+  public LibraryMetadata getLibrary() {
     return library;
   }
 
-  private Collection<Match> getMatches() {
+  public Collection<MatchJson> getMatches() {
     return matches;
   }
 
-  private ResistanceProfile getResistanceProfile() {
+  public Collection<ResistanceProfile> getResistanceProfile() {
     return resistanceProfile;
   }
-
 }

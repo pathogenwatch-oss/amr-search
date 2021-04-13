@@ -15,11 +15,11 @@ public class Determinant extends AbstractJsonnable {
     this.resistanceEffect = resistanceEffect;
   }
 
-  private String getName() {
+  public String getName() {
     return name;
   }
 
-  private DeterminantClass getResistanceEffect() {
+  public DeterminantClass getResistanceEffect() {
     return resistanceEffect;
   }
 }
