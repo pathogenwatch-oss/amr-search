@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Location {
 
-  private final int queryLocation;
-  private final int referenceLocation;
+  private final int queryIndex;
+  private final int referenceIndex;
 
   @SuppressWarnings("unused")
   private Location() {
@@ -13,16 +13,16 @@ public class Location {
   }
 
   public Location(final int queryLocation, final int referenceLocation) {
-    this.queryLocation = queryLocation;
-    this.referenceLocation = referenceLocation;
+    this.queryIndex = queryLocation;
+    this.referenceIndex = referenceLocation;
   }
 
-  public int getQueryLocation() {
-    return this.queryLocation;
+  public int getQueryIndex() {
+    return this.queryIndex;
   }
 
-  public int getReferenceLocation() {
-    return this.referenceLocation;
+  public int getReferenceIndex() {
+    return this.referenceIndex;
   }
 
   @Override
@@ -30,12 +30,12 @@ public class Location {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     final Location location = (Location) o;
-    return queryLocation == location.queryLocation &&
-        referenceLocation == location.referenceLocation;
+    return queryIndex == location.queryIndex &&
+        referenceIndex == location.referenceIndex;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(queryLocation, referenceLocation);
+    return Objects.hash(queryIndex, referenceIndex);
   }
 }

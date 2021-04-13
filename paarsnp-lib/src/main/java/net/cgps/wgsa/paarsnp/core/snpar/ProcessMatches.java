@@ -32,7 +32,7 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
   @Override
   public ProcessedMatch apply(final BlastMatch match) {
 
-    final var referenceSequence = this.mechanismsLibrary.getGenes().get(match.getBlastSearchStatistics().getLibrarySequenceId());
+    final var referenceSequence = this.mechanismsLibrary.getGenes().get(match.getBlastSearchStatistics().getReferenceId());
 
     // if the mechanisms don't use SNPs just return match data with empty variants
     if (referenceSequence.getVariants().isEmpty()) {
@@ -40,7 +40,7 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
     }
 
     // Extract mutations from sequence
-    final var mutations = new SequenceProcessor(match.getReferenceMatchSequence(), match.getBlastSearchStatistics().getLibrarySequenceStart(), match.getBlastSearchStatistics().getStrand(), match.getForwardQuerySequence(), match.getBlastSearchStatistics().getQuerySequenceStart(), new MutationBuilder()).call();
+    final var mutations = new SequenceProcessor(match.getReferenceMatchSequence(), match.getBlastSearchStatistics().getReferenceStart(), match.getBlastSearchStatistics().getStrand(), match.getForwardQuerySequence(), match.getBlastSearchStatistics().getQueryStart(), new MutationBuilder()).call();
 
     final var frameshiftFilter = new CreateFrameshiftFilter(referenceSequence.getLength()).apply(mutations.values().stream().flatMap(Collection::stream).filter(Mutation::isIndel).collect(Collectors.toList()));
 
@@ -51,10 +51,10 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
         .stream()
         .peek(mutation -> this.logger.trace("Testing resistance mutation {}", mutation.getName()))
         .filter(mutation -> mutation.isWithinBoundaries(
-            match.getBlastSearchStatistics().getLibrarySequenceStart(),
-            match.getBlastSearchStatistics().getLibrarySequenceStop()))
+            match.getBlastSearchStatistics().getReferenceStart(),
+            match.getBlastSearchStatistics().getReferenceStop()))
         .map(resistanceMutation -> resistanceMutation.match(mutations, aaAlignment)
-            .map(locations -> new ResistanceMutationMatch(resistanceMutation, locations)))
+            .map(locations -> new ResistanceMutationMatch(resistanceMutation.getName(), locations)))
         .filter(Optional::isPresent)
         .map(Optional::get)
         .collect(Collectors.toList());

@@ -57,7 +57,7 @@ public class CombineResults implements Collector<BlastMatch, List<ProcessedMatch
       // Group matches by library sequence ID for easy look up.
       final Map<String, List<ProcessedMatch>> matches = selectedMatches
           .stream()
-          .collect(Collectors.groupingBy(match -> match.getSearchStatistics().getLibrarySequenceId()));
+          .collect(Collectors.groupingBy(match -> match.getSearchStatistics().getReferenceId()));
 
       final Collection<SetResult> setResults = this.resistanceSets
           .stream()

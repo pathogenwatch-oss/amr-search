@@ -22,9 +22,8 @@ public class ExtractResistanceVariants implements Function<ProcessedMatch, Set<S
     return processedMatch
         .getSnpResistanceElements()
         .stream()
-        .filter(mutation -> this.queryVariants.contains(mutation.getResistanceMutation().getName()))
-        .map(ResistanceMutationMatch::getResistanceMutation)
-        .map(Variant::getName)
+        .map(ResistanceMutationMatch::getName)
+        .filter(this.queryVariants::contains)
         .collect(Collectors.toSet());
   }
 }

@@ -20,9 +20,9 @@ public class CodonMapper implements Function<BlastMatch, AaAlignment> {
   @Override
   public AaAlignment apply(final BlastMatch match) {
 
-    this.logger.debug("Creating codon map for {}", match.getBlastSearchStatistics().getLibrarySequenceId());
-    final var firstCodonIndex = (int) Math.ceil((double) match.getBlastSearchStatistics().getLibrarySequenceStart() / 3.0);
-    final var frame = FRAME.toFrame(match.getBlastSearchStatistics().getLibrarySequenceStart());
+    this.logger.debug("Creating codon map for {}", match.getBlastSearchStatistics().getReferenceId());
+    final var firstCodonIndex = (int) Math.ceil((double) match.getBlastSearchStatistics().getReferenceStart() / 3.0);
+    final var frame = FRAME.toFrame(match.getBlastSearchStatistics().getReferenceStart());
 
     final var referenceAlignment = getInframeSequence(frame, match.getReferenceMatchSequence());
     final var queryAlignment = getInframeSequence(frame, match.getForwardQuerySequence());
@@ -57,7 +57,7 @@ public class CodonMapper implements Function<BlastMatch, AaAlignment> {
         currentInsert.append(aaAlignment.getValue().charAt(i));
       }
     }
-    return new AaAlignment(codonMap, match.getBlastSearchStatistics().getQuerySequenceStart() + frame.getIndex(), queryLocationMap, insertMap);
+    return new AaAlignment(codonMap, match.getBlastSearchStatistics().getQueryStart() + frame.getIndex(), queryLocationMap, insertMap);
   }
 
   public String getInframeSequence(final FRAME frame, final String referenceMatchSequence) {

@@ -36,11 +36,11 @@ public class FilterByIndividualThresholds implements Predicate<BlastMatch> {
 
   @Override
   public boolean test(final BlastMatch match) {
-    this.logger.debug("Filtering {}", match.getBlastSearchStatistics().getLibrarySequenceId());
-    this.logger.debug("{} {} coverage", match.getBlastSearchStatistics().getLibrarySequenceId(), this.coverageThresholds.get(match.getBlastSearchStatistics().getLibrarySequenceId()));
-    this.logger.debug("{} {} pid", match.getBlastSearchStatistics().getLibrarySequenceId(), this.pidThresholds.get(match.getBlastSearchStatistics().getLibrarySequenceId()));
-    return this.coverageThresholds.get(match.getBlastSearchStatistics().getLibrarySequenceId()) <= match.calculateCoverage()
+    this.logger.debug("Filtering {}", match.getBlastSearchStatistics().getReferenceId());
+    this.logger.debug("{} {} coverage", match.getBlastSearchStatistics().getReferenceId(), this.coverageThresholds.get(match.getBlastSearchStatistics().getReferenceId()));
+    this.logger.debug("{} {} pid", match.getBlastSearchStatistics().getReferenceId(), this.pidThresholds.get(match.getBlastSearchStatistics().getReferenceId()));
+    return this.coverageThresholds.get(match.getBlastSearchStatistics().getReferenceId()) <= match.calculateCoverage()
         &&
-        this.pidThresholds.get(match.getBlastSearchStatistics().getLibrarySequenceId()) <= match.getBlastSearchStatistics().getPercentIdentity();
+        this.pidThresholds.get(match.getBlastSearchStatistics().getReferenceId()) <= match.getBlastSearchStatistics().getPercentIdentity();
   }
 }

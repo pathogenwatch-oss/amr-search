@@ -8,27 +8,27 @@ import java.util.Collection;
 
 public class MatchJson extends AbstractJsonnable {
 
-  private final BlastSearchStatistics searchStatistics;
-  private final Collection<ResistanceMutationMatch> snpResistanceElements;
+  private final BlastSearchStatistics statistics;
+  private final Collection<ResistanceMutationMatch> resistanceVariants;
 
   @SuppressWarnings("unused")
   private MatchJson() {
     this(null, null);
   }
-  public MatchJson(final BlastSearchStatistics searchStatistics, final Collection<ResistanceMutationMatch> snpResistanceElements) {
-    this.searchStatistics = searchStatistics;
-    this.snpResistanceElements = snpResistanceElements;
+  public MatchJson(final BlastSearchStatistics searchStatistics, final Collection<ResistanceMutationMatch> resistanceVariants) {
+    this.statistics = searchStatistics;
+    this.resistanceVariants = resistanceVariants;
   }
 
   // Would be better unwrapped, but maintaining compatiblity with current API.
 //  @JsonUnwrapped
   @SuppressWarnings("unused")
-  public BlastSearchStatistics getSearchStatistics() {
-    return this.searchStatistics;
+  public BlastSearchStatistics getStatistics() {
+    return this.statistics;
   }
 
   @SuppressWarnings("unused")
-  public Collection<ResistanceMutationMatch> getSnpResistanceElements() {
-    return this.snpResistanceElements;
+  public Collection<ResistanceMutationMatch> getResistanceVariants() {
+    return this.resistanceVariants;
   }
 }

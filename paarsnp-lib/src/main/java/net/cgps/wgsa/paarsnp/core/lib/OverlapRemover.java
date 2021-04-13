@@ -13,9 +13,9 @@ public class OverlapRemover<T extends BlastMatch> implements Collector<T, List<T
       // Highest PID first
       .comparingDouble(BlastSearchStatistics::getPercentIdentity)
       .reversed()
-      .thenComparing(BlastSearchStatistics::getLibrarySequenceId)
-      .thenComparing(BlastSearchStatistics::getQuerySequenceId)
-      .thenComparingDouble(BlastSearchStatistics::getQuerySequenceStart);
+      .thenComparing(BlastSearchStatistics::getReferenceId)
+      .thenComparing(BlastSearchStatistics::getQueryId)
+      .thenComparingDouble(BlastSearchStatistics::getQueryStart);
 
   private final Comparator<BlastMatch> matchComparator = (o1, o2) -> this.statComparer.compare(o1.getBlastSearchStatistics(), o2.getBlastSearchStatistics());
 
@@ -89,16 +89,16 @@ public class OverlapRemover<T extends BlastMatch> implements Collector<T, List<T
     @Override
     public boolean test(final BlastMatch match1, final BlastMatch match2) {
 
-      if (!match1.getBlastSearchStatistics().getQuerySequenceId().equals(match2.getBlastSearchStatistics().getQuerySequenceId())) {
+      if (!match1.getBlastSearchStatistics().getQueryId().equals(match2.getBlastSearchStatistics().getQueryId())) {
         return false;
       }
 
       // The query coordinates are never reversed.
-      final int queryStart1 = match1.getBlastSearchStatistics().getQuerySequenceStart();
-      final int queryStop1 = match1.getBlastSearchStatistics().getQuerySequenceStop();
+      final int queryStart1 = match1.getBlastSearchStatistics().getQueryStart();
+      final int queryStop1 = match1.getBlastSearchStatistics().getQueryStop();
 
-      final int queryStart2 = match2.getBlastSearchStatistics().getQuerySequenceStart();
-      final int queryStop2 = match2.getBlastSearchStatistics().getQuerySequenceStop();
+      final int queryStart2 = match2.getBlastSearchStatistics().getQueryStart();
+      final int queryStop2 = match2.getBlastSearchStatistics().getQueryStop();
 
       return overlapCheck(queryStart1, queryStop1, queryStart2, queryStop2, this.overlapThreshold);
     }

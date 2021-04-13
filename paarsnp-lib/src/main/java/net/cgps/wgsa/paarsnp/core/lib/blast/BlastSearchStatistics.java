@@ -5,17 +5,17 @@ import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 
 public class BlastSearchStatistics extends AbstractJsonnable {
 
-  private final String librarySequenceId;
-  private final int librarySequenceStart;
-  private final String querySequenceId;
-  private final int querySequenceStart;
+  private final String referenceId;
+  private final int referenceStart;
+  private final String queryId;
+  private final int queryStart;
   private final double percentIdentity;
   private final double evalue;
   private final DnaSequence.Strand strand;
   private final boolean reversed;
-  private final int librarySequenceStop;
-  private final int querySequenceStop;
-  private final int librarySequenceLength;
+  private final int referenceStop;
+  private final int queryStop;
+  private final int referenceLength;
 
   @SuppressWarnings("unused")
   private BlastSearchStatistics() {
@@ -23,61 +23,61 @@ public class BlastSearchStatistics extends AbstractJsonnable {
     this("", 0, 0, 0, "", 0, 0, 0.0, 0.0, DnaSequence.Strand.FORWARD);
   }
 
-  public BlastSearchStatistics(final String librarySequenceId, final int librarySequenceStart, final int librarySequenceStop, final int librarySequenceLength, final String querySequenceId, final int querySequenceStart, final int querySequenceStop, final double evalue, final double percentIdentity, final DnaSequence.Strand strand) {
+  public BlastSearchStatistics(final String referenceId, final int referenceStart, final int referenceStop, final int referenceLength, final String querySequenceId, final int querySequenceStart, final int querySequenceStop, final double evalue, final double percentIdentity, final DnaSequence.Strand strand) {
 
-    this.librarySequenceId = librarySequenceId;
-    this.querySequenceId = querySequenceId;
-    this.querySequenceStart = querySequenceStart;
-    this.percentIdentity = percentIdentity;
+    this.referenceId = referenceId;
+    this.queryId = querySequenceId;
+    this.queryStart = querySequenceStart;
+    this.percentIdentity = (double) Math.round(percentIdentity * 100) / 100;
     this.evalue = evalue;
     this.strand = strand;
-    this.querySequenceStop = querySequenceStop;
-    this.librarySequenceLength = librarySequenceLength;
+    this.queryStop = querySequenceStop;
+    this.referenceLength = referenceLength;
 
     if (DnaSequence.Strand.FORWARD == strand) {
-      this.librarySequenceStart = librarySequenceStart;
-      this.librarySequenceStop = librarySequenceStop;
+      this.referenceStart = referenceStart;
+      this.referenceStop = referenceStop;
       this.reversed = false;
     } else {
-      this.librarySequenceStart = librarySequenceStop;
-      this.librarySequenceStop = librarySequenceStart;
+      this.referenceStart = referenceStop;
+      this.referenceStop = referenceStart;
       this.reversed = true;
     }
   }
 
-  public String getLibrarySequenceId() {
+  public String getReferenceId() {
 
-    return this.librarySequenceId;
+    return this.referenceId;
   }
 
-  public int getLibrarySequenceStart() {
+  public int getReferenceStart() {
 
-    return this.librarySequenceStart;
+    return this.referenceStart;
   }
 
-  public int getLibrarySequenceStop() {
+  public int getReferenceStop() {
 
-    return this.librarySequenceStop;
+    return this.referenceStop;
   }
 
-  public int getLibrarySequenceLength() {
+  public int getReferenceLength() {
 
-    return this.librarySequenceLength;
+    return this.referenceLength;
   }
 
-  public String getQuerySequenceId() {
+  public String getQueryId() {
 
-    return this.querySequenceId;
+    return this.queryId;
   }
 
-  public int getQuerySequenceStart() {
+  public int getQueryStart() {
 
-    return this.querySequenceStart;
+    return this.queryStart;
   }
 
-  public int getQuerySequenceStop() {
+  public int getQueryStop() {
 
-    return this.querySequenceStop;
+    return this.queryStop;
   }
 
   public double getPercentIdentity() {
@@ -100,16 +100,16 @@ public class BlastSearchStatistics extends AbstractJsonnable {
   public String toString() {
 
     return "BlastSearchStatistics{" +
-        "librarySequenceId='" + this.librarySequenceId + '\'' +
-        ", librarySequenceStart=" + this.librarySequenceStart +
-        ", querySequenceId='" + this.querySequenceId + '\'' +
-        ", querySequenceStart=" + this.querySequenceStart +
+        "librarySequenceId='" + this.referenceId + '\'' +
+        ", librarySequenceStart=" + this.referenceStart +
+        ", querySequenceId='" + this.queryId + '\'' +
+        ", querySequenceStart=" + this.queryStart +
         ", percentIdentity=" + this.percentIdentity +
         ", evalue=" + this.evalue +
         ", strand=" + this.strand +
-        ", librarySequenceStop=" + this.librarySequenceStop +
-        ", querySequenceStop=" + this.querySequenceStop +
-        ", librarySequenceLength=" + this.librarySequenceLength +
+        ", librarySequenceStop=" + this.referenceStop +
+        ", querySequenceStop=" + this.queryStop +
+        ", librarySequenceLength=" + this.referenceLength +
         '}';
   }
 

@@ -54,32 +54,32 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
         .getSearchResult()
         .getBlastMatches()
         .stream()
-        .filter(match -> elementIdToSetNames.containsKey(match.getSearchStatistics().getLibrarySequenceId()))
+        .filter(match -> elementIdToSetNames.containsKey(match.getStatistics().getReferenceId()))
         .forEach(match -> elementIdToSetNames
-            .get(match.getSearchStatistics().getLibrarySequenceId())
+            .get(match.getStatistics().getReferenceId())
             .forEach(set -> {
               final List<String> setAntimicrobials = set.getPhenotypes().stream().map(Phenotype::getProfile).flatMap(Collection::stream).collect(Collectors.toList());
 
-              if (match.getSnpResistanceElements().isEmpty() && paarElementIds.contains(match.getSearchStatistics().getLibrarySequenceId())) {
+              if (match.getResistanceVariants().isEmpty() && paarElementIds.contains(match.getStatistics().getReferenceId())) {
                 matches.add(this.buildMatchFormat(set.getName(), setAntimicrobials, match, "WGSA_PAAR"));
-              } else if (!match.getSnpResistanceElements().isEmpty()) {
+              } else if (!match.getResistanceVariants().isEmpty()) {
                 // Check if the found variants are also in the set
                 matches.add(this.buildMatchFormat(set.getName(), null, match, "WGSA_SNPAR"));
                 variants.addAll(match
-                    .getSnpResistanceElements()
+                    .getResistanceVariants()
                     .stream()
-                    .filter(variant -> set.contains(match.getSearchStatistics().getLibrarySequenceId(), variant.getResistanceMutation().getName()))
+                    .filter(variant -> set.contains(match.getStatistics().getReferenceId(), variant.getName()))
                     .flatMap(variant -> variant
                         .getLocations()
                         .stream()
                         .map(causalVariant -> new PathogenWatchFormat.VariantJson(
                             setAntimicrobials,
-                            match.getSearchStatistics().getQuerySequenceId(),
-                            match.getSearchStatistics().isReversed(),
-                            causalVariant.getQueryLocation(),
-                            causalVariant.getReferenceLocation(),
-                            variant.getResistanceMutation().getName(),
-                            match.getSearchStatistics().getLibrarySequenceStart()
+                            match.getStatistics().getQueryId(),
+                            match.getStatistics().isReversed(),
+                            causalVariant.getQueryIndex(),
+                            causalVariant.getReferenceIndex(),
+                            variant.getName(),
+                            match.getStatistics().getReferenceStart()
                         )))
                     .collect(Collectors.toList())
                 );
@@ -112,20 +112,20 @@ public class ConvertResultFormat implements Function<PaarsnpResult, PathogenWatc
     return new PathogenWatchFormat.CdsJson(
         setName,
         sourceString,
-        match.getSearchStatistics().isReversed(),
-        match.getSearchStatistics().getEvalue(),
-        Double.parseDouble(String.format("%.2f", match.getSearchStatistics().getPercentIdentity())),
+        match.getStatistics().isReversed(),
+        match.getStatistics().getEvalue(),
+        Double.parseDouble(String.format("%.2f", match.getStatistics().getPercentIdentity())),
         new PathogenWatchFormat.CdsLocation(
-            match.getSearchStatistics().getLibrarySequenceStart(),
-            match.getSearchStatistics().getLibrarySequenceStop(),
-            match.getSearchStatistics().getLibrarySequenceLength(),
-            match.getSearchStatistics().getLibrarySequenceId()
+            match.getStatistics().getReferenceStart(),
+            match.getStatistics().getReferenceStop(),
+            match.getStatistics().getReferenceLength(),
+            match.getStatistics().getReferenceId()
         ),
         new PathogenWatchFormat.CdsLocation(
-            match.getSearchStatistics().getQuerySequenceStart(),
-            match.getSearchStatistics().getQuerySequenceStop(),
+            match.getStatistics().getQueryStart(),
+            match.getStatistics().getQueryStop(),
             null,
-            match.getSearchStatistics().getQuerySequenceId()
+            match.getStatistics().getQueryId()
         ),
         agents
     );

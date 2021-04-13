@@ -46,6 +46,7 @@ public class PaarsnpRunnerIT {
     final PaarsnpRunner runner = new PaarsnpRunner(paarsnpLibrary, resourceDirectory);
     final ConvertResultFormat convertFormat = new ConvertResultFormat();
 
+    // TODO: Fix tests
 //    final PathogenWatchFormat snparResult = convertFormat.apply(runner.apply(testFasta));
 
 //    assertEquals(

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class ResistanceMutationMatch {
 
-  private final Variant resistanceMutation;
+  private final String name;
   private final Collection<Location> causalMutations;
 
   @SuppressWarnings("unused")
@@ -15,14 +15,14 @@ public class ResistanceMutationMatch {
     this(null, null);
   }
 
-  public ResistanceMutationMatch(final Variant resistanceMutation, final Collection<Location> causalMutations) {
+  public ResistanceMutationMatch(final String variantName, final Collection<Location> causalMutations) {
 
-    this.resistanceMutation = resistanceMutation;
+    this.name = variantName;
     this.causalMutations = causalMutations;
   }
 
-  public Variant getResistanceMutation() {
-    return this.resistanceMutation;
+  public String getName() {
+    return this.name;
   }
 
   public Collection<Location> getLocations() {
@@ -34,19 +34,19 @@ public class ResistanceMutationMatch {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     final ResistanceMutationMatch that = (ResistanceMutationMatch) o;
-    return Objects.equals(resistanceMutation, that.resistanceMutation) &&
+    return Objects.equals(name, that.name) &&
         Objects.equals(causalMutations, that.causalMutations);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(resistanceMutation, causalMutations);
+    return Objects.hash(name, causalMutations);
   }
 
   @Override
   public String toString() {
     return "ResistanceMutationMatch{" +
-        "resistanceMutation=" + resistanceMutation +
+        "resistanceMutation=" + name +
         ", causalMutations=" + causalMutations +
         '}';
   }
