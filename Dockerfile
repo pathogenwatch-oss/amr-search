@@ -22,7 +22,7 @@ ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
 # Download & install BLAST
 RUN mkdir /opt/blast \
-      && curl ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.30/ncbi-blast-2.2.30+-x64-linux.tar.gz \
+      && curl ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.11.0/ncbi-blast-2.11.0+-x64-linux.tar.gz \
       | tar -zxC /opt/blast --strip-components=1
 
 ENV PATH /opt/blast/bin:$PATH

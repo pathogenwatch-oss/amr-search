@@ -2,7 +2,6 @@ package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.Constants;
 import net.cgps.wgsa.paarsnp.core.lib.FilterByIndividualThresholds;
-import net.cgps.wgsa.paarsnp.core.lib.Jsonnable;
 import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.models.results.SearchResult;
@@ -51,11 +50,11 @@ public class PaarsnpRunner implements Function<Path, ResultJson> {
       searchResult = SearchResult.buildEmpty();
     }
 
-    final BuildPaarsnpResult.PaarsnpResultData paarsnpResultData = new BuildPaarsnpResult.PaarsnpResultData(this.paarsnpLibrary.getVersion(), assemblyId, searchResult, this.paarsnpLibrary.getAntimicrobials().stream().map(AntimicrobialAgent::getKey).collect(Collectors.toList()));
+    final PaarsnpResultData paarsnpResultData = new PaarsnpResultData(this.paarsnpLibrary.getVersion(), assemblyId, searchResult, this.paarsnpLibrary.getAntimicrobials().stream().map(AntimicrobialAgent::getKey).collect(Collectors.toList()));
 
     final Map<String, AntimicrobialAgent> agentMap = this.paarsnpLibrary.getAntimicrobials().stream().collect(Collectors.toMap(AntimicrobialAgent::getKey, Function.identity()));
 
-    return new BuildNewPaarsnpResult(agentMap).apply(paarsnpResultData);
+    return new BuildPaarsnpResult(agentMap).apply(paarsnpResultData);
   }
 
   private List<String> buildBlastOptions(final double minimumPid) {

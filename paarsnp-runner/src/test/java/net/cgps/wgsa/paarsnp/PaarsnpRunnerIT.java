@@ -44,7 +44,6 @@ public class PaarsnpRunnerIT {
     final PaarsnpLibrary paarsnpLibrary = AbstractJsonnable.fromJsonFile(Paths.get(resourceDirectory, speciesId + Constants.JSON_APPEND).toFile(), PaarsnpLibrary.class);
 
     final PaarsnpRunner runner = new PaarsnpRunner(paarsnpLibrary, resourceDirectory);
-    final ConvertResultFormat convertFormat = new ConvertResultFormat();
 
     // TODO: Fix tests
 //    final PathogenWatchFormat snparResult = convertFormat.apply(runner.apply(testFasta));

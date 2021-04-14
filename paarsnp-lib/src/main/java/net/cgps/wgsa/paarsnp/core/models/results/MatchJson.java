@@ -20,7 +20,7 @@ public class MatchJson extends AbstractJsonnable {
     this.resistanceVariants = resistanceVariants;
   }
 
-  // Would be better unwrapped, but maintaining compatiblity with current API.
+  // Would be better unwrapped, but maintaining compatibility with current API.
 //  @JsonUnwrapped
   @SuppressWarnings("unused")
   public BlastSearchStatistics getStatistics() {

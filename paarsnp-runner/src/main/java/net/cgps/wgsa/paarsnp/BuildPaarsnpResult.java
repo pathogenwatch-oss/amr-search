@@ -1,7 +1,10 @@
 package net.cgps.wgsa.paarsnp;
 
 import net.cgps.wgsa.paarsnp.core.models.*;
-import net.cgps.wgsa.paarsnp.core.models.results.*;
+import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
+import net.cgps.wgsa.paarsnp.core.models.results.Modifier;
+import net.cgps.wgsa.paarsnp.core.models.results.ResistanceState;
+import net.cgps.wgsa.paarsnp.output.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,76 +13,92 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpResultData, PaarsnpResult> {
+public class BuildPaarsnpResult implements Function<PaarsnpResultData, ResultJson> {
 
   private final Logger logger = LoggerFactory.getLogger(BuildPaarsnpResult.class);
 
   private final Map<String, AntimicrobialAgent> agents;
-  private final Map<String, ResistanceSet> resistanceSetMap;
 
-  public BuildPaarsnpResult(final Map<String, AntimicrobialAgent> agents, final Map<String, ResistanceSet> resistanceSetMap) {
+  public BuildPaarsnpResult(final Map<String, AntimicrobialAgent> agents) {
     this.agents = agents;
-    this.resistanceSetMap = resistanceSetMap;
   }
 
   @Override
-  public PaarsnpResult apply(final PaarsnpResultData paarsnpResultData) {
-
+  public ResultJson apply(final PaarsnpResultData paarsnpResultData) {
     this.logger.debug("Building paarsnp result from match data for assemblyId={}", paarsnpResultData.assemblyId);
 
-    // Now build the profiles.
-    final ProfileAggregator profileAggregator = ProfileAggregator.initialise(this.agents);
+    final var profileAggregator = ProfileAggregator.initialise(this.agents);
 
-    final Map<String, Collection<String>> resistanceSets = this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> new ArrayList<>()));
+    // Agent key -> set name -> set
+//    final var resistanceSets = this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> new HashMap<String, SetResult>()));
+    // Agent key -> set name -> determinants
+    final var acquiredDeterminants = this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> new HashMap<String, Collection<Determinant>>()));
+    final var variantDeterminants = this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> new HashMap<String, Collection<Determinant>>()));
+    final var determinantRules = this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> new HashMap<String, ResistanceState>()));
 
     paarsnpResultData.searchResult.getSetResults()
         .stream()
         .filter(setResult -> !setResult.getFoundMembers().isEmpty())
         .forEach(setResult -> {
-
-          final boolean complete = new HashSet<>(setResult.getFoundMembers()).equals(new HashSet<>(setResult.getSet().getMembers()));
+          final var determinantClass = setResult.getSet().getMembers().size() == 1 && (setResult.getSet().getMembers().get(0).getVariants().isEmpty() || setResult.getSet().getMembers().get(0).getVariants().size() == 1) ? DeterminantClass.RESISTANCE : DeterminantClass.CONTRIBUTES;
+          final var convertedAcquired = setResult.getFoundMembers().stream().filter(setMember -> setMember.getVariants().isEmpty()).map(member -> new Determinant(member.getGene(), determinantClass)).collect(Collectors.toSet());
+          final var convertedVariants = setResult.getFoundMembers().stream().filter(setMember -> !setMember.getVariants().isEmpty()).flatMap(SetMember::toVariantNames).map(name -> new Determinant(name, determinantClass)).collect(Collectors.toSet());
 
           setResult
               .getSet()
               .getPhenotypes()
-              .forEach(phenotype -> this.determineResistanceState(
-                  phenotype,
-                  phenotype.getModifiers().stream().filter(setResult::containsModifier).collect(Collectors.toList()),
-                  complete)
-                  .filter(state -> state.getValue() != ResistanceState.NOT_FOUND)
-                  .forEach(agentState -> {
-                    this.logger.debug("{} {}", agentState.getKey(), agentState.getValue().name());
-                    resistanceSets.get(agentState.getKey()).add(setResult.getSet().getName());
-                    profileAggregator.addPhenotype(agentState.getKey(), agentState.getValue());
-                  }));
+              .forEach(phenotype -> {
+                    final var modifiers = phenotype.getModifiers().stream().filter(setResult::containsModifier).collect(Collectors.toList());
+                    final var convertedAcquiredModifiers = modifiers.stream().filter(modifier -> modifier.getVariants().isEmpty()).map(modifier -> new Determinant(modifier.toName(), DeterminantClass.fromModifierEffect(modifier.getEffect()))).collect(Collectors.toSet());
+                    final var convertedVariantModifiers = modifiers.stream().filter(modifier -> !modifier.getVariants().isEmpty()).map(modifier -> new Determinant(modifier.toName(), DeterminantClass.fromModifierEffect(modifier.getEffect()))).collect(Collectors.toSet());
+
+                    phenotype.getProfile().forEach(amKey -> {
+                      final var foundAcquired = new HashSet<Determinant>(convertedAcquired.size() + convertedAcquiredModifiers.size());
+                      foundAcquired.addAll(convertedAcquired);
+                      foundAcquired.addAll(convertedAcquiredModifiers);
+                      acquiredDeterminants.get(amKey).put(setResult.getSet().getName(), foundAcquired);
+                      final var foundVariants = new HashSet<Determinant>(convertedAcquired.size() + convertedAcquiredModifiers.size());
+                      foundVariants.addAll(convertedVariants);
+                      foundVariants.addAll(convertedVariantModifiers);
+                      variantDeterminants.get(amKey).put(setResult.getSet().getName(), foundVariants);
+                    });
+
+                    this.determineResistanceState(
+                        phenotype,
+                        modifiers,
+                        setResult.containsAll())
+                        .filter(state -> state.getValue() != ResistanceState.NOT_FOUND)
+                        .forEach(agentState -> {
+                          this.logger.debug("{} {}", agentState.getKey(), agentState.getValue().name());
+                          determinantRules.get(agentState.getKey()).put(setResult.getSet().getName(), agentState.getValue());
+                          profileAggregator.addPhenotype(agentState.getKey(), agentState.getValue());
+                        });
+                  }
+              );
         });
 
-    // Mangle the result into seperate PAAR & SNPAR results.
-    // Check each member of each set. If PAAR
-    // Add BLAST result to PAAR
-
-    // Work out the profile in the specified order
-    final Collection<AntibioticProfile> antibioticProfiles = paarsnpResultData
-        .referenceProfile
+    final var resistanceProfile = paarsnpResultData.referenceProfile
         .stream()
-        .map(agent -> new AntibioticProfile(
+        .map(agent -> new ResistanceProfile(
             this.agents.get(agent),
             profileAggregator.getProfileMap().get(agent),
-            resistanceSets.get(agent)
-                .stream()
-                .map(this.resistanceSetMap::get)
-                .map(set -> new ResistanceSet(set.getName(), set.getPhenotypes().stream().filter(phenotype -> phenotype.getProfile().contains(agent)).collect(Collectors.toList()), set.getMembers()))
-                .collect(Collectors.toList())))
+            new DeterminantsProfile(
+                acquiredDeterminants.get(agent).values().stream().flatMap(Collection::stream).collect(Collectors.toSet()),
+                variantDeterminants.get(agent).values().stream().flatMap(Collection::stream).collect(Collectors.toSet())
+            ),
+            determinantRules.get(agent)
+        ))
         .collect(Collectors.toList());
 
-    // Sorts the profile and adds the antibiotics with no matches.
-    return new PaarsnpResult(paarsnpResultData.assemblyId, paarsnpResultData.searchResult, antibioticProfiles, paarsnpResultData.version);
+    final var matches = paarsnpResultData.searchResult.getBlastMatches();
+
+    return new NewOutput(paarsnpResultData.assemblyId, resistanceProfile, matches, paarsnpResultData.version);
   }
 
   private Stream<Map.Entry<String, ResistanceState>> determineResistanceState(final Phenotype phenotype, final List<Modifier> phenotypeModifiers, final boolean isComplete) {
 
     // NB At the moment only the first modifier is dealt with (assumes only one allowed modifier at a time)
-    final ElementEffect modifierEffect = phenotypeModifiers.stream().map(Modifier::getEffect).distinct().sorted().findFirst().orElse(ElementEffect.NONE);
+    final var modifierEffect = phenotypeModifiers.stream().map(Modifier::getEffect).distinct().sorted().findFirst().orElse(ElementEffect.NONE);
 
     return phenotype.getProfile()
         .stream()
@@ -118,18 +137,4 @@ public class BuildPaarsnpResult implements Function<BuildPaarsnpResult.PaarsnpRe
         });
   }
 
-  public static class PaarsnpResultData {
-
-    public final LibraryMetadata version;
-    public final String assemblyId;
-    public final SearchResult searchResult;
-    public final Collection<String> referenceProfile;
-
-    public PaarsnpResultData(final LibraryMetadata version, final String assemblyId, final SearchResult searchResult, final Collection<String> referenceProfile) {
-      this.version = version;
-      this.assemblyId = assemblyId;
-      this.searchResult = searchResult;
-      this.referenceProfile = referenceProfile;
-    }
-  }
 }
