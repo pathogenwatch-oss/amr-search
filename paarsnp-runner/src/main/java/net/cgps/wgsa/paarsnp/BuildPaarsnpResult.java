@@ -1,6 +1,8 @@
 package net.cgps.wgsa.paarsnp;
 
-import net.cgps.wgsa.paarsnp.core.models.*;
+import net.cgps.wgsa.paarsnp.core.models.ElementEffect;
+import net.cgps.wgsa.paarsnp.core.models.Phenotype;
+import net.cgps.wgsa.paarsnp.core.models.PhenotypeEffect;
 import net.cgps.wgsa.paarsnp.core.models.results.AntimicrobialAgent;
 import net.cgps.wgsa.paarsnp.core.models.results.Modifier;
 import net.cgps.wgsa.paarsnp.core.models.results.ResistanceState;
@@ -36,21 +38,22 @@ public class BuildPaarsnpResult implements Function<PaarsnpResultData, ResultJso
     final var variantDeterminants = this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> new HashMap<String, Collection<Determinant>>()));
     final var determinantRules = this.agents.keySet().stream().collect(Collectors.toMap(Function.identity(), (agent) -> new HashMap<String, ResistanceState>()));
 
+
     paarsnpResultData.searchResult.getSetResults()
         .stream()
         .filter(setResult -> !setResult.getFoundMembers().isEmpty())
         .forEach(setResult -> {
           final var determinantClass = setResult.getSet().getMembers().size() == 1 && (setResult.getSet().getMembers().get(0).getVariants().isEmpty() || setResult.getSet().getMembers().get(0).getVariants().size() == 1) ? DeterminantClass.RESISTANCE : DeterminantClass.CONTRIBUTES;
-          final var convertedAcquired = setResult.getFoundMembers().stream().filter(setMember -> setMember.getVariants().isEmpty()).map(member -> new Determinant(member.getGene(), determinantClass)).collect(Collectors.toSet());
-          final var convertedVariants = setResult.getFoundMembers().stream().filter(setMember -> !setMember.getVariants().isEmpty()).flatMap(SetMember::toVariantNames).map(name -> new Determinant(name, determinantClass)).collect(Collectors.toSet());
+          final var convertedAcquired = setResult.getFoundMembers().stream().filter(setMember -> setMember.getVariants().isEmpty()).map(member -> new Determinant(member.getGene(), null, determinantClass)).collect(Collectors.toSet());
+          final var convertedVariants = setResult.getFoundMembers().stream().filter(setMember -> !setMember.getVariants().isEmpty()).flatMap(member -> member.getVariants().stream().map(variant -> new Determinant(member.getGene(), variant, determinantClass))).collect(Collectors.toSet());
 
           setResult
               .getSet()
               .getPhenotypes()
               .forEach(phenotype -> {
                     final var modifiers = phenotype.getModifiers().stream().filter(setResult::containsModifier).collect(Collectors.toList());
-                    final var convertedAcquiredModifiers = modifiers.stream().filter(modifier -> modifier.getVariants().isEmpty()).map(modifier -> new Determinant(modifier.toName(), DeterminantClass.fromModifierEffect(modifier.getEffect()))).collect(Collectors.toSet());
-                    final var convertedVariantModifiers = modifiers.stream().filter(modifier -> !modifier.getVariants().isEmpty()).map(modifier -> new Determinant(modifier.toName(), DeterminantClass.fromModifierEffect(modifier.getEffect()))).collect(Collectors.toSet());
+                    final var convertedAcquiredModifiers = modifiers.stream().filter(modifier -> !modifier.getVariants().isEmpty()).map(modifier -> new Determinant(modifier.getGene(), null, DeterminantClass.fromModifierEffect(modifier.getEffect()))).collect(Collectors.toSet());
+                    final var convertedVariantModifiers = modifiers.stream().filter(modifier -> !modifier.getVariants().isEmpty()).flatMap(modifier -> modifier.getVariants().stream().map(variant -> new Determinant(modifier.getGene(), variant, DeterminantClass.fromModifierEffect(modifier.getEffect())))).collect(Collectors.toSet());
 
                     phenotype.getProfile().forEach(amKey -> {
                       final var foundAcquired = new HashSet<Determinant>(convertedAcquired.size() + convertedAcquiredModifiers.size());
@@ -92,7 +95,10 @@ public class BuildPaarsnpResult implements Function<PaarsnpResultData, ResultJso
 
     final var matches = paarsnpResultData.searchResult.getBlastMatches();
 
-    return new NewOutput(paarsnpResultData.assemblyId, resistanceProfile, matches, paarsnpResultData.version);
+    final var aggregatedAcquired = acquiredDeterminants.values().stream().map(Map::values).flatMap(Collection::stream).flatMap(Collection::stream).map(Determinant::getGene).collect(Collectors.toSet());
+    final var aggregatedVariants = variantDeterminants.values().stream().map(Map::values).flatMap(Collection::stream).flatMap(Collection::stream).map(determinant -> determinant.getGene() + "_" + determinant.getVariant()).collect(Collectors.toSet());
+
+    return new NewOutput(paarsnpResultData.assemblyId, resistanceProfile, aggregatedAcquired, aggregatedVariants, matches, paarsnpResultData.version);
   }
 
   private Stream<Map.Entry<String, ResistanceState>> determineResistanceState(final Phenotype phenotype, final List<Modifier> phenotypeModifiers, final boolean isComplete) {

@@ -2,9 +2,8 @@ package net.cgps.wgsa.paarsnp;
 
 import ch.qos.logback.classic.Level;
 import net.cgps.wgsa.paarsnp.core.Constants;
-import net.cgps.wgsa.paarsnp.core.lib.Jsonnable;
-import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.output.ResultJson;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
@@ -136,22 +135,11 @@ public class PaarsnpMain {
     return Optional.empty();
   }
 
-  private Map<String, String> readTaxonIdMap(final String resourceDirectory) {
-
-    try {
-      return Files.readAllLines(Paths.get(resourceDirectory, "taxid.map"))
-          .stream()
-          .map(line -> line.split("\\s+"))
-          .collect(Collectors.toMap(a -> a[0], b -> b[1]));
-    } catch (final IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
   private Consumer<ResultJson> getWriter(final boolean isToStdout, final Path workingDirectory) {
 
     if (isToStdout) {
       return paarsnpResult -> {
+        paarsnpResult.unsetAssemblyId();
         try (final BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out))) {
           bufferedWriter.append(paarsnpResult.toJson());
           bufferedWriter.newLine();
@@ -172,6 +160,18 @@ public class PaarsnpMain {
           throw new RuntimeException(e);
         }
       };
+    }
+  }
+
+  private Map<String, String> readTaxonIdMap(final String resourceDirectory) {
+
+    try {
+      return Files.readAllLines(Paths.get(resourceDirectory, "taxid.map"))
+          .stream()
+          .map(line -> line.split("\\s+"))
+          .collect(Collectors.toMap(a -> a[0], b -> b[1]));
+    } catch (final IOException e) {
+      throw new RuntimeException(e);
     }
   }
 }

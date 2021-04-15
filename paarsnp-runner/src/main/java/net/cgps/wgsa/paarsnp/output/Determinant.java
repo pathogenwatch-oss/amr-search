@@ -1,25 +1,33 @@
 package net.cgps.wgsa.paarsnp.output;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 
 import java.util.Objects;
 
 public class Determinant extends AbstractJsonnable {
 
-  private final String name;
+  private final String gene;
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private final String variant;
   private final DeterminantClass resistanceEffect;
 
   private Determinant() {
-    this("", DeterminantClass.RESISTANCE);
+    this("", null, DeterminantClass.RESISTANCE);
   }
 
-  public Determinant(final String name, final DeterminantClass resistanceEffect) {
-    this.name = name;
+  public Determinant(final String gene, final String variant, final DeterminantClass resistanceEffect) {
+    this.gene = gene;
+    this.variant = variant;
     this.resistanceEffect = resistanceEffect;
   }
 
-  public String getName() {
-    return name;
+  public String getGene() {
+    return gene;
+  }
+
+  public String getVariant() {
+    return variant;
   }
 
   public DeterminantClass getResistanceEffect() {
@@ -31,11 +39,11 @@ public class Determinant extends AbstractJsonnable {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     final Determinant that = (Determinant) o;
-    return Objects.equals(name, that.name) && resistanceEffect == that.resistanceEffect;
+    return Objects.equals(gene, that.gene) && Objects.equals(variant, that.variant) && resistanceEffect == that.resistanceEffect;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, resistanceEffect);
+    return Objects.hash(gene, variant, resistanceEffect);
   }
 }
