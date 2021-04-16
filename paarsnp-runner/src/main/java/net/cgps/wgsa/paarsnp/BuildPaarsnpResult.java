@@ -42,43 +42,40 @@ public class BuildPaarsnpResult implements Function<PaarsnpResultData, ResultJso
     paarsnpResultData.searchResult.getSetResults()
         .stream()
         .filter(setResult -> !setResult.getFoundMembers().isEmpty())
-        .forEach(setResult -> {
+        .forEach(setResult -> setResult
+            .getSet()
+            .getPhenotypes()
+            .forEach(phenotype -> {
+              final var determinantClass = setResult.getSet().getMembers().size() == 1 && phenotype.getEffect() == PhenotypeEffect.RESISTANT && (setResult.getSet().getMembers().get(0).getVariants().isEmpty() || setResult.getSet().getMembers().get(0).getVariants().size() == 1) ? DeterminantClass.RESISTANCE : DeterminantClass.CONTRIBUTES;
+              final var convertedAcquired = setResult.getFoundMembers().stream().filter(setMember -> setMember.getVariants().isEmpty()).map(member -> new Determinant(member.getGene(), null, determinantClass)).collect(Collectors.toSet());
+              final var convertedVariants = setResult.getFoundMembers().stream().filter(setMember -> !setMember.getVariants().isEmpty()).flatMap(member -> member.getVariants().stream().map(variant -> new Determinant(member.getGene(), variant, determinantClass))).collect(Collectors.toSet());
+                  final var modifiers = phenotype.getModifiers().stream().filter(setResult::containsModifier).collect(Collectors.toList());
+                  final var convertedAcquiredModifiers = modifiers.stream().filter(modifier -> modifier.getVariants().isEmpty()).map(modifier -> new Determinant(modifier.getGene(), null, DeterminantClass.fromModifierEffect(modifier.getEffect()))).collect(Collectors.toSet());
+                  final var convertedVariantModifiers = modifiers.stream().filter(modifier -> !modifier.getVariants().isEmpty()).flatMap(modifier -> modifier.getVariants().stream().map(variant -> new Determinant(modifier.getGene(), variant, DeterminantClass.fromModifierEffect(modifier.getEffect())))).collect(Collectors.toSet());
 
-          setResult
-              .getSet()
-              .getPhenotypes()
-              .forEach(phenotype -> {
-                final var determinantClass = setResult.getSet().getMembers().size() == 1 && phenotype.getEffect() == PhenotypeEffect.RESISTANT && (setResult.getSet().getMembers().get(0).getVariants().isEmpty() || setResult.getSet().getMembers().get(0).getVariants().size() == 1) ? DeterminantClass.RESISTANCE : DeterminantClass.CONTRIBUTES;
-                final var convertedAcquired = setResult.getFoundMembers().stream().filter(setMember -> setMember.getVariants().isEmpty()).map(member -> new Determinant(member.getGene(), null, determinantClass)).collect(Collectors.toSet());
-                final var convertedVariants = setResult.getFoundMembers().stream().filter(setMember -> !setMember.getVariants().isEmpty()).flatMap(member -> member.getVariants().stream().map(variant -> new Determinant(member.getGene(), variant, determinantClass))).collect(Collectors.toSet());
-                    final var modifiers = phenotype.getModifiers().stream().filter(setResult::containsModifier).collect(Collectors.toList());
-                    final var convertedAcquiredModifiers = modifiers.stream().filter(modifier -> modifier.getVariants().isEmpty()).map(modifier -> new Determinant(modifier.getGene(), null, DeterminantClass.fromModifierEffect(modifier.getEffect()))).collect(Collectors.toSet());
-                    final var convertedVariantModifiers = modifiers.stream().filter(modifier -> !modifier.getVariants().isEmpty()).flatMap(modifier -> modifier.getVariants().stream().map(variant -> new Determinant(modifier.getGene(), variant, DeterminantClass.fromModifierEffect(modifier.getEffect())))).collect(Collectors.toSet());
+                  phenotype.getProfile().forEach(amKey -> {
+                    final var foundAcquired = new HashSet<Determinant>(convertedAcquired.size() + convertedAcquiredModifiers.size());
+                    foundAcquired.addAll(convertedAcquired);
+                    foundAcquired.addAll(convertedAcquiredModifiers);
+                    acquiredDeterminants.get(amKey).put(setResult.getSet().getName(), foundAcquired);
+                    final var foundVariants = new HashSet<Determinant>(convertedAcquired.size() + convertedAcquiredModifiers.size());
+                    foundVariants.addAll(convertedVariants);
+                    foundVariants.addAll(convertedVariantModifiers);
+                    variantDeterminants.get(amKey).put(setResult.getSet().getName(), foundVariants);
+                  });
 
-                    phenotype.getProfile().forEach(amKey -> {
-                      final var foundAcquired = new HashSet<Determinant>(convertedAcquired.size() + convertedAcquiredModifiers.size());
-                      foundAcquired.addAll(convertedAcquired);
-                      foundAcquired.addAll(convertedAcquiredModifiers);
-                      acquiredDeterminants.get(amKey).put(setResult.getSet().getName(), foundAcquired);
-                      final var foundVariants = new HashSet<Determinant>(convertedAcquired.size() + convertedAcquiredModifiers.size());
-                      foundVariants.addAll(convertedVariants);
-                      foundVariants.addAll(convertedVariantModifiers);
-                      variantDeterminants.get(amKey).put(setResult.getSet().getName(), foundVariants);
-                    });
-
-                    this.determineResistanceState(
-                        phenotype,
-                        modifiers,
-                        setResult.containsAll())
-                        .filter(state -> state.getValue() != ResistanceState.NOT_FOUND)
-                        .forEach(agentState -> {
-                          this.logger.debug("{} {}", agentState.getKey(), agentState.getValue().name());
-                          determinantRules.get(agentState.getKey()).put(setResult.getSet().getName(), agentState.getValue());
-                          profileAggregator.addPhenotype(agentState.getKey(), agentState.getValue());
-                        });
-                  }
-              );
-        });
+                  this.determineResistanceState(
+                      phenotype,
+                      modifiers,
+                      setResult.containsAll())
+                      .filter(state -> state.getValue() != ResistanceState.NOT_FOUND)
+                      .forEach(agentState -> {
+                        this.logger.debug("{} {}", agentState.getKey(), agentState.getValue().name());
+                        determinantRules.get(agentState.getKey()).put(setResult.getSet().getName(), agentState.getValue());
+                        profileAggregator.addPhenotype(agentState.getKey(), agentState.getValue());
+                      });
+                }
+            ));
 
     final var resistanceProfile = paarsnpResultData.referenceProfile
         .stream()
