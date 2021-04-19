@@ -45,8 +45,7 @@ public class CodonMapperTest {
             21, 24, "queryId",
             1,
             24, 0.0001, 99.0,
-            DnaSequence.Strand.FORWARD
-        ), "ATGATAGCGTATATATATAGATAG", "ATGATA---TATATATATATATAG")));
+            DnaSequence.Strand.FORWARD), "ATGATAGCGTATATATATAGATAG", "ATGATA---TATATATATATATAG")));
   }
 
   private FrameshiftFilter emptyFrameshift() {
@@ -83,8 +82,7 @@ public class CodonMapperTest {
             21, 21, "queryId",
             1,
             25, 0.0001, 99.0,
-            DnaSequence.Strand.FORWARD
-        ),
+            DnaSequence.Strand.FORWARD),
             "ATGATATGCGCATATATATACATAG",
             "ATGATAT----ATATATATATATAG")));
   }
@@ -119,8 +117,7 @@ public class CodonMapperTest {
             21, 21, "queryId",
             1,
             22, 0.0001, 99.0,
-            DnaSequence.Strand.FORWARD
-        ),
+            DnaSequence.Strand.FORWARD),
             "ATGATAGTATATATATAGATAG",
             "ATGATA-TATATATATATATAG"))
     );
@@ -160,8 +157,7 @@ public class CodonMapperTest {
             24, 21, "queryId",
             1,
             27, 0.0001, 99.0,
-            DnaSequence.Strand.FORWARD
-        ), "ATGGATCATGATGATGATGCCATGGAT", "ATGGAT-ATGATGATGATG--ATGGAT")));
+            DnaSequence.Strand.FORWARD), "ATGGATCATGATGATGATGCCATGGAT", "ATGGAT-ATGATGATGATG--ATGGAT")));
   }
 
   @Test
@@ -196,8 +192,7 @@ public class CodonMapperTest {
             21, 21, "queryId",
             4,
             24, 0.0001, 99.0,
-            DnaSequence.Strand.FORWARD
-        ),
+            DnaSequence.Strand.FORWARD),
             "ATGATGCATGATGATGAT-ATG",
             "ATGATG-ATGATGATGATGATG")));
   }
@@ -229,8 +224,7 @@ public class CodonMapperTest {
         21, 21, "queryId",
         1,
         21, 0.0001, 99.0,
-        DnaSequence.Strand.FORWARD
-    ),
+        DnaSequence.Strand.FORWARD),
         "ATGATGATGATGTAGTATTAG",
         "ATGATGATGATGTATTATTAG")));
   }

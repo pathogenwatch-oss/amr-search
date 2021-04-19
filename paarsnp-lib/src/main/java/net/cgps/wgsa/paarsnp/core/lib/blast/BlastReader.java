@@ -27,11 +27,6 @@ public class BlastReader implements Function<BlastOutput, Stream<BlastMatch>> {
 
   private final Logger logger = LoggerFactory.getLogger(BlastReader.class);
 
-  private static double calculatePid(final BigInteger hspIdentity, final BigInteger hspAlignLen) {
-
-    return ((double) hspIdentity.intValue() / (double) hspAlignLen.intValue()) * 100;
-  }
-
   /**
    * Returns a list of {@link BlastMatch} objects, keyed by query sequence ID.
    */
@@ -63,14 +58,18 @@ public class BlastReader implements Function<BlastOutput, Stream<BlastMatch>> {
                       hsp.getHspHitTo().intValue(), hit.getHitLen().intValue(), iteration.getIterationQueryDef(),
                       hsp.getHspQueryFrom().intValue(),
                       hsp.getHspQueryTo().intValue(), hsp.getHspEvalue(), calculatePid(hsp.getHspIdentity(), hsp.getHspAlignLen()),
-                      strand
-                  );
+                      strand);
                   // Add the match w/ mutations to the collection.
                   return new BlastMatch(stats, hsp.getHspQseq(), hsp.getHspHseq()
                   );
                 })
             )
         );
+  }
+
+  private static double calculatePid(final BigInteger hspIdentity, final BigInteger hspAlignLen) {
+
+    return ((double) hspIdentity.intValue() / (double) hspAlignLen.intValue()) * 100;
   }
 
   public static class BlastXmlReader implements Function<BufferedReader, BlastOutput> {

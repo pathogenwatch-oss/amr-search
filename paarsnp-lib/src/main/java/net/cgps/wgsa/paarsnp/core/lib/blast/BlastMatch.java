@@ -15,13 +15,13 @@ public class BlastMatch {
   }
 
   public float calculateCoverage() {
-    return (((float) this.blastSearchStatistics.getReferenceStop() - this.blastSearchStatistics.getReferenceStart() + 1.0f)
-        / (float) this.blastSearchStatistics.getReferenceLength())
+    return (((float) this.blastSearchStatistics.getRefStop() - this.blastSearchStatistics.getRefStart() + 1.0f)
+        / (float) this.blastSearchStatistics.getRefLength())
         * 100.0f;
   }
 
   public boolean containsPosition(final int position) {
-    return this.getBlastSearchStatistics().getReferenceStart() <= position && position <= this.getBlastSearchStatistics().getReferenceStop();
+    return this.getBlastSearchStatistics().getRefStart() <= position && position <= this.getBlastSearchStatistics().getRefStop();
   }
 
   public final BlastSearchStatistics getBlastSearchStatistics() {

@@ -3,19 +3,24 @@ package net.cgps.wgsa.paarsnp.core.lib.blast;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
 import net.cgps.wgsa.paarsnp.core.lib.utils.DnaSequence;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+
 public class BlastSearchStatistics extends AbstractJsonnable {
 
-  private final String referenceId;
-  private final int referenceStart;
+  private final String refId;
+  private final int refStart;
   private final String queryId;
   private final int queryStart;
-  private final double percentIdentity;
+  private final double pid;
   private final double evalue;
   private final DnaSequence.Strand strand;
   private final boolean reversed;
-  private final int referenceStop;
+  private final int refStop;
   private final int queryStop;
-  private final int referenceLength;
+  private final int refLength;
+  private final Collection<String> resistanceVariants;
 
   @SuppressWarnings("unused")
   private BlastSearchStatistics() {
@@ -23,46 +28,47 @@ public class BlastSearchStatistics extends AbstractJsonnable {
     this("", 0, 0, 0, "", 0, 0, 0.0, 0.0, DnaSequence.Strand.FORWARD);
   }
 
-  public BlastSearchStatistics(final String referenceId, final int referenceStart, final int referenceStop, final int referenceLength, final String querySequenceId, final int querySequenceStart, final int querySequenceStop, final double evalue, final double percentIdentity, final DnaSequence.Strand strand) {
+  public BlastSearchStatistics(final String referenceId, final int refStart, final int refStop, final int refLength, final String querySequenceId, final int querySequenceStart, final int querySequenceStop, final double evalue, final double pid, final DnaSequence.Strand strand) {
 
-    this.referenceId = referenceId;
+    this.refId = referenceId;
     this.queryId = querySequenceId;
     this.queryStart = querySequenceStart;
-    this.percentIdentity = (double) Math.round(percentIdentity * 100) / 100;
+    this.pid = (double) Math.round(pid * 100) / 100;
     this.evalue = evalue;
     this.strand = strand;
     this.queryStop = querySequenceStop;
-    this.referenceLength = referenceLength;
+    this.refLength = refLength;
+    this.resistanceVariants = new HashSet<>(20);
 
     if (DnaSequence.Strand.FORWARD == strand) {
-      this.referenceStart = referenceStart;
-      this.referenceStop = referenceStop;
+      this.refStart = refStart;
+      this.refStop = refStop;
       this.reversed = false;
     } else {
-      this.referenceStart = referenceStop;
-      this.referenceStop = referenceStart;
+      this.refStart = refStop;
+      this.refStop = refStart;
       this.reversed = true;
     }
   }
 
-  public String getReferenceId() {
+  public String getRefId() {
 
-    return this.referenceId;
+    return this.refId;
   }
 
-  public int getReferenceStart() {
+  public int getRefStart() {
 
-    return this.referenceStart;
+    return this.refStart;
   }
 
-  public int getReferenceStop() {
+  public int getRefStop() {
 
-    return this.referenceStop;
+    return this.refStop;
   }
 
-  public int getReferenceLength() {
+  public int getRefLength() {
 
-    return this.referenceLength;
+    return this.refLength;
   }
 
   public String getQueryId() {
@@ -80,9 +86,9 @@ public class BlastSearchStatistics extends AbstractJsonnable {
     return this.queryStop;
   }
 
-  public double getPercentIdentity() {
+  public double getPid() {
 
-    return this.percentIdentity;
+    return this.pid;
   }
 
   @SuppressWarnings("unused")
@@ -96,26 +102,32 @@ public class BlastSearchStatistics extends AbstractJsonnable {
     return this.strand;
   }
 
+  public Collection<String> getResistanceVariants() {
+    return this.resistanceVariants;
+  }
+
+  public void addVariants(final Collection<String> variants) {
+    this.resistanceVariants.addAll(variants);
+  }
+
   @Override
   public String toString() {
 
     return "BlastSearchStatistics{" +
-        "librarySequenceId='" + this.referenceId + '\'' +
-        ", librarySequenceStart=" + this.referenceStart +
+        "librarySequenceId='" + this.refId + '\'' +
+        ", librarySequenceStart=" + this.refStart +
         ", querySequenceId='" + this.queryId + '\'' +
         ", querySequenceStart=" + this.queryStart +
-        ", percentIdentity=" + this.percentIdentity +
+        ", percentIdentity=" + this.pid +
         ", evalue=" + this.evalue +
         ", strand=" + this.strand +
-        ", librarySequenceStop=" + this.referenceStop +
+        ", librarySequenceStop=" + this.refStop +
         ", querySequenceStop=" + this.queryStop +
-        ", librarySequenceLength=" + this.referenceLength +
+        ", librarySequenceLength=" + this.refLength +
         '}';
   }
 
   @SuppressWarnings("unused")
-  @Deprecated
-  // This method is preserved so that the output JSON still works with the current pathogenwatch wrapper.
   public boolean isReversed() {
     return this.reversed;
   }

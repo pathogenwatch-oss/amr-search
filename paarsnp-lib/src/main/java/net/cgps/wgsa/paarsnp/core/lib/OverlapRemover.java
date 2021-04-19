@@ -11,9 +11,9 @@ public class OverlapRemover<T extends BlastMatch> implements Collector<T, List<T
 
   private final Comparator<BlastSearchStatistics> statComparer = Comparator
       // Highest PID first
-      .comparingDouble(BlastSearchStatistics::getPercentIdentity)
+      .comparingDouble(BlastSearchStatistics::getPid)
       .reversed()
-      .thenComparing(BlastSearchStatistics::getReferenceId)
+      .thenComparing(BlastSearchStatistics::getRefId)
       .thenComparing(BlastSearchStatistics::getQueryId)
       .thenComparingDouble(BlastSearchStatistics::getQueryStart);
 

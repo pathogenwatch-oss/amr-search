@@ -2,6 +2,7 @@ package net.cgps.wgsa.paarsnp.output;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import net.cgps.wgsa.paarsnp.core.lib.AbstractJsonnable;
+import net.cgps.wgsa.paarsnp.core.lib.blast.BlastSearchStatistics;
 import net.cgps.wgsa.paarsnp.core.models.LibraryMetadata;
 import net.cgps.wgsa.paarsnp.core.models.results.MatchJson;
 
@@ -9,21 +10,21 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
-public class NewOutput extends AbstractJsonnable implements ResultJson  {
+public class Output extends AbstractJsonnable implements ResultJson  {
 
   @JsonInclude(JsonInclude.Include.NON_NULL)
   private String assemblyId;
   private final LibraryMetadata library;
   private final Set<String> acquired;
   private final Set<String> variants;
-  private final Collection<MatchJson> matches;
+  private final Collection<BlastSearchStatistics> matches;
   private final Collection<ResistanceProfile> resistanceProfile;
 
-  private NewOutput() {
+  private Output() {
     this("", null, null, null, Collections.emptyList(), null);
   }
 
-  public NewOutput(final String assemblyId, final Collection<ResistanceProfile> resistanceProfile, final Set<String> acquired, final Set<String> variants, final Collection<MatchJson> matches, final LibraryMetadata library) {
+  public Output(final String assemblyId, final Collection<ResistanceProfile> resistanceProfile, final Set<String> acquired, final Set<String> variants, final Collection<BlastSearchStatistics> matches, final LibraryMetadata library) {
     this.assemblyId = assemblyId;
     this.resistanceProfile = resistanceProfile;
     this.acquired = acquired;
@@ -40,7 +41,7 @@ public class NewOutput extends AbstractJsonnable implements ResultJson  {
     return library;
   }
 
-  public Collection<MatchJson> getMatches() {
+  public Collection<BlastSearchStatistics> getMatches() {
     return matches;
   }
 

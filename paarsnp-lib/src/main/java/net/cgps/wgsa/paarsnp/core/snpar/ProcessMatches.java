@@ -1,9 +1,6 @@
 package net.cgps.wgsa.paarsnp.core.snpar;
 
-import net.cgps.wgsa.paarsnp.core.lib.blast.BlastMatch;
-import net.cgps.wgsa.paarsnp.core.lib.blast.Mutation;
-import net.cgps.wgsa.paarsnp.core.lib.blast.MutationBuilder;
-import net.cgps.wgsa.paarsnp.core.lib.blast.SequenceProcessor;
+import net.cgps.wgsa.paarsnp.core.lib.blast.*;
 import net.cgps.wgsa.paarsnp.core.models.PaarsnpLibrary;
 import net.cgps.wgsa.paarsnp.core.models.ProcessedMatch;
 import net.cgps.wgsa.paarsnp.core.models.ResistanceMutationMatch;
@@ -32,7 +29,7 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
   @Override
   public ProcessedMatch apply(final BlastMatch match) {
 
-    final var referenceSequence = this.mechanismsLibrary.getGenes().get(match.getBlastSearchStatistics().getReferenceId());
+    final var referenceSequence = this.mechanismsLibrary.getGenes().get(match.getBlastSearchStatistics().getRefId());
 
     // if the mechanisms don't use SNPs just return match data with empty variants
     if (referenceSequence.getVariants().isEmpty()) {
@@ -40,7 +37,7 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
     }
 
     // Extract mutations from sequence
-    final var mutations = new SequenceProcessor(match.getReferenceMatchSequence(), match.getBlastSearchStatistics().getReferenceStart(), match.getBlastSearchStatistics().getStrand(), match.getForwardQuerySequence(), match.getBlastSearchStatistics().getQueryStart(), new MutationBuilder()).call();
+    final var mutations = new SequenceProcessor(match.getReferenceMatchSequence(), match.getBlastSearchStatistics().getRefStart(), match.getBlastSearchStatistics().getStrand(), match.getForwardQuerySequence(), match.getBlastSearchStatistics().getQueryStart(), new MutationBuilder()).call();
 
     final var frameshiftFilter = new CreateFrameshiftFilter(referenceSequence.getLength()).apply(mutations.values().stream().flatMap(Collection::stream).filter(Mutation::isIndel).collect(Collectors.toList()));
 
@@ -51,13 +48,16 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
         .stream()
         .peek(mutation -> this.logger.trace("Testing resistance mutation {}", mutation.getName()))
         .filter(mutation -> mutation.isWithinBoundaries(
-            match.getBlastSearchStatistics().getReferenceStart(),
-            match.getBlastSearchStatistics().getReferenceStop()))
+            match.getBlastSearchStatistics().getRefStart(),
+            match.getBlastSearchStatistics().getRefStop()))
         .map(resistanceMutation -> resistanceMutation.match(mutations, aaAlignment)
             .map(locations -> new ResistanceMutationMatch(resistanceMutation.getName(), locations)))
         .filter(Optional::isPresent)
         .map(Optional::get)
         .collect(Collectors.toList());
+
+    final var mutationList = resistanceMutations.stream().map(ResistanceMutationMatch::getName).collect(Collectors.toList());
+    match.getBlastSearchStatistics().addVariants(mutationList);
 
     return new ProcessedMatch(match.getBlastSearchStatistics(), resistanceMutations);
   }

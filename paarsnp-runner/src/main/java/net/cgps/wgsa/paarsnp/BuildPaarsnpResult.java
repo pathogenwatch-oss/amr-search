@@ -95,7 +95,7 @@ public class BuildPaarsnpResult implements Function<PaarsnpResultData, ResultJso
     final var aggregatedAcquired = acquiredDeterminants.values().stream().map(Map::values).flatMap(Collection::stream).flatMap(Collection::stream).map(Determinant::getGene).collect(Collectors.toSet());
     final var aggregatedVariants = variantDeterminants.values().stream().map(Map::values).flatMap(Collection::stream).flatMap(Collection::stream).map(determinant -> determinant.getGene() + "_" + determinant.getVariant()).collect(Collectors.toSet());
 
-    return new NewOutput(paarsnpResultData.assemblyId, resistanceProfile, aggregatedAcquired, aggregatedVariants, matches, paarsnpResultData.version);
+    return new Output(paarsnpResultData.assemblyId, resistanceProfile, aggregatedAcquired, aggregatedVariants, matches, paarsnpResultData.version);
   }
 
   private Stream<Map.Entry<String, ResistanceState>> determineResistanceState(final Phenotype phenotype, final List<Modifier> phenotypeModifiers, final boolean isComplete) {

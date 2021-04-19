@@ -20,9 +20,9 @@ public class CodonMapper implements Function<BlastMatch, AaAlignment> {
   @Override
   public AaAlignment apply(final BlastMatch match) {
 
-    this.logger.debug("Creating codon map for {}", match.getBlastSearchStatistics().getReferenceId());
-    final var firstCodonIndex = (int) Math.ceil((double) match.getBlastSearchStatistics().getReferenceStart() / 3.0);
-    final var frame = FRAME.toFrame(match.getBlastSearchStatistics().getReferenceStart());
+    this.logger.debug("Creating codon map for {}", match.getBlastSearchStatistics().getRefId());
+    final var firstCodonIndex = (int) Math.ceil((double) match.getBlastSearchStatistics().getRefStart() / 3.0);
+    final var frame = FRAME.toFrame(match.getBlastSearchStatistics().getRefStart());
 
     final var referenceAlignment = getInframeSequence(frame, match.getReferenceMatchSequence());
     final var queryAlignment = getInframeSequence(frame, match.getForwardQuerySequence());
