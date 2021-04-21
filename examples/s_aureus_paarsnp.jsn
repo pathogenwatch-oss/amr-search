@@ -5,308 +5,272 @@
     "version" : "0.0.15",
     "label" : "1280"
   },
+  "acquired" : [ "aacA-aphD", "mecA", "dfrG", "ermA_SDS", "tetM", "blaZ", "ermA", "aphA-3" ],
+  "variants" : [ "grlA_S80F", "gyrA_S84L", "rpoB_H481N" ],
   "matches" : [ {
-    "statistics" : {
-      "referenceId" : "aphA-3",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.25",
-      "queryStart" : 1718,
-      "percentIdentity" : 100.0,
-      "evalue" : 0.0,
-      "strand" : "REVERSE",
-      "reversed" : true,
-      "referenceStop" : 786,
-      "queryStop" : 2503,
-      "referenceLength" : 786
-    },
+    "refId" : "aphA-3",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.25",
+    "queryStart" : 1718,
+    "pid" : 100.0,
+    "evalue" : 0.0,
+    "strand" : "REVERSE",
+    "reversed" : true,
+    "refStop" : 786,
+    "queryStop" : 2503,
+    "refLength" : 786,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "dfrG",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.4",
-      "queryStart" : 179769,
-      "percentIdentity" : 100.0,
-      "evalue" : 0.0,
-      "strand" : "FORWARD",
-      "reversed" : false,
-      "referenceStop" : 498,
-      "queryStop" : 180266,
-      "referenceLength" : 498
-    },
+    "refId" : "dfrG",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.4",
+    "queryStart" : 179769,
+    "pid" : 100.0,
+    "evalue" : 0.0,
+    "strand" : "FORWARD",
+    "reversed" : false,
+    "refStop" : 498,
+    "queryStop" : 180266,
+    "refLength" : 498,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "ermA",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.31",
-      "queryStart" : 1453,
-      "percentIdentity" : 100.0,
-      "evalue" : 0.0,
-      "strand" : "REVERSE",
-      "reversed" : true,
-      "referenceStop" : 732,
-      "queryStop" : 2184,
-      "referenceLength" : 732
-    },
+    "refId" : "ermA",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.31",
+    "queryStart" : 1453,
+    "pid" : 100.0,
+    "evalue" : 0.0,
+    "strand" : "REVERSE",
+    "reversed" : true,
+    "refStop" : 732,
+    "queryStop" : 2184,
+    "refLength" : 732,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "ileS-1",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.2",
-      "queryStart" : 126840,
-      "percentIdentity" : 100.0,
-      "evalue" : 0.0,
-      "strand" : "REVERSE",
-      "reversed" : true,
-      "referenceStop" : 2754,
-      "queryStop" : 129593,
-      "referenceLength" : 2754
-    },
+    "refId" : "ileS-1",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.2",
+    "queryStart" : 126840,
+    "pid" : 100.0,
+    "evalue" : 0.0,
+    "strand" : "REVERSE",
+    "reversed" : true,
+    "refStop" : 2754,
+    "queryStop" : 129593,
+    "refLength" : 2754,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "rplC",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.7",
-      "queryStart" : 51160,
-      "percentIdentity" : 100.0,
-      "evalue" : 0.0,
-      "strand" : "REVERSE",
-      "reversed" : true,
-      "referenceStop" : 663,
-      "queryStop" : 51822,
-      "referenceLength" : 663
-    },
+    "refId" : "rplC",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.7",
+    "queryStart" : 51160,
+    "pid" : 100.0,
+    "evalue" : 0.0,
+    "strand" : "REVERSE",
+    "reversed" : true,
+    "refStop" : 663,
+    "queryStop" : 51822,
+    "refLength" : 663,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "rplD",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.7",
-      "queryStart" : 50510,
-      "percentIdentity" : 100.0,
-      "evalue" : 0.0,
-      "strand" : "REVERSE",
-      "reversed" : true,
-      "referenceStop" : 624,
-      "queryStop" : 51133,
-      "referenceLength" : 624
-    },
+    "refId" : "rplD",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.7",
+    "queryStart" : 50510,
+    "pid" : 100.0,
+    "evalue" : 0.0,
+    "strand" : "REVERSE",
+    "reversed" : true,
+    "refStop" : 624,
+    "queryStop" : 51133,
+    "refLength" : 624,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "tetM",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.3",
-      "queryStart" : 87809,
-      "percentIdentity" : 100.0,
-      "evalue" : 0.0,
-      "strand" : "FORWARD",
-      "reversed" : false,
-      "referenceStop" : 1920,
-      "queryStop" : 89728,
-      "referenceLength" : 1920
-    },
+    "refId" : "tetM",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.3",
+    "queryStart" : 87809,
+    "pid" : 100.0,
+    "evalue" : 0.0,
+    "strand" : "FORWARD",
+    "reversed" : false,
+    "refStop" : 1920,
+    "queryStop" : 89728,
+    "refLength" : 1920,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "aacA-aphD",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.39",
-      "queryStart" : 469,
-      "percentIdentity" : 99.93,
-      "evalue" : 0.0,
-      "strand" : "FORWARD",
-      "reversed" : false,
-      "referenceStop" : 1440,
-      "queryStop" : 1908,
-      "referenceLength" : 1440
-    },
+    "refId" : "aacA-aphD",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.39",
+    "queryStart" : 469,
+    "pid" : 99.93,
+    "evalue" : 0.0,
+    "strand" : "FORWARD",
+    "reversed" : false,
+    "refStop" : 1440,
+    "queryStop" : 1908,
+    "refLength" : 1440,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "mprF",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.5",
-      "queryStart" : 175366,
-      "percentIdentity" : 99.92,
-      "evalue" : 0.0,
-      "strand" : "FORWARD",
-      "reversed" : false,
-      "referenceStop" : 2523,
-      "queryStop" : 177888,
-      "referenceLength" : 2523
-    },
+    "refId" : "mprF",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.5",
+    "queryStart" : 175366,
+    "pid" : 99.92,
+    "evalue" : 0.0,
+    "strand" : "FORWARD",
+    "reversed" : false,
+    "refStop" : 2523,
+    "queryStop" : 177888,
+    "refLength" : 2523,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "mecA",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.24",
-      "queryStart" : 13401,
-      "percentIdentity" : 99.9,
-      "evalue" : 0.0,
-      "strand" : "FORWARD",
-      "reversed" : false,
-      "referenceStop" : 2007,
-      "queryStop" : 15407,
-      "referenceLength" : 2007
-    },
+    "refId" : "mecA",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.24",
+    "queryStart" : 13401,
+    "pid" : 99.9,
+    "evalue" : 0.0,
+    "strand" : "FORWARD",
+    "reversed" : false,
+    "refStop" : 2007,
+    "queryStop" : 15407,
+    "refLength" : 2007,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "fusA",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.15",
-      "queryStart" : 16774,
-      "percentIdentity" : 99.86,
-      "evalue" : 0.0,
-      "strand" : "REVERSE",
-      "reversed" : true,
-      "referenceStop" : 2082,
-      "queryStop" : 18855,
-      "referenceLength" : 2082
-    },
+    "refId" : "fusA",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.15",
+    "queryStart" : 16774,
+    "pid" : 99.86,
+    "evalue" : 0.0,
+    "strand" : "REVERSE",
+    "reversed" : true,
+    "refStop" : 2082,
+    "queryStop" : 18855,
+    "refLength" : 2082,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "grlA",
-      "referenceStart" : 2,
-      "queryId" : "ERS023906.5985_7_6.5",
-      "queryStart" : 168080,
-      "percentIdentity" : 99.83,
-      "evalue" : 0.0,
-      "strand" : "FORWARD",
-      "reversed" : false,
-      "referenceStop" : 2403,
-      "queryStop" : 170481,
-      "referenceLength" : 2403
-    },
+    "refId" : "grlA",
+    "refStart" : 2,
+    "queryId" : "ERS023906.5985_7_6.5",
+    "queryStart" : 168080,
+    "pid" : 99.83,
+    "evalue" : 0.0,
+    "strand" : "FORWARD",
+    "reversed" : false,
+    "refStop" : 2403,
+    "queryStop" : 170481,
+    "refLength" : 2403,
     "resistanceVariants" : [ {
       "name" : "S80F",
-      "locations" : [ {
-        "queryIndex" : 168319,
-        "referenceIndex" : 238
-      } ]
+      "refStart" : 238,
+      "refStop" : 238,
+      "queryStart" : 168319,
+      "queryStop" : 168319
     } ]
   }, {
-    "statistics" : {
-      "referenceId" : "grlB",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.5",
-      "queryStart" : 166088,
-      "percentIdentity" : 99.75,
-      "evalue" : 0.0,
-      "strand" : "FORWARD",
-      "reversed" : false,
-      "referenceStop" : 1992,
-      "queryStop" : 168079,
-      "referenceLength" : 1992
-    },
+    "refId" : "grlB",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.5",
+    "queryStart" : 166088,
+    "pid" : 99.75,
+    "evalue" : 0.0,
+    "strand" : "FORWARD",
+    "reversed" : false,
+    "refStop" : 1992,
+    "queryStop" : 168079,
+    "refLength" : 1992,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "rpoB",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.15",
-      "queryStart" : 24176,
-      "percentIdentity" : 99.75,
-      "evalue" : 0.0,
-      "strand" : "REVERSE",
-      "reversed" : true,
-      "referenceStop" : 3552,
-      "queryStop" : 27727,
-      "referenceLength" : 3552
-    },
+    "refId" : "rpoB",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.15",
+    "queryStart" : 24176,
+    "pid" : 99.75,
+    "evalue" : 0.0,
+    "strand" : "REVERSE",
+    "reversed" : true,
+    "refStop" : 3552,
+    "queryStop" : 27727,
+    "refLength" : 3552,
     "resistanceVariants" : [ {
       "name" : "H481N",
-      "locations" : [ {
-        "queryIndex" : 25617,
-        "referenceIndex" : 1441
-      } ]
+      "refStart" : 1441,
+      "refStop" : 1441,
+      "queryStart" : 25617,
+      "queryStop" : 25617
     } ]
   }, {
-    "statistics" : {
-      "referenceId" : "dfrB",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.13",
-      "queryStart" : 55753,
-      "percentIdentity" : 99.58,
-      "evalue" : 0.0,
-      "strand" : "FORWARD",
-      "reversed" : false,
-      "referenceStop" : 480,
-      "queryStop" : 56232,
-      "referenceLength" : 480
-    },
+    "refId" : "dfrB",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.13",
+    "queryStart" : 55753,
+    "pid" : 99.58,
+    "evalue" : 0.0,
+    "strand" : "FORWARD",
+    "reversed" : false,
+    "refStop" : 480,
+    "queryStop" : 56232,
+    "refLength" : 480,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "gyrB",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.17",
-      "queryStart" : 11069,
-      "percentIdentity" : 99.43,
-      "evalue" : 0.0,
-      "strand" : "FORWARD",
-      "reversed" : false,
-      "referenceStop" : 1935,
-      "queryStop" : 13003,
-      "referenceLength" : 1935
-    },
+    "refId" : "gyrB",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.17",
+    "queryStart" : 11069,
+    "pid" : 99.43,
+    "evalue" : 0.0,
+    "strand" : "FORWARD",
+    "reversed" : false,
+    "refStop" : 1935,
+    "queryStop" : 13003,
+    "refLength" : 1935,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "blaZ",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.1",
-      "queryStart" : 155934,
-      "percentIdentity" : 99.17,
-      "evalue" : 0.0,
-      "strand" : "REVERSE",
-      "reversed" : true,
-      "referenceStop" : 846,
-      "queryStop" : 156774,
-      "referenceLength" : 846
-    },
+    "refId" : "blaZ",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.1",
+    "queryStart" : 155934,
+    "pid" : 99.17,
+    "evalue" : 0.0,
+    "strand" : "REVERSE",
+    "reversed" : true,
+    "refStop" : 846,
+    "queryStop" : 156774,
+    "refLength" : 846,
     "resistanceVariants" : [ ]
   }, {
-    "statistics" : {
-      "referenceId" : "gyrA",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.17",
-      "queryStart" : 13040,
-      "percentIdentity" : 96.82,
-      "evalue" : 0.0,
-      "strand" : "FORWARD",
-      "reversed" : false,
-      "referenceStop" : 2670,
-      "queryStop" : 15700,
-      "referenceLength" : 2670
-    },
+    "refId" : "gyrA",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.17",
+    "queryStart" : 13040,
+    "pid" : 96.82,
+    "evalue" : 0.0,
+    "strand" : "FORWARD",
+    "reversed" : false,
+    "refStop" : 2670,
+    "queryStop" : 15700,
+    "refLength" : 2670,
     "resistanceVariants" : [ {
       "name" : "S84L",
-      "locations" : [ {
-        "queryIndex" : 13290,
-        "referenceIndex" : 250
-      } ]
+      "refStart" : 250,
+      "refStop" : 250,
+      "queryStart" : 13290,
+      "queryStop" : 13290
     } ]
   }, {
-    "statistics" : {
-      "referenceId" : "ermA_SDS",
-      "referenceStart" : 1,
-      "queryId" : "ERS023906.5985_7_6.31",
-      "queryStart" : 2185,
-      "percentIdentity" : 90.63,
-      "evalue" : 1.81348E-17,
-      "strand" : "REVERSE",
-      "reversed" : true,
-      "referenceStop" : 59,
-      "queryStop" : 2248,
-      "referenceLength" : 59
-    },
+    "refId" : "ermA_SDS",
+    "refStart" : 1,
+    "queryId" : "ERS023906.5985_7_6.31",
+    "queryStart" : 2185,
+    "pid" : 90.63,
+    "evalue" : 1.81348E-17,
+    "strand" : "REVERSE",
+    "reversed" : true,
+    "refStop" : 59,
+    "queryStop" : 2248,
+    "refLength" : 59,
     "resistanceVariants" : [ ]
   } ],
   "resistanceProfile" : [ {
@@ -318,7 +282,7 @@
     "state" : "RESISTANT",
     "determinants" : {
       "acquired" : [ {
-        "name" : "aphA-3",
+        "gene" : "aphA-3",
         "resistanceEffect" : "RESISTANCE"
       } ],
       "variants" : [ ]
@@ -335,7 +299,7 @@
     "state" : "RESISTANT",
     "determinants" : {
       "acquired" : [ {
-        "name" : "aacA-aphD",
+        "gene" : "aacA-aphD",
         "resistanceEffect" : "RESISTANCE"
       } ],
       "variants" : [ ]
@@ -352,10 +316,10 @@
     "state" : "RESISTANT",
     "determinants" : {
       "acquired" : [ {
-        "name" : "aacA-aphD",
+        "gene" : "aphA-3",
         "resistanceEffect" : "RESISTANCE"
       }, {
-        "name" : "aphA-3",
+        "gene" : "aacA-aphD",
         "resistanceEffect" : "RESISTANCE"
       } ],
       "variants" : [ ]
@@ -373,10 +337,10 @@
     "state" : "RESISTANT",
     "determinants" : {
       "acquired" : [ {
-        "name" : "aacA-aphD",
+        "gene" : "aphA-3",
         "resistanceEffect" : "RESISTANCE"
       }, {
-        "name" : "aphA-3",
+        "gene" : "aacA-aphD",
         "resistanceEffect" : "RESISTANCE"
       } ],
       "variants" : [ ]
@@ -394,7 +358,7 @@
     "state" : "RESISTANT",
     "determinants" : {
       "acquired" : [ {
-        "name" : "mecA",
+        "gene" : "mecA",
         "resistanceEffect" : "RESISTANCE"
       } ],
       "variants" : [ ]
@@ -411,10 +375,10 @@
     "state" : "RESISTANT",
     "determinants" : {
       "acquired" : [ {
-        "name" : "blaZ",
+        "gene" : "blaZ",
         "resistanceEffect" : "RESISTANCE"
       }, {
-        "name" : "mecA",
+        "gene" : "mecA",
         "resistanceEffect" : "RESISTANCE"
       } ],
       "variants" : [ ]
@@ -456,10 +420,10 @@
     "state" : "RESISTANT",
     "determinants" : {
       "acquired" : [ {
-        "name" : "ermA",
+        "gene" : "ermA",
         "resistanceEffect" : "CONTRIBUTES"
       }, {
-        "name" : "ermA_SDS",
+        "gene" : "ermA_SDS",
         "resistanceEffect" : "CONTRIBUTES"
       } ],
       "variants" : [ ]
@@ -476,7 +440,7 @@
     "state" : "RESISTANT",
     "determinants" : {
       "acquired" : [ {
-        "name" : "ermA",
+        "gene" : "ermA",
         "resistanceEffect" : "RESISTANCE"
       } ],
       "variants" : [ ]
@@ -517,7 +481,7 @@
     "state" : "RESISTANT",
     "determinants" : {
       "acquired" : [ {
-        "name" : "tetM",
+        "gene" : "tetM",
         "resistanceEffect" : "RESISTANCE"
       } ],
       "variants" : [ ]
@@ -534,7 +498,7 @@
     "state" : "RESISTANT",
     "determinants" : {
       "acquired" : [ {
-        "name" : "dfrG",
+        "gene" : "dfrG",
         "resistanceEffect" : "RESISTANCE"
       } ],
       "variants" : [ ]
@@ -564,7 +528,8 @@
     "determinants" : {
       "acquired" : [ ],
       "variants" : [ {
-        "name" : "rpoB_H481N",
+        "gene" : "rpoB",
+        "variant" : "H481N",
         "resistanceEffect" : "RESISTANCE"
       } ]
     },
@@ -581,10 +546,12 @@
     "determinants" : {
       "acquired" : [ ],
       "variants" : [ {
-        "name" : "gyrA_S84L",
+        "gene" : "gyrA",
+        "variant" : "S84L",
         "resistanceEffect" : "RESISTANCE"
       }, {
-        "name" : "grlA_S80F",
+        "gene" : "grlA",
+        "variant" : "S80F",
         "resistanceEffect" : "RESISTANCE"
       } ]
     },

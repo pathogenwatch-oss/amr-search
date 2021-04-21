@@ -20,7 +20,7 @@ public class BlastSearchStatistics extends AbstractJsonnable {
   private final int refStop;
   private final int queryStop;
   private final int refLength;
-  private final Collection<String> resistanceVariants;
+  private final Collection<VariantMatch> resistanceVariants;
 
   @SuppressWarnings("unused")
   private BlastSearchStatistics() {
@@ -102,11 +102,11 @@ public class BlastSearchStatistics extends AbstractJsonnable {
     return this.strand;
   }
 
-  public Collection<String> getResistanceVariants() {
+  public Collection<VariantMatch> getResistanceVariants() {
     return this.resistanceVariants;
   }
 
-  public void addVariants(final Collection<String> variants) {
+  public void addVariants(final Collection<VariantMatch> variants) {
     this.resistanceVariants.addAll(variants);
   }
 

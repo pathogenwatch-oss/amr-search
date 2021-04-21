@@ -1,14 +1,14 @@
 package net.cgps.wgsa.paarsnp.core.models;
 
-import net.cgps.wgsa.paarsnp.core.models.variants.Variant;
-
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 public class ResistanceMutationMatch {
 
   private final String name;
-  private final Collection<Location> causalMutations;
+  private final List<Location> causalMutations;
 
   @SuppressWarnings("unused")
   private ResistanceMutationMatch() {
@@ -18,14 +18,14 @@ public class ResistanceMutationMatch {
   public ResistanceMutationMatch(final String variantName, final Collection<Location> causalMutations) {
 
     this.name = variantName;
-    this.causalMutations = causalMutations;
+    this.causalMutations = new ArrayList<>(causalMutations);
   }
 
   public String getName() {
     return this.name;
   }
 
-  public Collection<Location> getLocations() {
+  public List<Location> getLocations() {
     return this.causalMutations;
   }
 

@@ -56,7 +56,7 @@ public class ProcessMatches implements Function<BlastMatch, ProcessedMatch> {
         .map(Optional::get)
         .collect(Collectors.toList());
 
-    final var mutationList = resistanceMutations.stream().map(ResistanceMutationMatch::getName).collect(Collectors.toList());
+    final var mutationList = resistanceMutations.stream().map(VariantMatch::build).collect(Collectors.toList());
     match.getBlastSearchStatistics().addVariants(mutationList);
 
     return new ProcessedMatch(match.getBlastSearchStatistics(), resistanceMutations);
