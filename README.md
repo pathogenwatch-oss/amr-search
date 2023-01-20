@@ -102,7 +102,7 @@ At this point you can use [Docker](#running-with-docker) or run it directly from
 To create the AMRsearch runner container, run:
 
 1. cd build
-2. docker build -t amrwatch -f DockerFile .
+2. docker build -t amrsearch -f DockerFile .
 
 #### From Scratch In Depth
 
