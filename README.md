@@ -77,7 +77,7 @@ currently unsupported species).
 ### Running & Installing with Docker (recommended)
 
 Using Docker takes care of installing dependencies & setting up the databases. It should also run on Windows, Linux &
-macOS, though Windows is not directly tested or supportgit submodule set-branch -b v1.0.0 xyzed.
+macOS, though Windows is not directly tested or supported.
 
 To create and install the docker image follow the instructions provided [above](#quick-start).
 
