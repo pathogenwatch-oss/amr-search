@@ -1,6 +1,6 @@
 [submodule "libraries/amr-libraries"]
 	path = libraries/amr-libraries
-	url = https://gitlab.com/cgps/pathogenwatch/amr-libraries
+	url = https://github.com/pathogenwatch-oss/amr-libraries
 [submodule "libraries/amr-test-libraries"]
 	path = libraries/amr-test-libraries
-	url = https://gitlab.com/cgps/pathogenwatch/amr-test-libraries
+	url = https://github.com/pathogenwatch-oss/amr-test-libraries
