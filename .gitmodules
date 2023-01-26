@@ -1,6 +1,7 @@
 [submodule "libraries/amr-libraries"]
 	path = libraries/amr-libraries
 	url = https://github.com/pathogenwatch-oss/amr-libraries
+	branch = main
 [submodule "libraries/amr-test-libraries"]
 	path = libraries/amr-test-libraries
 	url = https://github.com/pathogenwatch-oss/amr-test-libraries
