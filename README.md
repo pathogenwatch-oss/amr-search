@@ -14,17 +14,26 @@ Resistance can also be classed as "Intermediate" or "Resistant" (i.e "S/I/R").
 ## Quick start
 
 _Install & run with Docker in a terminal_
-
 ```
-git clone --recursive --depth=1 https://github.com/pathogenwatch-oss/amr-search
+git clone --recursive --depth=1 -b main https://github.com/pathogenwatch-oss/amr-search
 cd amr-search
-docker build -t amrsearch .
+docker build --rm --pull -t amrsearch .
 cd ~/path/to/my/genomes
 docker run --rm -v $PWD:/data amrsearch -i my_typhi_genome.fa -s 90370
 ```
 
 - `my_typhi_genome.fa`: FASTA file of (e.g.) Typhi assembly in local directory.
 - `93070`: species code for Typhi.
+
+### Internal devs only
+Note: 
+- Remove `--depth=1 -b main` from the clone command.
+- Between steps 2 & 3, Replace the git remote submodules URLS with the internal links.
+```
+git submodule set-url -- libraries/amr-libraries https://github.com/pathogenwatch/amr-libraries
+git submodule set-url -- libraries/amr-test-libraries https://github.com/pathogenwatch/amr-test-libraries
+```
+
 
 ## Useful Links
 
@@ -59,8 +68,8 @@ docker run --rm -v $PWD:/data amrsearch -i my_typhi_genome.fa -s 90370
 
 ## In depth
 
-AMRsearch can be run in several ways and a fully automated build is provided, though currently CGPS only provides
-pre-built Docker containers. See instructions below for building AMRsearch with or without Docker
+AMRsearch can be run in several ways and a fully automated build is provided. 
+See instructions below for building AMRsearch with or without Docker
 
 It's also possible extend the current AMR libraries or to generate your own AMR libraries to use in AMRsearch (e.g. for
 currently unsupported species).
