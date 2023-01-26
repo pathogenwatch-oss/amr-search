@@ -15,9 +15,9 @@ Resistance can also be classed as "Intermediate" or "Resistant" (i.e "S/I/R").
 
 _Install & run with Docker in a terminal_
 ```
-git clone --recursive --depth=1 https://github.com/pathogenwatch-oss/amr-search
+git clone --recursive --depth=1 -b main https://github.com/pathogenwatch-oss/amr-search
 cd amr-search
-docker build -t amrsearch .
+docker build --rm --pull -t amrsearch .
 cd ~/path/to/my/genomes
 docker run --rm -v $PWD:/data amrsearch -i my_typhi_genome.fa -s 90370
 ```
@@ -25,8 +25,10 @@ docker run --rm -v $PWD:/data amrsearch -i my_typhi_genome.fa -s 90370
 - `my_typhi_genome.fa`: FASTA file of (e.g.) Typhi assembly in local directory.
 - `93070`: species code for Typhi.
 
-### Internal only
-Note: Between steps 2 & 3, Pathogenwatch developers should replace the git remote submodules URLS with the internal links.
+### Internal devs only
+Note: 
+- Remove `--depth=1 -b main` from the clone command.
+- Between steps 2 & 3, Replace the git remote submodules URLS with the internal links.
 ```
 git submodule set-url -- libraries/amr-libraries https://github.com/pathogenwatch/amr-libraries
 git submodule set-url -- libraries/amr-test-libraries https://github.com/pathogenwatch/amr-test-libraries
@@ -75,7 +77,7 @@ currently unsupported species).
 ### Running & Installing with Docker (recommended)
 
 Using Docker takes care of installing dependencies & setting up the databases. It should also run on Windows, Linux &
-macOS, though Windows is not directly tested or supported.
+macOS, though Windows is not directly tested or supportgit submodule set-branch -b v1.0.0 xyzed.
 
 To create and install the docker image follow the instructions provided [above](#quick-start).
 
