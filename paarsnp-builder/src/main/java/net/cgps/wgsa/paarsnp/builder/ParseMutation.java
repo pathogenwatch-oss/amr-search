@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class ParseMutation implements Function<String, Map.Entry<Integer, Map.Entry<String, String>>> {
 
-  private final static Pattern snpIdPattern = Pattern.compile("^(-+|ins|[A-Za-z]+)(-?[0-9]+)(-+|del|[A-Za-z]+)$");
+  private final static Pattern snpIdPattern = Pattern.compile("^([*]|-+|ins|[A-Za-z]+)(-?[0-9]+)([*]|-+|del|[A-Za-z]+)$");
 
   @Override
   public Map.Entry<Integer, Map.Entry<String, String>> apply(final String variantEncoding) {
