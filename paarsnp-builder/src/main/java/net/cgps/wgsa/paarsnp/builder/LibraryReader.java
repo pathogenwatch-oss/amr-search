@@ -199,6 +199,11 @@ public class LibraryReader implements Function<Path, LibraryReader.LibraryDataAn
             .flatMap(Collection::stream)
             .map(SetMember::getGene)
             .peek(logger::debug)
+            .peek(gene -> {
+                if ((!newGenes.containsKey(gene)) && (!currentLibrary.getGenes().containsKey(gene))) {
+                    throw new RuntimeException("Missing gene: " + gene);
+                }
+            })
             .map(gene -> newGenes.containsKey(gene) ? newGenes.get(gene).getValue() : currentLibrary.getGenes().get(gene))
             .peek(referenceSequence -> {
               logger.trace(referenceSequence.getName());
