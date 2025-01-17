@@ -202,11 +202,10 @@ The individual results and detailed BLAST data can be found in the `paarResult` 
 
 ### Extending AMRsearch
 
-To use your own AMR libraries, the simplest way is to modify the files in the [resources folder](/resources).
+To use your own AMR libraries, the simplest way is to modify the files in the [libraries](folder).
 
-Each species has a set of plain text CSV files that define the resistance genes and SNPs. Current species can be
-extended by modifying the files, while new species can be added by creating a new directory corresponding to the species
-code.
+Each species has a plain text TOML file that defines the resistance genes and SNPs. Current species can be
+extended by modifying the files, while new species can be added by creating a new TOML file.
 
 Then run one of the build processes described  the [In depth](#in-depth) section to generate the required inputs &
 BLAST databases for AMRsearch. Alternatively, you can run the database builder directly (
