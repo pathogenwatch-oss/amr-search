@@ -17,44 +17,46 @@ import java.util.function.BiFunction;
 
 public class CreateAaAlignment implements BiFunction<String, String, Map.Entry<String, String>> {
 
-  private static final SubstitutionMatrix<AminoAcidCompound> matrix = SubstitutionMatrixHelper.getBlosum80();
-  private final Logger logger = LoggerFactory.getLogger(CreateAaAlignment.class);
+    private static final SubstitutionMatrix<AminoAcidCompound> matrix = SubstitutionMatrixHelper.getBlosum80();
+    private final Logger logger = LoggerFactory.getLogger(CreateAaAlignment.class);
 
-  @Override
-  public Map.Entry<String, String> apply(final String referenceAlignment, final String queryAlignment) {
+    @Override
+    public Map.Entry<String, String> apply(final String referenceAlignment, final String queryAlignment) {
 
-    // Remove indels, remove incomplete codons from the end, translate and pairwise align
-    final ProteinSequence transCleanRef;
-    final ProteinSequence transCleanQuery;
+        // Remove indels, remove incomplete codons from the end, translate and pairwise align
+        final ProteinSequence transCleanRef;
+        final ProteinSequence transCleanQuery;
 
-    try {
-      transCleanRef = new DNASequence(cleanSequence(referenceAlignment)).getRNASequence().getProteinSequence();
-      transCleanQuery = new DNASequence(cleanSequence(queryAlignment)).getRNASequence().getProteinSequence();
-    } catch (final CompoundNotFoundException e) {
-      throw new RuntimeException(e);
+        try {
+            transCleanRef = new DNASequence(cleanSequence(referenceAlignment)).getRNASequence().getProteinSequence();
+            // Note that if there is a premature stop codon at the end of the alignment (e.g. the alignments ends before
+            // the actual stop codon but still with a stop codon) then it will be trimmed off, leaving the alignment
+            // incomplete.
+            transCleanQuery = new DNASequence(cleanSequence(queryAlignment)).getRNASequence().getProteinSequence();
+        } catch (final CompoundNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (!referenceAlignment.contains("-") && !queryAlignment.contains("-")) {
+            return new ImmutablePair<>(transCleanRef.getSequenceAsString(), transCleanQuery.getSequenceAsString());
+        } else {
+            this.logger.debug("Aligning:\n{}\n{}", transCleanRef.getSequenceAsString(), transCleanQuery.getSequenceAsString());
+
+            final var pair = Alignments.getPairwiseAligner(transCleanQuery, transCleanRef, Alignments.PairwiseSequenceAlignerType.GLOBAL, new SimpleGapPenalty(), matrix).getPair();
+
+            this.logger.debug("{}", pair.toString(60));
+            return new ImmutablePair<>(pair.getTarget().getSequenceAsString(), pair.getQuery().getSequenceAsString());
+        }
     }
 
-    if (!referenceAlignment.contains("-") && !queryAlignment.contains("-")) {
-      return new ImmutablePair<>(transCleanRef.getSequenceAsString(), transCleanQuery.getSequenceAsString());
-
-    } else {
-      this.logger.debug("Aligning:\n{}\n{}", transCleanRef.getSequenceAsString(), transCleanQuery.getSequenceAsString());
-
-      final var pair = Alignments.getPairwiseAligner(transCleanQuery, transCleanRef, Alignments.PairwiseSequenceAlignerType.GLOBAL, new SimpleGapPenalty(), matrix).getPair();
-
-      this.logger.debug("{}", pair.toString(60));
-      return new ImmutablePair<>(pair.getTarget().getSequenceAsString(), pair.getQuery().getSequenceAsString());
+    /**
+     * Removes indels and trims incomplete codon from the end of the sequence.
+     *
+     * @param sequence to be cleaned
+     * @return Codon-complete and indel free String.
+     */
+    public static String cleanSequence(final String sequence) {
+        final var clean = sequence.replace("-", "").replaceAll("[^ATCGN]", "N");
+        return clean.substring(0, clean.length() - clean.length() % 3);
     }
-  }
-
-  /**
-   * Removes indels and trims incomplete codon from the end of the sequence.
-   *
-   * @param sequence to be cleaned
-   * @return Codon-complete and indel free String.
-   */
-  public static String cleanSequence(final String sequence) {
-    final var clean = sequence.replace("-", "").replaceAll("[^ATCGN]", "N");
-    return clean.substring(0, clean.length() - clean.length() % 3);
-  }
 }

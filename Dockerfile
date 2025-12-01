@@ -1,31 +1,16 @@
-FROM openjdk:14-jdk-oracle AS builder
+FROM maven:3.9.4-eclipse-temurin-21 AS builder
 
 ARG MAVEN_VERSION=3.9.4
 ARG USER_HOME_DIR="/root"
 ARG SHA=deaa39e16b2cf20f8cd7d232a1306344f04020e1f0fb28d35492606f647a60fe729cc40d3cba33e093a17aed41bd161fe1240556d0f1b80e773abd408686217e
-ARG BASE_URL=https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries
-
-RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
-  && curl -fsSL -o /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
-  && echo "${SHA}  /tmp/apache-maven.tar.gz" | sha512sum -c - \
-  && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
-  && rm -f /tmp/apache-maven.tar.gz \
-  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
-
-ENV MAVEN_HOME /usr/share/maven
-ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
-
-#COPY mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
-#COPY settings-docker.xml /usr/share/maven/ref/
-
-#RUN dnf install -y curl
+ARG BASE_URL=https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries
 
 # Download & install BLAST
 RUN mkdir /opt/blast \
       && curl ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.11.0/ncbi-blast-2.11.0+-x64-linux.tar.gz \
       | tar -zxC /opt/blast --strip-components=1
 
-ENV PATH /opt/blast/bin:$PATH
+ENV PATH=/opt/blast/bin:$PATH
 
 RUN mkdir paarsnp-runner \
     && mkdir paarsnp-builder \
@@ -74,18 +59,7 @@ RUN mkdir /paarsnp/ \
     && rm -f /paarsnp/databases/*.fna \
     && mv ./resources/taxid.map /paarsnp/databases/
 
-#FROM openjdk:11-jre-slim as db_builder
-#
-#RUN mkdir -p /opt/blast/bin \
-#    && mkdir -p /build/databases
-#
-#COPY --from=builder /opt/blast/bin/blastn /opt/blast/bin
-#
-#COPY --from=builder /build/paarsnp-builder.jar /build/
-#
-#RUN
-
-FROM openjdk:14-slim
+FROM eclipse-temurin:21
 
 RUN mkdir -p /opt/blast/bin \
     && mkdir /data
@@ -94,7 +68,7 @@ COPY --from=builder /opt/blast/bin/blastn /opt/blast/bin
 
 COPY --from=builder /paarsnp /paarsnp
 
-ENV PATH /opt/blast/bin:$PATH
+ENV PATH=/opt/blast/bin:$PATH
 
 WORKDIR /data
 

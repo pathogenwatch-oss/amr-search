@@ -14,10 +14,11 @@ Resistance can also be classed as "Intermediate" or "Resistant" (i.e "S/I/R").
 ## Quick start
 
 _Install & run with Docker in a terminal_
+`--network=host` is required for maven to access the internet (e.g. to fetch licenses).
 ```
 git clone --recursive --depth=1 -b main https://github.com/pathogenwatch-oss/amr-search
 cd amr-search
-docker build --rm --pull -t amrsearch .
+docker build --rm --pull --network=host -t amrsearch .
 cd ~/path/to/my/genomes
 docker run --rm -v $PWD:/data amrsearch -i my_typhi_genome.fa -s 90370
 ```
@@ -111,7 +112,7 @@ At this point you can use [Docker](#running-with-docker) or run it directly from
 To create the AMRsearch runner container, run:
 
 1. cd build
-2. docker build -t amrsearch -f DockerFile .
+2. docker build -t amrsearch --network=host -f DockerFile .
 
 #### From Scratch In Depth
 

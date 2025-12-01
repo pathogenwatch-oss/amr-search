@@ -17,6 +17,17 @@ public class CodonMapper implements Function<BlastMatch, AaAlignment> {
     this.frameshiftFilter = frameshiftFilter;
   }
 
+    /**
+     * This ensures that alignments truncated with a premature stop codon (rather than it being within the alignment)
+     * don't cause an StringIndexOutOfBoundsException.
+     * @param str
+     * @param index
+     * @return
+     */
+  private char safeCharAt(final String str, final int index) {
+    return index >= 0 && index < str.length() ? str.charAt(index) : '*';
+  }
+
   @Override
   public AaAlignment apply(final BlastMatch match) {
 
@@ -39,22 +50,23 @@ public class CodonMapper implements Function<BlastMatch, AaAlignment> {
 
     for (int i = 0; i < aaAlignment.getKey().length(); i++) {
 
-      if (aaAlignment.getKey().charAt(i) != '-') {
+        final var refChar = safeCharAt(aaAlignment.getValue(), i);
+        if (aaAlignment.getKey().charAt(i) != '-') {
         if (0 != currentInsert.length()) {
           insertMap.put(refCodonLocation - 1, currentInsert.toString());
           queryCodonLocation += currentInsert.length();
           currentInsert.setLength(0);
         }
         final var isFrameshifted = frameshiftFilter.checkCodon(refCodonLocation);
-        codonMap.put(refCodonLocation, isFrameshifted ? '!' : aaAlignment.getValue().charAt(i));
+        codonMap.put(refCodonLocation, isFrameshifted ? '!' : refChar);
         queryLocationMap.put(refCodonLocation, isFrameshifted ? -1 : queryCodonLocation);
         refCodonLocation++;
         // Update the codon location if not a deletion
-        if (aaAlignment.getValue().charAt(i) != '-') {
+        if (refChar != '-') {
           queryCodonLocation++;
         }
       } else {
-        currentInsert.append(aaAlignment.getValue().charAt(i));
+          currentInsert.append(refChar);
       }
     }
     return new AaAlignment(codonMap, match.getBlastSearchStatistics().getQueryStart() + frame.getIndex(), queryLocationMap, insertMap);
