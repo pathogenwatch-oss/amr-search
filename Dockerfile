@@ -1,8 +1,9 @@
 FROM maven:3.9.4-eclipse-temurin-21 AS builder
 
+ARG SPECIES_CODE=""
+ARG AMR_LIBRARY_VERSION=""
 ARG MAVEN_VERSION=3.9.4
 ARG USER_HOME_DIR="/root"
-ARG SHA=deaa39e16b2cf20f8cd7d232a1306344f04020e1f0fb28d35492606f647a60fe729cc40d3cba33e093a17aed41bd161fe1240556d0f1b80e773abd408686217e
 ARG BASE_URL=https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries
 
 # Download & install BLAST
@@ -48,6 +49,23 @@ COPY ./paarsnp-lib/src/ ./paarsnp-lib/src/
 COPY ./resources ./resources
 
 COPY ./libraries ./libraries
+
+# When supplied by build.sh, record the exact AMR library revision in the
+# generated PAARSNP library metadata. This only changes the image build layer.
+RUN if [ -n "$AMR_LIBRARY_VERSION" ]; then \
+      sed -i '/"source": "PUBLIC"/!b;n;c\    "version": "'"$AMR_LIBRARY_VERSION"'"' resources/libraries.json; \
+    fi
+
+# A blank species code retains every library, preserving the all-species image.
+# The builder discovers species from numeric TOML filenames, so remove the other
+# species definitions before Maven generates the databases.
+RUN if [ -n "$SPECIES_CODE" ]; then \
+      test -f "/libraries/amr-libraries/${SPECIES_CODE}.toml" \
+        || test -f "/libraries/amr-test-libraries/${SPECIES_CODE}.toml"; \
+      find /libraries/amr-libraries /libraries/amr-test-libraries \
+        -maxdepth 1 -type f -regextype posix-extended \
+        -regex '.*/[0-9]+\.toml' ! -name "${SPECIES_CODE}.toml" -delete; \
+    fi
 
 RUN mkdir -p /build
 
