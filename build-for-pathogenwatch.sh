@@ -22,7 +22,7 @@ version_for_commit() {
 
 paarsnp_version=$(version_for_commit .)
 amr_library_version=$(version_for_commit libraries/amr-libraries)
-image="902121496535.dkr.ecr.eu-west-2.amazonaws.com/pathogenwatch-base-images/paarsnp:${paarsnp_version}_${amr_library_version}_${species_code}"
+image="902121496535.dkr.ecr.eu-west-2.amazonaws.com/pathogenwatch-source/paarsnp:${paarsnp_version}_${amr_library_version}_${species_code}"
 
 docker build \
   --build-arg "SPECIES_CODE=${species_code}" \
