@@ -20,7 +20,7 @@ version_for_commit() {
     || git -C "$repository" rev-parse --short HEAD
 }
 
-paarsnp_version=$(version_for_commit .)
+paarsnp_version=$(sed -n '/<artifactId>paarsnp<\/artifactId>/{n;s/.*<version>\([^<]*\)<\/version>.*/\1/p;}' pom.xml)
 amr_library_version=$(version_for_commit libraries/amr-libraries)
 image="902121496535.dkr.ecr.eu-west-2.amazonaws.com/pathogenwatch-source/paarsnp:${paarsnp_version}_${amr_library_version}_${species_code}"
 
